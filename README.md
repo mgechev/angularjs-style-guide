@@ -7,6 +7,7 @@ These best practices are collected from:
 0. Articles I've read
 0. My own experience
 
+In this style guide you won't find common guidelines for JavaScript development. Such can be found at:
 
 0. [Google's JavaScript style guide](http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml)
 0. [Mozilla's JavaScript style guide](https://developer.mozilla.org/en-US/docs/Developer_Guide/Coding_Style)
