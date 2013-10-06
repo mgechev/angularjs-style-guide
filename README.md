@@ -168,7 +168,7 @@ Currently there is not a big difference but the first way looks cleaner. Also if
 
 
 
-        module.controller('MyCtrl', ['dependency1', 'dependency2', ..., 'dependencyn', function (dependency1, dependency2, ..., dependency2) {
+        module.controller('MyCtrl', ['dependency1', 'dependency2', ..., 'dependencyn', function (dependency1, dependency2, ..., dependencyn) {
           //...body
         }]);
 
