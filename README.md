@@ -148,7 +148,7 @@ It will make your testing easier and in some cases prevent you from unexpected b
 
 * Use promises (`$q`) instead of callbacks. It will make your code look more elegant, clean and save you from the callback hell.
 
-* Use `$resource` instead of `$http` when possible. Highther level of abstraction saves you from redundency.
+* Use `$resource` instead of `$http` when possible. Highther level of abstraction saves you from redundancy.
 
 #Modules
 
