@@ -4,7 +4,7 @@ The goal of this style guide is to present a set of best practises and style gui
 These best practices are collected from:
 
 0. AngularJS's source code
-0. Articles I've read
+0. Source code or articles I've read
 0. My own experience
 
 In this style guide you won't find common guidelines for JavaScript development. Such can be found at:
