@@ -14,6 +14,8 @@ In this style guide you won't find common guidelines for JavaScript development.
 0. [GitHub's JavaScript style guide](https://github.com/styleguide/javascript)
 0. [Douglas Crockford's JavaScript style guide](http://javascript.crockford.com/code.html)
 
+For AngularJS development recommended is the [Google's JavaScript style guide](http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml).
+
 #Table of content
 * [General](#general)
     * [Directory structure](#directory-structure)
