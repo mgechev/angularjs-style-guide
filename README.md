@@ -22,7 +22,6 @@ For AngularJS development recommended is the [Google's JavaScript style guide](h
 * [General](#general)
     * [Directory structure](#directory-structure)
     * [Optimize the digest cycle](#optimize-the-digest-cycle)
-    * [Source Code Layout](#source-code-layout)
     * [Others](#others)
 * [Modules](#modules)
 * [Controllers](#controllers)
@@ -127,10 +126,6 @@ Conventions about components naming can be found in each component section.
 
 * Watch only the most vital variables (for example when using real time communication don't cause digest loop in each received message).
 * Make computations in `$watch`  as simplest as possible. Making heavy and slow computations in a single `$watch` will slow down the whole application (the $digest loop is done in a single thread because of the single-threaded nature of JavaScript).
-
-## Source Code Layout
-
-* You should keep the components from requiring too many dependencies. But if they do, keep the lines declaring the dependencies no longer than 80 characters.
 
 ## Others
 
