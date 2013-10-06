@@ -227,8 +227,8 @@ especially after the controller's body became large enough to make you scroll wh
 #Services
 
 * Use camelCase (lower or upper) for naming your services.
-* Encapsulate the business logic in models that are created using services.
-* For creating models it is preferred to use `service` instead of `factory`.
+* Encapsulate the business logic in services.
+* For creating services encapsulating the business logic is preferred to use `service` instead of `factory`.
 * For session-level cache you can use `$cacheFactory`. It is appropriate for caching results from requests or heavy computations.
 
 #Templates
