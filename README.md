@@ -211,6 +211,7 @@ especially after the controller's body became large enough to make you scroll wh
 
 #Services
 
+* Use camelCase (lower or upper) for naming the services.
 * Encapsulate the business logic in models created using services.
 * For creating models it is preferred to use `service` instead of `factory`.
 
