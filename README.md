@@ -7,7 +7,7 @@ These best practices are collected from:
 0. Source code or articles I've read
 0. My own experience
 
-** Note **: this is still a draft of the style guide, it's main goal is to be community-driven so filling the gaps will be greatly appreciated by the whole community.
+**Note**: this is still a draft of the style guide, it's main goal is to be community-driven so filling the gaps will be greatly appreciated by the whole community.
 
 In this style guide you won't find common guidelines for JavaScript development. Such can be found at:
 
