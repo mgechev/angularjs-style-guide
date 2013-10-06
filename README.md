@@ -3,11 +3,11 @@
 The goal of this style guide is to present a set of best practices and style guidelines for one AngularJS application.
 These best practices are collected from:
 
-0. AngularJS's source code
+0. AngularJS source code
 0. Source code or articles I've read
 0. My own experience
 
-**Note**: this is still a draft of the style guide, it's main goal is to be community-driven so filling the gaps will be greatly appreciated by the whole community.
+**Note**: this is still a draft of the style guide, its main goal is to be community-driven so filling the gaps will be greatly appreciated by the whole community.
 
 In this style guide you won't find common guidelines for JavaScript development. Such can be found at:
 
@@ -115,21 +115,21 @@ Here is its layout:
     * lib
 
 
-* The `app.js` file contains routes definition and configuration and/or manual bootstrap (if required).
+* The `app.js` file contains routes definition, configuration and/or manual bootstrap (if required).
 * In each JavaScript file should be located a single component. The file should be named with the component's name.
 
 I prefer the first structure because it makes the common components easier to find.
 
-Conventions about the components naming can be found in each component section.
+Conventions about components naming can be found in each component section.
 
 ## Optimize the digest cycle
 
 * Watch only the most vital variables (for example when using real time communication don't cause digest loop in each received message).
-* Make as simplest computations in `$watch` as possible. Making heavy and slow computations in a single `$watch` will slow down the whole application (the $digest loop is done in a single thread because of the single-threaded nature of JavaScript).
+* Make computations in `$watch`  as simplest as possible. Making heavy and slow computations in a single `$watch` will slow down the whole application (the $digest loop is done in a single thread because of the single-threaded nature of JavaScript).
 
 ## Source Code Layout
 
-* You should keep the components from many dependencies but if there are keep the lines declaring the dependencies no longer than 80 characters.
+* You should keep the components from requiring too many dependencies. But if they do, keep the lines declaring the dependencies no longer than 80 characters.
 
 ## Others
 
@@ -142,9 +142,9 @@ Conventions about the components naming can be found in each component section.
 It will make your testing easier and in some cases prevent you from unexpected behaviour (for example if you missed `$scope.$apply` in `setTimeout`).
 
 * Automate your workflow using tools like:
-    * Yeoman
-    * Grunt
-    * Bower
+    * [Yeoman](http://yeoman.io)
+    * [Grunt](http://gruntjs.com)
+    * [Bower](http://bower.io)
 
 * Use promises (`$q`) instead of callbacks. It will make your code look more elegant, clean and save you from the callback hell.
 
@@ -157,23 +157,23 @@ There are two commonly used ways for structuring the modules:
 0. By functionality
 0. By component type
 
-Currently there is not a big difference but the first way looks cleaner. Also if lazy-loading of the modules is being implemented (currently there are no such plans in the roadmap) it will make the application's performance better.
+Currently there is not a big difference but the first way looks cleaner. Also if lazy-loading of the modules is being implemented (currently there are no such plans in the roadmap) it will improve the application performance.
 
 #Controllers
 
-* Do not make any DOM manipulations in your controllers. If you make such, probably you need a directive.
+* Do not make any DOM manipulations in your controllers. Use directives instead.
 * The naming of the controller is done using the controller's functionality (for example shopping card, home page, admin panel) and the substring `Ctrl` in the end. The controllers are named UpperCamelCase (`HomePageCtrl`, `ShippingCardCtrl`, `AdminPanelCtrl`, etc.).
-* The controllers should not be defined as globals (no matter AngularJS allows this it is a bad practice to pollute the global namespace).
-* Use array for the controllers' definition:
+* The controllers should not be defined as globals (no matter AngularJS allows this, it is a bad practice to pollute the global namespace).
+* Use array syntax for controller definitions:
 
 
 
-        module.controller('MyCtrl', ['dependency1', 'dependency2', ..., 'dependencyn', function (dependency1, dependency2, ..., dependency2) {
+        module.controller('MyCtrl', ['dependency1', 'dependency2', ..., 'dependencyn', function (dependency1, dependency2, ..., dependencyn) {
           //...body
         }]);
 
 
-Using this type of definition you wont have problems after minification.
+Using this type of definition avoids problems with minification.
 
 * Use the original names of the controller's dependencies. This will help you produce more readable code:
 
@@ -212,22 +212,22 @@ especially after the controller's body became large enough to make you scroll wh
 
 #Directives
 
-* Name the directives with lowerCamelCase
+* Name your directives with lowerCamelCase
 * Use `scope` instead of `$scope` in your link function. In the compile, post/pre link functions you have already defined arguments which will be passed when the function is invoked, you won't be able to change them using DI. This style is also used in AngularJS's source code.
 * Use custom prefixes for your directives to prevent name collisions with third-party libraries.
 * Do not use `ng` prefix, nor `ui` prefix they are reserved for AngularJS and AngularJS UI usage.
-* The DOM manipulations must be made only through directives.
+* DOM manipulations must be made only through directives.
 * Create isolated scope when you develop reusable components.
 
 #Filters
 
-* Name the filters with lowerCamelCase
-* Make the filters as light as possible. They are called often during the `$digest` loop so creating slow filter will slow down your app.
+* Name your filters with lowerCamelCase
+* Make your filters as light as possible. They are called often during the `$digest` loop so creating slow filter will slow down your app.
 
 #Services
 
-* Use camelCase (lower or upper) for naming the services.
-* Encapsulate the business logic in models created using services.
+* Use camelCase (lower or upper) for naming your services.
+* Encapsulate the business logic in models that are created using services.
 * For creating models it is preferred to use `service` instead of `factory`.
 * For session-level cache you can use `$cacheFactory`. It is appropriate for caching results from requests or heavy computations.
 
