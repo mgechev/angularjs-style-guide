@@ -231,6 +231,9 @@ especially after the controller's body became large enough to make you scroll wh
 #Templates
 
 * Use `ng-bind` or `ng-cloak` instead of simple `{{}}` to prevent flashing content.
+* Avoid writing long JS code in the template-`ng-click` should directly execute just one function
+* Don't write semicolons in `ng-click` attribute(or any other function invocations)-for example:
+    `<a ng-click="action($event)"></a>` rather than `<a ng-click="action($event);"></a>`
 
 #Routing
 
