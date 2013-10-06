@@ -1,7 +1,6 @@
 #Introduction
 
-The goal of this style guide is to present a set of best practises and style guidelines for one AngularJS application. For to developing applications understandable by others is quite important to follow common guidelines. It is also very useful to have a single place for collecting all the known best practices. This document aims exactly that.
-
+The goal of this style guide is to present a set of best practices and style guidelines for one AngularJS application.
 These best practices are collected from:
 
 0. AngularJS's source code
