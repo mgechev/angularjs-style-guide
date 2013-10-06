@@ -117,6 +117,7 @@ Here is its layout:
 
 * The `app.js` file contains routes definition, configuration and/or manual bootstrap (if required).
 * In each JavaScript file should be located a single component. The file should be named with the component's name.
+* Use Angular project structure template like [Yeoman](http://yeoman.io), [ng-boilerplate](http://joshdmiller.github.io/ng-boilerplate/#/home).
 
 I prefer the first structure because it makes the common components easier to find.
 
@@ -149,6 +150,7 @@ It will make your testing easier and in some cases prevent you from unexpected b
 * Use promises (`$q`) instead of callbacks. It will make your code look more elegant, clean and save you from the callback hell.
 * Use `$resource` instead of `$http` when possible. Highther level of abstraction saves you from redundancy.
 * Use AngularJS pre-minifier (like [ngmin](https://github.com/btford/ngmin)) for preventing further problems after minification.
+* Don't use globals. Resolve all dependencies using Dependency Injection.
 
 #Modules
 
@@ -173,7 +175,7 @@ Currently there is not a big difference but the first way looks cleaner. Also if
         }]);
 
 
-Using this type of definition avoids problems with minification. You can automatically generate the array definition from standard one using tools like [ng-annotate](https://github.com/olov/ng-annotate).
+Using this type of definition avoids problems with minification. You can automatically generate the array definition from standard one using tools like [ng-annotate](https://github.com/olov/ng-annotate) (and grunt task [grunt-ng-annotate](https://github.com/mzgol/grunt-ng-annotate)).
 
 * Use the original names of the controller's dependencies. This will help you produce more readable code:
 
