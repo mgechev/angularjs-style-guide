@@ -71,7 +71,9 @@ In this way the directory structure will look like:
     * test
     * lib
 
-* Creating high level division by functionality and lower level division by component types:
+* Creating high level division by functionality and lower level division by component types.
+
+Here is its layout:
 
     * app
         * page1
@@ -107,6 +109,7 @@ In this way the directory structure will look like:
         app.js
     * test
     * lib
+
 
 * The `app.js` file contains routes definition and configuration and/or manual bootstrap (if required).
 * In each JavaScript file should be located a single component. The file should be named with the component's name.
