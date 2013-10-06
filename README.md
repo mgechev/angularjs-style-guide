@@ -202,6 +202,7 @@ especially after the controller's body became large enough to make you scroll wh
 * Use custom prefixes for your directives to prevent name collisions with third-party libraries.
 * Do not use `ng` prefix, nor `ui` prefix they are reserved for AngularJS and AngularJS UI usage.
 * The DOM manipulations must be made only thrugh directives.
+* Use isolated scope when create reusable components.
 
 #Filters
 
