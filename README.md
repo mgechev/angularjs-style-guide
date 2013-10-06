@@ -196,6 +196,19 @@ especially after the controller's body became large enough to make you scroll wh
 * Make the controllers as skinny as possible
 * Communicate within different controllers using method invocation (possible when children wants to communicate with parent) or `$emit`, `$broadcast` and `$on` methods. The `$emit`-ed and `$broadcast`-ed messages must be reduced as much as possible.
 * Make a list of all messages which are passed using `$emit`, `$broadcast` and manage it carefully because of name collisions and possible bugs.
+* When you need to format data encapsulate the formatting logic into [filter](#filters) and declare it as dependency:
+
+
+        module.controller('myFormat', function () {
+          return function () {
+            //body...
+          };
+        });
+
+        module.controller('MyCtrl', ['$scope', 'myFormatFilter', function ($scope, myFormatFilter) {
+          //body...
+        }]);
+
 
 #Directives
 
