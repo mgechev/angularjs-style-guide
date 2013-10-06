@@ -146,7 +146,7 @@ It will make your testing easier and in some cases prevent you from unexpected b
 * Use `$resource` instead of `$http` when possible. Highther level of abstraction saves you from redundancy.
 * Use AngularJS pre-minifier (like [ngmin](https://github.com/btford/ngmin)) for preventing further problems after minification.
 * Don't use globals. Resolve all dependencies using Dependency Injection.
-* Do not pollute your `$scope`! Only add functions/variables to scope that are being used by the template/templates. Its very hard to figure out where a particular function/variable is used, when everything is included in the scope.
+* Do not pollute your `$scope`. Add only functions and variables which are being used in the templates.
 
 #Modules
 
