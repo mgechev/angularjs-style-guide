@@ -198,7 +198,7 @@ especially after the controller's body became large enough to make you scroll wh
 #Directives
 
 * Name the directives with lowerCamelCase
-* Use `scope` instead of `$scope` in your link function. In the compile, post/pre link functions you have defined parameters, you won't be able to change them using DI.
+* Use `scope` instead of `$scope` in your link function. In the compile, post/pre link functions you have already defined arguments which will be passed when the function is invoked, you won't be able to change them using DI. This style is also used in AngularJS's source code.
 * Use custom prefixes for your directives to prevent name collisions with third-party libraries.
 * Do not use `ng` prefix, nor `ui` prefix they are reserved for AngularJS and AngularJS UI usage.
 * The DOM manipulations must be made only thrugh directives.
