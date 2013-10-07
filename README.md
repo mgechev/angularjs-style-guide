@@ -18,6 +18,8 @@ In this style guide you won't find common guidelines for JavaScript development.
 
 For AngularJS development recommended is the [Google's JavaScript style guide](http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml).
 
+In AngularJS's GitHub wiki there is a similar section by [ProLoser](https://github.com/ProLoser), you can check it [here](https://github.com/angular/angular.js/wiki).
+
 #Table of content
 * [General](#general)
     * [Directory structure](#directory-structure)
