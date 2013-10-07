@@ -231,7 +231,7 @@ especially after the controller's body became large enough to make you scroll wh
 #Templates
 
 * Use `ng-bind` or `ng-cloak` instead of simple `{{}}` to prevent flashing content.
-* Avoid writing complex JavaScript code in the template.
+* Avoid writing complex executable code in the template.
 
 #Routing
 
