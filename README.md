@@ -115,7 +115,7 @@ Here is its layout:
 
 
 * The `app.js` file contains routes definition, configuration and/or manual bootstrap (if required).
-* In each JavaScript file should be located a single component. The file should be named with the component's name.
+* Each JavaScript file should only hold a single component. The file should be named with the component's name.
 * Use Angular project structure template like [Yeoman](http://yeoman.io), [ng-boilerplate](http://joshdmiller.github.io/ng-boilerplate/#/home).
 
 I prefer the first structure because it makes the common components easier to find.
@@ -124,43 +124,43 @@ Conventions about components naming can be found in each component section.
 
 ## Optimize the digest cycle
 
-* Watch only the most vital variables (for example when using real time communication don't cause digest loop in each received message).
-* Make computations in `$watch`  as simplest as possible. Making heavy and slow computations in a single `$watch` will slow down the whole application (the $digest loop is done in a single thread because of the single-threaded nature of JavaScript).
+* Watch only the most vital variables (for example: when using real-time communication, don't cause a digest loop in each received message).
+* Make computations in `$watch`  as simple as possible. Making heavy and slow computations in a single `$watch` will slow down the whole application (the $digest loop is done in a single thread because of the single-threaded nature of JavaScript).
 
 ## Others
 
 * Use:
-    * `$timeout`, instead of `setTimeout`
-    * `$window`, instead of `window`
-    * `$document`, instead of `document`
-    * `$http`, instead of `$.ajax`
+    * `$timeout` instead of `setTimeout`
+    * `$window` instead of `window`
+    * `$document` instead of `document`
+    * `$http` instead of `$.ajax`
 
-It will make your testing easier and in some cases prevent you from unexpected behaviour (for example if you missed `$scope.$apply` in `setTimeout`).
+This will make your testing easier and in some cases prevent unexpected behaviour (for example, if you missed `$scope.$apply` in `setTimeout`).
 
 * Automate your workflow using tools like:
     * [Yeoman](http://yeoman.io)
     * [Grunt](http://gruntjs.com)
     * [Bower](http://bower.io)
 
-* Use promises (`$q`) instead of callbacks. It will make your code look more elegant, clean and save you from the callback hell.
-* Use `$resource` instead of `$http` when possible. Highther level of abstraction saves you from redundancy.
-* Use AngularJS pre-minifier (like [ngmin](https://github.com/btford/ngmin)) for preventing further problems after minification.
+* Use promises (`$q`) instead of callbacks. It will make your code look more elegant and clean, and save you from callback hell.
+* Use `$resource` instead of `$http` when possible. Higher level of abstraction saves you from redundancy.
+* Use AngularJS pre-minifier (like [ngmin](https://github.com/btford/ngmin)) for preventing problems after minification.
 * Don't use globals. Resolve all dependencies using Dependency Injection.
-* Do not pollute your `$scope`. Add only functions and variables which are being used in the templates.
+* Do not pollute your `$scope`. Only add functions and variables that are being used in the templates.
 
 #Modules
 
-There are two commonly used ways for structuring the modules:
+There are two common ways for structuring the modules:
 
 0. By functionality
 0. By component type
 
-Currently there is not a big difference but the first way looks cleaner. Also if lazy-loading of the modules is being implemented (currently there are no such plans in the roadmap) it will improve the application performance.
+Currently there's not a big difference, but the first way looks cleaner. Also, if lazy-loading modules is implemented (currently not in the AngularJS roadmap), it will improve the app's performance.
 
 #Controllers
 
-* Do not make any DOM manipulations in your controllers. Use directives instead.
-* The naming of the controller is done using the controller's functionality (for example shopping card, home page, admin panel) and the substring `Ctrl` in the end. The controllers are named UpperCamelCase (`HomePageCtrl`, `ShippingCardCtrl`, `AdminPanelCtrl`, etc.).
+* Do not manipulate DOM in your controllers. Use directives instead.
+* The naming of the controller is done using the controller's functionality (for example shopping cart, homepage, admin panel) and the substring `Ctrl` in the end. The controllers are named UpperCamelCase (`HomePageCtrl`, `ShoppingCartCtrl`, `AdminPanelCtrl`, etc.).
 * The controllers should not be defined as globals (no matter AngularJS allows this, it is a bad practice to pollute the global namespace).
 * Use array syntax for controller definitions:
 
@@ -190,11 +190,12 @@ is less readable than:
         }]);
 
 
-especially after the controller's body became large enough to make you scroll when you forget which was the right dependency.
-* Make the controllers as skinny as possible
-* Communicate within different controllers using method invocation (possible when children wants to communicate with parent) or `$emit`, `$broadcast` and `$on` methods. The `$emit`-ed and `$broadcast`-ed messages must be reduced as much as possible.
+This especially applies to a file that has so much code that you'd need to scroll through. This would possibly cause you to forget which variable is tied to which dependency.
+
+* Make the controllers as lean as possible. Abstract commonly used functions into a service.
+* Communicate within different controllers using method invocation (possible when children wants to communicate with parent) or `$emit`, `$broadcast` and `$on` methods. The emitted and broadcasted messages should be kept to a minimum.
 * Make a list of all messages which are passed using `$emit`, `$broadcast` and manage it carefully because of name collisions and possible bugs.
-* When you need to format data encapsulate the formatting logic into [filter](#filters) and declare it as dependency:
+* When you need to format data encapsulate the formatting logic into a [filter](#filters) and declare it as dependency:
 
 
         module.controller('myFormat', function () {
@@ -212,26 +213,26 @@ especially after the controller's body became large enough to make you scroll wh
 * Name your directives with lowerCamelCase
 * Use `scope` instead of `$scope` in your link function. In the compile, post/pre link functions you have already defined arguments which will be passed when the function is invoked, you won't be able to change them using DI. This style is also used in AngularJS's source code.
 * Use custom prefixes for your directives to prevent name collisions with third-party libraries.
-* Do not use `ng` prefix, nor `ui` prefix they are reserved for AngularJS and AngularJS UI usage.
-* DOM manipulations must be made only through directives.
-* Create isolated scope when you develop reusable components.
+* Do not use `ng` or `ui` prefixes since they are reserved for AngularJS and AngularJS UI usage.
+* DOM manipulations must be done only through directives.
+* Create an isolated scope when you develop reusable components.
 
 #Filters
 
 * Name your filters with lowerCamelCase
-* Make your filters as light as possible. They are called often during the `$digest` loop so creating slow filter will slow down your app.
+* Make your filters as light as possible. They are called often during the `$digest` loop so creating a slow filter will slow down your app.
 
 #Services
 
-* Use camelCase (lower or upper) for naming your services.
-* Encapsulate the business logic in services.
-* For creating services encapsulating the business logic is preferred to use `service` instead of `factory`.
-* For session-level cache you can use `$cacheFactory`. It is appropriate for caching results from requests or heavy computations.
+* Use camelCase (lower or upper) to name your services.
+* Encapsulate business logic in services.
+* Services encapsulating business logic are preferably a `service` instead of a `factory`
+* For session-level cache you can use `$cacheFactory`. This should be used to cache results from requests or heavy computations.
 
 #Templates
 
-* Use `ng-bind` or `ng-cloak` instead of simple `{{}}` to prevent flashing content.
-* Avoid writing complex executable code in the template.
+* Use `ng-bind` or `ng-cloak` instead of simple `{{ }}` to prevent flashing content.
+* Avoid writing complex code in the template.
 
 #Routing
 
