@@ -115,6 +115,20 @@ Here is its layout:
     * test
     * lib
 
+* When creating directive it might be useful to put all the associated to the given directive files (i.e. templates, CSS/SASS files, JavaScript) in a single folder. If you choose to use this style be consistant and use it everywhere along your project.
+
+    * app
+        * directives
+            * directive1
+                * directive1.js
+                * directive1.html
+                * directive1.sass
+            * directive2
+                * directive2.js
+                * directive2.html
+                * directive2.sass
+
+This approach can be combined with both directory structures above.
 
 * The `app.js` file contains routes definition, configuration and/or manual bootstrap (if required).
 * Each JavaScript file should only hold a single component. The file should be named with the component's name.
