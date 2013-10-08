@@ -117,16 +117,16 @@ Here is its layout:
 
 * When creating directive it might be useful to put all the associated to the given directive files (i.e. templates, CSS/SASS files, JavaScript) in a single folder. If you choose to use this style be consistant and use it everywhere along your project.
 
-    * app
-        * directives
-            * directive1
-                * directive1.js
-                * directive1.html
-                * directive1.sass
-            * directive2
-                * directive2.js
-                * directive2.html
-                * directive2.sass
+        * app
+            * directives
+                * directive1
+                    * directive1.js
+                    * directive1.html
+                    * directive1.sass
+                * directive2
+                    * directive2.js
+                    * directive2.html
+                    * directive2.sass
 
 This approach can be combined with both directory structures above.
 * One more slight variation of both directory structures is the one used in [ng-boilerplate](http://joshdmiller.github.io/ng-boilerplate/#/home). In it the unit tests for given component are hold in the folder the component is located. This way when you make changes in given components it is easier to find their tests, the tests also act as documentation and show uses cases.
