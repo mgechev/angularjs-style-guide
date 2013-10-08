@@ -253,6 +253,7 @@ This especially applies to a file that has so much code that you'd need to scrol
 
 * Use `ng-bind` or `ng-cloak` instead of simple `{{ }}` to prevent flashing content.
 * Avoid writing complex code in the template.
+* When you need to set the `src` of an image dynamically use `ng-src` instead of `src` with `{{}}` template.
 
 #Routing
 
