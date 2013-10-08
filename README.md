@@ -44,100 +44,95 @@ There are two main approaches:
 
 In this way the directory structure will look like:
 
-    * app
-        * controllers
-            * page1
-                * FirstCtrl.js
-                * SecondCtrl.js
-            * page2
-                * ThirdCtrl.js
-            * //...
-        * directives
-            * page1
-                * directive1.js
-            * page2
-                * directive2.js
-                * directive3.js
-            * commonDirective.js
-        * filters
-            * page1
-                * filter1.js
-            commonFilter1.js
-            commonFilter2.js
-        * services
-            * cache
-                * Cache1.js
-                * Cache2.js
-            * models
-                * Model1.js
-                * Model2.js
-            CommonService.js
-        app.js
-    * test
-    * lib
+    .
+    ├── app
+    │   ├── app.js
+    │   ├── controllers
+    │   │   ├── page1
+    │   │   │   ├── FirstCtrl.js
+    │   │   │   └── SecondCtrl.js
+    │   │   └── page2
+    │   │       └── ThirdCtrl.js
+    │   ├── directives
+    │   │   ├── page1
+    │   │   │   └── directive1.js
+    │   │   └── page2
+    │   │       ├── directive2.js
+    │   │       └── directive3.js
+    │   ├── filters
+    │   │   ├── page1
+    │   │   └── page2
+    │   └── services
+    │       ├── CommonService.js
+    │       ├── cache
+    │       │   ├── Cache1.js
+    │       │   └── Cache2.js
+    │       └── models
+    │           ├── Model1.js
+    │           └── Model2.js
+    ├── lib
+    └── test
 
 * Creating high level division by functionality and lower level division by component types.
 
 Here is its layout:
 
-    * app
-        * page1
-            * controllers
-                * FirstCtrl.js
-                * SecondCtrl.js
-            * directives
-                * directive1.js
-                * directive2.js
-            * filters
-                * filter1.js
-                * filter2.js
-            * services
-                * service1.js
-                * service2.js
-            * //...
-        * page2
-            * controllers
-                * ThirdCtrl.js
-            * directives
-                * directive3.js
-                * directive4.js
-            * filters
-                * filter3.js
-            * services
-                * service3.js
-            //...
-        * common
-            * controllers
-            * directives
-            * filters
-            * services
-        app.js
-    * test
-    * lib
+    .
+    ├── app
+    │   ├── app.js
+    │   ├── common
+    │   │   ├── controllers
+    │   │   ├── directives
+    │   │   ├── filters
+    │   │   └── services
+    │   ├── page1
+    │   │   ├── controllers
+    │   │   │   ├── FirstCtrl.js
+    │   │   │   └── SecondCtrl.js
+    │   │   ├── directives
+    │   │   │   └── directive1.js
+    │   │   ├── filters
+    │   │   │   ├── filter1.js
+    │   │   │   └── filter2.js
+    │   │   └── services
+    │   │       ├── service1.js
+    │   │       └── service2.js
+    │   └── page2
+    │       ├── controllers
+    │       │   └── ThirdCtrl.js
+    │       ├── directives
+    │       │   ├── directive2.js
+    │       │   └── directive3.js
+    │       ├── filters
+    │       │   └── filter3.js
+    │       └── services
+    │           └── service3.js
+    ├── lib
+    └── test
 
 * When creating directive it might be useful to put all the associated to the given directive files (i.e. templates, CSS/SASS files, JavaScript) in a single folder. If you choose to use this style be consistant and use it everywhere along your project.
 
-        * app
-            * directives
-                * directive1
-                    * directive1.js
-                    * directive1.html
-                    * directive1.sass
-                * directive2
-                    * directive2.js
-                    * directive2.html
-                    * directive2.sass
+        app
+        └── directives
+            ├── directive1
+            │   ├── directive1.html
+            │   ├── directive1.js
+            │   └── directive1.sass
+            └── directive2
+                ├── directive2.html
+                ├── directive2.js
+                └── directive2.sass
 
 This approach can be combined with both directory structures above.
 * One more slight variation of both directory structures is the one used in [ng-boilerplate](http://joshdmiller.github.io/ng-boilerplate/#/home). In it the unit tests for given component are hold in the folder the component is located. This way when you make changes in given components it is easier to find their tests, the tests also act as documentation and show uses cases.
 
-        * services
-          * cache
-            * cache1.js
-            * cache1.spec.js
-          * models
-            * model1.js
-            * model1.spec.js
+        services
+        ├── cache
+        │   ├── cache1.js
+        │   └── cache1.spec.js
+        └── models
+            ├── model1.js
+            └── model1.spec.js
 
 * The `app.js` file contains routes definition, configuration and/or manual bootstrap (if required).
 * Each JavaScript file should only hold a single component. The file should be named with the component's name.
