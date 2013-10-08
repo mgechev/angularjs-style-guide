@@ -129,6 +129,15 @@ Here is its layout:
                 * directive2.sass
 
 This approach can be combined with both directory structures above.
+* One more slight variation of both directory structures is the one used in [ng-boilerplate](http://joshdmiller.github.io/ng-boilerplate/#/home). In it the unit tests for given component are hold in the folder the component is located. This way when you make changes in given components it is easier to find their tests, the tests also act as documentation and show uses cases.
+
+        * services
+          * cache
+            * cache1.js
+            * cache1.spec.js
+          * models
+            * model1.js
+            * model1.spec.js
 
 * The `app.js` file contains routes definition, configuration and/or manual bootstrap (if required).
 * Each JavaScript file should only hold a single component. The file should be named with the component's name.
