@@ -254,6 +254,15 @@ This especially applies to a file that has so much code that you'd need to scrol
 * Use `ng-bind` or `ng-cloak` instead of simple `{{ }}` to prevent flashing content.
 * Avoid writing complex code in the template.
 * When you need to set the `src` of an image dynamically use `ng-src` instead of `src` with `{{}}` template.
+* Instead of using scope variable as string and using it with `style` attribute with `{{ }}`, use the directive `ng-style` with object-like parameters and scope variables as values:
+
+
+        ...
+        $scope.myWidth = 200;
+        $scope.myPosition = 'relative'
+        ...
+
+        <div ng-style="{'width': myWidth+'px', 'position': myPosition}">my beautifully styled div which will work in IE</div>;
 
 #Routing
 
