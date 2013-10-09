@@ -192,7 +192,6 @@ Currently there's not a big difference, but the first way looks cleaner. Also, i
 
 
 Using this type of definition avoids problems with minification. You can automatically generate the array definition from standard one using tools like [ng-annotate](https://github.com/olov/ng-annotate) (and grunt task [grunt-ng-annotate](https://github.com/mzgol/grunt-ng-annotate)).
-
 * Use the original names of the controller's dependencies. This will help you produce more readable code:
 
 
@@ -256,13 +255,14 @@ This especially applies to a file that has so much code that you'd need to scrol
 * When you need to set the `src` of an image dynamically use `ng-src` instead of `src` with `{{}}` template.
 * Instead of using scope variable as string and using it with `style` attribute with `{{ }}`, use the directive `ng-style` with object-like parameters and scope variables as values:
 
-
         ...
-        $scope.myWidth = 200;
-        $scope.myPosition = 'relative'
+        $scope.divStyle = {
+          width: 200,
+          position: relative
+        };
         ...
 
-        <div ng-style="{'width': myWidth+'px', 'position': myPosition}">my beautifully styled div which will work in IE</div>;
+        <div ng-style="divStyle">my beautifully styled div which will work in IE</div>;
 
 #Routing
 
