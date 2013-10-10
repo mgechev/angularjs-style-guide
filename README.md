@@ -167,6 +167,7 @@ This will make your testing easier and in some cases prevent unexpected behaviou
 * Use an AngularJS pre-minifier (like [ngmin](https://github.com/btford/ngmin) or [ng-annotate](https://github.com/olov/ng-annotate)) for preventing problems after minification.
 * Don't use globals. Resolve all dependencies using Dependency Injection.
 * Do not pollute your `$scope`. Only add functions and variables that are being used in the templates.
+* Use controllers instead of `ngInit`.
 
 #Modules
 
