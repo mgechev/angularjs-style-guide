@@ -110,7 +110,7 @@ Here is its layout:
     ├── lib
     └── test
 
-* When creating directive it might be useful to put all the associated to the given directive files (i.e. templates, CSS/SASS files, JavaScript) in a single folder. If you choose to use this style be consistant and use it everywhere along your project.
+* When creating directive it might be useful to put all the associated to the given directive files (i.e. templates, CSS/SASS files, JavaScript) in a single folder. If you choose to use this style be consistent and use it everywhere along your project.
 
         app
         └── directives
