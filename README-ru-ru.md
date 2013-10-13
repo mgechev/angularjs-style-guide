@@ -114,16 +114,16 @@
 
 * Когда создается директива, может быть очень удобным положить все связанные с ней файлы в одну директорию (например шаблон, CSS/SASS, JavaScript). Если вы выберите такой подход будьте последовательны и используйте его везде в своем проекте.
 
-    app
-    └── directives
-        ├── directive1
-        │   ├── directive1.html
-        │   ├── directive1.js
-        │   └── directive1.sass
-        └── directive2
-            ├── directive2.html
-            ├── directive2.js
-            └── directive2.sass
+        app
+        └── directives
+            ├── directive1
+            │   ├── directive1.html
+            │   ├── directive1.js
+            │   └── directive1.sass
+            └── directive2
+                ├── directive2.html
+                ├── directive2.js
+                └── directive2.sass
 
 Этот подход может сочетаться с любым из двух предложенных выше.
 
