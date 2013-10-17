@@ -33,6 +33,7 @@ In AngularJS's GitHub wiki there is a similar section by [ProLoser](https://gith
 * [Templates](#templates)
 * [Routing](#routing)
 * [Testing](#testing)
+* [Contribution](#contribution)
 
 #General
 
@@ -274,3 +275,8 @@ This especially applies to a file that has so much code that you'd need to scrol
 #Testing
 
 TBD
+
+#Contribution
+
+Since the goal of this style guide is to be community-driven, contributions are greatly appriciated.
+For example, you can contribute by extending the Testing section or by translating the style guide to your language.
