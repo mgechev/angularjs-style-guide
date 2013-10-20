@@ -164,7 +164,7 @@ Ovo će učiniti testiranje mnogo lakšim a u nekim slučajevima i preduprediti 
 
 * Koristite "promises" (`$q`) umesto "callbacks". Ovo će učiniti da vaš kod izgleda elegantnije, i sačuvaće vas on "callback" pakla.
 * Koristite `$resource` umesto `$http` kad god je to moguće. Viši nivo abstrakcije spašava vas od nepotrebnog viška.
-* Koristite AngularJS pre-minifier (like [ngmin](https://github.com/btford/ngmin) ili [ng-annotate](https://github.com/olov/ng-annotate)) kao prevenciju problema posle "minification".
+* Koristite AngularJS "pre-minifier" (like [ngmin](https://github.com/btford/ngmin) ili [ng-annotate](https://github.com/olov/ng-annotate)) kao prevenciju problema posle "minification".
 * Ne koristite globalne promenjive. Razrešite sve zavisnosti koristeći "Dependency Injection".
 * Ne zagađujte vas `$scope`. Dodajte samo one funkcije ili promenjive koje se koriste unutar datog šablona.
 * Koristite kontrolere umesto `ngInit`.
@@ -193,7 +193,7 @@ Trenutno nema veće razlike, ali prvi način izgleda urednije. Takođe, ako "laz
 
 
 Korišćenje ovog tipa definicija izbegava probleme sa "minification". Možete automatski generisati niz definicija od jedne standardne koristeći alate kao što su [ng-annotate](https://github.com/olov/ng-annotate) (i grunt task  [grunt-ng-annotate](https://github.com/mzgol/grunt-ng-annotate)).
-* Use the original names of the controller's dependencies. This will help you produce more readable code:
+* Koristite originalna nazive zavisnosti kontrolera. Ovo će vam pomoći da proizvedete čitljiviji kod:
 
 
 
@@ -202,7 +202,7 @@ Korišćenje ovog tipa definicija izbegava probleme sa "minification". Možete a
         }]);
 
 
-is less readable than:
+je manje čitljivo od:
 
 
         module.controller('MyCtrl', ['$scope', function ($scope) {
@@ -210,12 +210,12 @@ is less readable than:
         }]);
 
 
-This especially applies to a file that has so much code that you'd need to scroll through. This would possibly cause you to forget which variable is tied to which dependency.
+Ovo je posebno primenjivo na datoteku koja ima toliko koda da ćete morati da se vertikalno krećete kroz isti. Ovo će najverovatnije dovesti do toga da zaboravite koja je promenjiva vezana za koju zavisnost.
 
-* Make the controllers as lean as possible. Abstract commonly used functions into a service.
-* Communicate within different controllers using method invocation (possible when children wants to communicate with parent) or `$emit`, `$broadcast` and `$on` methods. The emitted and broadcasted messages should be kept to a minimum.
-* Make a list of all messages which are passed using `$emit`, `$broadcast` and manage it carefully because of name collisions and possible bugs.
-* When you need to format data encapsulate the formatting logic into a [filter](#filters) and declare it as dependency:
+* Treirajte što je moguće "tanje" kontrolere. Abstraktujte često korišćene funkcije u servis.
+* Komunicirajte unutar različitih kontorlera korišćenjem pozivanjem metoda (moguće kada deca žele da komuniciraju sa roditeljima) ili `$emit`, `$broadcast` i `$on` metode. "Emitted" i "broadcasted" poruke treba držati na minimumu.
+* Napravite listu svih poruka koje se prenose korišćenjem `$emit`, `$broadcast` i pažljivo ih održavajte iz razloga kolizije naziva i mogućih grešaka.
+* Kada je potrebno da formatirate podatke enkapsulirajte logiku formatiranja unutar [filtera](#filteri) i deklarišite ih kao zavisnost:
 
 
         module.controller('myFormat', function () {
@@ -228,33 +228,33 @@ This especially applies to a file that has so much code that you'd need to scrol
           //body...
         }]);
 
-#Directives
+#Direktive
 
-* Name your directives with lowerCamelCase
-* Use `scope` instead of `$scope` in your link function. In the compile, post/pre link functions you have already defined arguments which will be passed when the function is invoked, you won't be able to change them using DI. This style is also used in AngularJS's source code.
-* Use custom prefixes for your directives to prevent name collisions with third-party libraries.
-* Do not use `ng` or `ui` prefixes since they are reserved for AngularJS and AngularJS UI usage.
-* DOM manipulations must be done only through directives.
-* Create an isolated scope when you develop reusable components.
+* Imenujte svoje direktive koristeći "lowerCamelCase"
+* Koristite `scope` umesto `$scope` u vašoj "link" funkciji. U "compile", post/pre link funkcijama veš ste definisali argumente koji ce biti prosleženi prilikom poziva funkcije, nećete moći da ih promenite koristeći DI (Dependency Injection). Ovaj stil je takože korišćen unutar AngularJS izvornog koda.
+* Koristite "custom" prefikse za vaše direktive da bi sprečili koliziju imena sa tuđim bibljotekama.
+* Nemojte koristiti `ng` ili `ui` prefikse jer su ovi rezervisani za AngularJS i AngularJS UI upotrebu.
+* DOM manipulacije moraju biti izvršene samo kroz direktive.
+* Kreirajte izlovoano područje kada razvijate komponente za višestruku upotrebu.
 
-#Filters
+#Filteri
 
-* Name your filters with lowerCamelCase
-* Make your filters as light as possible. They are called often during the `$digest` loop so creating a slow filter will slow down your app.
+* Imenujte vaše filtere koristeći "lowerCamelCase"
+* Kreirajte vaše filtere što je moguće "lakšim". Oni se zovu često tokom `$digest` petlje pa kreiranje sporih filtera će usporiti vašu aplikaciju.
 
-#Services
+#Servisi
 
-* Use camelCase (lower or upper) to name your services.
-* Encapsulate business logic in services.
-* Services encapsulating business logic are preferably a `service` instead of a `factory`
-* For session-level cache you can use `$cacheFactory`. This should be used to cache results from requests or heavy computations.
+* Koristite "camelCase (lower or upper)" za nazive vaših servisa.
+* Encapsulirajte biznis logiku unutar servisa.
+* Servisi koji oukviruju biznis logiku su poželjno `service` umesto `factory`
+* Za "session-level" keš možete koristiti `$cacheFactory`. Ovo bi trebalo koristiti za keširanje rezultata zahteva ili kompleksnih proračuna.
 
-#Templates
+#Šabloni
 
-* Use `ng-bind` or `ng-cloak` instead of simple `{{ }}` to prevent flashing content.
-* Avoid writing complex code in the template.
-* When you need to set the `src` of an image dynamically use `ng-src` instead of `src` with `{{}}` template.
-* Instead of using scope variable as string and using it with `style` attribute with `{{ }}`, use the directive `ng-style` with object-like parameters and scope variables as values:
+* Koristite `ng-bind` ili `ng-cloak` umesto prostog `{{ }}` da bi sprečili treptanje sadržaja.
+* Izbegavajte pisanje kompleksnog koda unutar šablona.
+* Kada je potrebno da dinamično postavitre `src` slike koristite `ng-src` umesto `src` sa `{{}}` šablonom.
+* Umesto korišćenja "scope" promenjive kao tekst i koristiti ga sa `style` atributom sa `{{ }}`, koristite direktivu `ng-style` sa "object-like" parametrima i "scope" promenjive kao vrednosti as:
 
         ...
         $scope.divStyle = {
@@ -265,6 +265,6 @@ This especially applies to a file that has so much code that you'd need to scrol
 
         <div ng-style="divStyle">my beautifully styled div which will work in IE</div>;
 
-#Routing
+#Rutiranje
 
-* Use `resolve` to resolve dependencies before the view is shown.
+* Koristite `resolve` da raylođite zavisnosti pre nego se prikađe "view".
