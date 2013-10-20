@@ -4,12 +4,12 @@ Cilj ovog "style guide" vodiča je da predstavi set najboljih praksi i smernica 
 Ove najbolje prakse su prikupljene od:
 
 0. AngularJS izvornog koda
-0. Iyvornog koda ili članaka koje sam pročitao 
+0. Izvornog koda ili članaka koje sam pročitao 
 0. Ličnog iskustva
 
 **Nota**: ovo je još uvek radna verzija, njen glavni cilj je da bude "community-driven" zato ispunjavanje praznina će biti veoma cenjeno od strane cele zajednice.
 
-U ovom vodiču nećete naće uobičajene preporuke za JavaScript programiranje. Takve se mogu naći na:
+U ovom vodiču nećete naći uobičajene preporuke za JavaScript programiranje. Takve se mogu naći na:
 
 0. [Google's JavaScript style guide](http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml)
 0. [Mozilla's JavaScript style guide](https://developer.mozilla.org/en-US/docs/Developer_Guide/Coding_Style)
@@ -75,7 +75,7 @@ U ovom slučaju struktura direktorijuma bi izgledala ovako:
 
 * Kreiranje primarnog grupisanja prema funkcionalnosti a zatim sekundarno grupisanje prema tipu komponente.
 
-Ovde je nje raspored:
+Ovde je njen raspored:
 
     .
     ├── app
@@ -144,7 +144,7 @@ Konvencije oko imenovanje komponenti se mogu naći u svakoj sekciji koja opisuje
 
 ## Optimizuj ciklus obrade
 
-* Posmatraj samo najznačajnije promenjive (na primer: kada se koristi "real-time" komunikacije, ne pozivaj petlju obrade u svakoj primljenoj poruci).
+* Posmatraj samo najznačajnije promenjive (na primer: kada se koristi "real-time" komunikacija, ne pozivaj petlju obrade u svakoj primljenoj poruci).
 * Pravi proračune u `$watch` što je moguće jednostavnijim. Postavljanje zahtevne i spore kalkulacije u jednom `$watch` će usporiti celokupnu aplikaciju ($digest petlja se izvršava u jednoj niti iz razloga "single-threaded" prirode JavaScript-a).
 
 ## Ostalo
@@ -162,11 +162,11 @@ Ovo će učiniti testiranje mnogo lakšim a u nekim slučajevima i preduprediti 
     * [Grunt](http://gruntjs.com)
     * [Bower](http://bower.io)
 
-* Koristite "promises" (`$q`) umesto "callbacks". Ovo će učiniti da vaš kod izgleda elegantnije, i sačuvaće vas on "callback" pakla.
+* Koristite "promises" (`$q`) umesto "callbacks". Ovo će učiniti da vaš kod izgleda elegantnije, i sačuvaće vas od "callback" pakla.
 * Koristite `$resource` umesto `$http` kad god je to moguće. Viši nivo abstrakcije spašava vas od nepotrebnog viška.
 * Koristite AngularJS "pre-minifier" (like [ngmin](https://github.com/btford/ngmin) ili [ng-annotate](https://github.com/olov/ng-annotate)) kao prevenciju problema posle "minification".
 * Ne koristite globalne promenjive. Razrešite sve zavisnosti koristeći "Dependency Injection".
-* Ne zagađujte vas `$scope`. Dodajte samo one funkcije ili promenjive koje se koriste unutar datog šablona.
+* Ne zagađujte vaš `$scope`. Dodajte samo one funkcije ili promenjive koje se koriste unutar datog šablona.
 * Koristite kontrolere umesto `ngInit`.
 
 #Moduli
@@ -176,13 +176,13 @@ Postoje dva uobičajena načina da se struktuiraju moduli:
 0. Prema funkcionalnosti
 0. Prema tipu komponente
 
-Trenutno nema veće razlike, ali prvi način izgleda urednije. Takođe, ako "lazy-loading" moduli su implementirani (trenutno nisu u AngularJS planu razvoja), to će poboljšati performance applikacije.
+Trenutno nema veće razlike, ali prvi način izgleda urednije. Takođe, ako "lazy-loading" moduli su implementirani (trenutno nisu u AngularJS planu razvoja), to će poboljšati performanse applikacije.
 
 #Kontroleri
 
 * Ne menjajte DOM u vašim kontrolerima. Umesto toga koristite direktive.
 * Imenovanje kontrolera se vrši prema njegovoj funkcionalnosti (na primer: shopping cart, homepage, admin panel) i dodatka `Ctrl` na kraju imena. Imena kontrolera su zapiasna u "UpperCamelCase" formatu (`HomePageCtrl`, `ShoppingCartCtrl`, `AdminPanelCtrl`, itd.).
-* Kontroleri ne bi trebalo da budu definisani kao globalni (be obzira što AngularJS to dozvoljava, loša je praksa da se zagadi global "namespace").
+* Kontroleri ne bi trebalo da budu definisani kao globalni (bez obzira što AngularJS to dozvoljava, loša je praksa da se zagadi global "namespace").
 * Koristi syntaksu niza u definiciji kontrolera:
 
 
@@ -192,8 +192,8 @@ Trenutno nema veće razlike, ali prvi način izgleda urednije. Takođe, ako "laz
         }]);
 
 
-Korišćenje ovog tipa definicija izbegava probleme sa "minification". Možete automatski generisati niz definicija od jedne standardne koristeći alate kao što su [ng-annotate](https://github.com/olov/ng-annotate) (i grunt task  [grunt-ng-annotate](https://github.com/mzgol/grunt-ng-annotate)).
-* Koristite originalna nazive zavisnosti kontrolera. Ovo će vam pomoći da proizvedete čitljiviji kod:
+Korišćenje ovog tipa definicija izbegava probleme sa "minification". Možete automatski generisati niz definicija od jedne standardne koristeći alate kao što su [ng-annotate](https://github.com/olov/ng-annotate) (i grunt zadatak [grunt-ng-annotate](https://github.com/mzgol/grunt-ng-annotate)).
+* Koristite originalne nazive zavisnosti kontrolera. Ovo će vam pomoći da proizvedete čitljiviji kod:
 
 
 
@@ -212,7 +212,7 @@ je manje čitljivo od:
 
 Ovo je posebno primenjivo na datoteku koja ima toliko koda da ćete morati da se vertikalno krećete kroz isti. Ovo će najverovatnije dovesti do toga da zaboravite koja je promenjiva vezana za koju zavisnost.
 
-* Treirajte što je moguće "tanje" kontrolere. Abstraktujte često korišćene funkcije u servis.
+* Kreirajte što je moguće "tanje" kontrolere. Abstraktujte često korišćene funkcije u servis.
 * Komunicirajte unutar različitih kontorlera korišćenjem pozivanjem metoda (moguće kada deca žele da komuniciraju sa roditeljima) ili `$emit`, `$broadcast` i `$on` metode. "Emitted" i "broadcasted" poruke treba držati na minimumu.
 * Napravite listu svih poruka koje se prenose korišćenjem `$emit`, `$broadcast` i pažljivo ih održavajte iz razloga kolizije naziva i mogućih grešaka.
 * Kada je potrebno da formatirate podatke enkapsulirajte logiku formatiranja unutar [filtera](#filteri) i deklarišite ih kao zavisnost:
@@ -231,7 +231,7 @@ Ovo je posebno primenjivo na datoteku koja ima toliko koda da ćete morati da se
 #Direktive
 
 * Imenujte svoje direktive koristeći "lowerCamelCase"
-* Koristite `scope` umesto `$scope` u vašoj "link" funkciji. U "compile", post/pre link funkcijama veš ste definisali argumente koji ce biti prosleženi prilikom poziva funkcije, nećete moći da ih promenite koristeći DI (Dependency Injection). Ovaj stil je takože korišćen unutar AngularJS izvornog koda.
+* Koristite `scope` umesto `$scope` u vašoj "link" funkciji. U "compile", post/pre "link" funkcijama već ste definisali argumente koji će biti prosleđeni prilikom poziva funkcije, nećete moći da ih promenite koristeći DI (Dependency Injection). Ovaj stil je takođe korišćen unutar AngularJS izvornog koda.
 * Koristite "custom" prefikse za vaše direktive da bi sprečili koliziju imena sa tuđim bibljotekama.
 * Nemojte koristiti `ng` ili `ui` prefikse jer su ovi rezervisani za AngularJS i AngularJS UI upotrebu.
 * DOM manipulacije moraju biti izvršene samo kroz direktive.
@@ -245,16 +245,16 @@ Ovo je posebno primenjivo na datoteku koja ima toliko koda da ćete morati da se
 #Servisi
 
 * Koristite "camelCase (lower or upper)" za nazive vaših servisa.
-* Encapsulirajte biznis logiku unutar servisa.
-* Servisi koji oukviruju biznis logiku su poželjno `service` umesto `factory`
+* Enkapsulirajte biznis logiku unutar servisa.
+* Servisi koji uokviruju biznis logiku su poželjno `service` umesto `factory`
 * Za "session-level" keš možete koristiti `$cacheFactory`. Ovo bi trebalo koristiti za keširanje rezultata zahteva ili kompleksnih proračuna.
 
 #Šabloni
 
 * Koristite `ng-bind` ili `ng-cloak` umesto prostog `{{ }}` da bi sprečili treptanje sadržaja.
 * Izbegavajte pisanje kompleksnog koda unutar šablona.
-* Kada je potrebno da dinamično postavitre `src` slike koristite `ng-src` umesto `src` sa `{{}}` šablonom.
-* Umesto korišćenja "scope" promenjive kao tekst i koristiti ga sa `style` atributom sa `{{ }}`, koristite direktivu `ng-style` sa "object-like" parametrima i "scope" promenjive kao vrednosti as:
+* Kada je potrebno da dinamički postavitre `src` slike koristite `ng-src` umesto `src` sa `{{}}` šablonom.
+* Umesto korišćenja "scope" promenjive kao tekst i koristiti ga sa `style` atributom sa `{{ }}`, koristite direktivu `ng-style` sa "object-like" parametrima i "scope" promenjive kao vrednosti:
 
         ...
         $scope.divStyle = {
@@ -267,4 +267,4 @@ Ovo je posebno primenjivo na datoteku koja ima toliko koda da ćete morati da se
 
 #Rutiranje
 
-* Koristite `resolve` da raylođite zavisnosti pre nego se prikađe "view".
+* Koristite `resolve` da razložite zavisnosti pre nego se prikaže "view".
