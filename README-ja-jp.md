@@ -174,23 +174,23 @@ AngularJSアプリケーションは複数のコンポーネントを持って�
 * `$scope` を汚してはいけません。テンプレートで使用する関数や変数のみ追加しましょう。
 
 * [`ngInit` の代わりに controllers を使うほうがよい](https://github.com/angular/angular.js/pull/4366/files)。`ngInit` の唯一の適切な使用方法は `ngRepeat` のプロパティのエイリアスを作るのに使用する方法のみである。他にも、スコープ上の値を初期化するのに `ngInit` 使う必要はなく、controllers を使ったほうが良い。
-* 変数名や関数名に`$`プレフィックスを使ってはならない。このプレフィックスはAngularJSで予約されています。
+* 変数名や関数名に`$`プレフィックスを使ってはいけません。このプレフィックスはAngularJSで予約されています。
 
-#Modules
+#モジュール
 
-There are two common ways for structuring the modules:
+モジュールを構造化する方法は一般的に2つあります:
 
-0. By functionality
-0. By component type
+0. 機能性
+0. コンポーネントタイプ
 
-Currently there's not a big difference, but the first way looks cleaner. Also, if lazy-loading modules is implemented (currently not in the AngularJS roadmap), it will improve the app's performance.
+今現在、2つに大きな違いはありませんが、1.の方法はクリーンに見えます。また、もしもモジュールの遅延ローディングが実装されたら(AnglarJSのロードマップには現在ない)、アプリケーションのパフォーマンスが向上するでしょう。
 
-#Controllers
+#コントローラー
 
-* Do not manipulate DOM in your controllers. Use directives instead.
-* The naming of the controller is done using the controller's functionality (for example shopping cart, homepage, admin panel) and the substring `Ctrl` in the end. The controllers are named UpperCamelCase (`HomePageCtrl`, `ShoppingCartCtrl`, `AdminPanelCtrl`, etc.).
-* The controllers should not be defined as globals (no matter AngularJS allows this, it is a bad practice to pollute the global namespace).
-* Use array syntax for controller definitions:
+* コントローラー内でDOMを操作してはいけません。代わりにディレクティブを使いましょう。
+* コントローラー名は、そのコントローラーの機能に則った名前を付けましょう(例: shopping cart, homepage, admin panel)。また、コントローラー名の最後には `Ctrl` を付けて、コントローラー名は UpperCamelCase (`HomePageCtrl`, `ShoppingCartCtrl`, `AdminPanelCtrl`, etc.)を使いましょう。
+* コントローラーはグローバルな名前空間に定義してはいけません。 (たとえAngularJSが許可しても、グローバルな名前空間を汚すのはバッドプラクティスです)。
+* コントローラーの定義には配列を使いましょう
 
 
 
@@ -199,8 +199,9 @@ Currently there's not a big difference, but the first way looks cleaner. Also, i
         }]);
 
 
-Using this type of definition avoids problems with minification. You can automatically generate the array definition from standard one using tools like [ng-annotate](https://github.com/olov/ng-annotate) (and grunt task [grunt-ng-annotate](https://github.com/mzgol/grunt-ng-annotate)).
-* Use the original names of the controller's dependencies. This will help you produce more readable code:
+この型定義を使用すると、minifyの問題を回避できます。これらの標準的なツールを使って自動的に生成された配列定義
+[ng-annotate](https://github.com/olov/ng-annotate) (grunt task [grunt-ng-annotate](https://github.com/mzgol/grunt-ng-annotate)).
+*コントローラーの依存関係に則って名前を付けましょう。これはより読みやすいコードを生成するのに役立ちます:
 
 
 
@@ -209,7 +210,7 @@ Using this type of definition avoids problems with minification. You can automat
         }]);
 
 
-is less readable than:
+このコードは以下の方が読みやすい:
 
 
         module.controller('MyCtrl', ['$scope', function ($scope) {
@@ -217,12 +218,12 @@ is less readable than:
         }]);
 
 
-This especially applies to a file that has so much code that you'd need to scroll through. This would possibly cause you to forget which variable is tied to which dependency.
+これは特に、多くのコードをスクロールしながら眺める必要がある時に当てはまります。
 
-* Make the controllers as lean as possible. Abstract commonly used functions into a service.
-* Communicate within different controllers using method invocation (possible when children wants to communicate with parent) or `$emit`, `$broadcast` and `$on` methods. The emitted and broadcasted messages should be kept to a minimum.
-* Make a list of all messages which are passed using `$emit`, `$broadcast` and manage it carefully because of name collisions and possible bugs.
-* When you need to format data encapsulate the formatting logic into a [filter](#filters) and declare it as dependency:
+* なるべく無駄のないようにコントローラーを作りましょう。抽象的で一般的なfunctionはサービス内に入れて使いましょう。
+* メソッド呼び出しを使用して他のコントローラー内で通信したい場合(可能なら子供から親へと通信したい場合)、 `$emit` `$broadcast` `$on` メソッド使う場合、broadcast する メッセージ は最小限に保ちましょう。
+* `$emit` `$broadcast` に渡すメッセージは、名前の衝突やバグの可能性があるため、全てのメッセージのリストを作成・管理しましょう
+* [filter](#filters)内に、データのフォーマットロジックを、カプセル化する必要がある場合、このように依存関係を宣言する:
 
 
         module.controller('myFormat', function () {
