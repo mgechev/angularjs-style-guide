@@ -7,8 +7,7 @@
 0. 私が読んだコードや文章
 0. 私の経験
 
-**注意**: このスタイルガイドはまだドラフトであり、そのメインの目的
-はコミュニティドリブンになることで、そのためにコミュニティ全体との理解のギャップを大いに埋めることになるだろう。
+**注意**: このスタイルガイドはまだドラフトであり、そのメインゴールはcommunity-drivenになることであり、そのためにコミュニティ全体との理解のギャップを大いに埋めることになるだろう。
 
 ここでのガイドラインでは、JavaScript開発の共通のガイドラインではありません。それらはここで見つかります:
 
@@ -35,14 +34,14 @@ AngularJSのGitHub Wikiに[ProLoser](https://github.com/ProLoser)が書いた似
 * [テンプレート](#templates)
 * [ルーティング](#routing)
 * [テスト](#testing)
-* [貢献](#contribution)
+* [コントリビュート](#contribution)
 
 #全般
 
 ## ディレクトリ構造
 
 
-AngularJSアプリケーションは複数のコンポーネントを持っており大きいため、ディレクトリ階層でコンポーネントを構築するのが最も良いでしょう。
+AngularJS アプリケーションは複数のコンポーネントを持っており大きいため、ディレクトリ階層でコンポーネントを構築するのが最も良いでしょう。
 主に2つのアプローチがあります:
 
 * 上の階層をコンポーネントタイプで分けて作成し、下の階層は機能性で分けて作成します。
@@ -171,10 +170,10 @@ AngularJSアプリケーションは複数のコンポーネントを持って�
 * 可能な場合は `$http` の代わりに `$resource` を使う。抽象度の高いコードは、冗長なコードからあなたを救います。
 * AngularJS pre-minifier ([ngmin](https://github.com/btford/ngmin), [ng-annotate](https://github.com/olov/ng-annotate)) を使い、先にminifyすることで、後からminifyするときの問題を防止できます。
 * グローバル変数を使用してはいけません。依存性の注入 を使って全ての依存関係を解決しましょう。
-* `$scope` を汚してはいけません。テンプレートで使用する関数や変数のみ追加しましょう。
+* `$scope` を汚してはいけません。テンプレートで使用するメソッドや変数のみ追加しましょう。
 
 * [`ngInit` の代わりに controllers を使うほうがよい](https://github.com/angular/angular.js/pull/4366/files)。`ngInit` の唯一の適切な使用方法は `ngRepeat` のプロパティのエイリアスを作るのに使用する方法のみである。他にも、スコープ上の値を初期化するのに `ngInit` 使う必要はなく、controllers を使ったほうが良い。
-* 変数名や関数名に`$`プレフィックスを使ってはいけません。このプレフィックスはAngularJSで予約されています。
+* 変数名やメソッド名に`$`プレフィックスを使ってはいけません。このプレフィックスはAngularJSで予約されています。
 
 #モジュール
 
@@ -183,7 +182,7 @@ AngularJSアプリケーションは複数のコンポーネントを持って�
 0. 機能性
 0. コンポーネントタイプ
 
-今現在、2つに大きな違いはありませんが、1.の方法はクリーンに見えます。また、もしもモジュールの遅延ローディングが実装されたら(AnglarJSのロードマップには現在ない)、アプリケーションのパフォーマンスが向上するでしょう。
+今現在、2つに大きな違いはありませんが、1.の方法はクリーンに見えます。また、もしもモジュールの遅延ローディングが実装されたら(AnglarJSのロードマップにはありませんが)、アプリケーションのパフォーマンスが向上するでしょう。
 
 #コントローラー
 
@@ -199,8 +198,7 @@ AngularJSアプリケーションは複数のコンポーネントを持って�
         }]);
 
 
-この型定義を使用すると、minifyの問題を回避できます。これらの標準的なツールを使って自動的に生成された配列定義
-[ng-annotate](https://github.com/olov/ng-annotate) (grunt task [grunt-ng-annotate](https://github.com/mzgol/grunt-ng-annotate)).
+このようなタイプの定義を使用すると、 minify の問題を回避できます。[ng-annotate](https://github.com/olov/ng-annotate) (grunt task [grunt-ng-annotate](https://github.com/mzgol/grunt-ng-annotate))これらの標準的なツールを使えば配列定義を自動的に生成できます
 *コントローラーの依存関係に則って名前を付けましょう。これはより読みやすいコードを生成するのに役立ちます:
 
 
@@ -220,8 +218,8 @@ AngularJSアプリケーションは複数のコンポーネントを持って�
 
 これは特に、多くのコードをスクロールしながら眺める必要がある時に当てはまります。
 
-* なるべく無駄のないようにコントローラーを作りましょう。抽象的で一般的なfunctionはサービス内に入れて使いましょう。
-* メソッド呼び出しを使用して他のコントローラー内で通信したい場合(可能なら子供から親へと通信したい場合)、 `$emit` `$broadcast` `$on` メソッド使う場合、broadcast する メッセージ は最小限に保ちましょう。
+* なるべく無駄のないようにコントローラーを作りましょう。抽象的で一般的な機能はサービス内に入れて使いましょう。
+* メソッド呼び出しを使用して他のコントローラー内で通信したい場合(可能なら子供から親へと通信したい場合)、 `$emit` `$broadcast` `$on` メソッド使う場合、 broadcast する メッセージ は最小限に保ちましょう。
 * `$emit` `$broadcast` に渡すメッセージは、名前の衝突やバグの可能性があるため、全てのメッセージのリストを作成・管理しましょう
 * [filter](#filters)内に、データのフォーマットロジックを、カプセル化する必要がある場合、このように依存関係を宣言する:
 
@@ -238,31 +236,31 @@ AngularJSアプリケーションは複数のコンポーネントを持って�
 
 #ディレクティブ
 
-* ディレクティブ名は lowerCamelCase を使いましょう
-* リンク関数には `$scope` の代わりに `scope` を使用しましょう。 コンパイルでは、pre/postリンク関数が呼び出されるときには、リンク関数に渡される引数は定義済みです。あなたはDIを使用してそれらを変更することはできません。このスタイルはAngularJSのソースコードでも使用されています。
+* ディレクティブ名は lowerCamelCase
+* linkメソッドには `$scope` の代わりに `scope` を使用しましょう。 compileメソッドやpre/post link メソッドが呼び出されるときには、 link メソッドに渡される引数は定義済みです。あなたは DI を使用してそれらを変更することはできません。このスタイルは AngularJS のソースコードでも使用されています。
 * あなたのディレクティブ名にプレフィックス付けましょう。サードパーティ製ライブラリとの名前空間の衝突を防ぎます。
 * `ng` や `ui` などのプレフィックスは使わないようにしましょう。これらはAngularJS や AngularJS UI で使うように予約されています。
 * DOM 操作を行うのは全てディレクティブを介してのみにする必要があります。
-* 独立したスコープを作り、コンポーネントを再利用可能なように開発しましょう。
+* isolated スコープを作り、コンポーネントを再利用可能なように開発しましょう。
 
-#Filters
+#フィルター
 
-* フィルター名は lowerCamelCase を使いましょう
-* フィルターを作るときにはできるだけ軽くしましょう。フィルターは`$digest`ループ内で頻繁に呼ばれるため、フィルターが遅いとあなたのアプリ全体が遅くなります。
+* フィルター名は lowerCamelCase
+* フィルターを作るときにはできるだけ軽くしましょう。フィルターは `$digest` ループ内で頻繁に呼ばれるため、フィルターが遅いとあなたのアプリ全体が遅くなります。
 
-#Services
+#サービス
 
-* Use camelCase (lower or upper) to name your services.
-* Encapsulate business logic in services.
-* Services encapsulating business logic are preferably a `service` instead of a `factory`
-* For session-level cache you can use `$cacheFactory`. This should be used to cache results from requests or heavy computations.
+* サービス名は camelCase (lower or upper)
+* サービスはカプセル化したビジネスロジックを入れましょう。
+* サービスのビジネスロジックのカプセル化には `factory` の代わりに `service` が好ましいでしょう
+* セッションレベルでのキャッシュには `$cacheFactory` が使えます。これはリクエスト結果をキャッシュしたい時や重い処理をキャッシュしたいときに使えます。
 
-#Templates
+#テンプレート
 
-* Use `ng-bind` or `ng-cloak` instead of simple `{{ }}` to prevent flashing content.
-* Avoid writing complex code in the template.
-* When you need to set the `src` of an image dynamically use `ng-src` instead of `src` with `{{}}` template.
-* Instead of using scope variable as string and using it with `style` attribute with `{{ }}`, use the directive `ng-style` with object-like parameters and scope variables as values:
+* コンテンツの点滅を防ぐため、 `{{ }}` の代わりに `ng-bind` か `ng-cloak` を使いましょう。 
+* テンプレートに複雑なコードを書くのは避けましょう。
+* 動的な表現で `src` を設定する必要がある場合は `src` や `{{}}` の代わりに `ng-src` を使いましょう
+* scope変数の代わりに文字列のように使いたいときや、 `style` 属性を `{{ }}` と一緒に使ってみたいとき、`ng-style` ディレクティブによって object-like パラメーターと、scope 変数をvalueと同様に使えます:
 
         ...
         $scope.divStyle = {
@@ -273,16 +271,16 @@ AngularJSアプリケーションは複数のコンポーネントを持って�
 
         <div ng-style="divStyle">my beautifully styled div which will work in IE</div>;
 
-#Routing
+#ルーティング
 
-* Use `resolve` to resolve dependencies before the view is shown.
+* viewが表示される前に、 `resolve` を使って依存関係の解決をしましょう
 
-#Testing
+#テスト
 
 TBD
 
-#Contribution
+#コントリビュート
 
-Since the goal of this style guide is to be community-driven, contributions are greatly appriciated.
-For example, you can contribute by extending the Testing section or by translating the style guide to your language.
+このスタイルガイドのゴールは community-driven であることです。よってコントリビュートをよろしくお願いします。
+例えば、テストセクションを拡張することによって、または、このスタイルガイドをあなたの言語に翻訳することによって貢献することができます。
 
