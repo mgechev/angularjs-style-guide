@@ -236,19 +236,19 @@ AngularJSアプリケーションは複数のコンポーネントを持って�
           //body...
         }]);
 
-#Directives
+#ディレクティブ
 
-* Name your directives with lowerCamelCase
-* Use `scope` instead of `$scope` in your link function. In the compile, post/pre link functions you have already defined arguments which will be passed when the function is invoked, you won't be able to change them using DI. This style is also used in AngularJS's source code.
-* Use custom prefixes for your directives to prevent name collisions with third-party libraries.
-* Do not use `ng` or `ui` prefixes since they are reserved for AngularJS and AngularJS UI usage.
-* DOM manipulations must be done only through directives.
-* Create an isolated scope when you develop reusable components.
+* ディレクティブ名は lowerCamelCase を使いましょう
+* リンク関数には `$scope` の代わりに `scope` を使用しましょう。 コンパイルでは、pre/postリンク関数が呼び出されるときには、リンク関数に渡される引数は定義済みです。あなたはDIを使用してそれらを変更することはできません。このスタイルはAngularJSのソースコードでも使用されています。
+* あなたのディレクティブ名にプレフィックス付けましょう。サードパーティ製ライブラリとの名前空間の衝突を防ぎます。
+* `ng` や `ui` などのプレフィックスは使わないようにしましょう。これらはAngularJS や AngularJS UI で使うように予約されています。
+* DOM 操作を行うのは全てディレクティブを介してのみにする必要があります。
+* 独立したスコープを作り、コンポーネントを再利用可能なように開発しましょう。
 
 #Filters
 
-* Name your filters with lowerCamelCase
-* Make your filters as light as possible. They are called often during the `$digest` loop so creating a slow filter will slow down your app.
+* フィルター名は lowerCamelCase を使いましょう
+* フィルターを作るときにはできるだけ軽くしましょう。フィルターは`$digest`ループ内で頻繁に呼ばれるため、フィルターが遅いとあなたのアプリ全体が遅くなります。
 
 #Services
 
