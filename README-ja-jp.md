@@ -25,7 +25,7 @@ AngularJSのGitHub Wikiに[ProLoser](https://github.com/ProLoser)が書いた似
 #目次
 * [全般](#general)
     * [ディレクトリ構造](#directory-structure)
-    * [ダイジェストサイクル最適化](#optimize-the-digest-cycle)
+    * [digest cycle最適化](#optimize-the-digest-cycle)
     * [その他](#others)
 * [モジュール](#modules)
 * [コントローラー](#controllers)
@@ -147,33 +147,34 @@ AngularJSアプリケーションは複数のコンポーネントを持って�
 
 コンポーネントの命名規則は、各コンポーネントのセクションで見つけられます。
 
-## Optimize the digest cycle
+## digest cycle最適化
 
-* Watch only the most vital variables (for example: when using real-time communication, don't cause a digest loop in each received message).
-* Make computations in `$watch`  as simple as possible. Making heavy and slow computations in a single `$watch` will slow down the whole application (the $digest loop is done in a single thread because of the single-threaded nature of JavaScript).
+* 最も重要な変数を見る (例: リアルタイム通信を使用する場合は、各受信メッセージ内で、digestループを引き起こしていないなど).
+* $watch 内はできるだけシンプルな処理にする。一つの `$watch` 内で重くて遅い処理を作ってしまうとアプリケーション全体が遅くなります。( JavaScriptがシングルスレッドである性質上、$digest のループはシングルスレッドで処理されます)。
 
-## Others
+## その他
 
-* Use:
-    * `$timeout` instead of `setTimeout`
-    * `$window` instead of `window`
-    * `$document` instead of `document`
-    * `$http` instead of `$.ajax`
+* 使用する:
+    * `setTimeout` の代わりに `$timeout` を使う
+    * `window` の代わりに `$window` を使う
+    * `document` の代わりに `$document` を使う
+    * `$.ajax` の代わりに `$http` を使う
 
-This will make your testing easier and in some cases prevent unexpected behaviour (for example, if you missed `$scope.$apply` in `setTimeout`).
+これによってテストを簡単にし、いくつかのケースでは予期しない動作を防ぐことができます(例: `$scope.$apply` を `setTimeout` 内に書き忘れる)。
 
-* Automate your workflow using tools like:
+* 以下のツールを使用してワークフローを自動化する:
     * [Yeoman](http://yeoman.io)
     * [Grunt](http://gruntjs.com)
     * [Bower](http://bower.io)
 
-* Use promises (`$q`) instead of callbacks. It will make your code look more elegant and clean, and save you from callback hell.
-* Use `$resource` instead of `$http` when possible. Higher level of abstraction saves you from redundancy.
-* Use an AngularJS pre-minifier (like [ngmin](https://github.com/btford/ngmin) or [ng-annotate](https://github.com/olov/ng-annotate)) for preventing problems after minification.
-* Don't use globals. Resolve all dependencies using Dependency Injection.
-* Do not pollute your `$scope`. Only add functions and variables that are being used in the templates.
-* Prefer the usage of [controllers instead of `ngInit`](https://github.com/angular/angular.js/pull/4366/files). The only appropriate use of `ngInit` is for aliasing special properties of `ngRepeat`. Besides this case, you should use controllers rather than `ngInit` to initialize values on a scope.
-* Do not use `$` prefix for the names of variables, properties and methods. This prefix is reserved for AngularJS usage.
+* コールバックの代わりにpromise(`$q`)を使う。これであなたのコードはよりエレガントでクリーンになり、コールバック地獄からあなたを救うでしょう。
+* 可能な場合は `$http` の代わりに `$resource` を使う。抽象度の高いコードは、冗長なコードからあなたを救います。
+* AngularJS pre-minifier ([ngmin](https://github.com/btford/ngmin), [ng-annotate](https://github.com/olov/ng-annotate)) を使い、先にminifyすることで、後からminifyするときの問題を防止できます。
+* グローバル変数を使用してはいけません。依存性の注入 を使って全ての依存関係を解決しましょう。
+* `$scope` を汚してはいけません。テンプレートで使用する関数や変数のみ追加しましょう。
+
+* [`ngInit` の代わりに controllers を使うほうがよい](https://github.com/angular/angular.js/pull/4366/files)。`ngInit` の唯一の適切な使用方法は `ngRepeat` のプロパティのエイリアスを作るのに使用する方法のみである。他にも、スコープ上の値を初期化するのに `ngInit` 使う必要はなく、controllers を使ったほうが良い。
+* 変数名や関数名に`$`プレフィックスを使ってはならない。このプレフィックスはAngularJSで予約されています。
 
 #Modules
 
