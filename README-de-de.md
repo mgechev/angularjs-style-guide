@@ -1,24 +1,24 @@
-#Introduction
+#Einleitung
 
-The goal of this style guide is to present a set of best practices and style guidelines for one AngularJS application.
-These best practices are collected from:
+Das Ziel dieses Style Guides ist, eine Sammlung von Best Practices und Gestaltungsrichtlinien für AngularJS-Anwendungen aufzuzeigen.
+Sie wurden aus den folgenden Quellen zusammengestellt:
 
-0. AngularJS source code
-0. Source code or articles I've read
-0. My own experience
+0. AngularJS-Quelltext
+0. Quelltexte oder Artikel, die ich gelesen habe
+0. Meine eigene Erfahrung
 
-**Note**: this is still a draft of the style guide, its main goal is to be community-driven so filling the gaps will be greatly appreciated by the whole community.
+**Hinweis**: Hierbei handelt es sich noch um einen Entwurf des Style Guides, dessen vorrangiges Ziel es ist, gemeinschaftlich von der Community entwickelt zu werden. Die gesamte Community wird es daher begrüßen, wenn Lücken gefüllt werden.
 
-In this style guide you won't find common guidelines for JavaScript development. Such can be found at:
+Du wirst in diesem Style Guide keine allgemeinen Richtlinien für die JavaScript-Entwicklung finden. Solche finden sich unter:
 
-0. [Google's JavaScript style guide](http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml)
-0. [Mozilla's JavaScript style guide](https://developer.mozilla.org/en-US/docs/Developer_Guide/Coding_Style)
-0. [GitHub's JavaScript style guide](https://github.com/styleguide/javascript)
-0. [Douglas Crockford's JavaScript style guide](http://javascript.crockford.com/code.html)
+0. [Googles JavaScript-Style-Guide](http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml)
+0. [Mozillas JavaScript-Style-Guide](https://developer.mozilla.org/en-US/docs/Developer_Guide/Coding_Style)
+0. [GitHubs JavaScript-Style-Guide](https://github.com/styleguide/javascript)
+0. [Douglas Crockfords JavaScript-Style-Guide](http://javascript.crockford.com/code.html)
 
-For AngularJS development recommended is the [Google's JavaScript style guide](http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml).
+Für die AngularJS-Entwicklung ist [Googles JavaScript-Style-Guide](http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml) empfehlenswert.
 
-In AngularJS's GitHub wiki there is a similar section by [ProLoser](https://github.com/ProLoser), you can check it [here](https://github.com/angular/angular.js/wiki).
+Im GitHub-Wiki von AngularJS gibt es einen ähnlichen Abschnitt von [ProLoser](https://github.com/ProLoser), den du dir [hier](https://github.com/angular/angular.js/wiki) ansehen kannst.
 
 #Table of content
 * [General](#general)
