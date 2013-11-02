@@ -20,24 +20,24 @@ Für die AngularJS-Entwicklung ist [Googles JavaScript-Style-Guide](http://googl
 
 Im GitHub-Wiki von AngularJS gibt es einen ähnlichen Abschnitt von [ProLoser](https://github.com/ProLoser), den du dir [hier](https://github.com/angular/angular.js/wiki) ansehen kannst.
 
-#Table of content
-* [General](#general)
-    * [Directory structure](#directory-structure)
-    * [Optimize the digest cycle](#optimize-the-digest-cycle)
-    * [Others](#others)
-* [Modules](#modules)
-* [Controllers](#controllers)
-* [Directives](#directives)
-* [Filters](#filters)
+#Inhaltsverzeichnis
+* [Allgemein](#allgemein)
+    * [Verzeichnisstruktur](#verzeichnisstruktur)
+    * [Optimieren des Digest-Zyklus](#optimieren-des-digest-zyklus)
+    * [Sonstiges](#sonstiges)
+* [Module](#module)
+* [Controller](#controller)
+* [Direktiven](#direktiven)
+* [Filter](#filter)
 * [Services](#services)
 * [Templates](#templates)
 * [Routing](#routing)
-* [Testing](#testing)
-* [Contribution](#contribution)
+* [Testen](#testen)
+* [Mitmachen](#mitmachen)
 
-#General
+#Allgemein
 
-## Directory structure
+## Verzeichnisstruktur
 
 Since a large AngularJS application has many components it's best to structure them in a directory hierarchy.
 There are two main approaches:
@@ -144,12 +144,12 @@ I prefer the first structure because it makes the common components easier to fi
 
 Conventions about components naming can be found in each component section.
 
-## Optimize the digest cycle
+## Optimieren des Digest-Zyklus
 
 * Watch only the most vital variables (for example: when using real-time communication, don't cause a digest loop in each received message).
 * Make computations in `$watch`  as simple as possible. Making heavy and slow computations in a single `$watch` will slow down the whole application (the $digest loop is done in a single thread because of the single-threaded nature of JavaScript).
 
-## Others
+## Sonstiges
 
 * Use:
     * `$timeout` instead of `setTimeout`
@@ -172,7 +172,7 @@ This will make your testing easier and in some cases prevent unexpected behaviou
 * Prefer the usage of [controllers instead of `ngInit`](https://github.com/angular/angular.js/pull/4366/files). The only appropriate use of `ngInit` is for aliasing special properties of `ngRepeat`. Besides this case, you should use controllers rather than `ngInit` to initialize values on a scope.
 * Do not use `$` prefix for the names of variables, properties and methods. This prefix is reserved for AngularJS usage.
 
-#Modules
+#Module
 
 There are two common ways for structuring the modules:
 
@@ -181,7 +181,7 @@ There are two common ways for structuring the modules:
 
 Currently there's not a big difference, but the first way looks cleaner. Also, if lazy-loading modules is implemented (currently not in the AngularJS roadmap), it will improve the app's performance.
 
-#Controllers
+#Controller
 
 * Do not manipulate DOM in your controllers. Use directives instead.
 * The naming of the controller is done using the controller's functionality (for example shopping cart, homepage, admin panel) and the substring `Ctrl` in the end. The controllers are named UpperCamelCase (`HomePageCtrl`, `ShoppingCartCtrl`, `AdminPanelCtrl`, etc.).
@@ -231,7 +231,7 @@ This especially applies to a file that has so much code that you'd need to scrol
           //body...
         }]);
 
-#Directives
+#Direktiven
 
 * Name your directives with lowerCamelCase
 * Use `scope` instead of `$scope` in your link function. In the compile, post/pre link functions you have already defined arguments which will be passed when the function is invoked, you won't be able to change them using DI. This style is also used in AngularJS's source code.
@@ -242,7 +242,7 @@ This especially applies to a file that has so much code that you'd need to scrol
 * Use directives as attributes or elements instead of comments or classes, this will make your code more readable.
 * Use `$scope.$on('$destroy', fn)` for cleaning up. This is especially useful when you're wrapping third-party plugins as directives.
 
-#Filters
+#Filter
 
 * Name your filters with lowerCamelCase
 * Make your filters as light as possible. They are called often during the `$digest` loop so creating a slow filter will slow down your app.
@@ -274,11 +274,11 @@ This especially applies to a file that has so much code that you'd need to scrol
 
 * Use `resolve` to resolve dependencies before the view is shown.
 
-#Testing
+#Testen
 
 TBD
 
-#Contribution
+#Mitmachen
 
 Since the goal of this style guide is to be community-driven, contributions are greatly appriciated.
 For example, you can contribute by extending the Testing section or by translating the style guide to your language.
