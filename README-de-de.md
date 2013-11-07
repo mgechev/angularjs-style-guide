@@ -146,8 +146,8 @@ Konventionen über die Benennung der Komponenten können in jedem Abschnitt übe
 
 ## Optimieren des Digest-Zyklus
 
-* Watch only the most vital variables (for example: when using real-time communication, don't cause a digest loop in each received message).
-* Make computations in `$watch`  as simple as possible. Making heavy and slow computations in a single `$watch` will slow down the whole application (the $digest loop is done in a single thread because of the single-threaded nature of JavaScript).
+* Watche nur auf die vitalsten Variablen (zum Beispiel: Beim Verwenden von Echtzeitkommunikation sollte nicht bei jeder eingehenden Nachricht ein Digest-Loop ausgelöst werden).
+* Vereinfache Berechnungen in `$watch` so weit wie möglich. Komplexe und langsame Berechnungen in einem einzigen `$watch` verlangsamen die gesamte Applikation (der $digest-Loop wird in einem einzelnen Thread ausgeführt, weil JavaScript single-threaded ist).
 
 ## Sonstiges
 
