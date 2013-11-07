@@ -39,12 +39,12 @@ Im GitHub-Wiki von AngularJS gibt es einen ähnlichen Abschnitt von [ProLoser](h
 
 ## Verzeichnisstruktur
 
-Since a large AngularJS application has many components it's best to structure them in a directory hierarchy.
-There are two main approaches:
+Da eine große AngularJS-Anwendung viele Komponenten hat, sollten diese mit Hilfe einer Verzeichnishierarchie strukturiert werden.
+Es gibt zwei Haupt-Herangehensweisen:
 
-* Creating high level division by component types and lower level division by functionality.
+* Auf einer oberen Ebene eine Aufteilung nach Art der Komponenten und auf einer tieferen Ebene eine Aufteilung nach Funktionalität.
 
-In this way the directory structure will look like:
+Die Verzeichnisstruktur wird in diesem Fall folgendermaßen aussehen:
 
     .
     ├── app
@@ -75,9 +75,9 @@ In this way the directory structure will look like:
     ├── lib
     └── test
 
-* Creating high level division by functionality and lower level division by component types.
+* Auf einer oberen Ebene eine Aufteilung nach Funktionalität und auf einer tieferen Ebene eine Aufteilung nach Art der Komponenten.
 
-Here is its layout:
+Hier ist das entsprechende Layout:
 
     .
     ├── app
@@ -112,7 +112,7 @@ Here is its layout:
     ├── lib
     └── test
 
-* When creating directive it might be useful to put all the associated to the given directive files (i.e. templates, CSS/SASS files, JavaScript) in a single folder. If you choose to use this style be consistent and use it everywhere along your project.
+* Wenn eine Direktive erstellt wird, kann es sinnvoll sein, alle der Direktive zugehörigen Dateien (d. h. Templates, CSS/SASS-Dateien, JavaScript) in das selbe Verzeichnis zu legen. Wenn du dich für diesen Stil entscheidest, sei konsistent und verwende ihn überall in deinem Projekt.
 
         app
         └── directives
@@ -125,8 +125,8 @@ Here is its layout:
                 ├── directive2.js
                 └── directive2.sass
 
-This approach can be combined with both directory structures above.
-* One more slight variation of both directory structures is the one used in [ng-boilerplate](http://joshdmiller.github.io/ng-boilerplate/#/home). In it the unit tests for given component are hold in the folder the component is located. This way when you make changes in given components it is easier to find their tests, the tests also act as documentation and show uses cases.
+Dieser Ansatz kann mit beiden der oben genannten Verzeichnisstrukturen kombiniert werden.
+* Eine weitere kleine Variation der beiden Verzeichnisstrukturen ist die, die in [ng-boilerplate](http://joshdmiller.github.io/ng-boilerplate/#/home) eingesetzt wird. In dieser werden die Unit Tests zu einer Komponente im Verzeichnis der Komponente vorgehalten. Wenn Änderungen an einer Komponente vorgenommen werden, ist es auf diese Weise einfacher, ihre Tests zu finden; außerdem dienen die Tests als Dokumentation und zeigen Use Cases auf.
 
         services
         ├── cache
@@ -136,13 +136,13 @@ This approach can be combined with both directory structures above.
             ├── model1.js
             └── model1.spec.js
 
-* The `app.js` file contains routes definition, configuration and/or manual bootstrap (if required).
-* Each JavaScript file should only hold a single component. The file should be named with the component's name.
-* Use Angular project structure template like [Yeoman](http://yeoman.io), [ng-boilerplate](http://joshdmiller.github.io/ng-boilerplate/#/home).
+* Die `app.js`-Datei enthält die Routendefinition, die Konfiguration und/oder das manuelle Bootstrapping (falls benötigt).
+* Jede JavaScript-Datei sollte nur eine einzige Komponente enthalten. Die Datei sollte nach dem Namen der Komponente benannt sein.
+* Verwende Angular-Projektstrukturvorlagen wie [Yeoman](http://yeoman.io) oder [ng-boilerplate](http://joshdmiller.github.io/ng-boilerplate/#/home).
 
-I prefer the first structure because it makes the common components easier to find.
+Ich bevorzuge die erste Struktur, weil bei ihr die üblichen Komponenten einfacher gefunden werden können.
 
-Conventions about components naming can be found in each component section.
+Konventionen über die Benennung der Komponenten können in jedem Abschnitt über die jeweilige Komponente gefunden werden.
 
 ## Optimieren des Digest-Zyklus
 
