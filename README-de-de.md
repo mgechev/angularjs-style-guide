@@ -183,7 +183,7 @@ Derzeit gibt es keinen großen Unterschied, aber die erste Variante sieht sauber
 
 #Controller
 
-* Do not manipulate DOM in your controllers. Use directives instead.
+* Do not manipulate DOM in your controllers, this will make your controllers harder for testing and will violate the [Separation of Concerns principle](https://en.wikipedia.org/wiki/Separation_of_concerns). Use directives instead.
 * The naming of the controller is done using the controller's functionality (for example shopping cart, homepage, admin panel) and the substring `Ctrl` in the end. The controllers are named UpperCamelCase (`HomePageCtrl`, `ShoppingCartCtrl`, `AdminPanelCtrl`, etc.).
 * The controllers should not be defined as globals (no matter AngularJS allows this, it is a bad practice to pollute the global namespace).
 * Use array syntax for controller definitions:
@@ -221,7 +221,7 @@ This especially applies to a file that has so much code that you'd need to scrol
 * When you need to format data encapsulate the formatting logic into a [filter](#filters) and declare it as dependency:
 
 
-        module.controller('myFormat', function () {
+        module.filter('myFormat', function () {
           return function () {
             //body...
           };
