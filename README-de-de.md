@@ -174,12 +174,12 @@ Dadurch werden deine Tests einfacher und in manchen Fällen wird einem unerwarte
 
 #Module
 
-There are two common ways for structuring the modules:
+Es gibt zwei verbreitete Wege, nach denen Module strukturiert werden können:
 
-0. By functionality
-0. By component type
+0. Nach Funktionalität
+0. Nach Typ der Komponente
 
-Currently there's not a big difference, but the first way looks cleaner. Also, if lazy-loading modules is implemented (currently not in the AngularJS roadmap), it will improve the app's performance.
+Derzeit gibt es keinen großen Unterschied, aber die erste Variante sieht sauberer aus. Außerdem wird - wenn lazy-loading für die Module implementiert ist (momentan nicht auf der AngularJS-Roadmap) - die Performance der App verbessert.
 
 #Controller
 
