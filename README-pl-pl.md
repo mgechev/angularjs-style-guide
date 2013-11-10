@@ -216,7 +216,7 @@ Powyższa zasada pomaga przede wszystkim w plikach, które są dłuższe i żeby
 * Jeżeli musisz formatować dane w jakikolwiek sposób, przenieś logikę do [filtra](#filtry) i zadeklaruj go, jako zależność dla danego kontrolera:
 
 ````javascript
-module.controller('myFormat', function () {
+module.filter('myFormat', function () {
   return function () {
     //...body
   };

@@ -221,7 +221,7 @@ AngularJS GitHub 위키에는 [ProLoser](https://github.com/ProLoser)가 작성�
 * [filter](#filters)에 데이터 포맷 로직이나 캡슐화가 필요한 경우에는 아래와 같이 의존선을 선언하시기 바랍니다.
 
 
-        module.controller('myFormat', function () {
+        module.filter('myFormat', function () {
           return function () {
             //body...
           };
