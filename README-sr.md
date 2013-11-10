@@ -218,7 +218,7 @@
 * Када је потребно да форматирате податке енкапсулирајте логику форматирања унутар [филтера](#филтери) и декларишите их као зависности:
 
 
-        module.controller('myFormat', function () {
+        module.filter('myFormat', function () {
           return function () {
             //body...
           };
