@@ -151,26 +151,26 @@ Konventionen über die Benennung der Komponenten können in jedem Abschnitt übe
 
 ## Sonstiges
 
-* Use:
-    * `$timeout` instead of `setTimeout`
-    * `$window` instead of `window`
-    * `$document` instead of `document`
-    * `$http` instead of `$.ajax`
+* Verwende:
+    * `$timeout` statt `setTimeout`
+    * `$window` statt `window`
+    * `$document` statt `document`
+    * `$http` statt `$.ajax`
 
-This will make your testing easier and in some cases prevent unexpected behaviour (for example, if you missed `$scope.$apply` in `setTimeout`).
+Dadurch werden deine Tests einfacher und in manchen Fällen wird einem unerwarteten Verhalten vorgebeugt (zum Beispiel wenn du ein `$scope.$apply` in `setTimeout` vergessen hast).
 
-* Automate your workflow using tools like:
+* Automatisiere deinen Workflow mit Tools wie:
     * [Yeoman](http://yeoman.io)
     * [Grunt](http://gruntjs.com)
     * [Bower](http://bower.io)
 
-* Use promises (`$q`) instead of callbacks. It will make your code look more elegant and clean, and save you from callback hell.
-* Use `$resource` instead of `$http` when possible. Higher level of abstraction saves you from redundancy.
-* Use an AngularJS pre-minifier (like [ngmin](https://github.com/btford/ngmin) or [ng-annotate](https://github.com/olov/ng-annotate)) for preventing problems after minification.
-* Don't use globals. Resolve all dependencies using Dependency Injection.
-* Do not pollute your `$scope`. Only add functions and variables that are being used in the templates.
-* Prefer the usage of [controllers instead of `ngInit`](https://github.com/angular/angular.js/pull/4366/files). The only appropriate use of `ngInit` is for aliasing special properties of `ngRepeat`. Besides this case, you should use controllers rather than `ngInit` to initialize values on a scope.
-* Do not use `$` prefix for the names of variables, properties and methods. This prefix is reserved for AngularJS usage.
+* Verwende Promises (`$q`) statt Callbacks. Dadurch sieht dein Code eleganter und sauberer aus, außerdem wirst du nicht in der Callback-Hölle landen.
+* Verwende, wenn möglich, `$resource` statt `$http`. Ein höheres Abstraktionslevel schützt dich vor Redundanz.
+* Verwende einen Angular Pre-Minifier (wie [ngmin](https://github.com/btford/ngmin) oder [ng-annotate](https://github.com/olov/ng-annotate)), um Probleme nach einer Minification zu vermeiden.
+* Verwende keine Globalen. Löse alle Abhängigkeiten durch Dependency Injection auf.
+* Mülle deinen `$scope` nicht zu. Füge ihm nur Funktionen und Variablen hinzu, die in den Templates verwendet werden.
+* Bevorzuge [Controller statt `ngInit`](https://github.com/angular/angular.js/pull/4366/files). `ngInit` ist nur geeignet, um Aliase für spezielle Eigenschaften von `ngRepeat` zu erstellen. Abgesehen davon solltest du immer Controller statt `ngInit` verwenden um Werte in einem Scope zu initialisieren.
+* Verwende kein `$` als Präfix für die Namen von Variablen, Eigenschaften oder Methoden. Dieser Präfix ist für AngularJS reserviert.
 
 #Module
 
