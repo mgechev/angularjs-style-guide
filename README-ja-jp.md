@@ -224,7 +224,7 @@ AngularJS を用いて作った大きなアプリケーションは複数のコ�
 * [filter](#filters)内に、データのフォーマットロジックを、カプセル化する必要がある場合、このように依存関係を宣言します:
 
 
-        module.controller('myFormat', function () {
+        module.filter('myFormat', function () {
           return function () {
             //body...
           };

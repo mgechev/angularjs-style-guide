@@ -207,7 +207,7 @@ Isso é especialmente aplicado a um arquivo que contenha muito código que se fa
 * Quando você precisar formatar dados, encapsule a lógica de formatação em um [filtro](#filtros) e declare isso como uma dependência:
 
 
-        module.controller('myFormat', function () {
+        module.filter('myFormat', function () {
           return function () {
             //body...
           };

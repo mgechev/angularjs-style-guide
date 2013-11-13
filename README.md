@@ -221,7 +221,7 @@ This especially applies to a file that has so much code that you'd need to scrol
 * When you need to format data encapsulate the formatting logic into a [filter](#filters) and declare it as dependency:
 
 
-        module.controller('myFormat', function () {
+        module.filter('myFormat', function () {
           return function () {
             //body...
           };

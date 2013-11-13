@@ -208,7 +208,7 @@
 * 制定一个通过 `$emit`, `$broadcast` 发送的消息列表并且仔细的管理以防命名冲突和bug。
 * 在需要格式化数据时将格式化逻辑封装成 [过滤器](#filters) 并将其声明为依赖：
 
-        module.controller('myFormat', function () {
+        module.filter('myFormat', function () {
           return function () {
             //body...
           };
