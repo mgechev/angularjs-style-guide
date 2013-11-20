@@ -21,9 +21,9 @@ Na stronach wiki projektu AngularJS na Githubie, istnieje podobna sekcja przygot
 
 # Spis treści
 * [Ogólne](#ogólne)
-	* [Struktura katalogów](#struktura-katalogów)
-	* [Optimize the digest cycle](#optimize-the-digest-cycle)
-	* [Inne](#inne)
+  * [Struktura katalogów](#struktura-katalogów)
+  * [Optymalizuj cykl `$digest`](#optymalizuj-cykl-digest)
+  * [Inne](#inne)
 * [Moduły](#moduły)
 * [Kontrolery](#kontrolery)
 * [Dyrektywy](#dyrektywy)
@@ -151,17 +151,17 @@ Konwencje nazewnicze komponentów można znaleźć w każdej sekcji dot. kompone
 ## Inne
 
 * Używaj:
-	* `$timeout` zamiast `setTimeout`,
-	* `$window` zamiast `window`,
-	* `$document` zamiast `document`,
-	* `$http` zamiast `$.ajax`
+  * `$timeout` zamiast `setTimeout`,
+  * `$window` zamiast `window`,
+  * `$document` zamiast `document`,
+  * `$http` zamiast `$.ajax`
 
 Dzięki temu, testowanie kodu będzie prostsze i w niektórych przypadkach, uchroni przed nieprzewidzianymi zachowaniami (przykład: gdy zapomniałeś/aś o `$scope.$apply` w `setTimeout`).
 
 * Zautomatyzuj swój cykl pracy używając narzędzi typu:
-	* [Yeoman](http://yeoman.io)
-	* [Grunt](http://gruntjs.com)
-	* [Bower](http://bower.io)
+  * [Yeoman](http://yeoman.io)
+  * [Grunt](http://gruntjs.com)
+  * [Bower](http://bower.io)
 
 * Używaj promises (`$q`) zamiast callbacków. Dzięki temu twój kod będzie bardziej czytelny i czystszy, oraz uchroni cię przed piekłem callbacków.
 * Używaj `$resource` zamiast `$http` kiedy to tylko możliwe. Wyższy poziom abstrakcji uchroni cię przed nadmiarem kodu.
@@ -180,7 +180,7 @@ Obecnie nie ma dużej różnicy, jednak pierwsze rozwiązanie jest czystsze. Dod
 
 # Kontrolery
 
-* Nie manipuluj DOMem wewnątrz kontrolerów. Używaj do tego celu dyrektyw.
+* Nie manipuluj DOMem wewnątrz kontrolerów, spowoduje to, że kontrolery będą trudniejsze w testowaniu oraz złamie [zasadę SoC](https://en.wikipedia.org/wiki/Separation_of_concerns). Używaj do tego celu dyrektyw.
 * Nazewnictwo kontrolerów bazuje na funkcjonalności kontrolera (np. koszyk, strona główna, panel administracyjny) oraz przyrostka `Ctrl`. Kontrolery powinny być nazywane UpperCamelCasem (`HomePageCtrl`, `ShoppingCartCtrl`, `AdminPanelCtrl`, itd.).
 * Kontrolery nie powinny być definiowane globalnie (mimo, że AngularJS na to pozwala, zanieczyszczanie globalnej przestrzeni nazw jest złą praktyką).
 * Używaj tablicy, aby zdefiniować kontrolery:
@@ -230,11 +230,19 @@ module.controller('MyCtrl', ['$scope', 'myFormatFilter', function ($scope, myFor
 # Dyrektywy
 
 * Nazywaj dyrektywy stosujać lowerCamelCase'a.
-* Używaj `scope` gamiest `$scope` wewnątrz funkcji `link`. In the compile, post/pre link functions you have already defined arguments which will be passed when the function is invoked, you won't be able to change them using DI. This style is also used in AngularJS's source code.
+* Używaj `scope` zamiast `$scope` wewnątrz funkcji `link`. Podczas kompilacji, `post`/`pre` łączy funkcje, które dotychczas zdefiniowałeś i argumenty zostaną przekazane, kiedy funkcja jest wywoływana. Argumenty te, nie mogą zostać zmienione używając Dependency Injection. Ta technika wykorzystywana jest również w kodzie źródłowym AngularJS.
 * Używaj własnych przedrostków dla swoich dyrektyw, aby uniknąć konfliktów z zewnętrznymi bibliotekami.
 * Nie używaj przedrostków `ng` oraz `ui`, ponieważ są one zarezerwowane jedynie dla AngularJS oraz AngularJS UI.
 * Manipulacja DOMem dozwolona jest jedynie poprzez dyrektywy.
 * Twórz odizolowany zakres, gdy tworzysz komponenty wielokrotnego użytku.
+* Używaj dyrektyw jako atrybuty lub elementy zamiast komentarzy i klas. Sprawi to, że kod będzie bardziej czytelny.
+* Używaj `$scope.$on('$destroy', fn)` do "sprzątania". Przydaje się to w szczególności, gdy opakowujesz zewnętrzną bibliotekę w dyrektywę.
+* Nie zapomnij użyć `$sce` w przypadku, gdy masz do czynienia z niezaufanymi treściami.
+
+# Filtry
+
+* Używaj lowerCamelCase'a do nazywania swoich filtrów.
+* Filtry powinny być tak proste, jak to tylko możliwe. Często są one wywoływane podczas pętli `$digest`, tak więc tworzenie filtrów, które działają wolno, spowolni działanie całej aplikacji.
 
 # Usługi
 
