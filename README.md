@@ -46,95 +46,103 @@ There are two main approaches:
 
 In this way the directory structure will look like:
 
-    .
-    ├── app
-    │   ├── app.js
-    │   ├── controllers
-    │   │   ├── page1
-    │   │   │   ├── FirstCtrl.js
-    │   │   │   └── SecondCtrl.js
-    │   │   └── page2
-    │   │       └── ThirdCtrl.js
-    │   ├── directives
-    │   │   ├── page1
-    │   │   │   └── directive1.js
-    │   │   └── page2
-    │   │       ├── directive2.js
-    │   │       └── directive3.js
-    │   ├── filters
-    │   │   ├── page1
-    │   │   └── page2
-    │   └── services
-    │       ├── CommonService.js
-    │       ├── cache
-    │       │   ├── Cache1.js
-    │       │   └── Cache2.js
-    │       └── models
-    │           ├── Model1.js
-    │           └── Model2.js
-    ├── lib
-    └── test
+```
+.
+├── app
+│   ├── app.js
+│   ├── controllers
+│   │   ├── page1
+│   │   │   ├── FirstCtrl.js
+│   │   │   └── SecondCtrl.js
+│   │   └── page2
+│   │       └── ThirdCtrl.js
+│   ├── directives
+│   │   ├── page1
+│   │   │   └── directive1.js
+│   │   └── page2
+│   │       ├── directive2.js
+│   │       └── directive3.js
+│   ├── filters
+│   │   ├── page1
+│   │   └── page2
+│   └── services
+│       ├── CommonService.js
+│       ├── cache
+│       │   ├── Cache1.js
+│       │   └── Cache2.js
+│       └── models
+│           ├── Model1.js
+│           └── Model2.js
+├── lib
+└── test
+```
 
 * Creating high level division by functionality and lower level division by component types.
 
 Here is its layout:
 
-    .
-    ├── app
-    │   ├── app.js
-    │   ├── common
-    │   │   ├── controllers
-    │   │   ├── directives
-    │   │   ├── filters
-    │   │   └── services
-    │   ├── page1
-    │   │   ├── controllers
-    │   │   │   ├── FirstCtrl.js
-    │   │   │   └── SecondCtrl.js
-    │   │   ├── directives
-    │   │   │   └── directive1.js
-    │   │   ├── filters
-    │   │   │   ├── filter1.js
-    │   │   │   └── filter2.js
-    │   │   └── services
-    │   │       ├── service1.js
-    │   │       └── service2.js
-    │   └── page2
-    │       ├── controllers
-    │       │   └── ThirdCtrl.js
-    │       ├── directives
-    │       │   ├── directive2.js
-    │       │   └── directive3.js
-    │       ├── filters
-    │       │   └── filter3.js
-    │       └── services
-    │           └── service3.js
-    ├── lib
-    └── test
+```
+.
+├── app
+│   ├── app.js
+│   ├── common
+│   │   ├── controllers
+│   │   ├── directives
+│   │   ├── filters
+│   │   └── services
+│   ├── page1
+│   │   ├── controllers
+│   │   │   ├── FirstCtrl.js
+│   │   │   └── SecondCtrl.js
+│   │   ├── directives
+│   │   │   └── directive1.js
+│   │   ├── filters
+│   │   │   ├── filter1.js
+│   │   │   └── filter2.js
+│   │   └── services
+│   │       ├── service1.js
+│   │       └── service2.js
+│   └── page2
+│       ├── controllers
+│       │   └── ThirdCtrl.js
+│       ├── directives
+│       │   ├── directive2.js
+│       │   └── directive3.js
+│       ├── filters
+│       │   └── filter3.js
+│       └── services
+│           └── service3.js
+├── lib
+└── test
+```
 
 * When creating directive it might be useful to put all the associated to the given directive files (i.e. templates, CSS/SASS files, JavaScript) in a single folder. If you choose to use this style be consistent and use it everywhere along your project.
 
-        app
-        └── directives
-            ├── directive1
-            │   ├── directive1.html
-            │   ├── directive1.js
-            │   └── directive1.sass
-            └── directive2
-                ├── directive2.html
-                ├── directive2.js
-                └── directive2.sass
+```
+app
+└── directives
+    ├── directive1
+    │   ├── directive1.html
+    │   ├── directive1.js
+    │   └── directive1.sass
+    └── directive2
+        ├── directive2.html
+        ├── directive2.js
+        └── directive2.sass
+```
 
 This approach can be combined with both directory structures above.
 * One more slight variation of both directory structures is the one used in [ng-boilerplate](http://joshdmiller.github.io/ng-boilerplate/#/home). In it the unit tests for given component are hold in the folder the component is located. This way when you make changes in given components it is easier to find their tests, the tests also act as documentation and show uses cases.
 
-        services
-        ├── cache
-        │   ├── cache1.js
-        │   └── cache1.spec.js
-        └── models
-            ├── model1.js
-            └── model1.spec.js
+```
+services
+├── cache
+│   ├── cache1.js
+│   └── cache1.spec.js
+└── models
+    ├── model1.js
+    └── model1.spec.js
+```
 
 * The `app.js` file contains routes definition, configuration and/or manual bootstrap (if required).
 * Each JavaScript file should only hold a single component. The file should be named with the component's name.
@@ -189,29 +197,29 @@ Currently there's not a big difference, but the first way looks cleaner. Also, i
 * Use array syntax for controller definitions:
 
 
-
-        module.controller('MyCtrl', ['dependency1', 'dependency2', ..., 'dependencyn', function (dependency1, dependency2, ..., dependencyn) {
-          //...body
-        }]);
+```JavaScript
+module.controller('MyCtrl', ['dependency1', 'dependency2', ..., 'dependencyn', function (dependency1, dependency2, ..., dependencyn) {
+  //...body
+}]);
+```
 
 
 Using this type of definition avoids problems with minification. You can automatically generate the array definition from standard one using tools like [ng-annotate](https://github.com/olov/ng-annotate) (and grunt task [grunt-ng-annotate](https://github.com/mzgol/grunt-ng-annotate)).
 * Use the original names of the controller's dependencies. This will help you produce more readable code:
 
-
-
-        module.controller('MyCtrl', ['$scope', function (s) {
-          //...body
-        }]);
-
+```JavaScript
+module.controller('MyCtrl', ['$scope', function (s) {
+  //...body
+}]);
+```
 
 is less readable than:
 
-
-        module.controller('MyCtrl', ['$scope', function ($scope) {
-          //...body
-        }]);
-
+```JavaScript
+module.controller('MyCtrl', ['$scope', function ($scope) {
+  //...body
+}]);
+```
 
 This especially applies to a file that has so much code that you'd need to scroll through. This would possibly cause you to forget which variable is tied to which dependency.
 
@@ -220,16 +228,17 @@ This especially applies to a file that has so much code that you'd need to scrol
 * Make a list of all messages which are passed using `$emit`, `$broadcast` and manage it carefully because of name collisions and possible bugs.
 * When you need to format data encapsulate the formatting logic into a [filter](#filters) and declare it as dependency:
 
+```JavaScript
+module.filter('myFormat', function () {
+  return function () {
+    //body...
+  };
+});
 
-        module.filter('myFormat', function () {
-          return function () {
-            //body...
-          };
-        });
-
-        module.controller('MyCtrl', ['$scope', 'myFormatFilter', function ($scope, myFormatFilter) {
-          //body...
-        }]);
+module.controller('MyCtrl', ['$scope', 'myFormatFilter', function ($scope, myFormatFilter) {
+  //body...
+}]);
+```
 
 #Directives
 
@@ -252,7 +261,29 @@ This especially applies to a file that has so much code that you'd need to scrol
 
 * Use camelCase (lower or upper) to name your services.
 * Encapsulate business logic in services.
-* Services encapsulating business logic are preferably a `service` instead of a `factory`
+* Services representing the domain preferably a `service` instead of a `factory`. In this way we can take advantage of the "klassical" inheritance easier:
+
+```JavaScript
+function Human() {
+  //body
+}
+Human.prototype.talk = function () {
+  return "I'm talking";
+};
+
+function Developer() {
+  //body
+}
+Developer.prototype = Object.create(Human.prototype);
+Developer.prototype.code = function () {
+  return "I'm codding";
+};
+
+myModule.service('Human', Human);
+myModule.service('Developer', Developer);
+
+```
+
 * For session-level cache you can use `$cacheFactory`. This should be used to cache results from requests or heavy computations.
 
 #Templates
@@ -262,14 +293,18 @@ This especially applies to a file that has so much code that you'd need to scrol
 * When you need to set the `src` of an image dynamically use `ng-src` instead of `src` with `{{}}` template.
 * Instead of using scope variable as string and using it with `style` attribute with `{{ }}`, use the directive `ng-style` with object-like parameters and scope variables as values:
 
-        ...
-        $scope.divStyle = {
-          width: 200,
-          position: relative
-        };
-        ...
+```HTML
+<script>
+...
+$scope.divStyle = {
+  width: 200,
+  position: relative
+};
+...
+</script>
 
-        <div ng-style="divStyle">my beautifully styled div which will work in IE</div>;
+<div ng-style="divStyle">my beautifully styled div which will work in IE</div>;
+```
 
 #Routing
 
