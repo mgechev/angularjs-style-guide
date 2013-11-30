@@ -1,30 +1,32 @@
 #Introduction
 
-Le but de ce style guide est de présenter un ensemble de meilleures pratiques et lignes directrices de style pour une application AngularJS.
+Ce guide est la traduction francaise de [AngularJS style guide](https://github.com/mgechev/angularjs-style-guide)
+
+Le but de ce style-guide est de présenter un ensemble de meilleures pratiques et lignes directrices pour une application AngularJS.
 Ces pratiques sont collectées à partir de:
 
-0. AngularJS code source
+0. Le code source d'AngularJS.
 0. Le code source ou des articles que j'ai lu
 0. Ma propre expérience
 
-** Note **: c'est encore un projet de guide de style, son principal objectif est d'être piloter par la collectivité, donc combler les lacunes sera grandement appréciée par l'ensemble de la communauté.
+** Note **: c'est encore un projet, son principal objectif est d'être piloter par les développements et développeurs AngularJS, donc combler les lacunes sera grandement appréciée par l'ensemble de la communauté.
 
-Dans ce guide de style que vous ne trouverez pas de lignes directrices communes pour le développement JavaScript. Tel que vous pouvez les trouver ici :
+Dans ce document, vous ne trouverez pas de lignes directrices communes pour le développement JavaScript. Tel que vous pouvez les trouver ici :
 
 0. [Google's JavaScript style guide](http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml)
 0. [Mozilla's JavaScript style guide](https://developer.mozilla.org/en-US/docs/Developer_Guide/Coding_Style)
 0. [GitHub's JavaScript style guide](https://github.com/styleguide/javascript)
 0. [Douglas Crockford's JavaScript style guide](http://javascript.crockford.com/code.html)
 
-Pour le développement de AngularJS, le guide recommandé est le [Google's JavaScript style guide](http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml).
+Pour le développement de AngularJS, le guide recommandé est [Google's JavaScript style guide](http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml).
 
-Dans le wiki Github d'AngularJS, il y a une section similaire de [ProLoser](https://github.com/ProLoser), vous pouvez la consulter ici [here](https://github.com/angular/angular.js/wiki).
+Dans le wiki Github d'AngularJS, il y a une section similaire de [ProLoser](https://github.com/ProLoser), vous pouvez la consulter [ici](https://github.com/angular/angular.js/wiki).
 
 #Table des matières
 * [General](#general)
-    * [Directory structure](#directory-structure)
-    * [Optimize the digest cycle](#optimize-the-digest-cycle)
-    * [Others](#others)
+    * [Arborescence](#directory-structure)
+    * [Optimiser le cycle de traitement](#optimize-the-digest-cycle)
+    * [Autres](#others)
 * [Modules](#modules)
 * [Controllers](#controllers)
 * [Directives](#directives)
@@ -37,7 +39,7 @@ Dans le wiki Github d'AngularJS, il y a une section similaire de [ProLoser](http
 
 #General
 
-## Directory structure
+## Arborescence
 
 Etant donné qu'une grande application AngularJS a beaucoup de composants, il est préférable de les structurer dans une hiérarchie de répertoires.
 Il existe deux approches principales:
@@ -79,7 +81,7 @@ De cette façon, la structure de répertoire va ressembler à :
 
 * Créer une division de haut niveau par fonctionnalité et de niveau inférieur par type de composants.
 
-Here is its layout:
+Ce qui donnera alors:
 
 ```
 .
@@ -116,7 +118,7 @@ Here is its layout:
 └── test
 ```
 
-* Lors de la création d'une directive, il pourrait être utile de mettre tous les fichiers associés (c.-à-modèles, CSS / fichiers SASS, JavaScript) dans un seul dossier. Si vous choisissez d'utiliser ce style d'arborescence, soyez cohérent et utilisez le partout dans votre projet.
+* Lors de la création d'une directive, il pourrait être utile de mettre tous les fichiers associés (Modèles, CSS / fichiers SASS, JavaScript) dans un seul dossier. Si vous choisissez d'utiliser ce style d'arborescence, soyez cohérent et utilisez le partout dans votre projet.
 
 ```
 app
@@ -132,7 +134,8 @@ app
 ```
 
 Cette approche peut être combinée avec les deux structures de répertoires ci-dessus.
-* Une plus légère variation de deux structures de répertoires est celui utilisé dans [ng-boilerplate] (http://joshdmiller.github.io/ng-boilerplate/ # / home). Dans ce mode, les tests unitaires pour un composant donné sont en attente dans le dossier du composant. De cette façon, lorsque vous effectuez des modifications dans les composants, il est plus facile de trouver leurs tests. Les tests servent également de documentation et cas d'exemple.
+
+* Une plus légère variation de structures de répertoires est celle utilisée dans [ng-boilerplate](http://joshdmiller.github.io/ng-boilerplate/#/home). Dans ce mode, les tests unitaires pour un composant donné sont en attente dans le dossier du composant. De cette façon, lorsque vous effectuez des modifications dans les composants, il est plus facile de trouver leurs tests. Les tests servent également de documentation et de cas d'exemple.
 
 ```
 services
@@ -144,20 +147,20 @@ services
     └── model1.spec.js
 ```
 
-* Le fichier `app.js` contient les définitions de route, la configuration et / ou l'amorçage manuel (si nécessaire).
+* Le fichier `app.js` contient les définitions de route, la configuration et/ou l'amorçage manuel (si nécessaire).
 * Chaque fichier JavaScript doit contenir un seul composant. Le fichier doit être nommé avec le nom du composant.
-* Utilisez un modèle de structure de projet Angular comme [Yeoman] (http://yeoman.io), [ng-boilerplate] (http://joshdmiller.github.io/ng-boilerplate/ # / home).
+* Utilisez un modèle de structure de projet pour Angular comme [Yeoman](http://yeoman.io), [ng-boilerplate](http://joshdmiller.github.io/ng-boilerplate/#/home).
 
 Je préfère la première structure, car il rend les composants communs faciles à trouver.
 
 les conventions sur le nommage des composants peuvent être trouvés dans chaque section des composants.
 
-## Optimize the digest cycle
+## Optimiser le cycle de traitement
 
-* Surveiller (watch) seulement les variables les plus importantes (par exemple: lors de l'utilisation de communication en temps réel, ne pas provoquer une boucle dans chaque message reçu).
-* Faire des calculs dans `$watch` aussi simple que possible. Faire des calculs lourds et lents dans un seul `$watch` va ralentir l'ensemble de l'application (le $digest loop se fait dans un seul thread en raison de la nature mono-thread de JavaScript).
+* Surveiller ($watch) seulement les variables les plus importantes (par exemple: lors de l'utilisation de communication en temps réel, ne pas provoquer une boucle dans chaque message reçu).
+* Faire les calculs dans `$watch` aussi simple que possible. Faire des calculs lourds et lents dans un seul `$watch` va ralentir l'ensemble de l'application (la boucle $digest se fait dans un seul thread en raison de la nature mono-thread de JavaScript).
 
-# # Autres
+## Autres
 
 * Utilisation:
     * `$timeout` au lieu de `setTimeout`
@@ -165,48 +168,45 @@ les conventions sur le nommage des composants peuvent être trouvés dans chaque
     * `$document` au lieu de `document`
     * `$http` au lieu de `$.ajax`
 
-Cela rendra vos tests plus facile et, dans certains cas, évitera les comportements inattendus (par exemple, si vous avez manqué `$scope.$apply` dans `setTimeout`).
+Cela rendra vos tests plus facile et, dans certains cas, évitera les comportements inattendus (par exemple, si vous avez oublié `$scope.$apply` dans `setTimeout`).
 
 * Automatisez votre flux de travail en utilisant des outils comme:
-     * [Yeoman] (http://yeoman.io)
-     * [Grunt] (http://gruntjs.com)
-     * [Bower] (http://bower.io)
-	 * [Component] (http://component.io)
+     * [Yeoman](http://yeoman.io)
+     * [Grunt](http://gruntjs.com)
+     * [Bower](http://bower.io)
+	 * [Component](http://component.io)
 
-* Utilisez des promises ( `$q` ) au lieu de rappels(callback). Il rendra votre code plus élégant, propre et simple à regarder, et vous sauvera de l'enfer des callbacks.
-* Utilisez `$resource` au lieu de `$http` si possible. Un niveau d'abstraction plus élevé vous permet d'économiser de la redondance.
-* Utilisez un pré- minifier AngularJS ( comme [ngmin] (https://github.com/btford/ngmin) ou [ng_annote] (https://github.com/olov/ng-annotate) ) pour la prévention des problèmes après minification .
+* Utilisez des promises (`$q`) au lieu de rappels(callback). Il rendra votre code plus élégant, propre et simple à regarder, et vous sauvera de l'enfer des callbacks.
+* Utilisez `$resource` au lieu de `$http` quand cela est possible. Un niveau d'abstraction plus élevé vous permet d'économiser de la redondance.
+* Utilisez un pré-minifier AngularJS (comme [ngmin](https://github.com/btford/ngmin) ou [ng_annote](https://github.com/olov/ng-annotate)) pour la prévention des problèmes après minification.
 * Ne pas utiliser de globales. Résoudre toutes les dépendances en utilisant l'injection de dépendances.
 * Ne pas polluer votre portée `$scope`. Ajouter uniquement des fonctions et des variables qui sont utilisés dans les modèles.
-* Préférer l'utilisation de [ contrôleurs au lieu de `ngInit`] (https://github.com/angular/angular.js/pull/4366/files). La seule utilisation appropriée de `ngInit` est pour initialiser des propriétés particulières de `ngRepeat`. Outre ce cas, vous devez utiliser les contrôleurs plutôt que `ngInit` pour initialiser les valeurs sur une portée.
+* Préférer l'utilisation de contrôleurs au lieu de [`ngInit`](https://github.com/angular/angular.js/pull/4366/files). La seule utilisation appropriée de `ngInit` est pour initialiser des propriétés particulières de `ngRepeat`. Outre ce cas, vous devez utiliser les contrôleurs plutôt que `ngInit` pour initialiser les valeurs sur une portée.
 * Ne pas utiliser le prefixe `$` pour les noms de variables, les propriétés et les méthodes. Ce préfixe est réservé pour un usage de AngularJS.
 
 #Modules
 
-There are two common ways for structuring the modules:
+Il ya deux façons communes pour structurer les modules:
 
-0. By functionality
-0. By component type
+0. Par fonctionnalité
+0. Par type de composant
 
-Currently there's not a big difference, but the first way looks cleaner. Also, if lazy-loading modules is implemented (currently not in the AngularJS roadmap), it will improve the app's performance.
+Actuellement il n'y a pas une grande différence, mais la première méthode semble plus propre. En outre, si le chargement de modules en lazy-loading est mis en œuvre (pas dans la feuille de route AngularJS), il permettra d'améliorer la performance de l'application.
 
 #Controllers
 
-* Do not manipulate DOM in your controllers, this will make your controllers harder for testing and will violate the [Separation of Concerns principle](https://en.wikipedia.org/wiki/Separation_of_concerns). Use directives instead.
-* The naming of the controller is done using the controller's functionality (for example shopping cart, homepage, admin panel) and the substring `Ctrl` in the end. The controllers are named UpperCamelCase (`HomePageCtrl`, `ShoppingCartCtrl`, `AdminPanelCtrl`, etc.).
-* The controllers should not be defined as globals (no matter AngularJS allows this, it is a bad practice to pollute the global namespace).
-* Use array syntax for controller definitions:
-
+* Ne pas manipuler le DOM dans vos contrôleurs. Cela rendrait vos contrôleurs plus difficile pour les tests et viole le [Principe de séparation des couches] (https://en.wikipedia.org/wiki/Separation_of_concerns). Utilisez des directives à la place.
+* La désignation du contrôleur se fait en utilisant la fonctionnalité du contrôleur (par exemple panier, page d'accueil, panneau d'administration) ave la chaîne `Ctrl` à la fin. Les contrôleurs sont nommés en UpperCamelCase (`HomePageCtrl`, `ShoppingCartCtrl`, `AdminPanelCtrl`, etc.)
+* Les contrôleurs ne doivent pas être définis comme globales (aucune méthode AngularJS ne le permet, c'est une mauvaise pratique qui va polluer l'espace de noms global).
+* Utilisez la syntaxe de tableau pour les définitions de contrôleur:
 
 ```JavaScript
 module.controller('MyCtrl', ['dependency1', 'dependency2', ..., 'dependencyn', function (dependency1, dependency2, ..., dependencyn) {
   //...body
 }]);
 ```
-
-
-Using this type of definition avoids problems with minification. You can automatically generate the array definition from standard one using tools like [ng-annotate](https://github.com/olov/ng-annotate) (and grunt task [grunt-ng-annotate](https://github.com/mzgol/grunt-ng-annotate)).
-* Use the original names of the controller's dependencies. This will help you produce more readable code:
+L'utilisation de ce type de définition évite les problèmes avec minification. Vous pouvez générer automatiquement la définition du champ à l'aide des outils comme [ng-annotate](https://github.com/olov/ng-annotate) et tâche grunt [grunt-ng-annotate](https://github.com/mzgol/grunt-ng-annotate)).
+* Utilisez les noms d'origine des dépendances du contrôleur. Cela vous aidera à produire un code plus lisible:
 
 ```JavaScript
 module.controller('MyCtrl', ['$scope', function (s) {
@@ -214,7 +214,7 @@ module.controller('MyCtrl', ['$scope', function (s) {
 }]);
 ```
 
-is less readable than:
+est moins lisible que : 
 
 ```JavaScript
 module.controller('MyCtrl', ['$scope', function ($scope) {
@@ -222,12 +222,12 @@ module.controller('MyCtrl', ['$scope', function ($scope) {
 }]);
 ```
 
-This especially applies to a file that has so much code that you'd need to scroll through. This would possibly cause you to forget which variable is tied to which dependency.
+Cela s'applique en particulier à un fichier qui a tellement de code que vous aurez besoin de scroller pour faire défiler. Cela peut vous faire oublier la variable qui est lié à la dépendance.
 
-* Make the controllers as lean as possible. Abstract commonly used functions into a service.
-* Communicate within different controllers using method invocation (possible when children wants to communicate with parent) or `$emit`, `$broadcast` and `$on` methods. The emitted and broadcasted messages should be kept to a minimum.
-* Make a list of all messages which are passed using `$emit`, `$broadcast` and manage it carefully because of name collisions and possible bugs.
-* When you need to format data encapsulate the formatting logic into a [filter](#filters) and declare it as dependency:
+* Faire les contrôleurs aussi mince que possible. Eviter les fonctions abstraites couramment utilisées dans un service.
+* Communiquer entre les différents contrôleurs en utilisant la méthode invocation (possible lorsque les enfants veulent communiquer avec un parent) ou `$emit`, `$broadcast` et `$on`. Les messages émis et diffusés doivent être réduites au minimum.
+* Faites une liste de tous les messages qui sont transmis en utilisant `$emit`, `$broadcast` et gérez les avec précaution car des conflits de noms sont possibles et sources d'éventuels bugs.
+* Si vous devez formater les données alors encapsulez la logique de mise en forme dans un [filter](#filters) et déclarez-le comme dépendance:
 
 ```JavaScript
 module.filter('myFormat', function () {
@@ -243,26 +243,26 @@ module.controller('MyCtrl', ['$scope', 'myFormatFilter', function ($scope, myFor
 
 #Directives
 
-* Name your directives with lowerCamelCase
-* Use `scope` instead of `$scope` in your link function. In the compile, post/pre link functions you have already defined arguments which will be passed when the function is invoked, you won't be able to change them using DI. This style is also used in AngularJS's source code.
-* Use custom prefixes for your directives to prevent name collisions with third-party libraries.
-* Do not use `ng` or `ui` prefixes since they are reserved for AngularJS and AngularJS UI usage.
-* DOM manipulations must be done only through directives.
-* Create an isolated scope when you develop reusable components.
-* Use directives as attributes or elements instead of comments or classes, this will make your code more readable.
-* Use `$scope.$on('$destroy', fn)` for cleaning up. This is especially useful when you're wrapping third-party plugins as directives.
-* Do not forget to use `$sce` when you should deal with untrusted content.
+* Nommez vos directives en lowerCamelCase
+* Utilisez `scope` au lieu de `$scope` dans votre fonction de lien. Dans la compilation, les fonctions de liaison pré/post compilation, vous avez déjà les arguments qui sont passés lorsque la fonction est appelée, vous ne serez pas en mesure de les modifier à l'aide de DI. Ce style est également utilisé dans le code source de AngularJS.
+* Utilisez les préfixes personnalisés pour vos directives pour éviter les collisions de noms de bibliothèques tierces.
+* Ne pas utiliser `ng​​` ou `ui` comme préfixe car ils sont réservés pour AngularJS et l'utilisation de AngularJS UI.
+* Les manipulations du DOM doivent être effectués uniquement avec des directives.
+* Créer un scope isolé lorsque vous développez des composants réutilisables.
+* Utilisez des directives comme des attributs ou des éléments au lieu de commentaires ou de classes, cela va rendre le code plus lisible.
+* Utilisez `$scope.$on('$destroy, fn)` pour le nettoyage de vos objects/variables. Ceci est particulièrement utile lorsque vous utilisez des plugins tiers comme directives.
+* Ne pas oublier d'utiliser `$sce` lorsque vous devez faire face à un contenu non approuvé.
 
 #Filters
 
-* Name your filters with lowerCamelCase
-* Make your filters as light as possible. They are called often during the `$digest` loop so creating a slow filter will slow down your app.
+* Nommez vos filtres en lowerCamelCase
+* Faites vos filtres aussi léger que possible. Ils sont souvent appelés lors de la boucle `$digest` donc créer un filtre lent va ralentir votre application.
 
 #Services
 
-* Use camelCase (lower or upper) to name your services.
-* Encapsulate business logic in services.
-* Services representing the domain preferably a `service` instead of a `factory`. In this way we can take advantage of the "klassical" inheritance easier:
+* Utilisez camelCase (inférieure ou supérieure) pour nommer vos services.
+* Encapsuler la logique métier dans des services.
+* Les services sont préférables à une `factory`. De cette façon, nous pouvons profiter de l'héritage "classice" plus facilement
 
 ```JavaScript
 function Human() {
@@ -285,14 +285,14 @@ myModule.service('Developer', Developer);
 
 ```
 
-* For session-level cache you can use `$cacheFactory`. This should be used to cache results from requests or heavy computations.
+* Pour un cache au niveau de la session, utilisez `$cacheFactory`. Cela doit être utilisé pour mettre en cache les résultats des requêtes ou des calculs lourds.
 
 #Templates
 
-* Use `ng-bind` or `ng-cloak` instead of simple `{{ }}` to prevent flashing content.
-* Avoid writing complex code in the template.
-* When you need to set the `src` of an image dynamically use `ng-src` instead of `src` with `{{}}` template.
-* Instead of using scope variable as string and using it with `style` attribute with `{{ }}`, use the directive `ng-style` with object-like parameters and scope variables as values:
+* Utilisez `ng-bind` ou `ng-cloak` au lieu de simples `{{ }}` pour prévenir les collisions de contenus
+* Eviter d'écrire du code complexe dans les modèles
+* Quand vous avez besoin de définir le `src` d'une image dynamiquement, utilisez `ng-src` au lieu de  `src` avec `{{}}` dans le modèle. Ceci pour permettre un refresh dynamique ? (NLDT)
+* Au lieu d'utiliser la variable $scope en tant que chaîne et de l'utiliser avec l'atribut  `style` et `{{}}`, utilisez la directive `ng-style` avec les paramètres de l'objet comme et les variables de scope comme valeurs:
 
 ```HTML
 <script>
@@ -309,7 +309,7 @@ $scope.divStyle = {
 
 #Routing
 
-* Use `resolve` to resolve dependencies before the view is shown.
+* Utilisez `resolve` pour résoudre les dépendances avant que la vue ne soit affichée.
 
 #Testing
 
@@ -317,5 +317,5 @@ TBD
 
 #Contribution
 
-Since the goal of this style guide is to be community-driven, contributions are greatly appriciated.
-For example, you can contribute by extending the Testing section or by translating the style guide to your language.
+Puisque le but de ce guide est d'être axé sur la communauté, les contributions sont grandement appréciées.
+Par exemple, vous pouvez contribuer par l'extension de la section de contrôle ou par la traduction du guide de style à votre langue.
