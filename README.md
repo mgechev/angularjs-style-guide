@@ -163,6 +163,7 @@ Conventions about components naming can be found in each component section.
 
 * Use:
     * `$timeout` instead of `setTimeout`
+    * `$interval` instead of `setInterval`
     * `$window` instead of `window`
     * `$document` instead of `document`
     * `$http` instead of `$.ajax`
