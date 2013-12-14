@@ -43,7 +43,7 @@ In AngularJS's GitHub wiki there is a similar section by [ProLoser](https://gith
 Since a large AngularJS application has many components it's best to structure them in a directory hierarchy.
 There are two main approaches:
 
-* Creating high level division by component types and lower level division by functionality.
+* Creating high-level divisions by component types and lower-level divisions by functionality.
 
 In this way the directory structure will look like:
 
@@ -78,7 +78,7 @@ In this way the directory structure will look like:
 └── test
 ```
 
-* Creating high level division by functionality and lower level division by component types.
+* Creating high-level divisions by functionality and lower-level divisions by component types.
 
 Here is its layout:
 
@@ -117,7 +117,7 @@ Here is its layout:
 └── test
 ```
 
-* When creating directive it might be useful to put all the associated to the given directive files (i.e. templates, CSS/SASS files, JavaScript) in a single folder. If you choose to use this style be consistent and use it everywhere along your project.
+* When creating directives it may be useful to put all the files associated with the given directive files (i.e. templates, CSS/SASS files, JavaScript) in a single folder. If you choose to use this style be consistent and use it everywhere along your project.
 
 ```
 app
@@ -133,7 +133,7 @@ app
 ```
 
 This approach can be combined with both directory structures above.
-* One more slight variation of both directory structures is the one used in [ng-boilerplate](http://joshdmiller.github.io/ng-boilerplate/#/home). In it the unit tests for given component are hold in the folder the component is located. This way when you make changes in given components it is easier to find their tests, the tests also act as documentation and show uses cases.
+* One more slight variation of both directory structures is the one used in [ng-boilerplate](http://joshdmiller.github.io/ng-boilerplate/#/home). In it, the unit tests for a given component are put in the folder where the component is located. This way when you make changes to a given component finding its test is easy. The tests also act as documentation and show uses cases.
 
 ```
 services
@@ -145,13 +145,13 @@ services
     └── model1.spec.js
 ```
 
-* The `app.js` file contains routes definition, configuration and/or manual bootstrap (if required).
+* The `app.js` file contains route definitions, configuration and/or manual bootstrap (if required).
 * Each JavaScript file should only hold a single component. The file should be named with the component's name.
 * Use Angular project structure template like [Yeoman](http://yeoman.io), [ng-boilerplate](http://joshdmiller.github.io/ng-boilerplate/#/home).
 
-I prefer the first structure because it makes the common components easier to find.
+I prefer the first structure because it makes common components easier to find.
 
-Conventions about components naming can be found in each component section.
+Conventions about component naming can be found in each component section.
 
 ## Optimize the digest cycle
 
@@ -176,7 +176,7 @@ This will make your testing easier and in some cases prevent unexpected behaviou
     * [Bower](http://bower.io)
 
 * Use promises (`$q`) instead of callbacks. It will make your code look more elegant and clean, and save you from callback hell.
-* Use `$resource` instead of `$http` when possible. Higher level of abstraction saves you from redundancy.
+* Use `$resource` instead of `$http` when possible. The higher level of abstraction will save you from redundancy.
 * Use an AngularJS pre-minifier (like [ngmin](https://github.com/btford/ngmin) or [ng-annotate](https://github.com/olov/ng-annotate)) for preventing problems after minification.
 * Don't use globals. Resolve all dependencies using Dependency Injection.
 * Do not pollute your `$scope`. Only add functions and variables that are being used in the templates.
@@ -279,7 +279,7 @@ function Developer() {
 }
 Developer.prototype = Object.create(Human.prototype);
 Developer.prototype.code = function () {
-  return "I'm codding";
+  return "I'm coding";
 };
 
 myModule.service('Human', Human);
