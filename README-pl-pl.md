@@ -261,7 +261,7 @@ module.controller('MyCtrl', ['$scope', 'myFormatFilter', function ($scope, myFor
 ````javascript
 $scope.divStyle = {
   width: 200;
-  position: relative;
+  position: 'relative';
 }
 ````
 ````html
