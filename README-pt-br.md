@@ -140,6 +140,7 @@ Convenções sobre nomeação de componentes podem ser achadas em cada seção d
 
 * Use:
     * `$timeout` ao invés de `setTimeout`
+    * `$interval` ao invés de `setInterval`
     * `$window` ao invés de `window`
     * `$document` ao invés de `document`
     * `$http` ao invés de `$.ajax`
