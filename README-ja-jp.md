@@ -265,7 +265,7 @@ AngularJS を用いて作った大きなアプリケーションは複数のコ�
         ...
         $scope.divStyle = {
           width: 200,
-          position: relative
+          position: 'relative'
         };
         ...
 
