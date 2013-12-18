@@ -308,7 +308,7 @@ $scope.divStyle = {
 
 #Routing
 
-* Use `resolve` to resolve dependencies before the view is shown.
+* Verwende `resolve` um Abhängigkeiten aufzulösen bevor die View angezeigt wird.
 
 #Testen
 
