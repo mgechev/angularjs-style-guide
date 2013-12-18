@@ -135,13 +135,15 @@ app
 Dieser Ansatz kann mit beiden der oben genannten Verzeichnisstrukturen kombiniert werden.
 * Eine weitere kleine Variation der beiden Verzeichnisstrukturen ist die, die in [ng-boilerplate](http://joshdmiller.github.io/ng-boilerplate/#/home) eingesetzt wird. In dieser werden die Unit Tests zu einer Komponente im Verzeichnis der Komponente vorgehalten. Wenn Änderungen an einer Komponente vorgenommen werden, ist es auf diese Weise einfacher, ihre Tests zu finden; außerdem dienen die Tests als Dokumentation und zeigen Use Cases auf.
 
-        services
-        ├── cache
-        │   ├── cache1.js
-        │   └── cache1.spec.js
-        └── models
-            ├── model1.js
-            └── model1.spec.js
+```
+services
+├── cache
+│   ├── cache1.js
+│   └── cache1.spec.js
+└── models
+    ├── model1.js
+    └── model1.spec.js
+```
 
 * Die `app.js`-Datei enthält die Routendefinitionen, die Konfiguration und/oder das manuelle Bootstrapping (falls benötigt).
 * Jede JavaScript-Datei sollte nur eine einzige Komponente enthalten. Die Datei sollte nach dem Namen der Komponente benannt sein.
@@ -197,17 +199,14 @@ Derzeit gibt es keinen großen Unterschied, aber die erste Variante sieht sauber
 * The controllers should not be defined as globals (no matter AngularJS allows this, it is a bad practice to pollute the global namespace).
 * Use array syntax for controller definitions:
 
-
 ```Javascript
 module.controller('MyCtrl', ['dependency1', 'dependency2', ..., 'dependencyn', function (dependency1, dependency2, ..., dependencyn) {
   //...body
 }]);
 ```
 
-
 Using this type of definition avoids problems with minification. You can automatically generate the array definition from standard one using tools like [ng-annotate](https://github.com/olov/ng-annotate) (and grunt task [grunt-ng-annotate](https://github.com/mzgol/grunt-ng-annotate)).
 * Use the original names of the controller's dependencies. This will help you produce more readable code:
-
 
 ```Javascript
 module.controller('MyCtrl', ['$scope', function (s) {
@@ -215,16 +214,13 @@ module.controller('MyCtrl', ['$scope', function (s) {
 }]);
 ```
 
-
 is less readable than:
-
 
 ```Javascript
 module.controller('MyCtrl', ['$scope', function ($scope) {
   //...body
 }]);
 ```
-
 
 This especially applies to a file that has so much code that you'd need to scroll through. This would possibly cause you to forget which variable is tied to which dependency.
 
