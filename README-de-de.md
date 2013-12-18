@@ -316,5 +316,5 @@ TBD
 
 #Mitmachen
 
-Since the goal of this style guide is to be community-driven, contributions are greatly appriciated.
-For example, you can contribute by extending the Testing section or by translating the style guide to your language.
+Da dieser Style Guide gemeinschaftlich durch die Community erstellt werden soll, sind Beiträge willkommen.
+Zum Beispiel kannst du etwas beitragen, indem du den Abschnitt über Tests erweiterst oder den Style Guide in deine Sprache übersetzt.
