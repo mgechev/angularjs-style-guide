@@ -288,10 +288,10 @@ myModule.service('Developer', Developer);
 
 #Templates
 
-* Use `ng-bind` or `ng-cloak` instead of simple `{{ }}` to prevent flashing content.
-* Avoid writing complex code in the template.
-* When you need to set the `src` of an image dynamically use `ng-src` instead of `src` with `{{}}` template.
-* Instead of using scope variable as string and using it with `style` attribute with `{{ }}`, use the directive `ng-style` with object-like parameters and scope variables as values:
+* Verwende `ng-bind` oder `ng-cloak` statt einfachen `{{ }}`, um flackernde Inhalte zu vermeiden.
+* Vermeide es, komplexen Code in ein Template zu schreiben.
+* Wenn das `src`-Attribut eines Bilds dynamisch gesetzt werden soll, verwende `ng-src` statt `src` mit einem `{{ }}`-Template.
+* Statt in Scopevariablen Strings anzugeben und diese in einem `style`-Attribut mit `{{ }}` zu verwenden, benutze die `ng-style`-Direktive, der als Parameter objektartige Strings und Scopevariablen übergeben werden können:
 
 ```HTML
 <script>
@@ -303,7 +303,7 @@ $scope.divStyle = {
 ...
 </script>
 
-<div ng-style="divStyle">my beautifully styled div which will work in IE</div>;
+<div ng-style="divStyle">mein wunderschön gestyltes div, das auch im IE funktioniert</div>;
 ```
 
 #Routing
