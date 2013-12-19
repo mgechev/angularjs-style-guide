@@ -258,7 +258,7 @@ Esto se aplica especialmente en archivos en los que hay mucho código y tengas h
         ...
         $scope.divStyle = {
           width: 200,
-          position: relative
+          position: 'relative'
         };
         ...
 

@@ -259,7 +259,7 @@ Ovo je posebno primenjivo na datoteku koja ima toliko koda da ćete morati da se
         ...
         $scope.divStyle = {
           width: 200,
-          position: relative
+          position: 'relative'
         };
         ...
 

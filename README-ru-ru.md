@@ -257,7 +257,7 @@
         ...
         $scope.divStyle = {
           width: 200,
-          position: relative
+          position: 'relative'
         };
         ...
 
