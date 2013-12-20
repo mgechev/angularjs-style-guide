@@ -260,9 +260,9 @@ module.controller('MyCtrl', ['$scope', 'myFormatFilter', function ($scope, myFor
 
 #Services
 
-* Use camelCase (lower or upper) to name your services.
-* Encapsulate business logic in services.
-* Services representing the domain preferably a `service` instead of a `factory`. In this way we can take advantage of the "klassical" inheritance easier:
+* Benenne deine Services in (lower oder upper) camelCase.
+* Kapsle Anwendungslogik in Services.
+* Services, die eine bestimmte Domäne abbilden, sollten vorzugsweise als `service` statt als `factory` geschrieben werden. Auf diese Weise können die Vorteile der klassischen Vererbung einfacher genutzt werden:
 
 ```JavaScript
 function Human() {
@@ -284,7 +284,7 @@ myModule.service('Human', Human);
 myModule.service('Developer', Developer);
 ```
 
-* For session-level cache you can use `$cacheFactory`. This should be used to cache results from requests or heavy computations.
+* Für einen sitzungsbezogenen Cache kannst du `$cacheFactory` verwenden. Diesen solltest du nutzen, um die Ergebnisse von Anfragen oder aufwändigen Berechnungen zwischenzuspeichern.
 
 #Templates
 
