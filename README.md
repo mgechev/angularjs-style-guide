@@ -321,3 +321,7 @@ TBD
 
 Since the goal of this style guide is to be community-driven, contributions are greatly appriciated.
 For example, you can contribute by extending the Testing section or by translating the style guide to your language.
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/mgechev/angularjs-style-guide/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
