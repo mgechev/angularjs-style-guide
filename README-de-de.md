@@ -255,8 +255,8 @@ module.controller('MyCtrl', ['$scope', 'myFormatFilter', function ($scope, myFor
 
 #Filter
 
-* Name your filters with lowerCamelCase
-* Make your filters as light as possible. They are called often during the `$digest` loop so creating a slow filter will slow down your app.
+* Benenne deine Filter in lowerCamelCase.
+* Halte deine Filter so schlank wie möglich. Durch die `$digest`-Schleife werden sie häufig aufgerufen, so dass langsame Filter die gesamte Anwendung verlangsamen.
 
 #Services
 
