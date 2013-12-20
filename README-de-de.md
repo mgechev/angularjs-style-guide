@@ -194,10 +194,10 @@ Derzeit gibt es keinen großen Unterschied, aber die erste Variante sieht sauber
 
 #Controller
 
-* Do not manipulate DOM in your controllers, this will make your controllers harder for testing and will violate the [Separation of Concerns principle](https://en.wikipedia.org/wiki/Separation_of_concerns). Use directives instead.
-* The naming of the controller is done using the controller's functionality (for example shopping cart, homepage, admin panel) and the substring `Ctrl` in the end. The controllers are named UpperCamelCase (`HomePageCtrl`, `ShoppingCartCtrl`, `AdminPanelCtrl`, etc.).
-* The controllers should not be defined as globals (no matter AngularJS allows this, it is a bad practice to pollute the global namespace).
-* Use array syntax for controller definitions:
+* Du solltest den DOM nicht aus deinen Controllern heraus manipulieren, dadurch wird das Testen der Controller erschwert und du verstößt gegen das [Prinzip der Separation of Concerns](https://en.wikipedia.org/wiki/Separation_of_concerns). Verwende stattdessen Direktiven.
+* Controller sollen nach ihrer Funktion (zum Beispiel shopping cart, homepage, admin panel) und dem Suffix `Ctrl` benannt werden. Controller werden in UpperCamelCase benannt (`HomePageCtrl`, `ShoppingCartCtrl`, `AdminPanelCtrl` usw.).
+* Controller sollten nicht als Globale definiert werden (AngularJS erlaubt das zwar, es ist jedoch schlechte Praxis den globalen Namensraum zu verschmutzen).
+* Verwende für Controller-Definitionen die Array-Syntax:
 
 ```Javascript
 module.controller('MyCtrl', ['dependency1', 'dependency2', ..., 'dependencyn', function (dependency1, dependency2, ..., dependencyn) {
@@ -205,39 +205,39 @@ module.controller('MyCtrl', ['dependency1', 'dependency2', ..., 'dependencyn', f
 }]);
 ```
 
-Using this type of definition avoids problems with minification. You can automatically generate the array definition from standard one using tools like [ng-annotate](https://github.com/olov/ng-annotate) (and grunt task [grunt-ng-annotate](https://github.com/mzgol/grunt-ng-annotate)).
-* Use the original names of the controller's dependencies. This will help you produce more readable code:
+Durch die Verwendung dieses Definitionstyps werden Probleme bei der Minification vermieden. Die Array-Definition kann aus der Standardnotation automatisch generiert werden, indem Werkzeuge wie [ng-annotate](https://github.com/olov/ng-annotate) (und der Grunt-Task [grunt-ng-annotate](https://github.com/mzgol/grunt-ng-annotate)) verwendet werden.
+* Verwende die Originalnamen der im Controller verwendeten Abhängigkeiten. Dies hilft dir dabei, lesbareren Code zu schreiben:
 
 ```Javascript
 module.controller('MyCtrl', ['$scope', function (s) {
-  //...body
+  // body
 }]);
 ```
 
-is less readable than:
+ist schlechter lesbar als:
 
 ```Javascript
 module.controller('MyCtrl', ['$scope', function ($scope) {
-  //...body
+  // body
 }]);
 ```
 
-This especially applies to a file that has so much code that you'd need to scroll through. This would possibly cause you to forget which variable is tied to which dependency.
+Das gilt insbesondere für Dateien, die so viel Code enthalten, dass gescrollt werden muss. Dadurch vergisst du möglicherweise welche Variable zu welcher Abhängigkeit gehört.
 
-* Make the controllers as lean as possible. Abstract commonly used functions into a service.
-* Communicate within different controllers using method invocation (possible when children wants to communicate with parent) or `$emit`, `$broadcast` and `$on` methods. The emitted and broadcasted messages should be kept to a minimum.
-* Make a list of all messages which are passed using `$emit`, `$broadcast` and manage it carefully because of name collisions and possible bugs.
-* When you need to format data encapsulate the formatting logic into a [filter](#filters) and declare it as dependency:
+* Halte Controller so schlank wie möglich und lagere mehrfach verwendete Funktionen in Services aus.
+* Kommuniziere zwischen verschiedenen Controllern indem du Method Invocation nutzt (das ist möglich wenn ein Kindcontroller mit seinem Elterncontroller kommunizieren möchte) oder die `$emit`-, `$broadcast`- und `$on`-Methoden verwendest. Über `$emit` und `$broadcast` gesendete Nachrichten sollten auf ein Minimum reduziert werden.
+* Erstelle eine Liste aller Nachrichten, die über `$emit` und `$broadcast` verschickt werden. Pflege diese Liste, um Kollisionen und Bugs zu vermeiden.
+* Wenn du Daten formatieren musst, kapsle die Formatierungslogik in einem [Filter](#filter) und gebe diesen als Abhängigkeit an:
 
 ```Javascript
 module.filter('myFormat', function () {
   return function () {
-    //body...
+    // body
   };
 });
 
 module.controller('MyCtrl', ['$scope', 'myFormatFilter', function ($scope, myFormatFilter) {
-  //body...
+  // body
 }]);
 ```
 
