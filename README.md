@@ -316,6 +316,8 @@ $scope.divStyle = {
 
 TBD
 
+Until it is completed you can use [this one](https://github.com/daniellmb/angular-test-patterns).
+
 #Contribution
 
 Since the goal of this style guide is to be community-driven, contributions are greatly appriciated.
