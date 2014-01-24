@@ -264,7 +264,7 @@ AngularJS GitHub 위키에는 [ProLoser](https://github.com/ProLoser)가 작성�
         ...
         $scope.divStyle = {
           width: 200,
-          position: relative
+          position: 'relative'
         };
         ...
 

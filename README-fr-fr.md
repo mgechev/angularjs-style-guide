@@ -299,7 +299,7 @@ myModule.service('Developer', Developer);
 ...
 $scope.divStyle = {
   width: 200,
-  position: relative
+  position: 'relative'
 };
 ...
 </script>

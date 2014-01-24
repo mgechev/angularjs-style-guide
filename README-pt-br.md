@@ -1,25 +1,25 @@
 #Introdução
 
-O objetivo deste guia é apresentar um conjunto de boas práticas e diretrizes para uma aplicação AngularJS. Estas boas práticas foram colhidas de:
+O objetivo deste guia é apresentar um conjunto de boas práticas e diretrizes para uma aplicação AngularJS. Estas boas práticas são baseadas em:
 
-0. Código Fonte AngularJS
-0. Códigos fonte de artigos que li
+0. Código fonte do AngularJS
+0. Códigos fonte ou artigos que li
 0. Minha própria experiência
 
-**Nota**: Este ainda é um rascunho de guia, seu objetivo principal é ser construído pela comunidade, então preenchendo as lacunas você será muito apreciado por toda ela.
+**Nota**: Este guia ainda é um rascunho, seu objetivo principal é ser construído pela comunidade, então ao contribuir você será muito apreciado por toda ela.
 
-Neste guia você **não** vai encontrar diretrizes para desenvolvimento JavaScript. Tal pode ser encontrado em:
+Neste guia você **não** vai encontrar diretrizes para desenvolvimento JavaScript. O que pode ser encontrado em:
 
 0. [Guia JavaScript Google](http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml)
 0. [Guia JavaScript Mozilla](https://developer.mozilla.org/en-US/docs/Developer_Guide/Coding_Style)
 0. [Guia JavaScript Github](https://github.com/styleguide/javascript)
 0. [Guia JavaScript Douglas Crockford](http://javascript.crockford.com/code.html)
 
-Para o desenvolvimento em AngularJS é recomendado o [Guia JavaScript Google](http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml).
+Para o desenvolvimento usando o AngularJS é recomendado o [Guia JavaScript Google](http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml).
 
-Na wiki AngularJS do Github temos uma seção similar por [ProLoser](https://github.com/ProLoser), você pode ver isso [aqui](https://github.com/angular/angular.js/wiki).
+Na wiki do AngularJS no Github temos uma seção similar feita pelo [ProLoser](https://github.com/ProLoser), você pode vê-la [aqui](https://github.com/angular/angular.js/wiki).
 
-#Tabela de Conteúdo
+#Índice
 * [Geral](#geral)
     * [Estrutura de Diretório](#estrutura-de-diretorio)
     * [Otimizando o ciclo digest](#otimizando-o-ciclo-digest)
@@ -36,7 +36,7 @@ Na wiki AngularJS do Github temos uma seção similar por [ProLoser](https://git
 
 ##Estrutura de Diretório
 
-Uma vez que uma gande aplicação AngularJS tem muitos componentes, é melhor estruturá-la em uma hierarquia de diretórios. Há duas abordagens:
+Uma vez que uma grande aplicação AngularJS tem muitos componentes, é melhor estruturá-la em uma hierarquia de diretórios. Há duas abordagens:
 
 * Criando uma divisão alto nível por tipos de componentes e uma divisão baixo nível por funcionalidade.
 
@@ -125,7 +125,7 @@ Esta abordagem pode ser combinada com ambas as estruturas de diretórios acima.
 
 * O arquivo `app.js` contém definição de rotas, configurações e/ou inicializações manuais (se necessário).
 * Cada arquivo JavaScript deve conter apenas um componente. O arquivo deve ser nomeado com o nome do componente.
-* Use estruturas de projeto Angular como [Yeoman](http://yeoman.io), [ng-boilerplate](http://joshdmiller.github.io/ng-boilerplate/#/home).
+* Use estruturas de projeto Angular como [Yeoman](http://yeoman.io) ou [ng-boilerplate](http://joshdmiller.github.io/ng-boilerplate/#/home).
 
 Eu prefiro a primeira estrutura porque ela cria componentes comuns e fáceis de se achar.
 
@@ -140,6 +140,7 @@ Convenções sobre nomeação de componentes podem ser achadas em cada seção d
 
 * Use:
     * `$timeout` ao invés de `setTimeout`
+    * `$interval` ao invés de `setInterval`
     * `$window` ao invés de `window`
     * `$document` ao invés de `document`
     * `$http` ao invés de `$.ajax`
@@ -199,7 +200,7 @@ Use este tipo de definição para evitar problemas com minificação. Você pode
         }]);
 
 
-Isso é especialmente aplicado a um arquivo que contenha muito código que se faça necessário rolar (usar o scroll) por ele. Pois é provável que você esqueça qual variável está amarrada em qual dependência. 
+Isso é especialmente aplicado a um arquivo que contenha muito código que se faça necessário rolar (usar o scroll) por ele. Pois é provável que você esqueça qual variável está amarrada em qual dependência.
 
 * Faça os controladores o mais enxuto possível. Resuma as funções normalmente usadas no serviço.
 * Comunique entre controladores diversos usando o método de invocação (possível quando os elementos filhos querem se comunicar com os pais) ou `$emit`, `$broadcast` e `$on` métodos. As mensagens emitidas ($emit) e transmitidas ($broadcast) devem ser mantidas minimamente.
