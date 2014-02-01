@@ -185,6 +185,8 @@ This will make your testing easier and in some cases prevent unexpected behaviou
 
 #Modules
 
+* Modules should be named with lowerCamelCase. For indicating that module `b` is submodule of module `a` you can nest them by using namespacing like: `a.b`.
+
 There are two common ways for structuring the modules:
 
 0. By functionality
