@@ -259,8 +259,9 @@ module.controller('MyCtrl', ['$scope', 'myFormatFilter', function ($scope, myFor
 
 #Filters
 
-* Name your filters with lowerCamelCase
+* Name your filters with lowerCamelCase.
 * Make your filters as light as possible. They are called often during the `$digest` loop so creating a slow filter will slow down your app.
+* Do a single thing in your filters, keep them coherent. More complex manipulations can be achieved by piping existing filters.
 
 #Services
 
@@ -294,7 +295,7 @@ myModule.service('Developer', Developer);
 #Templates
 
 * Use `ng-bind` or `ng-cloak` instead of simple `{{ }}` to prevent flashing content.
-* Avoid writing complex code in the template.
+* Avoid writing complex expressions in the templates.
 * When you need to set the `src` of an image dynamically use `ng-src` instead of `src` with `{{}}` template.
 * Instead of using scope variable as string and using it with `style` attribute with `{{ }}`, use the directive `ng-style` with object-like parameters and scope variables as values:
 
