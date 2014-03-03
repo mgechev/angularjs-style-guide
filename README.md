@@ -320,7 +320,7 @@ $scope.divStyle = {
 
 TBD
 
-Until it is completed you can use [this one](https://github.com/daniellmb/angular-test-patterns).
+Until this section is completed you can use [this one](https://github.com/daniellmb/angular-test-patterns).
 
 #Contribution
 
