@@ -10,10 +10,11 @@ Celem tego style guide'a jest przedstawienie zbioru najlepszych praktyk i wytycz
 
 W tym style guidzie nie znajdziesz wytycznych do programowania w JavaScriptcie. Takowe znajdziesz tu:
 
-0. [Style guide'y JavaScriptu od Google'a](http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml)
-0. [Style guide'y JavaScriptu od Mozilli](https://developer.mozilla.org/en-US/docs/Developer_Guide/Coding_Style)
-0. [Style guide'y JavaScriptu od GitHuba](https://github.com/styleguide/javascript)
+0. [Style guide'y JavaScriptu Google'a](http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml)
+0. [Style guide'y JavaScriptu Mozilli](https://developer.mozilla.org/en-US/docs/Developer_Guide/Coding_Style)
+0. [Style guide'y JavaScriptu GitHuba](https://github.com/styleguide/javascript)
 0. [Style guide'y JavaScriptu Douglasa Crockforda](http://javascript.crockford.com/code.html)
+0. [Style guide'y JavaScriptu AirBnB](https://github.com/airbnb/javascript)
 
 Do pisania kodu w AngularJS, zaleca się stosować do wytycznych przygotowanych przez [Google'a](http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml).
 
@@ -147,11 +148,13 @@ Konwencje nazewnicze komponentów można znaleźć w każdej sekcji dot. kompone
 
 * Obserwuj jedynie najistotniejsze zmienne (np. gdy używasz komunikacji w czasie rzeczywistym, nie rób pętli `$digest` przy każdej odebranej wiadomości).
 * Staraj się, aby wszelkie wykorzystania `$watch` były najprostsze, jak to tylko możliwe. Skomplikowane i wolne operacje wykonywane wewnątrz jednego `$watch` spowodują spowolnienie całej aplikacji (pętla `$digest` jest wykonywana w jednym wątku, ponieważ JavaScript jest jednowątkowy).
+* Dodaj trzeci argument dla funkcji `$timeout`, aby ominąć pętlę cyklu `$digest`, gdy na żadną ze zmiennych nie ma wpływu wywołanie callbacka funkcji `$timeout`.
 
 ## Inne
 
 * Używaj:
   * `$timeout` zamiast `setTimeout`,
+  * `$interval` zamiast `setInterval`,
   * `$window` zamiast `window`,
   * `$document` zamiast `document`,
   * `$http` zamiast `$.ajax`
@@ -170,6 +173,8 @@ Dzięki temu, testowanie kodu będzie prostsze i w niektórych przypadkach, uchr
 * Nie używaj przedrostka `$` dla nazw zmiennych, właściwości oraz metod. Ten przedrostek jest zarezerwowany jedynie do użytku przez AngularJS.
 
 # Moduły
+
+* Nazewnictwo modułów powinno być stosowane zgodnie z lowerCamelCasem. W przypadku, gdy chcemy stworzyć moduł `b` będący podmodułem modułu `a`, możesz wykorzystać przestrzeń nazw: `a.b.`.
 
 Istnieją dwa najpopularniejsze sposoby na strukturyzowanie modułów:
 
@@ -243,6 +248,7 @@ module.controller('MyCtrl', ['$scope', 'myFormatFilter', function ($scope, myFor
 
 * Używaj lowerCamelCase'a do nazywania swoich filtrów.
 * Filtry powinny być tak proste, jak to tylko możliwe. Często są one wywoływane podczas pętli `$digest`, tak więc tworzenie filtrów, które działają wolno, spowolni działanie całej aplikacji.
+* Filtry powinien robić jedną rzecz, tworząc je, pamiętaj o ich odseparowaniu. Bardziej skomplikowane manipulacje można uzyskać łącząc istniejące już filtry.
 
 # Usługi
 
@@ -254,7 +260,7 @@ module.controller('MyCtrl', ['$scope', 'myFormatFilter', function ($scope, myFor
 # Szablony
 
 * Używaj atrybutów `ng-bind` oraz `ng-cloak` zamiast zwykłego `{{ }}`, aby uniknąć migającej strony podczas ładowania.
-* Unikaj pisania skomplikowanego kodu wewnątrz szablonów.
+* Unikaj pisania skomplikowanych wyrażeń wewnątrz szablonów.
 * Jeżeli musisz ładować obrazek dynamicznie, używaj atrybutu `ng-src` zamiast `src` z wartością `{{ }}`.
 * Zamiast używania zmiennej w zakresie jako tekst i używania jej jako wartości atrybutu `style` w szablonie z `{{ }}`, używaj dyrektywy `ng-style`, która przyjmuje parametry w postaci obiektu z zakresu z wartościami, przykład:
 
@@ -276,8 +282,12 @@ $scope.divStyle = {
 
 Wkrótce...
 
+Do czasu, aż ta sekcja zostanie uzupełniona, możesz [przeczytać o wzorach testów w AngularJS](https://github.com/daniellmb/angular-test-patterns).
+
 # Wsparcie
 
 Celem tego style guide'a jest to, aby był rozwijany przez społeczność, w związku z tym, wszelkie próby udzielenia się są wskazane.
 
 Przykładowo, możesz pomóc opisując sekcję dotyczącą testów oraz tłumacząc ten style guide na swój język.
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/mgechev/angularjs-style-guide/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
