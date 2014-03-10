@@ -24,6 +24,7 @@ In AngularJS's GitHub wiki there is a similar section by [ProLoser](https://gith
 #Table of content
 * [General](#general)
     * [Directory structure](#directory-structure)
+    * [Markup](#markup)
     * [Optimize the digest cycle](#optimize-the-digest-cycle)
     * [Others](#others)
 * [Modules](#modules)
@@ -153,6 +154,41 @@ services
 I prefer the first structure because it makes common components easier to find.
 
 Conventions about component naming can be found in each component section.
+
+## Markup
+
+The HTML markup is important too and should be written by the team as if it were the same person.
+
+[TLDR;](http://developer.yahoo.com/blogs/ydn/high-performance-sites-rule-6-move-scripts-bottom-7200.html) Put the scripts at the bottom.
+
+```
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>MyApp</title>
+</head>
+<body>
+  <div ng-app="myApp">
+    <div ng-view></div>
+  </div>
+  <script src="angular.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
+```
+
+Keep things simple and put AngularJS specific directives later. This way is easy to look to the code and find enhanced HTML by the framework (what improve the maintainibility).
+
+```
+<form class="frm" ng-submit="login.authenticate()">
+  <div>
+    <input class="ipt" type="text" placeholder="name" require ng-model="user.name">
+  </div>
+</form>
+```
+
+Other HTML atributes should follow the Code Guide's [recommendation](http://mdo.github.io/code-guide/#html-attribute-order)
 
 ## Optimize the digest cycle
 
