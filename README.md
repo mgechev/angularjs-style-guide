@@ -76,6 +76,7 @@ In this way the directory structure will look like:
 │       └── models
 │           ├── Model1.js
 │           └── Model2.js
+├── partials
 ├── lib
 └── test
 ```
@@ -115,6 +116,7 @@ Here is its layout:
 │       │   └── filter3.js
 │       └── services
 │           └── service3.js
+├── partials
 ├── lib
 └── test
 ```
