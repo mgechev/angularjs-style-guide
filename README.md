@@ -388,10 +388,11 @@ For example, you can contribute by extending the Testing section or by translati
 :---: |:---: |:---: |:---: |:---: |
 [jordanyee](https://github.com/jordanyee) |[mainyaa](https://github.com/mainyaa) |[nacyot](https://github.com/nacyot) |[kirstein](https://github.com/kirstein) |[mo-gr](https://github.com/mo-gr) |
 
-[![cryptojuice](http://www.gravatar.com/avatar/bcdf80e3b1bef49806a3e9031877d11c?s=117)](https://github.com/cryptojuice) |[![olov](http://www.gravatar.com/avatar/a847d749f65088c41658483df5c550d9?s=117)](https://github.com/olov) |[![thomastuts](http://www.gravatar.com/avatar/57721e925989ec9c470d9d4a350bb211?s=117)](https://github.com/thomastuts) |[![grapswiz](http://www.gravatar.com/avatar/bcc635978c6284f4e3f7654260b05d7b?s=117)](https://github.com/grapswiz) |[![coderhaoxin](http://www.gravatar.com/avatar/c20564c7ed8da352b5cc359f41e1c1c4?s=117)](https://github.com/coderhaoxin) |
+[![cryptojuice](http://www.gravatar.com/avatar/bcdf80e3b1bef49806a3e9031877d11c?s=117)](https://github.com/cryptojuice) |[![olov](http://www.gravatar.com/avatar/a847d749f65088c41658483df5c550d9?s=117)](https://github.com/olov) |[![vorktanamobay](http://www.gravatar.com/avatar/5934bc3e68aeb155750c316c2c096bec?s=117)](https://github.com/vorktanamobay) |[![thomastuts](http://www.gravatar.com/avatar/57721e925989ec9c470d9d4a350bb211?s=117)](https://github.com/thomastuts) |[![grapswiz](http://www.gravatar.com/avatar/bcc635978c6284f4e3f7654260b05d7b?s=117)](https://github.com/grapswiz) |
 :---: |:---: |:---: |:---: |:---: |
-[cryptojuice](https://github.com/cryptojuice) |[olov](https://github.com/olov) |[thomastuts](https://github.com/thomastuts) |[grapswiz](https://github.com/grapswiz) |[coderhaoxin](https://github.com/coderhaoxin) |
+[cryptojuice](https://github.com/cryptojuice) |[olov](https://github.com/olov) |[vorktanamobay](https://github.com/vorktanamobay) |[thomastuts](https://github.com/thomastuts) |[grapswiz](https://github.com/grapswiz) |
 
-[![dreame4](http://www.gravatar.com/avatar/c56cbc55d2a54b1165478acfb5a61fb4?s=117)](https://github.com/dreame4) |
-:---: |
-[dreame4](https://github.com/dreame4) |
+[![coderhaoxin](http://www.gravatar.com/avatar/c20564c7ed8da352b5cc359f41e1c1c4?s=117)](https://github.com/coderhaoxin) |[![dreame4](http://www.gravatar.com/avatar/c56cbc55d2a54b1165478acfb5a61fb4?s=117)](https://github.com/dreame4) |
+:---: |:---: |
+[coderhaoxin](https://github.com/coderhaoxin) |[dreame4](https://github.com/dreame4) |
+
