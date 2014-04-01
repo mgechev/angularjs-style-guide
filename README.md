@@ -137,7 +137,7 @@ app
 ```
 
 This approach can be combined with both directory structures above.
-* One more slight variation of both directory structures is the one used in [ng-boilerplate](http://joshdmiller.github.io/ng-boilerplate/#/home). In it, the unit tests for a given component are put in the folder where the component is located. This way when you make changes to a given component finding its test is easy. The tests also act as documentation and show uses cases.
+* One more slight variation of both directory structures is the one used in [ng-boilerplate](http://joshdmiller.github.io/ng-boilerplate/#/home). In it, the unit tests for a given component are put in the folder where the component is located. This way when you make changes to a given component finding its test is easy. The tests also act as documentation and show use cases.
 
 ```
 services
@@ -194,10 +194,10 @@ Other HTML atributes should follow the Code Guide's [recommendation](http://mdo.
 
 ## Optimize the digest cycle
 
-* Watch only the most vital variables (for example: when using real-time communication, don't cause a digest loop in each received message).
+* Watch only the most vital variables (for example: when using real-time communication, don't cause a `$digest` loop in each received message).
 * For content that is initialized only once and then never changed, use single-time watchers like [`bindonce`](https://github.com/Pasvaz/bindonce).
-* Make computations in `$watch`  as simple as possible. Making heavy and slow computations in a single `$watch` will slow down the whole application (the $digest loop is done in a single thread because of the single-threaded nature of JavaScript).
-* Set third parameter in `$timeout` function to false to skip digest loop when no watched variables are impacted by the invocation of the `$timeout` callback function.
+* Make computations in `$watch`  as simple as possible. Making heavy and slow computations in a single `$watch` will slow down the whole application (the `$digest` loop is done in a single thread because of the single-threaded nature of JavaScript).
+* Set third parameter in `$timeout` function to false to skip the `$digest` loop when no watched variables are impacted by the invocation of the `$timeout` callback function.
 
 ## Others
 
@@ -238,7 +238,7 @@ Currently there's not a big difference, but the first way looks cleaner. Also, i
 
 * Do not manipulate DOM in your controllers, this will make your controllers harder for testing and will violate the [Separation of Concerns principle](https://en.wikipedia.org/wiki/Separation_of_concerns). Use directives instead.
 * The naming of the controller is done using the controller's functionality (for example shopping cart, homepage, admin panel) and the substring `Ctrl` in the end. The controllers are named UpperCamelCase (`HomePageCtrl`, `ShoppingCartCtrl`, `AdminPanelCtrl`, etc.).
-* The controllers should not be defined as globals (no matter AngularJS allows this, it is a bad practice to pollute the global namespace).
+* The controllers should not be defined as globals (even though AngularJS allows this, it is a bad practice to pollute the global namespace).
 * Use array syntax for controller definitions:
 
 
@@ -249,7 +249,7 @@ module.controller('MyCtrl', ['dependency1', 'dependency2', ..., 'dependencyn', f
 ```
 
 
-Using this type of definition avoids problems with minification. You can automatically generate the array definition from standard one using tools like [ng-annotate](https://github.com/olov/ng-annotate) (and grunt task [grunt-ng-annotate](https://github.com/mzgol/grunt-ng-annotate)).
+Using this type of definition avoids problems with minification. You can automatically generate the array definition from the standard one using tools like [ng-annotate](https://github.com/olov/ng-annotate) (and grunt task [grunt-ng-annotate](https://github.com/mzgol/grunt-ng-annotate)).
 * Use the original names of the controller's dependencies. This will help you produce more readable code:
 
 ```JavaScript
@@ -258,7 +258,7 @@ module.controller('MyCtrl', ['$scope', function (s) {
 }]);
 ```
 
-is less readable than:
+which is less readable than:
 
 ```JavaScript
 module.controller('MyCtrl', ['$scope', function ($scope) {
@@ -269,7 +269,7 @@ module.controller('MyCtrl', ['$scope', function ($scope) {
 This especially applies to a file that has so much code that you'd need to scroll through. This would possibly cause you to forget which variable is tied to which dependency.
 
 * Make the controllers as lean as possible. Abstract commonly used functions into a service.
-* Communicate within different controllers using method invocation (possible when children wants to communicate with parent) or `$emit`, `$broadcast` and `$on` methods. The emitted and broadcasted messages should be kept to a minimum.
+* Communicate within different controllers using method invocation (possible when a child wants to communicate with its parent) or `$emit`, `$broadcast` and `$on` methods. The emitted and broadcasted messages should be kept to a minimum.
 * Make a list of all messages which are passed using `$emit`, `$broadcast` and manage it carefully because of name collisions and possible bugs.
 * When you need to format data encapsulate the formatting logic into a [filter](#filters) and declare it as dependency:
 
@@ -336,7 +336,8 @@ myModule.service('Developer', Developer);
 
 * Use `ng-bind` or `ng-cloak` instead of simple `{{ }}` to prevent flashing content.
 * Avoid writing complex expressions in the templates.
-* When you need to set the `src` of an image dynamically use `ng-src` instead of `src` with `{{}}` template.
+* When you need to set the `src` of an image dynamically use `ng-src` instead of `src` with `{{ }}` template.
+* When you need to set the `href` of an anchor tag dynamically use `ng-href` instead of `href` with `{{ }}` template.
 * Instead of using scope variable as string and using it with `style` attribute with `{{ }}`, use the directive `ng-style` with object-like parameters and scope variables as values:
 
 ```HTML
