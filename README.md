@@ -368,9 +368,6 @@ Until this section is completed you can use [this one](https://github.com/daniel
 Since the goal of this style guide is to be community-driven, contributions are greatly appriciated.
 For example, you can contribute by extending the Testing section or by translating the style guide to your language.
 
-
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/mgechev/angularjs-style-guide/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
-
 #Contributors
 
 [![mgechev](http://www.gravatar.com/avatar/82bafb0432ce4ccc9dcc26f94d5fe5bc?s=117)](https://github.com/mgechev) |[![pascalockert](http://www.gravatar.com/avatar/cf3cf69f535e77166c17bc5f586514f5?s=117)](https://github.com/pascalockert) |[![rubystream](http://www.gravatar.com/avatar/04952a6ee948f345e9c3727850d09a1b?s=117)](https://github.com/rubystream) |[![lukaszklis](http://www.gravatar.com/avatar/7a30aca2cf9658558247348b3be8c35e?s=117)](https://github.com/lukaszklis) |[![cironunes](http://www.gravatar.com/avatar/ac4189b770a4dbc0078935a68fff6f5c?s=117)](https://github.com/cironunes) |
