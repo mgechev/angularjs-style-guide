@@ -305,7 +305,9 @@ module.controller('MyCtrl', ['$scope', 'myFormatFilter', function ($scope, myFor
 
 #Services
 
-* Use camelCase (lower or upper) to name your services.
+* Use camelCase to name your services.
+  * UpperCamelCase (PascalCase) for naming your services, used as constructor functions.
+  * lowerCamelCase for all other services.
 * Encapsulate business logic in services.
 * Services representing the domain preferably a `service` instead of a `factory`. In this way we can take advantage of the "klassical" inheritance easier:
 
