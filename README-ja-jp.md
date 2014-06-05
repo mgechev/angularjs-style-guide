@@ -192,11 +192,11 @@ AngularJS を用いて作った大きなアプリケーションは複数のコ�
 * コントローラーの定義には配列を使いましょう:
 
 
-
-        module.controller('MyCtrl', ['dependency1', 'dependency2', ..., 'dependencyn', function (dependency1, dependency2, ..., dependencyn) {
-          //...body
-        }]);
-
+```javascript
+module.controller('MyCtrl', ['dependency1', 'dependency2', ..., 'dependencyn', function (dependency1, dependency2, ..., dependencyn) {
+  //...body
+}]);
+```
 
 このようなタイプの定義を使用すると、 minify の問題を回避できます。[ng-annotate](https://github.com/olov/ng-annotate) (grunt task [grunt-ng-annotate](https://github.com/mzgol/grunt-ng-annotate))これらの標準的なツールを使えば配列定義を自動的に生成できます
 
@@ -223,16 +223,17 @@ module.controller('MyCtrl', ['$scope', function ($scope) {
 * `$emit` `$broadcast` に渡すメッセージは、名前の衝突やバグの可能性があるため、全てのメッセージのリストを作成・管理しましょう
 * [filter](#filters)内に、データのフォーマットロジックを、カプセル化する必要がある場合、このように依存関係を宣言します:
 
+```javascript
+module.filter('myFormat', function () {
+  return function () {
+    //body...
+  };
+});
 
-        module.filter('myFormat', function () {
-          return function () {
-            //body...
-          };
-        });
-
-        module.controller('MyCtrl', ['$scope', 'myFormatFilter', function ($scope, myFormatFilter) {
-          //body...
-        }]);
+module.controller('MyCtrl', ['$scope', 'myFormatFilter', function ($scope, myFormatFilter) {
+  //body...
+}]);
+```
 
 #ディレクティブ
 
@@ -262,14 +263,16 @@ module.controller('MyCtrl', ['$scope', function ($scope) {
 * 動的な表現で `src` を設定する必要がある場合は `src` や `{{}}` の代わりに `ng-src` を使いましょう
 * scope の変数を文字列のように `style` 属性や、 `{{ }}` で使ってみたいとき、`ng-style` ディレクティブなら scope の変数を object-like パラメーターのように使えます:
 
-        ...
-        $scope.divStyle = {
-          width: 200,
-          position: 'relative'
-        };
-        ...
+```html
+...
+$scope.divStyle = {
+  width: 200,
+  position: 'relative'
+};
+...
 
-        <div ng-style="divStyle">my beautifully styled div which will work in IE</div>;
+<div ng-style="divStyle">my beautifully styled div which will work in IE</div>;
+```
 
 #ルーティング
 
