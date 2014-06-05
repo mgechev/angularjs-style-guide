@@ -192,29 +192,29 @@ AngularJS を用いて作った大きなアプリケーションは複数のコ�
 * コントローラーの定義には配列を使いましょう:
 
 
-
-        module.controller('MyCtrl', ['dependency1', 'dependency2', ..., 'dependencyn', function (dependency1, dependency2, ..., dependencyn) {
-          //...body
-        }]);
-
+```javascript
+module.controller('MyCtrl', ['dependency1', 'dependency2', ..., 'dependencyn', function (dependency1, dependency2, ..., dependencyn) {
+  //...body
+}]);
+```
 
 このようなタイプの定義を使用すると、 minify の問題を回避できます。[ng-annotate](https://github.com/olov/ng-annotate) (grunt task [grunt-ng-annotate](https://github.com/mzgol/grunt-ng-annotate))これらの標準的なツールを使えば配列定義を自動的に生成できます
 
 * コントローラーの依存関係を示したもとの名前を使いましょう。これはより読みやすいコードを書く助けになります:
 
+```javascript
+module.controller('MyCtrl', ['$scope', function (s) {
+  //...body
+}]);
+```
 
+このコードよりも次のほうが読みやすくなります:
 
-        module.controller('MyCtrl', ['$scope', function (s) {
-          //...body
-        }]);
-
-
-上記のコードは下記のものより読みにくいです:
-
-
-        module.controller('MyCtrl', ['$scope', function ($scope) {
-          //...body
-        }]);
+```javascript
+module.controller('MyCtrl', ['$scope', function ($scope) {
+  //...body
+}]);
+```
 
 これは特に、スクロールが必要なほどとても多くのコードのあるファイルに当てはまります。ひょっとしたらあなたはどの変数がどの依存性を作っているかを忘れてしまうことになるでしょう。
 
@@ -223,16 +223,17 @@ AngularJS を用いて作った大きなアプリケーションは複数のコ�
 * `$emit` `$broadcast` に渡すメッセージは、名前の衝突やバグの可能性があるため、全てのメッセージのリストを作成・管理しましょう
 * [filter](#filters)内に、データのフォーマットロジックを、カプセル化する必要がある場合、このように依存関係を宣言します:
 
+```javascript
+module.filter('myFormat', function () {
+  return function () {
+    //body...
+  };
+});
 
-        module.filter('myFormat', function () {
-          return function () {
-            //body...
-          };
-        });
-
-        module.controller('MyCtrl', ['$scope', 'myFormatFilter', function ($scope, myFormatFilter) {
-          //body...
-        }]);
+module.controller('MyCtrl', ['$scope', 'myFormatFilter', function ($scope, myFormatFilter) {
+  //body...
+}]);
+```
 
 #ディレクティブ
 
@@ -257,19 +258,21 @@ AngularJS を用いて作った大きなアプリケーションは複数のコ�
 
 #テンプレート
 
-* コンテンツの点滅を防ぐため、 `{{ }}` の代わりに `ng-bind` か `ng-cloak` を使いましょう。 
+* コンテンツの点滅を防ぐため、 `{{ }}` の代わりに `ng-bind` か `ng-cloak` を使いましょう。
 * テンプレートに複雑なコードを書くのは避けましょう。
 * 動的な表現で `src` を設定する必要がある場合は `src` や `{{}}` の代わりに `ng-src` を使いましょう
 * scope の変数を文字列のように `style` 属性や、 `{{ }}` で使ってみたいとき、`ng-style` ディレクティブなら scope の変数を object-like パラメーターのように使えます:
 
-        ...
-        $scope.divStyle = {
-          width: 200,
-          position: 'relative'
-        };
-        ...
+```html
+...
+$scope.divStyle = {
+  width: 200,
+  position: 'relative'
+};
+...
 
-        <div ng-style="divStyle">my beautifully styled div which will work in IE</div>;
+<div ng-style="divStyle">my beautifully styled div which will work in IE</div>;
+```
 
 #ルーティング
 
@@ -283,4 +286,3 @@ TBD
 
 このスタイルガイドのゴールは community-driven であることです。よってコントリビュートをよろしくお願いします。
 例えば、テストセクションを拡張することによって、または、このスタイルガイドをあなたの言語に翻訳することによって貢献することができます。
-
