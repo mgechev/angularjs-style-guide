@@ -7,7 +7,8 @@ Sie wurden aus den folgenden Quellen zusammengestellt:
 0. Quelltexte oder Artikel, die ich gelesen habe
 0. Meine eigene Erfahrung
 
-**Hinweis:** Hierbei handelt es sich noch um einen Entwurf des Style Guides, dessen vorrangiges Ziel es ist, gemeinschaftlich von der Community entwickelt zu werden. Die gesamte Community wird es daher begrüßen, wenn Lücken gefüllt werden.
+**Hinweis 1:** Hierbei handelt es sich noch um einen Entwurf des Style Guides, dessen vorrangiges Ziel es ist, gemeinschaftlich von der Community entwickelt zu werden. Die gesamte Community wird es daher begrüßen, wenn Lücken gefüllt werden.
+**Note 2**: before following any of the guidelines in the translations of the English document, make sure they are up-to date. The latest version of the AngularJS style guide is in the current document.
 
 Du wirst in diesem Style Guide keine allgemeinen Richtlinien für die JavaScript-Entwicklung finden. Solche finden sich unter:
 
@@ -24,6 +25,7 @@ Im GitHub-Wiki von AngularJS gibt es einen ähnlichen Abschnitt von [ProLoser](h
 # Inhaltsverzeichnis
 * [Allgemein](#allgemein)
     * [Verzeichnisstruktur](#verzeichnisstruktur)
+    * [Markup](#markup)
     * [Optimieren des Digest-Zyklus](#optimieren-des-digest-zyklus)
     * [Sonstiges](#sonstiges)
 * [Module](#module)
@@ -35,6 +37,7 @@ Im GitHub-Wiki von AngularJS gibt es einen ähnlichen Abschnitt von [ProLoser](h
 * [Routing](#routing)
 * [Testen](#testen)
 * [Mitmachen](#mitmachen)
+* [Contributors](#contributors)
 
 # Allgemein
 
@@ -74,6 +77,7 @@ Die Verzeichnisstruktur wird in diesem Fall folgendermaßen aussehen:
 │       └── models
 │           ├── Model1.js
 │           └── Model2.js
+├── partials
 ├── lib
 └── test
 ```
@@ -113,6 +117,7 @@ Hier ist das entsprechende Layout:
 │       │   └── filter3.js
 │       └── services
 │           └── service3.js
+├── partials
 ├── lib
 └── test
 ```
@@ -153,11 +158,47 @@ Ich bevorzuge die erste Struktur, weil bei ihr die üblichen Komponenten einfach
 
 Konventionen über die Benennung der Komponenten stehen in jedem Abschnitt über die jeweilige Komponente.
 
+## Markup
+
+The HTML markup is important too and should be written by the team as if it were the same person.
+
+[TLDR;](http://developer.yahoo.com/blogs/ydn/high-performance-sites-rule-6-move-scripts-bottom-7200.html) Put the scripts at the bottom.
+
+```
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>MyApp</title>
+</head>
+<body>
+  <div ng-app="myApp">
+    <div ng-view></div>
+  </div>
+  <script src="angular.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
+```
+
+Keep things simple and put AngularJS specific directives later. This way is easy to look to the code and find enhanced HTML by the framework (what improve the maintainibility).
+
+```
+<form class="frm" ng-submit="login.authenticate()">
+  <div>
+    <input class="ipt" type="text" placeholder="name" require ng-model="user.name">
+  </div>
+</form>
+```
+
+Other HTML atributes should follow the Code Guide's [recommendation](http://mdo.github.io/code-guide/#html-attribute-order)
+
 ## Optimieren des Digest-Zyklus
 
-* Watche nur auf die vitalsten Variablen (Beispiel: Wenn du eine Echtzeitkommunikation einsetzt, sollte nicht bei jeder eingehenden Nachricht ein Digest-Loop ausgelöst werden).
-* Vereinfache Berechnungen in `$watch` so weit wie möglich. Komplexe und langsame Berechnungen in einem einzigen `$watch` verlangsamen die gesamte Applikation (der $digest-Loop wird in einem einzelnen Thread ausgeführt, weil JavaScript single-threaded ist).
-* Falls in der Callback-Funktion von `$timeout` keine gewatchten Variablen geändert werden, setze den dritten Parameter der `$timeout`-Funktion auf `false`, um nicht automatisch einen Digest-Zyklus durch den Aufruf des Callbacks auszulösen.
+* Watche nur auf die vitalsten Variablen (Beispiel: Wenn du eine Echtzeitkommunikation einsetzt, sollte nicht bei jeder eingehenden Nachricht ein `$digest`-Loop ausgelöst werden).
+* For content that is initialized only once and then never changed, use single-time watchers like [`bindonce`](https://github.com/Pasvaz/bindonce).
+* Vereinfache Berechnungen in `$watch` so weit wie möglich. Komplexe und langsame Berechnungen in einem einzigen `$watch` verlangsamen die gesamte Applikation (der `$digest`-Loop wird in einem einzelnen Thread ausgeführt, weil JavaScript single-threaded ist).
+* Falls in der Callback-Funktion von `$timeout` keine gewatchten Variablen geändert werden, setze den dritten Parameter der `$timeout`-Funktion auf `false`, um nicht automatisch einen `$digest`-Zyklus durch den Aufruf des Callbacks auszulösen.
 
 ## Sonstiges
 
@@ -184,6 +225,8 @@ Dadurch werden deine Tests einfacher und in manchen Fällen wird einem unerwarte
 * Verwende kein `$` als Präfix für die Namen von Variablen, Eigenschaften oder Methoden. Dieser Präfix ist für AngularJS reserviert.
 
 # Module
+
+* Modules should be named with lowerCamelCase. For indicating that module `b` is submodule of module `a` you can nest them by using namespacing like: `a.b`.
 
 Es gibt zwei verbreitete Wege, nach denen Module strukturiert werden können:
 
@@ -257,11 +300,30 @@ module.controller('MyCtrl', ['$scope', 'myFormatFilter', function($scope, myForm
 
 * Benenne deine Filter in lowerCamelCase.
 * Halte deine Filter so schlank wie möglich. Durch die `$digest`-Schleife werden sie häufig aufgerufen, so dass langsame Filter die gesamte Anwendung verlangsamen.
+* Do a single thing in your filters, keep them coherent. More complex manipulations can be achieved by piping existing filters.
 
 # Services
 
-* Benenne deine Services in (lower oder upper) camelCase.
-* Kapsle Anwendungslogik in Services.
+This section includes information about the service component in AngularJS. It is not dependent of the way of definition (i.e. as provider, `.factory`, `.service), except if explicitly mentioned.
+
+* Benenne deine Services in camelCase.
+  * UpperCamelCase (PascalCase) for naming your services, used as constructor functions i.e.:
+
+```JavaScript
+module.controller('MainCtrl', function ($scope, User) {
+  $scope.user = new User('foo', 42);
+});
+
+module.factory('User', function () {
+  return function User(name, age) {
+    this.name = name;
+    this.age = age;
+  };
+});
+```
+
+  * lowerCamelCase for all other services.
+* Kapsle die gesamte Anwendungslogik in Services.
 * Services, die eine bestimmte Domäne abbilden, sollten bevorzugt als `service` statt als `factory` geschrieben werden. Auf diese Weise können die Vorteile der klassischen Vererbung einfacher genutzt werden:
 
 ```JavaScript
@@ -285,12 +347,39 @@ myModule.service('Developer', Developer);
 ```
 
 * Für einen sitzungsbezogenen Cache kannst du `$cacheFactory` verwenden. Diesen solltest du nutzen, um die Ergebnisse von Anfragen oder aufwändigen Berechnungen zwischenzuspeichern.
+* If given service requires configuration define the service as provider and configure it in the `config` callback like:
+
+```JavaScript
+angular.module('demo', [])
+.config(function ($provide) {
+  $provide.provider('sample', function () {
+    var foo = 42;
+    return {
+      setFoo: function (f) {
+        foo = f;
+      },
+      $get: function () {
+        return {
+          foo: foo
+        };
+      }
+    };
+  });
+});
+
+var demo = angular.module('demo');
+
+demo.config(function (sampleProvider) {
+  sampleProvider.setFoo(41);
+});
+```
 
 # Templates
 
 * Verwende `ng-bind` oder `ng-cloak` statt einfachen `{{ }}`, um flackernde Inhalte zu vermeiden.
-* Vermeide es, komplexen Code in ein Template zu schreiben.
+* Vermeide es, komplexe Ausdrücke in ein Template zu schreiben.
 * Wenn das `src`-Attribut eines Bilds dynamisch gesetzt werden soll, verwende `ng-src` statt `src` mit einem `{{ }}`-Template.
+* When you need to set the `href` of an anchor tag dynamically use `ng-href` instead of `href` with `{{ }}` template.
 * Statt in Scopevariablen Strings anzugeben und diese mit `{{ }}` in ein `style`-Attribut zu schreiben, benutze die `ng-style`-Direktive, der als Parameter objektartige Strings und Scopevariablen übergeben werden können:
 
 ```JavaScript
@@ -311,7 +400,35 @@ $scope.divStyle = {
 
 TBD
 
+Du kannst [diese Anleitung](https://github.com/daniellmb/angular-test-patterns) verwenden, solange dieser Abschnitt noch nicht fertig ist.
+
 # Mitmachen
 
 Da dieser Style Guide gemeinschaftlich durch die Community erstellt werden soll, sind Beiträge willkommen.
 Zum Beispiel kannst du etwas beitragen, indem du den Abschnitt über Tests erweiterst oder den Style Guide in deine Sprache übersetzt.
+
+#Contributors
+
+[![mgechev](http://www.gravatar.com/avatar/82bafb0432ce4ccc9dcc26f94d5fe5bc?s=117)](https://github.com/mgechev) |[![pascalockert](http://www.gravatar.com/avatar/cf3cf69f535e77166c17bc5f586514f5?s=117)](https://github.com/pascalockert) |[![mainyaa](http://www.gravatar.com/avatar/c274adeb5303a1aae51f1e34bd7a3bc3?s=117)](https://github.com/mainyaa) |[![rubystream](http://www.gravatar.com/avatar/04952a6ee948f345e9c3727850d09a1b?s=117)](https://github.com/rubystream) |[![lukaszklis](http://www.gravatar.com/avatar/7a30aca2cf9658558247348b3be8c35e?s=117)](https://github.com/lukaszklis) |
+:---: |:---: |:---: |:---: |:---: |
+[mgechev](https://github.com/mgechev) |[pascalockert](https://github.com/pascalockert) |[mainyaa](https://github.com/mainyaa) |[rubystream](https://github.com/rubystream) |[lukaszklis](https://github.com/lukaszklis) |
+
+[![cironunes](http://www.gravatar.com/avatar/ac4189b770a4dbc0078935a68fff6f5c?s=117)](https://github.com/cironunes) |[![cavarzan](http://www.gravatar.com/avatar/929196ae336bbd9c18ad01f934b66e7a?s=117)](https://github.com/cavarzan) |[![tornad](http://www.gravatar.com/avatar/3e7f3900bc0c63b6bb6b27226decd16c?s=117)](https://github.com/tornad) |[![jmblog](http://www.gravatar.com/avatar/790f55ccde7a62df8f25747586657090?s=117)](https://github.com/jmblog) |[![bargaorobalo](http://www.gravatar.com/avatar/b7192b6465bbe490cd52ba35284875dd?s=117)](https://github.com/bargaorobalo) |
+:---: |:---: |:---: |:---: |:---: |
+[cironunes](https://github.com/cironunes) |[cavarzan](https://github.com/cavarzan) |[tornad](https://github.com/tornad) |[jmblog](https://github.com/jmblog) |[bargaorobalo](https://github.com/bargaorobalo) |
+
+[![astalker](http://www.gravatar.com/avatar/5a3df42b090e503da2a645fd8ee9e1ae?s=117)](https://github.com/astalker) |[![valgreens](http://www.gravatar.com/avatar/051395c4c052ac12282b5cf305441986?s=117)](https://github.com/valgreens) |[![bitdeli-chef](http://www.gravatar.com/avatar/b42c651650ec8d3d95829c75e318af2d?s=117)](https://github.com/bitdeli-chef) |[![dchest](http://www.gravatar.com/avatar/641aceb7e3d2eebea49f397c38048d0b?s=117)](https://github.com/dchest) |[![gsamokovarov](http://www.gravatar.com/avatar/1ac5a00efa41cd58c421d3cd98dda7b9?s=117)](https://github.com/gsamokovarov) |
+:---: |:---: |:---: |:---: |:---: |
+[astalker](https://github.com/astalker) |[valgreens](https://github.com/valgreens) |[bitdeli-chef](https://github.com/bitdeli-chef) |[dchest](https://github.com/dchest) |[gsamokovarov](https://github.com/gsamokovarov) |
+
+[![ntaoo](http://www.gravatar.com/avatar/791510818e4126572f81b2fbdd94bcc8?s=117)](https://github.com/ntaoo) |[![hermankan](http://www.gravatar.com/avatar/539a534a67ad8008f06b0bddead73aee?s=117)](https://github.com/hermankan) |[![jesselpalmer](http://www.gravatar.com/avatar/4c73b0fa2b13cc8452ea06931ca0ce30?s=117)](https://github.com/jesselpalmer) |[![capaj](http://www.gravatar.com/avatar/44c1dafa5cda3cb13c3852cfa0af14b3?s=117)](https://github.com/capaj) |[![jordanyee](http://www.gravatar.com/avatar/7ed91b95665d2ca887be784eb0472cf5?s=117)](https://github.com/jordanyee) |
+:---: |:---: |:---: |:---: |:---: |
+[ntaoo](https://github.com/ntaoo) |[hermankan](https://github.com/hermankan) |[jesselpalmer](https://github.com/jesselpalmer) |[capaj](https://github.com/capaj) |[jordanyee](https://github.com/jordanyee) |
+
+[![nacyot](http://www.gravatar.com/avatar/afeb8054efb8e03aab4ed7d90a52f11c?s=117)](https://github.com/nacyot) |[![kirstein](http://www.gravatar.com/avatar/d2987eb9402e60062ff45dd8a6b48d05?s=117)](https://github.com/kirstein) |[![mo-gr](http://www.gravatar.com/avatar/83c8d93df0ad3f1b0807b4c5bd3c47ad?s=117)](https://github.com/mo-gr) |[![cryptojuice](http://www.gravatar.com/avatar/bcdf80e3b1bef49806a3e9031877d11c?s=117)](https://github.com/cryptojuice) |[![olov](http://www.gravatar.com/avatar/a847d749f65088c41658483df5c550d9?s=117)](https://github.com/olov) |
+:---: |:---: |:---: |:---: |:---: |
+[nacyot](https://github.com/nacyot) |[kirstein](https://github.com/kirstein) |[mo-gr](https://github.com/mo-gr) |[cryptojuice](https://github.com/cryptojuice) |[olov](https://github.com/olov) |
+
+[![vorktanamobay](http://www.gravatar.com/avatar/5934bc3e68aeb155750c316c2c096bec?s=117)](https://github.com/vorktanamobay) |[![thomastuts](http://www.gravatar.com/avatar/57721e925989ec9c470d9d4a350bb211?s=117)](https://github.com/thomastuts) |[![grapswiz](http://www.gravatar.com/avatar/bcc635978c6284f4e3f7654260b05d7b?s=117)](https://github.com/grapswiz) |[![coderhaoxin](http://www.gravatar.com/avatar/c20564c7ed8da352b5cc359f41e1c1c4?s=117)](https://github.com/coderhaoxin) |[![dreame4](http://www.gravatar.com/avatar/c56cbc55d2a54b1165478acfb5a61fb4?s=117)](https://github.com/dreame4) |
+:---: |:---: |:---: |:---: |:---: |
+[vorktanamobay](https://github.com/vorktanamobay) |[thomastuts](https://github.com/thomastuts) |[grapswiz](https://github.com/grapswiz) |[coderhaoxin](https://github.com/coderhaoxin) |[dreame4](https://github.com/dreame4) |
