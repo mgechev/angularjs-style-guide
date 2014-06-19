@@ -7,7 +7,8 @@ These best practices are collected from:
 0. Source code or articles I've read
 0. My own experience
 
-**Note**: this is still a draft of the style guide, its main goal is to be community-driven so filling the gaps will be greatly appreciated by the whole community.
+**Note 1**: this is still a draft of the style guide, its main goal is to be community-driven so filling the gaps will be greatly appreciated by the whole community.
+**Note 2**: before following any of the guidelines in the translations of the English document, make sure they are up-to date. The latest version of the AngularJS style guide is in the current document.
 
 In this style guide you won't find common guidelines for JavaScript development. Such can be found at:
 
