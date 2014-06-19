@@ -8,7 +8,7 @@ Sie wurden aus den folgenden Quellen zusammengestellt:
 0. Meine eigene Erfahrung
 
 **Hinweis 1:** Hierbei handelt es sich noch um einen Entwurf des Style Guides, dessen vorrangiges Ziel es ist, gemeinschaftlich von der Community entwickelt zu werden. Die gesamte Community wird es daher begrüßen, wenn Lücken gefüllt werden.
-**Note 2**: before following any of the guidelines in the translations of the English document, make sure they are up-to date. The latest version of the AngularJS style guide is in the current document.
+**Hinweis 2:** Bevor du den Richtlinien in einer der Übersetzungen des englischsprachigen Dokuments folgst, vergewissere dich, dass diese aktuell sind. Die jüngste Version des AngularJS Style Guide ist im Dokument README.md.
 
 Du wirst in diesem Style Guide keine allgemeinen Richtlinien für die JavaScript-Entwicklung finden. Solche finden sich unter:
 
@@ -37,7 +37,7 @@ Im GitHub-Wiki von AngularJS gibt es einen ähnlichen Abschnitt von [ProLoser](h
 * [Routing](#routing)
 * [Testen](#testen)
 * [Mitmachen](#mitmachen)
-* [Contributors](#contributors)
+* [Mitwirkende](#mitwirkende)
 
 # Allgemein
 
@@ -160,16 +160,16 @@ Konventionen über die Benennung der Komponenten stehen in jedem Abschnitt über
 
 ## Markup
 
-The HTML markup is important too and should be written by the team as if it were the same person.
+Auch die HTML-Markup ist wichtig und sollte in einem Team so geschrieben werden, als sei sie von derselben Person.
 
-[TLDR;](http://developer.yahoo.com/blogs/ydn/high-performance-sites-rule-6-move-scripts-bottom-7200.html) Put the scripts at the bottom.
+[TLDR;](http://developer.yahoo.com/blogs/ydn/high-performance-sites-rule-6-move-scripts-bottom-7200.html) Scripts sollten am Ende einer Seite eingefügt werden.
 
 ```
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>MyApp</title>
+  <title>Meine App</title>
 </head>
 <body>
   <div ng-app="myApp">
@@ -181,7 +181,7 @@ The HTML markup is important too and should be written by the team as if it were
 </html>
 ```
 
-Keep things simple and put AngularJS specific directives later. This way is easy to look to the code and find enhanced HTML by the framework (what improve the maintainibility).
+Um den Code nicht unnötig zu verkomplizieren, füge AngularJS-spezifische Direktiven hinter Standard-Attributen ein. Dadurch ist es einfacher, sich den Code anzusehen und durch das Framework erweitertes HTML zu erkennen (was die Wartbarkeit verbessert).
 
 ```
 <form class="frm" ng-submit="login.authenticate()">
@@ -191,12 +191,12 @@ Keep things simple and put AngularJS specific directives later. This way is easy
 </form>
 ```
 
-Other HTML atributes should follow the Code Guide's [recommendation](http://mdo.github.io/code-guide/#html-attribute-order)
+Andere HTML-Attribute sollten den [Empfehlungen](http://mdo.github.io/code-guide/#html-attribute-order) des Code Guides folgen.
 
 ## Optimieren des Digest-Zyklus
 
 * Watche nur auf die vitalsten Variablen (Beispiel: Wenn du eine Echtzeitkommunikation einsetzt, sollte nicht bei jeder eingehenden Nachricht ein `$digest`-Loop ausgelöst werden).
-* For content that is initialized only once and then never changed, use single-time watchers like [`bindonce`](https://github.com/Pasvaz/bindonce).
+* Für Inhalte, die nur einmal initialisiert und anschließend nicht mehr geändert werden, sollten Einmal-Watcher wie [`bindonce`](https://github.com/Pasvaz/bindonce) verwendet werden.
 * Vereinfache Berechnungen in `$watch` so weit wie möglich. Komplexe und langsame Berechnungen in einem einzigen `$watch` verlangsamen die gesamte Applikation (der `$digest`-Loop wird in einem einzelnen Thread ausgeführt, weil JavaScript single-threaded ist).
 * Falls in der Callback-Funktion von `$timeout` keine gewatchten Variablen geändert werden, setze den dritten Parameter der `$timeout`-Funktion auf `false`, um nicht automatisch einen `$digest`-Zyklus durch den Aufruf des Callbacks auszulösen.
 
@@ -226,7 +226,7 @@ Dadurch werden deine Tests einfacher und in manchen Fällen wird einem unerwarte
 
 # Module
 
-* Modules should be named with lowerCamelCase. For indicating that module `b` is submodule of module `a` you can nest them by using namespacing like: `a.b`.
+* Module sollten in lowerCamelCase benannt werden. Um deutlich zu machen, dass das Modul `b` ein Untermodul von `a` ist, kannst du sie durch Namespaces verschachteln, z. B.: `a.b`.
 
 Es gibt zwei verbreitete Wege, nach denen Module strukturiert werden können:
 
@@ -300,14 +300,14 @@ module.controller('MyCtrl', ['$scope', 'myFormatFilter', function($scope, myForm
 
 * Benenne deine Filter in lowerCamelCase.
 * Halte deine Filter so schlank wie möglich. Durch die `$digest`-Schleife werden sie häufig aufgerufen, so dass langsame Filter die gesamte Anwendung verlangsamen.
-* Do a single thing in your filters, keep them coherent. More complex manipulations can be achieved by piping existing filters.
+* Mache nur eine einzige Sache in deinen Filtern, halte sie kohärent. Komplexere Manipulationen können erzielt werden, indem mehrere Filter gepiped werden.
 
 # Services
 
-This section includes information about the service component in AngularJS. It is not dependent of the way of definition (i.e. as provider, `.factory`, `.service), except if explicitly mentioned.
+Dieser Abschnitt enthält Informationen über AngularJS' Service-Komponente. Er bezieht sich nicht auf eine spezielle Definitionsweise (d. h. als Provider, Factory oder Service), falls nicht ausdrücklich genannt.
 
 * Benenne deine Services in camelCase.
-  * UpperCamelCase (PascalCase) for naming your services, used as constructor functions i.e.:
+  * UpperCamelCase (PascalCase), um Services zu benennen, die als Konstruktoren verwendet werden, d. h.:
 
 ```JavaScript
 module.controller('MainCtrl', function ($scope, User) {
@@ -322,7 +322,7 @@ module.factory('User', function () {
 });
 ```
 
-  * lowerCamelCase for all other services.
+  * lowerCamelCase für alle anderen Services.
 * Kapsle die gesamte Anwendungslogik in Services.
 * Services, die eine bestimmte Domäne abbilden, sollten bevorzugt als `service` statt als `factory` geschrieben werden. Auf diese Weise können die Vorteile der klassischen Vererbung einfacher genutzt werden:
 
@@ -347,7 +347,7 @@ myModule.service('Developer', Developer);
 ```
 
 * Für einen sitzungsbezogenen Cache kannst du `$cacheFactory` verwenden. Diesen solltest du nutzen, um die Ergebnisse von Anfragen oder aufwändigen Berechnungen zwischenzuspeichern.
-* If given service requires configuration define the service as provider and configure it in the `config` callback like:
+* Falls ein Service konfiguriert werden muss, definiere ihn als Provider und konfiguriere ihn im `config`-Callback, wie hier:
 
 ```JavaScript
 angular.module('demo', [])
@@ -379,7 +379,7 @@ demo.config(function (sampleProvider) {
 * Verwende `ng-bind` oder `ng-cloak` statt einfachen `{{ }}`, um flackernde Inhalte zu vermeiden.
 * Vermeide es, komplexe Ausdrücke in ein Template zu schreiben.
 * Wenn das `src`-Attribut eines Bilds dynamisch gesetzt werden soll, verwende `ng-src` statt `src` mit einem `{{ }}`-Template.
-* When you need to set the `href` of an anchor tag dynamically use `ng-href` instead of `href` with `{{ }}` template.
+* Wenn du das `href`-Attribut eines Ankers dynamisch setzen musst, verwende `ng-href` statt `href` mit einem `{{ }}`-Template.
 * Statt in Scopevariablen Strings anzugeben und diese mit `{{ }}` in ein `style`-Attribut zu schreiben, benutze die `ng-style`-Direktive, der als Parameter objektartige Strings und Scopevariablen übergeben werden können:
 
 ```JavaScript
@@ -407,7 +407,7 @@ Du kannst [diese Anleitung](https://github.com/daniellmb/angular-test-patterns) 
 Da dieser Style Guide gemeinschaftlich durch die Community erstellt werden soll, sind Beiträge willkommen.
 Zum Beispiel kannst du etwas beitragen, indem du den Abschnitt über Tests erweiterst oder den Style Guide in deine Sprache übersetzt.
 
-#Contributors
+#Mitwirkende
 
 [![mgechev](http://www.gravatar.com/avatar/82bafb0432ce4ccc9dcc26f94d5fe5bc?s=117)](https://github.com/mgechev) |[![pascalockert](http://www.gravatar.com/avatar/cf3cf69f535e77166c17bc5f586514f5?s=117)](https://github.com/pascalockert) |[![mainyaa](http://www.gravatar.com/avatar/c274adeb5303a1aae51f1e34bd7a3bc3?s=117)](https://github.com/mainyaa) |[![rubystream](http://www.gravatar.com/avatar/04952a6ee948f345e9c3727850d09a1b?s=117)](https://github.com/rubystream) |[![lukaszklis](http://www.gravatar.com/avatar/7a30aca2cf9658558247348b3be8c35e?s=117)](https://github.com/lukaszklis) |
 :---: |:---: |:---: |:---: |:---: |
