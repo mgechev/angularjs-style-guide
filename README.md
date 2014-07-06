@@ -411,7 +411,7 @@ Until this section is completed you can use [this one](https://github.com/daniel
 
 #Contribution
 
-Since the goal of this style guide is to be community-driven, contributions are greatly appriciated.
+Since the goal of this style guide is to be community-driven, contributions are greatly appreciated.
 For example, you can contribute by extending the Testing section or by translating the style guide to your language.
 
 #Contributors
