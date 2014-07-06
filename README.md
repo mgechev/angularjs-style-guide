@@ -325,6 +325,7 @@ module.factory('User', function () {
 ```
 
   * lowerCamelCase for all other services.
+
 * Encapsulate all the business logic in services.
 * Services representing the domain preferably a `service` instead of a `factory`. In this way we can take advantage of the "klassical" inheritance easier:
 
