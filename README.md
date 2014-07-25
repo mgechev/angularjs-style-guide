@@ -224,7 +224,7 @@ This will make your testing easier and in some cases prevent unexpected behaviou
 * Prefer the usage of [controllers instead of `ngInit`](https://github.com/angular/angular.js/pull/4366/files). The only appropriate use of `ngInit` is for aliasing special properties of `ngRepeat`. Besides this case, you should use controllers rather than `ngInit` to initialize values on a scope.
 * Do not use `$` prefix for the names of variables, properties and methods. This prefix is reserved for AngularJS usage.
 
-#Modules
+# Modules
 
 * Modules should be named with lowerCamelCase. For indicating that module `b` is submodule of module `a` you can nest them by using namespacing like: `a.b`.
 
@@ -235,7 +235,7 @@ There are two common ways for structuring the modules:
 
 Currently there's not a big difference, but the first way looks cleaner. Also, if lazy-loading modules is implemented (currently not in the AngularJS roadmap), it will improve the app's performance.
 
-#Controllers
+# Controllers
 
 * Do not manipulate DOM in your controllers, this will make your controllers harder for testing and will violate the [Separation of Concerns principle](https://en.wikipedia.org/wiki/Separation_of_concerns). Use directives instead.
 * The naming of the controller is done using the controller's functionality (for example shopping cart, homepage, admin panel) and the substring `Ctrl` in the end. The controllers are named UpperCamelCase (`HomePageCtrl`, `ShoppingCartCtrl`, `AdminPanelCtrl`, etc.).
@@ -284,6 +284,29 @@ module.filter('myFormat', function () {
 module.controller('MyCtrl', ['$scope', 'myFormatFilter', function ($scope, myFormatFilter) {
   //body...
 }]);
+```
+* In case of nested controllers use "nested scoping" (the `controllerAs` syntax):
+
+**app.js**
+```javascript
+module.config(function ($routeProvider) {
+  $routeProvider
+    .when('/route', {
+      templateUrl: 'partials/template.html',
+      controller: 'HomeCtrl',
+      controllerAs: 'home'
+    });
+});
+```
+**HomeCtrl**
+```javascript
+function HomeCtrl() {
+  this.bindingValue = 42;
+}
+```
+**template.html**
+```
+<div ng-bind="home.bindingValue"></div>
 ```
 
 #Directives
