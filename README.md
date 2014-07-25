@@ -1,4 +1,4 @@
-#Introduction
+# Introduction
 
 The goal of this style guide is to present a set of best practices and style guidelines for one AngularJS application.
 These best practices are collected from:
@@ -22,7 +22,7 @@ For AngularJS development recommended is the [Google's JavaScript style guide](h
 
 In AngularJS's GitHub wiki there is a similar section by [ProLoser](https://github.com/ProLoser), you can check it [here](https://github.com/angular/angular.js/wiki).
 
-#Table of content
+# Table of content
 * [General](#general)
     * [Directory structure](#directory-structure)
     * [Markup](#markup)
@@ -39,7 +39,7 @@ In AngularJS's GitHub wiki there is a similar section by [ProLoser](https://gith
 * [Contribution](#contribution)
 * [Contributors](#contributors)
 
-#General
+# General
 
 ## Directory structure
 
@@ -223,6 +223,15 @@ This will make your testing easier and in some cases prevent unexpected behaviou
 * Do not pollute your `$scope`. Only add functions and variables that are being used in the templates.
 * Prefer the usage of [controllers instead of `ngInit`](https://github.com/angular/angular.js/pull/4366/files). The only appropriate use of `ngInit` is for aliasing special properties of `ngRepeat`. Besides this case, you should use controllers rather than `ngInit` to initialize values on a scope.
 * Do not use `$` prefix for the names of variables, properties and methods. This prefix is reserved for AngularJS usage.
+* When resolving dependencies through the DI mechanism of AngularJS, sort the dependencies by their type - the built-in AngularJS dependencies should be first, followed by your custom ones:
+
+```javascript
+module.factory('Service', function ($rootScope, $timeout, MyCustomDependency1, MyCustomDependency2) {
+  return {
+    //Something
+  };
+});
+```
 
 # Modules
 
@@ -309,7 +318,7 @@ function HomeCtrl() {
 <div ng-bind="home.bindingValue"></div>
 ```
 
-#Directives
+# Directives
 
 * Name your directives with lowerCamelCase.
 * Use `scope` instead of `$scope` in your link function. In the compile, post/pre link functions you have already defined arguments which will be passed when the function is invoked, you won't be able to change them using DI. This style is also used in AngularJS's source code.
@@ -321,13 +330,13 @@ function HomeCtrl() {
 * Use `$scope.$on('$destroy', fn)` for cleaning up. This is especially useful when you're wrapping third-party plugins as directives.
 * Do not forget to use `$sce` when you should deal with untrusted content.
 
-#Filters
+# Filters
 
 * Name your filters with lowerCamelCase.
 * Make your filters as light as possible. They are called often during the `$digest` loop so creating a slow filter will slow down your app.
 * Do a single thing in your filters, keep them coherent. More complex manipulations can be achieved by piping existing filters.
 
-#Services
+# Services
 
 This section includes information about the service component in AngularJS. It is not dependent of the way of definition (i.e. as provider, `.factory`, `.service`), except if explicitly mentioned.
 
@@ -401,7 +410,7 @@ demo.config(function (sampleProvider) {
 });
 ```
 
-#Templates
+# Templates
 
 * Use `ng-bind` or `ng-cloak` instead of simple `{{ }}` to prevent flashing content.
 * Avoid writing complex expressions in the templates.
@@ -422,22 +431,22 @@ $scope.divStyle = {
 <div ng-style="divStyle">my beautifully styled div which will work in IE</div>;
 ```
 
-#Routing
+# Routing
 
 * Use `resolve` to resolve dependencies before the view is shown.
 
-#Testing
+# Testing
 
 TBD
 
 Until this section is completed you can use [this one](https://github.com/daniellmb/angular-test-patterns).
 
-#Contribution
+# Contribution
 
 Since the goal of this style guide is to be community-driven, contributions are greatly appreciated.
 For example, you can contribute by extending the Testing section or by translating the style guide to your language.
 
-#Contributors
+# Contributors
 
 [![mgechev](http://www.gravatar.com/avatar/82bafb0432ce4ccc9dcc26f94d5fe5bc?s=117)](https://github.com/mgechev) |[![pascalockert](http://www.gravatar.com/avatar/cf3cf69f535e77166c17bc5f586514f5?s=117)](https://github.com/pascalockert) |[![mainyaa](http://www.gravatar.com/avatar/c274adeb5303a1aae51f1e34bd7a3bc3?s=117)](https://github.com/mainyaa) |[![rubystream](http://www.gravatar.com/avatar/04952a6ee948f345e9c3727850d09a1b?s=117)](https://github.com/rubystream) |[![lukaszklis](http://www.gravatar.com/avatar/7a30aca2cf9658558247348b3be8c35e?s=117)](https://github.com/lukaszklis) |
 :---: |:---: |:---: |:---: |:---: |
