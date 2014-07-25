@@ -55,20 +55,20 @@ In this way the directory structure will look like:
 ├── app
 │   ├── app.js
 │   ├── controllers
-│   │   ├── page1
+│   │   ├── home
 │   │   │   ├── FirstCtrl.js
 │   │   │   └── SecondCtrl.js
-│   │   └── page2
+│   │   └── about
 │   │       └── ThirdCtrl.js
 │   ├── directives
-│   │   ├── page1
+│   │   ├── home
 │   │   │   └── directive1.js
-│   │   └── page2
+│   │   └── about
 │   │       ├── directive2.js
 │   │       └── directive3.js
 │   ├── filters
-│   │   ├── page1
-│   │   └── page2
+│   │   ├── home
+│   │   └── about
 │   └── services
 │       ├── CommonService.js
 │       ├── cache
@@ -95,7 +95,7 @@ Here is its layout:
 │   │   ├── directives
 │   │   ├── filters
 │   │   └── services
-│   ├── page1
+│   ├── home
 │   │   ├── controllers
 │   │   │   ├── FirstCtrl.js
 │   │   │   └── SecondCtrl.js
@@ -107,7 +107,7 @@ Here is its layout:
 │   │   └── services
 │   │       ├── service1.js
 │   │       └── service2.js
-│   └── page2
+│   └── about
 │       ├── controllers
 │       │   └── ThirdCtrl.js
 │       ├── directives
