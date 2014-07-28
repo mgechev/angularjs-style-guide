@@ -160,8 +160,6 @@ Conventions about component naming can be found in each component section.
 
 ## Markup
 
-The HTML markup is important too and should be written by the team as if it were the same person.
-
 [TLDR;](http://developer.yahoo.com/blogs/ydn/high-performance-sites-rule-6-move-scripts-bottom-7200.html) Put the scripts at the bottom.
 
 ```
