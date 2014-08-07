@@ -1,14 +1,16 @@
 #Введение
 
-Цель данного гида — показать набор лучших практик для AngularJS приложений.
+Цель данного руководства — предоставить набор лучших практик и рекомендаций по стилю для AngularJS приложений.
 
-Которые были собранны из следующих источников:
+В работе были использованы следующие источники:
 
 0. Исходный код AngularJS.
 0. Мной прочитанные статьи.
 0. Мой собственный опыт.
 
-**Замечание**: это все еще черновик, главная цель которого — это-то, чтобы его развивало сообщество и поэтому восполнение любых пробелов будет принято с благодарностью.
+**Замечание 1**: это все еще черновик, главная цель которого — это-то, чтобы его развивало сообщество и поэтому восполнение любых пробелов будет принято с благодарностью.
+
+**Замечание 2**: перед использование рекомендаций, описанных в данном переводе, убедитесь, что они соответствуют текущей версии оригинала.
 
 В этом руководстве вы не найдете общих требований к стилю для разработки на JavaScript. Они есть тут:
 
@@ -16,14 +18,16 @@
 0. [Mozilla's JavaScript style guide](https://developer.mozilla.org/en-US/docs/Developer_Guide/Coding_Style)
 0. [GitHub's JavaScript style guide](https://github.com/styleguide/javascript)
 0. [Douglas Crockford's JavaScript style guide](http://javascript.crockford.com/code.html)
+0. [Airbnb JavaScript style guide](https://github.com/airbnb/javascript)
 
-Для AngularJS разработчиков рекомендуется придерживаться этого гида: [Google's JavaScript style guide](http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml).
+При разработке приложений на AngularJS рекомендуется использовать [Google's JavaScript style guide](http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml).
 
-На wiki странице GitHub репозитория AngularJS есть похожая секция созданная [ProLoser](https://github.com/ProLoser), вы можете посмотреть ее [здесь](https://github.com/angular/angular.js/wiki).
+На wiki странице GitHub репозитория AngularJS есть похожая секция, созданная [ProLoser](https://github.com/ProLoser), которая находится [здесь](https://github.com/angular/angular.js/wiki).
 
 #Содержание
 * [Общие](#general)
     * [Файловая структура](#directory-structure)
+    * [Разметка](#markup)
     * [Оптимизация цикла обработки](#optimize-the-digest-cycle)
     * [Другое](#others)
 * [Модули](#modules)
@@ -38,118 +42,162 @@
 
 ## Файловая структура
 
-Так как большое AngularJS приложение состоит из множества компонентов оптимальный способ их структурирования — иерархия каталогов.
+Так как большое AngularJS приложение состоит из большого количества компонентов, оптимальный способ их структурирования — иерархия каталогов.
 
-Есть два основных подхода:
+Существует два основных подхода:
 
-* В начале разделить по типам компонент, а затем по функциональности:
+* Сперва разделить по типам компонентов, затем по функциональности.
 
-В таком случае структура каталогов будет выглядеть так:
+В этом случае структура каталогов будет выглядеть примерно так:
 
-    .
-    ├── app
-    │   ├── app.js
-    │   ├── controllers
-    │   │   ├── page1
-    │   │   │   ├── FirstCtrl.js
-    │   │   │   └── SecondCtrl.js
-    │   │   └── page2
-    │   │       └── ThirdCtrl.js
-    │   ├── directives
-    │   │   ├── page1
-    │   │   │   └── directive1.js
-    │   │   └── page2
-    │   │       ├── directive2.js
-    │   │       └── directive3.js
-    │   ├── filters
-    │   │   ├── page1
-    │   │   └── page2
-    │   └── services
-    │       ├── CommonService.js
-    │       ├── cache
-    │       │   ├── Cache1.js
-    │       │   └── Cache2.js
-    │       └── models
-    │           ├── Model1.js
-    │           └── Model2.js
-    ├── lib
-    └── test
+ ```
+ .
+ ├── app
+ │   ├── app.js
+ │   ├── controllers
+ │   │   ├── home
+ │   │   │   ├── FirstCtrl.js
+ │   │   │   └── SecondCtrl.js
+ │   │   └── about
+ │   │       └── ThirdCtrl.js
+ │   ├── directives
+ │   │   ├── home
+ │   │   │   └── directive1.js
+ │   │   └── about
+ │   │       ├── directive2.js
+ │   │       └── directive3.js
+ │   ├── filters
+ │   │   ├── home
+ │   │   └── about
+ │   └── services
+ │       ├── CommonService.js
+ │       ├── cache
+ │       │   ├── Cache1.js
+ │       │   └── Cache2.js
+ │       └── models
+ │           ├── Model1.js
+ │           └── Model2.js
+ ├── partials
+ ├── lib
+ └── test
+ ```
 
-* В начале разделить по функциональности, а затем по типам компонентов:
+* Сперва разделить по функциональности, затем по типам компонентов.
 
 Вот как это выглядит:
 
-    .
-    ├── app
-    │   ├── app.js
-    │   ├── common
-    │   │   ├── controllers
-    │   │   ├── directives
-    │   │   ├── filters
-    │   │   └── services
-    │   ├── page1
-    │   │   ├── controllers
-    │   │   │   ├── FirstCtrl.js
-    │   │   │   └── SecondCtrl.js
-    │   │   ├── directives
-    │   │   │   └── directive1.js
-    │   │   ├── filters
-    │   │   │   ├── filter1.js
-    │   │   │   └── filter2.js
-    │   │   └── services
-    │   │       ├── service1.js
-    │   │       └── service2.js
-    │   └── page2
-    │       ├── controllers
-    │       │   └── ThirdCtrl.js
-    │       ├── directives
-    │       │   ├── directive2.js
-    │       │   └── directive3.js
-    │       ├── filters
-    │       │   └── filter3.js
-    │       └── services
-    │           └── service3.js
-    ├── lib
-    └── test
+```
+.
+├── app
+│   ├── app.js
+│   ├── common
+│   │   ├── controllers
+│   │   ├── directives
+│   │   ├── filters
+│   │   └── services
+│   ├── home
+│   │   ├── controllers
+│   │   │   ├── FirstCtrl.js
+│   │   │   └── SecondCtrl.js
+│   │   ├── directives
+│   │   │   └── directive1.js
+│   │   ├── filters
+│   │   │   ├── filter1.js
+│   │   │   └── filter2.js
+│   │   └── services
+│   │       ├── service1.js
+│   │       └── service2.js
+│   └── about
+│       ├── controllers
+│       │   └── ThirdCtrl.js
+│       ├── directives
+│       │   ├── directive2.js
+│       │   └── directive3.js
+│       ├── filters
+│       │   └── filter3.js
+│       └── services
+│           └── service3.js
+├── partials
+├── lib
+└── test
+```
 
-* Когда создается директива, может быть очень удобным положить все связанные с ней файлы в одну директорию (например шаблон, CSS/SASS, JavaScript). Если вы выберите такой подход будьте последовательны и используйте его везде в своем проекте.
+* При создании директив достаточно удобно будет сложить все связанные с ней файлы (к примеру, шаблоны, CSS/SASS, JavaScript) в один каталог. Если вы решите использовать этот подход, старайтесь придерживаться его во всём проекте.
 
-        app
-        └── directives
-            ├── directive1
-            │   ├── directive1.html
-            │   ├── directive1.js
-            │   └── directive1.sass
-            └── directive2
-                ├── directive2.html
-                ├── directive2.js
-                └── directive2.sass
+```
+app
+└── directives
+    ├── directive1
+    │   ├── directive1.html
+    │   ├── directive1.js
+    │   └── directive1.sass
+    └── directive2
+        ├── directive2.html
+        ├── directive2.js
+        └── directive2.sass
+```
 
-Этот подход может сочетаться с любым из двух предложенных выше.
+Этот подход может сочетаться с любой из описанных выше структур каталогов.
 
-* Еще один способ немного отличающийся от остальных, он используется например в [ng-boilerplate](http://joshdmiller.github.io/ng-boilerplate/#/home). И заключается в том, что unit тесты находятся внутри папки компонента. Это помогает вам, когда вы вносите какие-то изменения в компонент быстро найти его тесты, также при таком подходе, тесты играют роль документации и показывают примеры использования.
+* Существует еще один способ, который немного отличается от описанных выше подходов. Он используется, к примеру, в [ng-boilerplate](http://joshdmiller.github.io/ng-boilerplate/#/home). Его особенность в том, что unit тесты для проверки компонентов находятся в том же каталоге, что и сам компонент. В этом случае при изменении компонента вам не придётся долго искать его тесты. Также, при таком подходе, тесты играют роль документации и показывают примеры использования.
 
-        services
-        ├── cache
-        │   ├── cache1.js
-        │   └── cache1.spec.js
-        └── models
-            ├── model1.js
-            └── model1.spec.js
+```
+services
+├── cache
+│   ├── cache1.js
+│   └── cache1.spec.js
+└── models
+    ├── model1.js
+    └── model1.spec.js
+```
 
 * Файл `app.js` содержит определения маршрутов, конфигурацию и/или начальную инициализацию (если требуется).
 * Каждый JavaScript файл должен содержать только один компонент. Имя файла должно соответствовать названию компонента.
-* Используйте шаблоны структур AngularJS проектов например такие как [Yeoman](http://yeoman.io), [ng-boilerplate](http://joshdmiller.github.io/ng-boilerplate/#/home).
+* Используйте шаблоны для структуры AngularJS проектов, такие как [Yeoman](http://yeoman.io), [ng-boilerplate](http://joshdmiller.github.io/ng-boilerplate/#/home).
 
-Я предпочитаю первый, потому что в такой структуре проще найти общие компоненты.
+Я предпочитаю первую структуру каталогов, в ней гораздо легче найти стандартные компоненты.
 
-Соглашения об именовании компонентов могут быть найдены в соответствующих секциях.
+Соглашения об именовании компонентов будут описаны в соответствующих секциях.
+
+## Markup
+
+[TLDR;](http://developer.yahoo.com/blogs/ydn/high-performance-sites-rule-6-move-scripts-bottom-7200.html) Загружайте скрипты как можно позже. Расположите их в самом конце страницы.
+
+```
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>MyApp</title>
+</head>
+<body>
+  <div ng-app="myApp">
+    <div ng-view></div>
+  </div>
+  <script src="angular.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
+```
+
+Указывайте директивы после стандартных атрибутов. Так будет проще отделить элементы фреймворка от HTML-разметки (что, в свою очередь, сильно облегчит поддержку).
+
+```
+<form class="frm" ng-submit="login.authenticate()">
+  <div>
+    <input class="ipt" type="text" placeholder="name" require ng-model="user.name">
+  </div>
+</form>
+```
+
+Последовательность стандартных HTML атрибутов должна соответствовать следующим [рекомендациям](http://mdo.github.io/code-guide/#html-attribute-order).
 
 ## Оптимизация цикла обработки
 
-* Следите только за жизненно важными переменным (для примера: когда вы используете real-time коммуникации не вызывайте цикл обработки в каждом полученном сообщении).
+* Следите (watch) только за теми переменными, где это действительно необходимо (для примера: при использовании real-time коммуникации не вызывайте цикл `$digest` для каждого полученного сообщения).
 * Для контента, который меняется только раз, используйте одноразовые watch, например, [`bindonce`](https://github.com/Pasvaz/bindonce).
-* Сделайте вычисления в `$watch` максимально простыми. Создание сложных вычислений в `$watch` замедляет выполнение всего приложения. (цикл `$digest` работает в одном потоке, потому что JavaScript однопоточный).
+* Сделайте вычисления в `$watch` максимально простыми. Любые сложные вычисления в `$watch` замедляют выполнение всего приложения (цикл `$digest` работает в одном потоке, потому что JavaScript однопоточный).
+* При вызове функции `$timeout` устанавливайте третий параметр в false, если функция обратного вызова не изменяет отслеживаемые переменные. В этом случае `$digest` не будет вызван после выполнения функции. 
 
 ## Другое
 
