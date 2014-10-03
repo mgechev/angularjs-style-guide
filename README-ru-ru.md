@@ -337,8 +337,7 @@ function HomeCtrl() {
 
 # <a name="services"></a>Сервисы
 
-This section includes information about the service component in AngularJS. It is not dependent of the way of definition (i.e. as provider, `.factory`, `.service`), except if explicitly mentioned.
-В этой секции описывается
+В этой секции описывается информация о сервисах в AngularJS вне зависимости от способа определения (например, `.factory`, `.service`), если не сказано обратное.
 
 * Используйте camelCase при определении имён сервисов.
   * UpperCamelCase (PascalCase) должен использоваться для сервисов, используемых в качестве конструкторов:
