@@ -183,6 +183,15 @@ Cela rendra vos tests plus facile et, dans certains cas, évitera les comporteme
 * Ne pas polluer votre portée `$scope`. Ajouter uniquement des fonctions et des variables qui sont utilisés dans les modèles.
 * Préférer l'utilisation de contrôleurs au lieu de [`ngInit`](https://github.com/angular/angular.js/pull/4366/files). La seule utilisation appropriée de `ngInit` est pour initialiser des propriétés particulières de `ngRepeat`. Outre ce cas, vous devez utiliser les contrôleurs plutôt que `ngInit` pour initialiser les valeurs sur une portée.
 * Ne pas utiliser le prefixe `$` pour les noms de variables, les propriétés et les méthodes. Ce préfixe est réservé pour un usage de AngularJS.
+* Lors de la résolution des dépendances par le système DI d'AngularJS, trier les dépendances par leur type &mdash; les dépendances intégrées à AngularJS en premier, suivies des vôtres :
+
+```javascript
+module.factory('Service', function ($rootScope, $timeout, MyCustomDependency1, MyCustomDependency2) {
+  return {
+    //Something
+  };
+});
+```
 
 #Modules
 
