@@ -195,6 +195,8 @@ module.factory('Service', function ($rootScope, $timeout, MyCustomDependency1, M
 
 #Modules
 
+* Les modules devraient être nommés en lowerCamelCase. Pour indiquer que le module `b` est un sous-module du module `a` vous pouvez les imbriquer en utlisant un espace de noms comme `a.b`.
+
 Il y a deux façons communes pour structurer les modules:
 
 0. Par fonctionnalité
