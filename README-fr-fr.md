@@ -33,7 +33,7 @@ Dans le wiki Github d'AngularJS, il y a une section similaire de [ProLoser](http
 * [Directives](#directives)
 * [Filtres](#filtres)
 * [Services](#services)
-* [Modèles](#modèles)
+* [Gabarits](#gabarits)
 * [Routage](#routage)
 * [Tests](#tests)
 * [Contribution](#contribution)
@@ -119,7 +119,7 @@ Ce qui donnera alors:
 └── test
 ```
 
-* Lors de la création d'une directive, il pourrait être utile de mettre tous les fichiers associés (modèles, CSS / fichiers SASS, JavaScript) dans un seul dossier. Si vous choisissez d'utiliser ce style d'arborescence, soyez cohérent et utilisez le partout dans votre projet.
+* Lors de la création d'une directive, il pourrait être utile de mettre tous les fichiers associés (gabarits, CSS / fichiers SASS, JavaScript) dans un seul dossier. Si vous choisissez d'utiliser ce style d'arborescence, soyez cohérent et utilisez le partout dans votre projet.
 
 ```
 app
@@ -181,7 +181,7 @@ Cela rendra vos tests plus facile et, dans certains cas, évitera les comporteme
 * Utilisez `$resource` au lieu de `$http` quand cela est possible. Un niveau d'abstraction plus élevé vous permet d'économiser de la redondance.
 * Utilisez un pré-minifier AngularJS (comme [ngmin](https://github.com/btford/ngmin) ou [ng_annote](https://github.com/olov/ng-annotate)) pour la prévention des problèmes après minification.
 * Ne pas utiliser de globales. Résoudre toutes les dépendances en utilisant l'injection de dépendances.
-* Ne pas polluer votre portée `$scope`. Ajouter uniquement des fonctions et des variables qui sont utilisés dans les modèles.
+* Ne pas polluer votre portée `$scope`. Ajouter uniquement des fonctions et des variables qui sont utilisés dans les gabarits.
 * Préférer l'utilisation de contrôleurs au lieu de [`ngInit`](https://github.com/angular/angular.js/pull/4366/files). La seule utilisation appropriée de `ngInit` est pour initialiser des propriétés particulières de `ngRepeat`. Outre ce cas, vous devez utiliser les contrôleurs plutôt que `ngInit` pour initialiser les valeurs sur une portée.
 * Ne pas utiliser le prefixe `$` pour les noms de variables, les propriétés et les méthodes. Ce préfixe est réservé pour un usage de AngularJS.
 * Lors de la résolution des dépendances par le système DI d'AngularJS, trier les dépendances par leur type &mdash; les dépendances intégrées à AngularJS en premier, suivies des vôtres :
@@ -299,11 +299,11 @@ myModule.service('Developer', Developer);
 
 * Pour un cache au niveau de la session, utilisez `$cacheFactory`. Cela doit être utilisé pour mettre en cache les résultats des requêtes ou des calculs lourds.
 
-#Modèles
+#Gabarits
 
 * Utilisez `ng-bind` ou `ng-cloak` au lieu de simples `{{ }}` pour prévenir les collisions de contenus
-* Eviter d'écrire du code complexe dans les modèles
-* Quand vous avez besoin de définir le `src` d'une image dynamiquement, utilisez `ng-src` au lieu de  `src` avec `{{}}` dans le modèle. Ceci pour permettre un refresh dynamique ? (NLDT)
+* Eviter d'écrire du code complexe dans les gabarits
+* Quand vous avez besoin de définir le `src` d'une image dynamiquement, utilisez `ng-src` au lieu de  `src` avec `{{}}` dans le gabarit. Ceci pour permettre un refresh dynamique ? (NLDT)
 * Au lieu d'utiliser la variable $scope en tant que chaîne et de l'utiliser avec l'atribut  `style` et `{{}}`, utilisez la directive `ng-style` avec les paramètres de l'objet comme et les variables de scope comme valeurs:
 
 ```HTML
