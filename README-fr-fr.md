@@ -158,8 +158,10 @@ Les conventions sur le nommage des composants peuvent être trouvées dans la se
 
 ## Optimiser le cycle de traitement
 
-* Surveiller ($watch) seulement les variables les plus importantes (par exemple: lors de l'utilisation de communication en temps réel, ne pas provoquer une boucle dans chaque message reçu).
-* Faire les calculs dans `$watch` aussi simples que possible. Faire des calculs lourds et lents dans un seul `$watch` va ralentir l'ensemble de l'application (la boucle $digest se fait dans un seul thread en raison de la nature mono-thread de JavaScript).
+* Surveiller seulement les variables les plus importantes (par exemple, lors de l'utilisation de communication en temps réel, ne pas provoquer une boucle `$digest` dans chaque message reçu).
+* Pour un contenu initialisé une seule fois et qui ensuite ne change pas, utiliser des observateurs à évaluation unique comme [bindonce](https://github.com/Pasvaz/bindonce).
+* Faire les calculs dans `$watch` aussi simples que possible. Faire des calculs lourds et lents dans un unique `$watch` va ralentir l'ensemble de l'application (la boucle `$digest` s'exécute dans un seul thread en raison de la nature mono-thread de JavaScript).
+* Mettre le troisième paramètre de la fonction `$timeout` à false pour éviter la boucle `$digest` lorsqu'aucune des variables observées n'est impactée par la fonction de rappel `$timeout`.
 
 ## Autres
 
