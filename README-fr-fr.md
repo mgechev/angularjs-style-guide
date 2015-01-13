@@ -1,17 +1,19 @@
 #Introduction
 
-Ce guide est la traduction francaise de [AngularJS style guide](https://github.com/mgechev/angularjs-style-guide)
+Ce guide est la traduction francaise de [AngularJS style guide](https://github.com/mgechev/angularjs-style-guide).
 
-Le but de ce style-guide est de présenter un ensemble de meilleures pratiques et lignes directrices pour une application AngularJS.
-Ces pratiques sont collectées à partir de:
+Le but de ce guide de style est d'exposer un ensemble de meilleures pratiques et directives de style pour une application AngularJS.
+Elles proviennent&#8239;:
 
-0. Le code source d'AngularJS.
-0. Le code source ou des articles que j'ai lus
-0. Ma propre expérience
+0. du code source d'AngularJS
+0. du code source ou des articles que j'ai lus
+0. de ma propre expérience.
 
-** Note **: c'est encore un projet, son principal objectif est d'être piloté par les développements et développeurs d'AngularJS, donc combler les lacunes sera grandement apprécié par l'ensemble de la communauté.
+**Note 1**&#8239;: ce guide est encore à l'état d'ébauche. Son principal objectif est d'être développé par la communauté, donc combler les lacunes sera grandement apprécié par l'ensemble de la communauté.
 
-Dans ce document, vous ne trouverez pas de lignes directrices communes pour le développement JavaScript. Tel que vous pouvez les trouver ici :
+**Note 2**&#8239;: avant de suivre certaines directives des traductions du document original en anglais, assurez-vous qu'elles sont à jour avec la [dernière version](https://github.com/mgechev/angularjs-style-guide/blob/master/README.md).
+
+Dans ce document, vous ne trouverez pas de directives générales concernant le développement en JavaScript. Vous pouvez les trouver dans les documents suivants&#8239;:
 
 0. [Google's JavaScript style guide](http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml)
 0. [Mozilla's JavaScript style guide](https://developer.mozilla.org/en-US/docs/Developer_Guide/Coding_Style)
