@@ -28,6 +28,7 @@ Dans le wiki Github d'AngularJS, il y a une section similaire de [ProLoser](http
 
 * [Général](#général)
     * [Arborescence](#arborescence)
+    * [Balisage](#balisage)
     * [Optimiser le cycle de traitement](#optimiser-le-cycle-de-traitement)
     * [Autres](#autres)
 * [Modules](#modules)
@@ -155,6 +156,39 @@ services
 Je préfère la première structure, car il rend les composants communs plus faciles à trouver.
 
 Les conventions sur le nommage des composants peuvent être trouvées dans la section de chaque composant.
+
+## Balisage
+
+[TLDR;](http://developer.yahoo.com/blogs/ydn/high-performance-sites-rule-6-move-scripts-bottom-7200.html) Placer les scripts tout en bas.
+
+```
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>MyApp</title>
+</head>
+<body>
+  <div ng-app="myApp">
+    <div ng-view></div>
+  </div>
+  <script src="angular.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
+```
+
+Garder les choses simples et mettre les directives spécifiques d'AngularJS en dernier. De cette façon, il est facile de vérifier le code et trouver les améliorations dans le HTML apportées par le framework (ce qui profite à la maintenabilité).
+
+```
+<form class="frm" ng-submit="login.authenticate()">
+  <div>
+    <input class="ipt" type="text" placeholder="name" require ng-model="user.name">
+  </div>
+</form>
+```
+
+Les autres attributs HTML devraient suivre les recommandations du [Code Guide](http://mdo.github.io/code-guide/#html-attribute-order) de Mark Otto.
 
 ## Optimiser le cycle de traitement
 
