@@ -1,17 +1,19 @@
 #Introduction
 
-Ce guide est la traduction francaise de [AngularJS style guide](https://github.com/mgechev/angularjs-style-guide)
+Ce guide est la traduction francaise de [AngularJS style guide](https://github.com/mgechev/angularjs-style-guide).
 
-Le but de ce style-guide est de présenter un ensemble de meilleures pratiques et lignes directrices pour une application AngularJS.
-Ces pratiques sont collectées à partir de:
+Le but de ce guide de style est d'exposer un ensemble de meilleures pratiques et directives de style pour une application AngularJS.
+Elles proviennent&#8239;:
 
-0. Le code source d'AngularJS.
-0. Le code source ou des articles que j'ai lus
-0. Ma propre expérience
+0. du code source d'AngularJS
+0. du code source ou des articles que j'ai lus
+0. de ma propre expérience.
 
-** Note **: c'est encore un projet, son principal objectif est d'être piloté par les développements et développeurs d'AngularJS, donc combler les lacunes sera grandement apprécié par l'ensemble de la communauté.
+**Note 1**&#8239;: ce guide est encore à l'état d'ébauche. Son principal objectif est d'être développé par la communauté, donc combler les lacunes sera grandement apprécié par l'ensemble de la communauté.
 
-Dans ce document, vous ne trouverez pas de lignes directrices communes pour le développement JavaScript. Tel que vous pouvez les trouver ici :
+**Note 2**&#8239;: avant de suivre certaines directives des traductions du document original en anglais, assurez-vous qu'elles sont à jour avec la [dernière version](https://github.com/mgechev/angularjs-style-guide/blob/master/README.md).
+
+Dans ce document, vous ne trouverez pas de directives générales concernant le développement en JavaScript. Vous pouvez les trouver dans les documents suivants&#8239;:
 
 0. [Google's JavaScript style guide](http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml)
 0. [Mozilla's JavaScript style guide](https://developer.mozilla.org/en-US/docs/Developer_Guide/Coding_Style)
@@ -23,102 +25,102 @@ Pour le développement d'AngularJS, le guide recommandé est [Google's JavaScrip
 Dans le wiki Github d'AngularJS, il y a une section similaire de [ProLoser](https://github.com/ProLoser), vous pouvez la consulter [ici](https://github.com/angular/angular.js/wiki).
 
 #Table des matières
-* [General](#general)
-    * [Arborescence](#directory-structure)
-    * [Optimiser le cycle de traitement](#optimize-the-digest-cycle)
-    * [Autres](#others)
+
+* [Général](#général)
+    * [Arborescence](#arborescence)
+    * [Balisage](#balisage)
+    * [Optimiser le cycle de traitement](#optimiser-le-cycle-de-traitement)
+    * [Autres](#autres)
 * [Modules](#modules)
-* [Controllers](#controllers)
+* [Contrôleurs](#contrôleurs)
 * [Directives](#directives)
-* [Filters](#filters)
+* [Filtres](#filtres)
 * [Services](#services)
-* [Templates](#templates)
-* [Routing](#routing)
-* [Testing](#testing)
+* [Gabarits](#gabarits)
+* [Routage](#routage)
+* [Tests](#tests)
 * [Contribution](#contribution)
 
-#General
+#Général
 
 ## Arborescence
 
-Etant donné qu'une grande application AngularJS a beaucoup de composants, il est préférable de les structurer dans une hiérarchie de répertoires.
-Il existe deux approches principales:
+Étant donné qu'une grosse application AngularJS a beaucoup de composants, il est préférable de la structurer en une hiérarchie de répertoires.
+Il existe deux approches principales&#8239;:
 
-* Créer une division de haut niveau par types de composants et une division inférieure par fonctionnalité.
-
-De cette façon, la structure de répertoire va ressembler à :
+* Créer une division de haut niveau par types de composants et une division inférieure par fonctionnalité. De cette façon, la structure de répertoires ressemblera à
 
 ```
 .
 ├── app
-│   ├── app.js
-│   ├── controllers
-│   │   ├── page1
-│   │   │   ├── FirstCtrl.js
-│   │   │   └── SecondCtrl.js
-│   │   └── page2
-│   │       └── ThirdCtrl.js
-│   ├── directives
-│   │   ├── page1
-│   │   │   └── directive1.js
-│   │   └── page2
-│   │       ├── directive2.js
-│   │       └── directive3.js
-│   ├── filters
-│   │   ├── page1
-│   │   └── page2
-│   └── services
-│       ├── CommonService.js
-│       ├── cache
-│       │   ├── Cache1.js
-│       │   └── Cache2.js
-│       └── models
-│           ├── Model1.js
-│           └── Model2.js
+│   ├── app.js
+│   ├── controllers
+│   │   ├── home
+│   │   │   ├── FirstCtrl.js
+│   │   │   └── SecondCtrl.js
+│   │   └── about
+│   │       └── ThirdCtrl.js
+│   ├── directives
+│   │   ├── home
+│   │   │   └── directive1.js
+│   │   └── about
+│   │       ├── directive2.js
+│   │       └── directive3.js
+│   ├── filters
+│   │   ├── home
+│   │   └── about
+│   └── services
+│       ├── CommonService.js
+│       ├── cache
+│       │   ├── Cache1.js
+│       │   └── Cache2.js
+│       └── models
+│           ├── Model1.js
+│           └── Model2.js
+├── partials
 ├── lib
 └── test
 ```
 
-* Créer une division de haut niveau par fonctionnalité et de niveau inférieur par type de composants.
-
-Ce qui donnera alors:
+* Créer une division de haut niveau par fonctionnalité et de niveau inférieur par type de composants. Voici son schéma&#8239;:
 
 ```
 .
 ├── app
-│   ├── app.js
-│   ├── common
-│   │   ├── controllers
-│   │   ├── directives
-│   │   ├── filters
-│   │   └── services
-│   ├── page1
-│   │   ├── controllers
-│   │   │   ├── FirstCtrl.js
-│   │   │   └── SecondCtrl.js
-│   │   ├── directives
-│   │   │   └── directive1.js
-│   │   ├── filters
-│   │   │   ├── filter1.js
-│   │   │   └── filter2.js
-│   │   └── services
-│   │       ├── service1.js
-│   │       └── service2.js
-│   └── page2
-│       ├── controllers
-│       │   └── ThirdCtrl.js
-│       ├── directives
-│       │   ├── directive2.js
-│       │   └── directive3.js
-│       ├── filters
-│       │   └── filter3.js
-│       └── services
-│           └── service3.js
+│   ├── app.js
+│   ├── common
+│   │   ├── controllers
+│   │   ├── directives
+│   │   ├── filters
+│   │   └── services
+│   ├── home
+│   │   ├── controllers
+│   │   │   ├── FirstCtrl.js
+│   │   │   └── SecondCtrl.js
+│   │   ├── directives
+│   │   │   └── directive1.js
+│   │   ├── filters
+│   │   │   ├── filter1.js
+│   │   │   └── filter2.js
+│   │   └── services
+│   │       ├── service1.js
+│   │       └── service2.js
+│   └── about
+│       ├── controllers
+│       │   └── ThirdCtrl.js
+│       ├── directives
+│       │   ├── directive2.js
+│       │   └── directive3.js
+│       ├── filters
+│       │   └── filter3.js
+│       └── services
+│           └── service3.js
+├── partials
 ├── lib
 └── test
 ```
 
-* Lors de la création d'une directive, il pourrait être utile de mettre tous les fichiers associés (modèles, CSS / fichiers SASS, JavaScript) dans un seul dossier. Si vous choisissez d'utiliser ce style d'arborescence, soyez cohérent et utilisez le partout dans votre projet.
+* Lors de la création des directives, il peut être pratique de mettre tous les fichiers associés à une directive (gabarits, CSS / fichiers SASS, JavaScript) dans un seul dossier. Si vous choisissez d'utiliser ce style d'arborescence, soyez cohérent et utilisez-le partout dans votre projet.
 
 ```
 app
@@ -135,7 +137,7 @@ app
 
 Cette approche peut être combinée avec les deux structures de répertoires ci-dessus.
 
-* Une plus légère variation de structures de répertoires est celle utilisée dans [ng-boilerplate](http://joshdmiller.github.io/ng-boilerplate/#/home). Dans ce mode, les tests unitaires pour un composant donné sont en attente dans le dossier du composant. De cette façon, lorsque vous effectuez des modifications dans les composants, il est plus facile de trouver leurs tests. Les tests servent également de documentation et de cas d'exemple.
+* Une dernière petite variation des deux structures de répertoires est celle utilisée dans [ng-boilerplate](http://joshdmiller.github.io/ng-boilerplate/#/home). Dans celle-ci, les tests unitaires pour un composant donné sont dans le même dossier que le composant. De cette façon, quand vous modifiez un composant donné, il est facile de trouver ses tests. Les tests tiennent aussi lieu de documentation et montrent des cas d'usage.
 
 ```
 services
@@ -148,17 +150,52 @@ services
 ```
 
 * Le fichier `app.js` contient la définition des routes, la configuration et/ou l'amorçage manuel (si nécessaire).
-* Chaque fichier JavaScript doit contenir un seul composant. Le fichier doit être nommé avec le nom du composant.
-* Utilisez un modèle de structure de projet pour Angular comme [Yeoman](http://yeoman.io), [ng-boilerplate](http://joshdmiller.github.io/ng-boilerplate/#/home).
+* Chaque fichier JavaScript ne devrait contenir qu'un seul composant. Le fichier doit être nommé avec le nom du composant.
+* Utilisez un modèle de structure de projet pour Angular comme [Yeoman](http://yeoman.io) ou [ng-boilerplate](http://joshdmiller.github.io/ng-boilerplate/#/home).
 
-Je préfère la première structure, car il rend les composants communs faciles à trouver.
+Je préfère la première structure, car il rend les composants communs plus faciles à trouver.
 
-les conventions sur le nommage des composants peuvent être trouvées dans chaque section des composants.
+Les conventions sur le nommage des composants peuvent être trouvées dans la section de chaque composant.
+
+## Balisage
+
+[TLDR;](http://developer.yahoo.com/blogs/ydn/high-performance-sites-rule-6-move-scripts-bottom-7200.html) Placer les scripts tout en bas.
+
+```
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>MyApp</title>
+</head>
+<body>
+  <div ng-app="myApp">
+    <div ng-view></div>
+  </div>
+  <script src="angular.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
+```
+
+Garder les choses simples et mettre les directives spécifiques d'AngularJS en dernier. De cette façon, il est facile de vérifier le code et trouver les améliorations dans le HTML apportées par le framework (ce qui profite à la maintenabilité).
+
+```
+<form class="frm" ng-submit="login.authenticate()">
+  <div>
+    <input class="ipt" type="text" placeholder="name" require ng-model="user.name">
+  </div>
+</form>
+```
+
+Les autres attributs HTML devraient suivre les recommandations du [Code Guide](http://mdo.github.io/code-guide/#html-attribute-order) de Mark Otto.
 
 ## Optimiser le cycle de traitement
 
-* Surveiller ($watch) seulement les variables les plus importantes (par exemple: lors de l'utilisation de communication en temps réel, ne pas provoquer une boucle dans chaque message reçu).
-* Faire les calculs dans `$watch` aussi simples que possible. Faire des calculs lourds et lents dans un seul `$watch` va ralentir l'ensemble de l'application (la boucle $digest se fait dans un seul thread en raison de la nature mono-thread de JavaScript).
+* Surveiller seulement les variables les plus importantes (par exemple, lors de l'utilisation de communication en temps réel, ne pas provoquer une boucle `$digest` dans chaque message reçu).
+* Pour un contenu initialisé une seule fois et qui ensuite ne change pas, utiliser des observateurs à évaluation unique comme [bindonce](https://github.com/Pasvaz/bindonce).
+* Faire les calculs dans `$watch` aussi simples que possible. Faire des calculs lourds et lents dans un unique `$watch` va ralentir l'ensemble de l'application (la boucle `$digest` s'exécute dans un seul thread en raison de la nature mono-thread de JavaScript).
+* Mettre le troisième paramètre de la fonction `$timeout` à false pour éviter la boucle `$digest` lorsqu'aucune des variables observées n'est impactée par la fonction de rappel `$timeout`.
 
 ## Autres
 
@@ -180,7 +217,7 @@ Cela rendra vos tests plus facile et, dans certains cas, évitera les comporteme
 * Utilisez `$resource` au lieu de `$http` quand cela est possible. Un niveau d'abstraction plus élevé vous permet d'économiser de la redondance.
 * Utilisez un pré-minifier AngularJS (comme [ngmin](https://github.com/btford/ngmin) ou [ng_annote](https://github.com/olov/ng-annotate)) pour la prévention des problèmes après minification.
 * Ne pas utiliser de globales. Résoudre toutes les dépendances en utilisant l'injection de dépendances.
-* Ne pas polluer votre portée `$scope`. Ajouter uniquement des fonctions et des variables qui sont utilisés dans les modèles.
+* Ne pas polluer votre portée `$scope`. Ajouter uniquement des fonctions et des variables qui sont utilisés dans les gabarits.
 * Préférer l'utilisation de contrôleurs au lieu de [`ngInit`](https://github.com/angular/angular.js/pull/4366/files). La seule utilisation appropriée de `ngInit` est pour initialiser des propriétés particulières de `ngRepeat`. Outre ce cas, vous devez utiliser les contrôleurs plutôt que `ngInit` pour initialiser les valeurs sur une portée.
 * Ne pas utiliser le prefixe `$` pour les noms de variables, les propriétés et les méthodes. Ce préfixe est réservé pour un usage de AngularJS.
 * Lors de la résolution des dépendances par le système DI d'AngularJS, trier les dépendances par leur type &mdash; les dépendances intégrées à AngularJS en premier, suivies des vôtres :
@@ -204,7 +241,7 @@ Il y a deux façons communes pour structurer les modules:
 
 Actuellement il n'y a pas une grande différence, mais la première méthode semble plus propre. En outre, si le chargement de modules en lazy-loading est mis en œuvre (pas dans la feuille de route d'AngularJS), il permettra d'améliorer la performance de l'application.
 
-#Controllers
+#Contrôleurs
 
 * Ne pas manipuler le DOM dans vos contrôleurs. Cela rendrait vos contrôleurs plus difficile pour les tests et viole le [Principe de séparation des couches] (https://en.wikipedia.org/wiki/Separation_of_concerns). Utilisez des directives à la place.
 * La désignation du contrôleur se fait en utilisant la fonctionnalité du contrôleur (par exemple panier, page d'accueil, panneau d'administration) ave la chaîne `Ctrl` à la fin. Les contrôleurs sont nommés en UpperCamelCase (`HomePageCtrl`, `ShoppingCartCtrl`, `AdminPanelCtrl`, etc.)
@@ -264,7 +301,7 @@ module.controller('MyCtrl', ['$scope', 'myFormatFilter', function ($scope, myFor
 * Utilisez `$scope.$on('$destroy, fn)` pour le nettoyage de vos objects/variables. Ceci est particulièrement utile lorsque vous utilisez des plugins tiers comme directives.
 * Ne pas oublier d'utiliser `$sce` lorsque vous devez faire face à un contenu non approuvé.
 
-#Filters
+#Filtres
 
 * Nommez vos filtres en lowerCamelCase
 * Faites vos filtres aussi léger que possible. Ils sont souvent appelés lors de la boucle `$digest` donc créer un filtre lent va ralentir votre application.
@@ -298,11 +335,11 @@ myModule.service('Developer', Developer);
 
 * Pour un cache au niveau de la session, utilisez `$cacheFactory`. Cela doit être utilisé pour mettre en cache les résultats des requêtes ou des calculs lourds.
 
-#Templates
+#Gabarits
 
 * Utilisez `ng-bind` ou `ng-cloak` au lieu de simples `{{ }}` pour prévenir les collisions de contenus
-* Eviter d'écrire du code complexe dans les modèles
-* Quand vous avez besoin de définir le `src` d'une image dynamiquement, utilisez `ng-src` au lieu de  `src` avec `{{}}` dans le modèle. Ceci pour permettre un refresh dynamique ? (NLDT)
+* Eviter d'écrire du code complexe dans les gabarits
+* Quand vous avez besoin de définir le `src` d'une image dynamiquement, utilisez `ng-src` au lieu de  `src` avec `{{}}` dans le gabarit. Ceci pour permettre un refresh dynamique ? (NLDT)
 * Au lieu d'utiliser la variable $scope en tant que chaîne et de l'utiliser avec l'atribut  `style` et `{{}}`, utilisez la directive `ng-style` avec les paramètres de l'objet comme et les variables de scope comme valeurs:
 
 ```HTML
@@ -318,11 +355,11 @@ $scope.divStyle = {
 <div ng-style="divStyle">my beautifully styled div which will work in IE</div>;
 ```
 
-#Routing
+#Routage
 
 * Utilisez `resolve` pour résoudre les dépendances avant que la vue ne soit affichée.
 
-#Testing
+#Tests
 
 TBD
 
