@@ -23,21 +23,22 @@ Pour le développement d'AngularJS, le guide recommandé est [Google's JavaScrip
 Dans le wiki Github d'AngularJS, il y a une section similaire de [ProLoser](https://github.com/ProLoser), vous pouvez la consulter [ici](https://github.com/angular/angular.js/wiki).
 
 #Table des matières
-* [General](#general)
-    * [Arborescence](#directory-structure)
-    * [Optimiser le cycle de traitement](#optimize-the-digest-cycle)
-    * [Autres](#others)
+
+* [Général](#général)
+    * [Arborescence](#arborescence)
+    * [Optimiser le cycle de traitement](#optimiser-le-cycle-de-traitement)
+    * [Autres](#autres)
 * [Modules](#modules)
-* [Controllers](#controllers)
+* [Contrôleurs](#contrôleurs)
 * [Directives](#directives)
-* [Filters](#filters)
+* [Filtres](#filtres)
 * [Services](#services)
-* [Templates](#templates)
-* [Routing](#routing)
-* [Testing](#testing)
+* [Modèles](#modèles)
+* [Routage](#routage)
+* [Tests](#tests)
 * [Contribution](#contribution)
 
-#General
+#Général
 
 ## Arborescence
 
@@ -204,7 +205,7 @@ Il y a deux façons communes pour structurer les modules:
 
 Actuellement il n'y a pas une grande différence, mais la première méthode semble plus propre. En outre, si le chargement de modules en lazy-loading est mis en œuvre (pas dans la feuille de route d'AngularJS), il permettra d'améliorer la performance de l'application.
 
-#Controllers
+#Contrôleurs
 
 * Ne pas manipuler le DOM dans vos contrôleurs. Cela rendrait vos contrôleurs plus difficile pour les tests et viole le [Principe de séparation des couches] (https://en.wikipedia.org/wiki/Separation_of_concerns). Utilisez des directives à la place.
 * La désignation du contrôleur se fait en utilisant la fonctionnalité du contrôleur (par exemple panier, page d'accueil, panneau d'administration) ave la chaîne `Ctrl` à la fin. Les contrôleurs sont nommés en UpperCamelCase (`HomePageCtrl`, `ShoppingCartCtrl`, `AdminPanelCtrl`, etc.)
@@ -264,7 +265,7 @@ module.controller('MyCtrl', ['$scope', 'myFormatFilter', function ($scope, myFor
 * Utilisez `$scope.$on('$destroy, fn)` pour le nettoyage de vos objects/variables. Ceci est particulièrement utile lorsque vous utilisez des plugins tiers comme directives.
 * Ne pas oublier d'utiliser `$sce` lorsque vous devez faire face à un contenu non approuvé.
 
-#Filters
+#Filtres
 
 * Nommez vos filtres en lowerCamelCase
 * Faites vos filtres aussi léger que possible. Ils sont souvent appelés lors de la boucle `$digest` donc créer un filtre lent va ralentir votre application.
@@ -298,7 +299,7 @@ myModule.service('Developer', Developer);
 
 * Pour un cache au niveau de la session, utilisez `$cacheFactory`. Cela doit être utilisé pour mettre en cache les résultats des requêtes ou des calculs lourds.
 
-#Templates
+#Modèles
 
 * Utilisez `ng-bind` ou `ng-cloak` au lieu de simples `{{ }}` pour prévenir les collisions de contenus
 * Eviter d'écrire du code complexe dans les modèles
@@ -318,11 +319,11 @@ $scope.divStyle = {
 <div ng-style="divStyle">my beautifully styled div which will work in IE</div>;
 ```
 
-#Routing
+#Routage
 
 * Utilisez `resolve` pour résoudre les dépendances avant que la vue ne soit affichée.
 
-#Testing
+#Tests
 
 TBD
 
