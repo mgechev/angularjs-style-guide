@@ -44,84 +44,82 @@ Dans le wiki Github d'AngularJS, il y a une section similaire de [ProLoser](http
 
 ## Arborescence
 
-Etant donné qu'une grande application AngularJS a beaucoup de composants, il est préférable de les structurer dans une hiérarchie de répertoires.
-Il existe deux approches principales:
+Étant donné qu'une grosse application AngularJS a beaucoup de composants, il est préférable de la structurer en une hiérarchie de répertoires.
+Il existe deux approches principales&#8239;:
 
-* Créer une division de haut niveau par types de composants et une division inférieure par fonctionnalité.
-
-De cette façon, la structure de répertoire va ressembler à :
+* Créer une division de haut niveau par types de composants et une division inférieure par fonctionnalité. De cette façon, la structure de répertoires ressemblera à
 
 ```
 .
 ├── app
-│   ├── app.js
-│   ├── controllers
-│   │   ├── page1
-│   │   │   ├── FirstCtrl.js
-│   │   │   └── SecondCtrl.js
-│   │   └── page2
-│   │       └── ThirdCtrl.js
-│   ├── directives
-│   │   ├── page1
-│   │   │   └── directive1.js
-│   │   └── page2
-│   │       ├── directive2.js
-│   │       └── directive3.js
-│   ├── filters
-│   │   ├── page1
-│   │   └── page2
-│   └── services
-│       ├── CommonService.js
-│       ├── cache
-│       │   ├── Cache1.js
-│       │   └── Cache2.js
-│       └── models
-│           ├── Model1.js
-│           └── Model2.js
+│   ├── app.js
+│   ├── controllers
+│   │   ├── home
+│   │   │   ├── FirstCtrl.js
+│   │   │   └── SecondCtrl.js
+│   │   └── about
+│   │       └── ThirdCtrl.js
+│   ├── directives
+│   │   ├── home
+│   │   │   └── directive1.js
+│   │   └── about
+│   │       ├── directive2.js
+│   │       └── directive3.js
+│   ├── filters
+│   │   ├── home
+│   │   └── about
+│   └── services
+│       ├── CommonService.js
+│       ├── cache
+│       │   ├── Cache1.js
+│       │   └── Cache2.js
+│       └── models
+│           ├── Model1.js
+│           └── Model2.js
+├── partials
 ├── lib
 └── test
 ```
 
-* Créer une division de haut niveau par fonctionnalité et de niveau inférieur par type de composants.
-
-Ce qui donnera alors:
+* Créer une division de haut niveau par fonctionnalité et de niveau inférieur par type de composants. Voici son schéma&#8239;:
 
 ```
 .
 ├── app
-│   ├── app.js
-│   ├── common
-│   │   ├── controllers
-│   │   ├── directives
-│   │   ├── filters
-│   │   └── services
-│   ├── page1
-│   │   ├── controllers
-│   │   │   ├── FirstCtrl.js
-│   │   │   └── SecondCtrl.js
-│   │   ├── directives
-│   │   │   └── directive1.js
-│   │   ├── filters
-│   │   │   ├── filter1.js
-│   │   │   └── filter2.js
-│   │   └── services
-│   │       ├── service1.js
-│   │       └── service2.js
-│   └── page2
-│       ├── controllers
-│       │   └── ThirdCtrl.js
-│       ├── directives
-│       │   ├── directive2.js
-│       │   └── directive3.js
-│       ├── filters
-│       │   └── filter3.js
-│       └── services
-│           └── service3.js
+│   ├── app.js
+│   ├── common
+│   │   ├── controllers
+│   │   ├── directives
+│   │   ├── filters
+│   │   └── services
+│   ├── home
+│   │   ├── controllers
+│   │   │   ├── FirstCtrl.js
+│   │   │   └── SecondCtrl.js
+│   │   ├── directives
+│   │   │   └── directive1.js
+│   │   ├── filters
+│   │   │   ├── filter1.js
+│   │   │   └── filter2.js
+│   │   └── services
+│   │       ├── service1.js
+│   │       └── service2.js
+│   └── about
+│       ├── controllers
+│       │   └── ThirdCtrl.js
+│       ├── directives
+│       │   ├── directive2.js
+│       │   └── directive3.js
+│       ├── filters
+│       │   └── filter3.js
+│       └── services
+│           └── service3.js
+├── partials
 ├── lib
 └── test
 ```
 
-* Lors de la création d'une directive, il pourrait être utile de mettre tous les fichiers associés (gabarits, CSS / fichiers SASS, JavaScript) dans un seul dossier. Si vous choisissez d'utiliser ce style d'arborescence, soyez cohérent et utilisez le partout dans votre projet.
+* Lors de la création des directives, il peut être pratique de mettre tous les fichiers associés à une directive (gabarits, CSS / fichiers SASS, JavaScript) dans un seul dossier. Si vous choisissez d'utiliser ce style d'arborescence, soyez cohérent et utilisez-le partout dans votre projet.
 
 ```
 app
@@ -138,7 +136,7 @@ app
 
 Cette approche peut être combinée avec les deux structures de répertoires ci-dessus.
 
-* Une plus légère variation de structures de répertoires est celle utilisée dans [ng-boilerplate](http://joshdmiller.github.io/ng-boilerplate/#/home). Dans ce mode, les tests unitaires pour un composant donné sont en attente dans le dossier du composant. De cette façon, lorsque vous effectuez des modifications dans les composants, il est plus facile de trouver leurs tests. Les tests servent également de documentation et de cas d'exemple.
+* Une dernière petite variation des deux structures de répertoires est celle utilisée dans [ng-boilerplate](http://joshdmiller.github.io/ng-boilerplate/#/home). Dans celle-ci, les tests unitaires pour un composant donné sont dans le même dossier que le composant. De cette façon, quand vous modifiez un composant donné, il est facile de trouver ses tests. Les tests tiennent aussi lieu de documentation et montrent des cas d'usage.
 
 ```
 services
@@ -151,12 +149,12 @@ services
 ```
 
 * Le fichier `app.js` contient la définition des routes, la configuration et/ou l'amorçage manuel (si nécessaire).
-* Chaque fichier JavaScript doit contenir un seul composant. Le fichier doit être nommé avec le nom du composant.
-* Utilisez un modèle de structure de projet pour Angular comme [Yeoman](http://yeoman.io), [ng-boilerplate](http://joshdmiller.github.io/ng-boilerplate/#/home).
+* Chaque fichier JavaScript ne devrait contenir qu'un seul composant. Le fichier doit être nommé avec le nom du composant.
+* Utilisez un modèle de structure de projet pour Angular comme [Yeoman](http://yeoman.io) ou [ng-boilerplate](http://joshdmiller.github.io/ng-boilerplate/#/home).
 
-Je préfère la première structure, car il rend les composants communs faciles à trouver.
+Je préfère la première structure, car il rend les composants communs plus faciles à trouver.
 
-les conventions sur le nommage des composants peuvent être trouvées dans chaque section des composants.
+Les conventions sur le nommage des composants peuvent être trouvées dans la section de chaque composant.
 
 ## Optimiser le cycle de traitement
 
