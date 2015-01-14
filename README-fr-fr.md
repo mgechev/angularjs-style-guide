@@ -232,14 +232,14 @@ module.factory('Service', function ($rootScope, $timeout, MyCustomDependency1, M
 
 #Modules
 
-* Les modules devraient être nommés en lowerCamelCase. Pour indiquer que le module `b` est un sous-module du module `a` vous pouvez les imbriquer en utlisant un espace de noms comme `a.b`.
+* Les modules devraient être nommés en lowerCamelCase. Pour indiquer que le module `b` est un sous-module du module `a`, vous pouvez les imbriquer en utlisant un espace de noms tel que `a.b`.
 
-Il y a deux façons communes pour structurer les modules:
+Les deux façons habituelles de structurer les modules sont&#8239;:
 
-0. Par fonctionnalité
-0. Par type de composant
+0. par fonctionnalité&nbsp;
+0. par type de composant.
 
-Actuellement il n'y a pas une grande différence, mais la première méthode semble plus propre. En outre, si le chargement de modules en lazy-loading est mis en œuvre (pas dans la feuille de route d'AngularJS), il permettra d'améliorer la performance de l'application.
+Actuellement, il n'y a pas une grande différence entre les deux mais la première semble plus propre. En outre, si le chargement paresseux des modules est implémenté (actuellement il ne figure pas sur la feuille de route d'AngularJS), il permettra d'améliorer les performances de l'application.
 
 #Contrôleurs
 
