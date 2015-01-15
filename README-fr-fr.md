@@ -328,8 +328,9 @@ function HomeCtrl() {
 
 #Filtres
 
-* Nommez vos filtres en lowerCamelCase
-* Faites vos filtres aussi léger que possible. Ils sont souvent appelés lors de la boucle `$digest` donc créer un filtre lent va ralentir votre application.
+* Nommez vos filtres en lowerCamelCase.
+* Faites vos filtres aussi légers que possible. Ils sont souvent appelés lors de la boucle `$digest`, donc créer un filtre lent ralentira votre application.
+* Limitez vos filtres à une seule chose et gardez-les cohérents. Des manipulations plus complexes peuvent être obtenues en enchaînant des filtres existants.
 
 #Services
 
