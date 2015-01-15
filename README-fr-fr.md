@@ -243,18 +243,19 @@ Actuellement, il n'y a pas une grande différence entre les deux mais la premiè
 
 #Contrôleurs
 
-* Ne pas manipuler le DOM dans vos contrôleurs. Cela rendrait vos contrôleurs plus difficile pour les tests et viole le [Principe de séparation des couches] (https://en.wikipedia.org/wiki/Separation_of_concerns). Utilisez des directives à la place.
-* La désignation du contrôleur se fait en utilisant la fonctionnalité du contrôleur (par exemple panier, page d'accueil, panneau d'administration) ave la chaîne `Ctrl` à la fin. Les contrôleurs sont nommés en UpperCamelCase (`HomePageCtrl`, `ShoppingCartCtrl`, `AdminPanelCtrl`, etc.)
-* Les contrôleurs ne doivent pas être définis comme globals (aucune méthode AngularJS ne le permet, c'est une mauvaise pratique qui va polluer l'espace de noms global).
-* Utilisez la syntaxe de tableau pour les définitions de contrôleur:
+* Ne manipulez pas le DOM dans vos contrôleurs. Cela rendrait vos contrôleurs plus difficiles à tester et violerait le [principe de séparation des préoccupations] (https://en.wikipedia.org/wiki/Separation_of_concerns). Utilisez plutôt les directives.
+* Le nom d'un contrôleur s'obtient à partir de sa fonction (par exemple panier, page d'accueil, panneau d'administration) suffixée par `Ctrl`. Les contrôleurs sont nommés en UpperCamelCase (`HomePageCtrl`, `ShoppingCartCtrl`, `AdminPanelCtrl`, etc.)
+* Les contrôleurs ne devraient pas être définis dans le contexte global (bien qu'AngularJS le permette, c'est une mauvaise pratique de polluer l'espace de noms global).
+* Définissez les contrôleurs à l'aide de tableaux&#8239;:
 
 ```JavaScript
 module.controller('MyCtrl', ['dependency1', 'dependency2', ..., 'dependencyn', function (dependency1, dependency2, ..., dependencyn) {
   //...body
 }]);
 ```
-L'utilisation de ce type de définition évite les problèmes avec minification. Vous pouvez générer automatiquement la définition du champ à l'aide d'outils comme [ng-annotate](https://github.com/olov/ng-annotate) et tâche grunt [grunt-ng-annotate](https://github.com/mzgol/grunt-ng-annotate)).
-* Utilisez les noms d'origine des dépendances du contrôleur. Cela vous aidera à produire un code plus lisible:
+
+Une telle définition évite les problèmes avec la minification. Vous pouvez générer automatiquement la définition du tableau à l'aide d'outils comme [ng-annotate](https://github.com/olov/ng-annotate) (et la tâche grunt [grunt-ng-annotate](https://github.com/mzgol/grunt-ng-annotate)).
+* Utilisez les noms d'origine des dépendances du contrôleur. Cela vous aidera à produire un code plus lisible&#8239;:
 
 ```JavaScript
 module.controller('MyCtrl', ['$scope', function (s) {
@@ -262,7 +263,7 @@ module.controller('MyCtrl', ['$scope', function (s) {
 }]);
 ```
 
-est moins lisible que : 
+est moins lisible que
 
 ```JavaScript
 module.controller('MyCtrl', ['$scope', function ($scope) {
@@ -270,12 +271,12 @@ module.controller('MyCtrl', ['$scope', function ($scope) {
 }]);
 ```
 
-Cela s'applique en particulier à un fichier qui a tellement de code que vous aurez besoin de scroller pour faire défiler. Cela peut vous faire oublier la variable qui est liée à la dépendance.
+Cela s'applique particulièrement à un fichier qui a tellement de lignes de code que vous devrez les faire défiler. Cela pourrait vous faire oublier quelle variable est liée à quelle dépendance.
 
-* Faire les contrôleurs aussi mince que possible. Eviter les fonctions abstraites couramment utilisées dans un service.
-* Communiquer entre les différents contrôleurs en utilisant la méthode invocation (possible lorsque les enfants veulent communiquer avec un parent) ou `$emit`, `$broadcast` et `$on`. Les messages émis et diffusés doivent être réduits au minimum.
-* Faites une liste de tous les messages qui sont transmis en utilisant `$emit`, `$broadcast` et gérez les avec précaution car des conflits de noms sont possibles et sources d'éventuels bugs.
-* Si vous devez formater les données alors encapsulez la logique de mise en forme dans un [filter](#filters) et déclarez-le comme dépendance:
+* Faites les contrôleurs aussi simples que possible. Extrayez les fonctions couramment utilisées dans un service.
+* Communiquez entre les différents contrôleurs en utilisant l'appel de méthode (possible lorsqu'un enfant veut communiquer avec son parent) ou `$emit`, `$broadcast` et `$on`. Les messages émis et diffusés doivent être réduits au minimum.
+* Faites une liste de tous les messages qui sont passés en utilisant `$emit` et `$broadcast`, et gérez-la avec précaution à cause des conflits de nom et bugs éventuels.
+* Si vous devez formater les données alors encapsulez la logique de mise en forme dans un [filtre](#filtres) et déclarez-le comme dépendance&#8239;:
 
 ```JavaScript
 module.filter('myFormat', function () {
@@ -287,6 +288,30 @@ module.filter('myFormat', function () {
 module.controller('MyCtrl', ['$scope', 'myFormatFilter', function ($scope, myFormatFilter) {
   //body...
 }]);
+```
+
+* Dans le cas de contrôleurs imbriqués utilisez les portées emboitées (avec `controllerAs`)&#8239;:
+
+**app.js**
+```javascript
+module.config(function ($routeProvider) {
+  $routeProvider
+    .when('/route', {
+      templateUrl: 'partials/template.html',
+      controller: 'HomeCtrl',
+      controllerAs: 'home'
+    });
+});
+```
+**HomeCtrl**
+```javascript
+function HomeCtrl() {
+  this.bindingValue = 42;
+}
+```
+**template.html**
+```
+<div ng-bind="home.bindingValue"></div>
 ```
 
 #Directives
