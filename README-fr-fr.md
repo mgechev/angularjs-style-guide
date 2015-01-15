@@ -334,9 +334,28 @@ function HomeCtrl() {
 
 #Services
 
-* Utilisez camelCase (inférieure ou supérieure) pour nommer vos services.
-* Encapsuler la logique métier dans des services.
-* Les services sont préférables à une `factory`. De cette façon, nous pouvons profiter de l'héritage "classice" plus facilement
+La présente section contient des informations au sujet des composants service dans AngularJS. Sauf mention contraire, elles ne dépendent pas de la méthode utilisée pour définir les services (c.-à-d. `provider`, `factory`, `service`).
+
+* Nommez vos services en camelCase&#8239;:
+  * UpperCamelCase (PascalCase) pour vos services utilisés comme constructeurs, c.-à.-d.&#8239;:
+
+```JavaScript
+module.controller('MainCtrl', function ($scope, User) {
+  $scope.user = new User('foo', 42);
+});
+
+module.factory('User', function () {
+  return function User(name, age) {
+    this.name = name;
+    this.age = age;
+  };
+});
+```
+
+  * lowerCamel pour tous les autres services.
+
+* Encapsulez la logique métier dans des services.
+* La méthode `service` est préférable à la méthode `factory`. De cette façon, nous pouvons profiter de l'héritage classique plus facilement&#8239;:
 
 ```JavaScript
 function Human() {
@@ -359,7 +378,33 @@ myModule.service('Developer', Developer);
 
 ```
 
-* Pour un cache au niveau de la session, utilisez `$cacheFactory`. Cela doit être utilisé pour mettre en cache les résultats des requêtes ou des calculs lourds.
+* Pour un cache de session, vous pouvez utiliser `$cacheFactory`. Il devrait être utilisé pour mettre en cache les résultats des requêtes ou des calculs lourds.
+* Si un service donné nécessite une configuration, définissez le service comme un provider et configurez-le ainsi dans la fonction de rappel `config`&#8239;:
+
+```JavaScript
+angular.module('demo', [])
+.config(function ($provide) {
+  $provide.provider('sample', function () {
+    var foo = 42;
+    return {
+      setFoo: function (f) {
+        foo = f;
+      },
+      $get: function () {
+        return {
+          foo: foo
+        };
+      }
+    };
+  });
+});
+
+var demo = angular.module('demo');
+
+demo.config(function (sampleProvider) {
+  sampleProvider.setFoo(41);
+});
+```
 
 #Gabarits
 
