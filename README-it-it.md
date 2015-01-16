@@ -409,20 +409,20 @@ non dipendono dal tipo di definizione (es: come provider, `.factory`,
 `.service`) a meno che questo non è esplicitamente menzionato.
 
 * Usare camelCase per assegnare nomi ai service:
-    * UpperCamelCase (PascalCase) per service usati come costruttori. Es:
+  * UpperCamelCase (PascalCase) per service usati come costruttori. Es:
 
-```JavaScript
-module.controller('MainCtrl', function ($scope, User) {
-  $scope.user = new User('foo', 42);
-});
+    ```JavaScript
+    module.controller('MainCtrl', function ($scope, User) {
+      $scope.user = new User('foo', 42);
+    });
 
-module.factory('User', function () {
-  return function User(name, age) {
-    this.name = name;
-    this.age = age;
-  };
-});
-```
+    module.factory('User', function () {
+      return function User(name, age) {
+        this.name = name;
+        this.age = age;
+      };
+    });
+    ```
 
   * lowerCamelCase per gli altri casi.
 

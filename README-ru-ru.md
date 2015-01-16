@@ -342,18 +342,18 @@ function HomeCtrl() {
 * Используйте camelCase при определении имён сервисов.
   * UpperCamelCase (PascalCase) должен использоваться для сервисов, используемых в качестве конструкторов:
 
-```JavaScript
-module.controller('MainCtrl', function ($scope, User) {
-  $scope.user = new User('foo', 42);
-});
+    ```JavaScript
+    module.controller('MainCtrl', function ($scope, User) {
+      $scope.user = new User('foo', 42);
+    });
 
-module.factory('User', function () {
-  return function User(name, age) {
-    this.name = name;
-    this.age = age;
-  };
-});
-```
+    module.factory('User', function () {
+      return function User(name, age) {
+        this.name = name;
+        this.age = age;
+      };
+    });
+    ```
 
   * lowerCamelCase для всех остальных сервисов.
 

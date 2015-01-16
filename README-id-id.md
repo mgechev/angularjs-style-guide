@@ -343,18 +343,18 @@ Bagian ini adalah informasi tentang komponen service secara umum di AngularJS da
 * Gunakan standar penamaan 'camelCase'.
   * UpperCamelCase (PascalCase) untuk nama service apabila digunakan sebagai konstruktor, seperti:
 
-```JavaScript
-module.controller('MainCtrl', function ($scope, User) {
-  $scope.user = new User('foo', 42);
-});
+    ```JavaScript
+    module.controller('MainCtrl', function ($scope, User) {
+      $scope.user = new User('foo', 42);
+    });
 
-module.factory('User', function () {
-  return function User(name, age) {
-    this.name = name;
-    this.age = age;
-  };
-});
-```
+    module.factory('User', function () {
+      return function User(name, age) {
+        this.name = name;
+        this.age = age;
+      };
+    });
+    ```
 
   * lowerCamelCase untuk semua service yang lain.
 
