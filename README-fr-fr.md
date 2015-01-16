@@ -436,5 +436,6 @@ TBD
 
 #Contribution
 
-Puisque le but de ce guide est d'être axé sur la communauté, les contributions sont grandement appréciées.
-Par exemple, vous pouvez contribuer par l'extension de la section de contrôle ou par la traduction du guide de style à votre langue.
+Puisque ce guide de style a pour but d'être un projet communautaire, les contributions sont très appréciées. Par exemple, vous pouvez contribuer en développant la section [Tests](#tests) ou en traduisant le guide dans votre langue.
+
+
