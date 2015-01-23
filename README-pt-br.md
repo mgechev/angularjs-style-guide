@@ -170,7 +170,7 @@ Atualmente não há uma grande diferença, mas a primeira forma parece mais limp
 #Controladores
 
 * Não manipule DOM nos controladores. Use diretivas para isso.
-* O nome do controlodor é dado pela sua funcionalidade (por exemplo *shopping cart*, *homepage*, *admin panel*) e o adicional `Ctrl` no final. Os controladores são nomeados no formato UpperCamelCase (`HomePageCtrl`, `ShoppingCartCtrl`, `AdminPanelCtrl`, etc.).
+* O nome do controlador é dado pela sua funcionalidade (por exemplo *shopping cart*, *homepage*, *admin panel*) e o adicional `Ctrl` no final. Os controladores são nomeados no formato UpperCamelCase (`HomePageCtrl`, `ShoppingCartCtrl`, `AdminPanelCtrl`, etc.).
 * Os controladores não devem ser definidos como globais (não importa que AngularJS permita isso, é uma má pratica pois polui o namespace).
 * Use a sintaxe de array para as definições do controlador:
 
