@@ -12,7 +12,7 @@
 이 스타일 가이드에서는 자바스크립트 개발 가이드라인을 제공하진 않습니다. 이와 관련된 문서는 아래에서 찾을 수 있습니다.
 
 0. [구글 자바스크립트 스타일 가이드](http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml)
-0. [모질라 자바스크립트 스타일 가이](https://developer.mozilla.org/en-US/docs/Developer_Guide/Coding_Style)
+0. [모질라 자바스크립트 스타일 가이드](https://developer.mozilla.org/en-US/docs/Developer_Guide/Coding_Style)
 0. [GitHub's 자바스크립트 스타일 가이드](https://github.com/styleguide/javascript)
 0. [Douglas Crockford's 자바스크립트 스타일 가이드](http://javascript.crockford.com/code.html)
 0. [Airbnb 자바스크립트 스타일 가이드](https://github.com/airbnb/javascript)
@@ -159,9 +159,7 @@ services
 
 ## 마크업
 
-[TLDR;](http://developer.yahoo.com/blogs/ydn/high-performance-sites-rule-6-move-scripts-bottom-7200.html) Put the scripts at the bottom.
-
-> [TLDR;](http://developer.yahoo.com/blogs/ydn/high-performance-sites-rule-6-move-scripts-bottom-7200.html) 스크립트들은 하단에 넣으세요.
+[TLDR;](http://developer.yahoo.com/blogs/ydn/high-performance-sites-rule-6-move-scripts-bottom-7200.html) 스크립트들은 하단에 넣으세요.
 
 ```html
 <!DOCTYPE html>
@@ -180,9 +178,7 @@ services
 </html>
 ```
 
-Keep things simple and put AngularJS specific directives later. This way is easy to look to the code and find enhanced HTML by the framework (what improve the maintainibility).
-
-> 스크립트들은 간단하게 작성하고 Angular JS의 디렉티브 다음에 위치 시키도록 합니다. 이렇게 하면 코드와 프레임워크에 의해 변경, 향상된(Enhanced) html들을 쉽게 찾을 수 있습니다. (즉, 유지보수성이 향상됩니다)
+스크립트들은 간단하게 작성하고 Angular JS의 디렉티브 다음에 위치 시키도록 합니다. 이렇게 하면 코드와 프레임워크에 의해 변경, 향상된(Enhanced) html들을 쉽게 찾을 수 있습니다. (즉, 유지보수성이 향상됩니다)
 
 
 ```html
@@ -193,21 +189,15 @@ Keep things simple and put AngularJS specific directives later. This way is easy
 </form>
 ```
 
-Other HTML atributes should follow the Code Guide's [recommendation](http://mdo.github.io/code-guide/#html-attribute-order)
-
-> 다른 HTML atribute들은 이 [코드 가이드](http://mdo.github.io/code-guide/#html-attribute-order)를 참고하여 작성합니다.
+다른 HTML atribute들은 이 [코드 가이드](http://mdo.github.io/code-guide/#html-attribute-order)를 참고하여 작성합니다.
 
 
 ## Digest cycle 최적화
 
 * 가장 중요한 변수만 감시합니다(예를 들어 실시간 통신이 필요한 경우 각각의 메시지를 받을 때 digest loop를 일으키지 않아야합니다).
-* For content that is initialized only once and then never changed, use single-time watchers like [`bindonce`](https://github.com/Pasvaz/bindonce).
-> 최초의 초기화 이 후 내용 변경을 막기 위해 [`bindonce`](https://github.com/Pasvaz/bindonce)와 같은 single-time watcher를 사용합니다.
-
+* 최초의 초기화 이 후 내용 변경을 막기 위해 [`bindonce`](https://github.com/Pasvaz/bindonce)와 같은 single-time watcher를 사용합니다.
 * `$watch`는 가능한 간단하게 작성합니다. 하나의 `$watch`안에서 무겁고 느린 연산 작업을 하는 것은 애플리케이션 전체가 느려질 것입니다. (자바스크립트는 싱글 스레드로 작동하므로 $digest 루프 역시 싱글 스레드로 작동합니다.)
-* Set third parameter in `$timeout` function to false to skip the `$digest` loop when no watched variables are impacted by the invocation of the `$timeout` callback function.
-
-> `$timeout` 함수의 세번째 파라메터를 false로 설정하면 `$timeout` 콜백 함수의 호출 시 watch되는 변수(variable)들이 없을 때 `$digest` 루프가 건너뜁니다.
+* `$timeout` 함수의 세번째 파라메터를 false로 설정하면 `$timeout` 콜백 함수의 호출 시 watch되는 변수(variable)들이 없을 때 `$digest` 루프가 건너뜁니다.
 
 
 ## 기타
@@ -219,9 +209,7 @@ Other HTML atributes should follow the Code Guide's [recommendation](http://mdo.
     * `document` 대신 `$document`
     * `$.ajax` 대신 `$http`
 
-이를 통해 테스트를 쉽게 만들고 예상치 못한 작동을 방지 할 수 있습니다. (for example, if you missed `$scope.$apply` in `setTimeout`).
-
-> (예를 들어 `setTimeout`에서 `$scope.$apply`를 잊는 경우)
+이를 통해 테스트를 쉽게 만들고 예상치 못한 작동을 방지 할 수 있습니다. (예를 들어 `setTimeout`에서 `$scope.$apply`를 잊는 경우)
 
 * 아래의 툴을 사용해 작업을 자동화 하세요.
     * [Yeoman](http://yeoman.io)
@@ -235,14 +223,11 @@ Other HTML atributes should follow the Code Guide's [recommendation](http://mdo.
 * `$scope`를 오염시키지 마세요. 오직 템플릿에서 사용하는 변수와 함수들만 추가하세요.
 * [`nginit`보다 컨트롤러를 사용하세요](https://github.com/angular/angular.js/pull/4366/files). `ngInit`의 유일한 적절한 사용법은 `ngRepeat` 프로퍼티의 별칭을 만드는 일입니다. 이 외의 모든 경우엔 변수 범위(scope)를 초기화하는데 `ngInit` 대신 컨트롤러를 사용해야합니다.
 * 변수명, 프로퍼티명, 메소드명 앞에 `$`를 사용하지 않습니다. `$`를 앞에 붙이는 명명법은 AngularJS와 관련되어 특별한 의미로 사용됩니다.
-* When resolving dependencies through the DI mechanism of AngularJS, sort the dependencies by their type - the built-in AngularJS dependencies should be first, followed by your custom ones:
-
-> Angular JS의 DI 매커니즘을 이용하여 의존성을 처리할 때 타입 별로 의존성들을 정렬하세요. built-in Angular JS 의존성이 먼저 나오고 그 다음 별도로 추가한 의존성들이 나열되야 합니다.
+* Angular JS의 DI 매커니즘을 이용하여 의존성을 처리할 때 타입 별로 의존성들을 정렬하세요. built-in Angular JS 의존성이 먼저 나오고 그 다음 별도로 추가한 의존성들이 나열되야 합니다.
 
 
 # 모듈
-* Modules should be named with lowerCamelCase. For indicating that module `b` is submodule of module `a` you can nest them by using namespacing like: `a.b`.
-> 모듈의 이름은 lowerCamelCase로 명명되어야 합니다. 모듈 `a`의 하위 모듈 `b`를 가리키려면 `a.b`와 같이 네임스페이스를 중첩시킬 수 있습니다.
+* 모듈의 이름은 lowerCamelCase로 명명되어야 합니다. 모듈 `a`의 하위 모듈 `b`를 가리키려면 `a.b`와 같이 네임스페이스를 중첩시킬 수 있습니다.
 
 모듈의 구성은 일반적으로 두 가지 기준이 사용됩니다.
 
@@ -305,8 +290,7 @@ module.controller('MyCtrl', ['$scope', 'myFormatFilter', function ($scope, myFor
 }]);
 ```
 
-* In case of nested controllers use "nested scoping" (the `controllerAs` syntax):
-> 중첩 컨트롤러의 경우 "nested scoping"을 사용하세요. (`controllerAs` syntax):
+* 중첩 컨트롤러의 경우 "nested scoping"을 사용하세요. (`controllerAs` syntax):
 
 **app.js**
 ```javascript
@@ -340,24 +324,20 @@ function HomeCtrl() {
 * 재사용 가능한 컴포넌트를 만들려면 독립된 범위(scope)를 만들어주세요.
 * 디렉티브는 주석이나 클래스보단 요소(element)나 속성(attribute)으로 사용하세요. 이는 코드의 가독성을 향상시켜줍니다.
 * `$scope.$on('$destroy', fn)`를 사용하여 정리(clean-up)하세요. 이 방식은 특히 third-party 플러그인을 디렉티브로 감싸서 사용할 때 유용합니다.
-* Do not forget to use `$sce` when you should deal with untrusted content.
-> 믿지못할 컨텐츠(untrusted content)를 다룰 때는 `$sce` 사용을 잊지 마세요.
+* 신뢰할 수 없는 컨텐츠(untrusted content)를 다룰 때는 `$sce` 사용을 잊지 마세요.
 
 
 # 필터
 
 * 이름은 lowerCamelCase를 사용하세요
 * 필터는 가능한 한 가볍게 만들어주세요. 필터는 간혹 `$digest` 루프 내에서 호출될 수 있기 때문에 느린 필터는 애플리케이션 전체를 느리게 만들 수 있습니다.
-* Do a single thing in your filters, keep them coherent. More complex manipulations can be achieved by piping existing filters.
-> 필터는 한가지 일만 하게 하세요. 좀 더 복잡한 조작은 존재하는 필터들을 묶어서(piping) 해결할 수 있습니다.
+* 필터는 한가지 일만 하게 하세요. 좀 더 복잡한 조작은 존재하는 필터들을 묶어서(piping) 해결할 수 있습니다.
 
 
 # 서비스
 
 * 서비스명은 camelCase나 CamelCase로 작성.
-  * UpperCamelCase (PascalCase) for naming your services, used as constructor functions i.e.:
-
-	> 생성자(constructor) 함수와 같은 서비스의 이름은 UpperCamelCase (PascalCase)를 사용합니다. 사용 예:
+	* 생성자(constructor) 함수와 같은 서비스의 이름은 UpperCamelCase (PascalCase)를 사용합니다. 사용 예:
     
     ```JavaScript
     module.controller('MainCtrl', function ($scope, User) {
@@ -379,64 +359,60 @@ function HomeCtrl() {
 * 서비스엔 비지니스 로직을 캡슐화합니다.
 * 도메인 나타내는 서비스들은 `factory` 대신에 `service`를 선호합니다. 이 방법으로 "예전의"("klassical") 상속의 장점을 누릴 수 있습니다.
 
-```JavaScript
-function Human() {
-  //body
-}
-Human.prototype.talk = function () {
-  return "I'm talking";
-};
+    ```JavaScript
+    function Human() {
+      //body
+    }
+    Human.prototype.talk = function () {
+      return "I'm talking";
+    };
 
-function Developer() {
-  //body
-}
-Developer.prototype = Object.create(Human.prototype);
-Developer.prototype.code = function () {
-  return "I'm coding";
-};
+    function Developer() {
+      //body
+    }
+    Developer.prototype = Object.create(Human.prototype);
+    Developer.prototype.code = function () {
+      return "I'm coding";
+    };
 
-myModule.service('Human', Human);
-myModule.service('Developer', Developer);
-
-```
+    myModule.service('Human', Human);
+    myModule.service('Developer', Developer);
+	```
 
 * 세션 수준의 캐시는 `$cacheFactory`를 사용하세요. 이는 요청(request)나 무거운 처리를 캐시하고 싶을 때 사용합니다.
-* If given service requires configuration define the service as provider and configure it in the `config` callback like:
+* 설정 정의가 필요 한 서비스라면 provider나 다음과 같은 `config` 콜백을 이용해 설정할 수 있습니다.
 
-> 설정 정의가 필요 한 서비스라면 provider나 다음과 같은 `config` 콜백을 이용해 설정할 수 있습니다.
-
-```JavaScript
-angular.module('demo', [])
-.config(function ($provide) {
-  $provide.provider('sample', function () {
-    var foo = 42;
-    return {
-      setFoo: function (f) {
-        foo = f;
-      },
-      $get: function () {
+    ```JavaScript
+    angular.module('demo', [])
+    .config(function ($provide) {
+      $provide.provider('sample', function () {
+        var foo = 42;
         return {
-          foo: foo
+          setFoo: function (f) {
+            foo = f;
+          },
+          $get: function () {
+            return {
+              foo: foo
+            };
+          }
         };
-      }
-    };
-  });
-});
+      });
+    });
 
-var demo = angular.module('demo');
+    var demo = angular.module('demo');
 
-demo.config(function (sampleProvider) {
-  sampleProvider.setFoo(41);
-});
-```
+    demo.config(function (sampleProvider) {
+      sampleProvider.setFoo(41);
+    });
+    ```
 
 # 템플릿
 
 * 문서가 반짝이는 현상을 방지하기 위해서 `{{}}` 대신에 `ng-bind`나 `ng-cloak`를 사용하세요.
 * 템플릿에서는 복잡한 표현(expression) 작성을 가능한 자제합니다.
 * 동적으로 src 속성을 사용해야한다면 `src`를 `{{}}`와 같이 사용하는 대신에 `ng-src`를 사용하세요.
-* When you need to set the `href` of an anchor tag dynamically use `ng-href` instead of `href` with `{{ }}` template.
-> 앵커(anchor)태그의 `href`를 동적으로 설정할 때 `href`안에 `{{ }}`템플릿보다는 `ng-href`를 사용하세요.
+* 앵커(anchor)태그의 `href`를 동적으로 설정할 때 `href`안에 `{{ }}`템플릿보다는 `ng-href`를 사용하세요.
 
 * `style`속성을 $scope에 정의된 문자열로 사용하고 싶을 때 `{{}}`를 사용하는 대신에 `ng-style`를 사용하면 $scope에 객체를 선언해 여러가지 속성을 한꺼번에 지정할 수 있습니다.
 ```HTML
@@ -453,7 +429,7 @@ $scope.divStyle = {
 
 * view가 보여지기 전에 `resolve`를 사용해 의존관계를 해결해주세요.
 
-#기여
+# 기여
 
 이 문서는 communty-driven을 지향하며, 문서에 대한 기여는 언제든 대환영입니다.
 부족한 부분을 보충해주시거나 여러분이 사용하는 모국어로 문서를 번역해주셔도 좋습니다.
