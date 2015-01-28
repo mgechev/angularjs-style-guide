@@ -352,9 +352,7 @@ function HomeCtrl() {
 	});
     ```
 
-  * lowerCamelCase for all other services.
- 	
-    > 그 외의 서비스들은 lowerCamelCase를 사용합니다.
+  * 그 외의 서비스들은 lowerCamelCase를 사용합니다.
   
 * 서비스엔 비지니스 로직을 캡슐화합니다.
 * 도메인 나타내는 서비스들은 `factory` 대신에 `service`를 선호합니다. 이 방법으로 "예전의"("klassical") 상속의 장점을 누릴 수 있습니다.
