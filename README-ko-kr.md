@@ -9,8 +9,6 @@
 
 **주의**: 이 문서는 아직 작성중이며 이 문서의 주 목표는 공동체 주도(community-driven)로 진행되어 모든 공동체가 스타일 차이를 줄여 이해하기 쉽게하는 것입니다.
 
- its main goal is to be community-driven so filling the gaps will be greatly appreciated by the whole community.
-
 이 스타일 가이드에서는 자바스크립트 개발 가이드라인을 제공하진 않습니다. 이와 관련된 문서는 아래에서 찾을 수 있습니다.
 
 0. [구글 자바스크립트 스타일 가이드](http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml)
@@ -24,18 +22,19 @@ AngularJS 개발에 대해서는 [구글 자바스크립트 스타일 가이드]
 이와 비슷한 항목이 AngularJS GitHub 위키에 [ProLoser](https://github.com/ProLoser)가 작성하였습니다. [여기](https://github.com/angular/angular.js/wiki)에서 확인할 수 있습니다.
 
 # 차례
-* [일반](#general)
-    * [디렉터리 구조](#directory-structure)
-    * [Digest cycle 최적화](#optimize-the-digest-cycle)
-    * [기타](#others)
-* [모듈](#modules)
-* [컨트롤러](#controllers)
-* [디렉티브](#directives)
-* [필터](#filters)
-* [서비스](#services)
-* [템플릿](#templates)
-* [라우팅](#routing)
-* [기여](#contribution)
+* [일반](#일반)
+    * [디렉터리 구조](#디렉터리-구조)
+    * [마크업](#마크업)
+    * [Digest cycle 최적화](#digest-cycle-최적화)
+    * [기타](#기타)
+* [모듈](#모듈)
+* [컨트롤러](#컨트롤러)
+* [디렉티브](#디렉티브)
+* [필터](#필터)
+* [서비스](#서비스)
+* [템플릿](#템플릿)
+* [라우팅](#라우팅)
+* [기여](#기여)
 
 # 일반
 
@@ -79,6 +78,7 @@ AngularJS 개발에 대해서는 [구글 자바스크립트 스타일 가이드]
 └── test
 ```
 
+
 * 기능 별로 상위 디렉터리를 나누고, 컴포넌트 타입 별로 하위 디렉터리를 구성.
 
 다음과 같은 디렉터리 구조가 됩니다.
@@ -119,8 +119,8 @@ AngularJS 개발에 대해서는 [구글 자바스크립트 스타일 가이드]
 └── test
 ```
 
-* 디렉티브 디렉터리를 만들 땐 디렉티브에 관련된 파일들(템플릿, CSS/SASS 파일, 자바스크립트)을 한 폴더에 모읍니다. 이런 방식으로 디렉터리를 구성한다면 프로젝트 어디서나 이 구조를 일관적으로 사용할 수 있습니다.
 
+* 디렉티브 디렉터리를 만들 땐 디렉티브에 관련된 파일들(템플릿, CSS/SASS 파일, 자바스크립트)을 한 폴더에 모읍니다. 이런 방식으로 디렉터리를 구성한다면 프로젝트 어디서나 이 구조를 일관적으로 사용할 수 있습니다.
 
 ```
 app
@@ -132,19 +132,22 @@ app
     └── directive2
         ├── directive2.html
         ├── directive2.js
-            └── directive2.sass
+        └── directive2.sass
 ```
 
 이러한 디렉티브 디렉터리 구성은 위에서 제시한 두 가지 디렉터리 구성법에서 모두 사용할 수 있습니다.
-* 두 디렉터리 구조에서 [ng-boilerplate](http://joshdmiller.github.io/ng-boilerplate/#/home)을 사용할 수도 있습니다. 이걸 사용하면 특정 컴포넌트와 그 컴포넌트의 유닛 테스트는 같은 폴더에 저장됩니다. 따라서 컴포넌트의 코드가 변경되었을 때 테스트 코드를 찾기 쉬우며, 테스트 자체가 문서 및 사용법(use case)이 되게 됩니다.
 
-        services
-        ├── cache
-        │   ├── cache1.js
-        │   └── cache1.spec.js
-        └── models
-            ├── model1.js
-            └── model1.spec.js
+* 두 디렉터리 구조에서 [ng-boilerplate](http://joshdmiller.github.io/ng-boilerplate/#/home)을 사용할 수도 있습니다. 이것을 사용하면 특정 컴포넌트와 그 컴포넌트의 유닛 테스트는 같은 폴더에 저장됩니다. 따라서 컴포넌트의 코드가 변경되었을 때 테스트 코드를 찾기 쉬우며, 테스트 자체가 문서 및 사용법(use case)이 되게 됩니다.
+
+```
+services
+├── cache
+│   ├── cache1.js
+│   └── cache1.spec.js
+└── models
+    ├── model1.js
+    └── model1.spec.js
+```
 
 * `app.js` 파일에는 라우트 정의와 설정이 포함되어야 하며, 필요한 경우 초기화 작업을 해줍니다.
 * 하나의 자바스크립트 파일은 하나의 컴포넌트만을 포함 하도록 합니다. 파일 이름은 컴포넌트의 이름과 같아야 합니다.
@@ -204,12 +207,12 @@ Other HTML atributes should follow the Code Guide's [recommendation](http://mdo.
 * `$watch`는 가능한 간단하게 작성합니다. 하나의 `$watch`안에서 무겁고 느린 연산 작업을 하는 것은 애플리케이션 전체가 느려질 것입니다. (자바스크립트는 싱글 스레드로 작동하므로 $digest 루프 역시 싱글 스레드로 작동합니다.)
 * Set third parameter in `$timeout` function to false to skip the `$digest` loop when no watched variables are impacted by the invocation of the `$timeout` callback function.
 
-> `$timeout` 함수의 세번째 파라메터를 false로 설정하면 `$timeout` 콜백 함수의 호출 시 watch되는 변수(variable)들이 없을 때 `$digest` 루프가 건너뛰어 집니다.
+> `$timeout` 함수의 세번째 파라메터를 false로 설정하면 `$timeout` 콜백 함수의 호출 시 watch되는 변수(variable)들이 없을 때 `$digest` 루프가 건너뜁니다.
 
 
 ## 기타
 
-* 다음과 같이 사용을 권장합니다:
+* 다음과 같은 사용을 권장합니다:
     * `setTimeout` 대신 `$timeout`
     * `setInterval` 대신 `$interval`
     * `window` 대신 `$window`
@@ -227,7 +230,7 @@ Other HTML atributes should follow the Code Guide's [recommendation](http://mdo.
 
 * 콜백 대신에 promises(`$q`)를 사용하세요. $q를 사용하면 깔끔하고 우아한 코드가 되며, 여러분을 콜백 지옥에서 구원해줄 것입니다.
 * 가능한 `$http` 대신 `$resource`를 사용하세요. 높은 수준의 추상화는 자질구레한 작업으로부터 해방시켜줍니다.
-* AngularJS pre-minifier([ngmin](https://github.com/btford/ngmin), [ng-annotate](https://github.com/olov/ng-annotate))를 사용해 minification 시의 문제를 미리 방지합니다..
+* AngularJS pre-minifier([ngmin](https://github.com/btford/ngmin), [ng-annotate](https://github.com/olov/ng-annotate))를 사용해 minification 시의 문제를 미리 방지합니다.
 * 전역 변수를 사용하지 마세요. 모든 의존성은 의존성 주입(DI)로 해결하시기 바랍니다.
 * `$scope`를 오염시키지 마세요. 오직 템플릿에서 사용하는 변수와 함수들만 추가하세요.
 * [`nginit`보다 컨트롤러를 사용하세요](https://github.com/angular/angular.js/pull/4366/files). `ngInit`의 유일한 적절한 사용법은 `ngRepeat` 프로퍼티의 별칭을 만드는 일입니다. 이 외의 모든 경우엔 변수 범위(scope)를 초기화하는데 `ngInit` 대신 컨트롤러를 사용해야합니다.
@@ -255,17 +258,15 @@ Other HTML atributes should follow the Code Guide's [recommendation](http://mdo.
 * 컨트롤러를 전역 공간에 정의하지 마세요(이런 사용법이 AngularJS 자체에서 제약이 되어있지 않더라도, 이러한 방법은 전역 공간을 더럽히는 안 좋은 방법입니다).
 * 컨트롤러를 정의할 때 배열 문법을 사용하세요.
 
-
 ```JavaScript
 module.controller('MyCtrl', ['dependency1', 'dependency2', ..., 'dependencyn', function (dependency1, dependency2, ..., dependencyn) {
   //...body
 }]);
 ```
 
-
 이런 식으로 정의하면 minification에서 발생할 수 있는 문제를 피할 수 있습니다. [ng-annotate](https://github.com/olov/ng-annotate)나 grunt task [grunt-ng-annotate](https://github.com/mzgol/grunt-ng-annotate)와 같은 툴을 사용하면 자동적으로 배열을 사용해 컨트롤러를 정의합니다.
-* 컨트롤러의 의존성은 원래 이름을 사용하세요. 이를 통해 읽기 쉬운 코드를 만들 수 있습니다.
 
+* 컨트롤러의 의존성은 원래 이름을 사용하세요. 이를 통해 읽기 쉬운 코드를 만들 수 있습니다.
 
 ```JavaScript
 module.controller('MyCtrl', ['$scope', function (s) {
@@ -282,12 +283,12 @@ module.controller('MyCtrl', ['$scope', function ($scope) {
 }]);
 ```
 
-이 방법은 스크롤이 필요할 정도로 코드가 길어졌을 때 특히 유용합니다. 원래의 이름을 사용하지 않으면 코드를 작성하는 프로그래머가 변수가 어떤 것과 관련되었는지 까먹을 것입니다.
+이 방법은 스크롤이 필요할 정도로 코드가 길어졌을 때 특히 유용합니다. 원래의 이름을 사용하지 않으면 코드를 작성할 때 변수가 어떤 것과 관련되었는지 까먹을 것입니다.
 
 * 컨트롤러는 가능한 최소한의 기능만을 가져야합니다. 추상적이고 일반적으로 쓰이는 함수들은 서비스에 정의하세요.
 * 다른 컨트롤러와 소통이 필요한 경우엔 메소드 호출이나 `$emit`, `$broadcast`, `$on` 메소드를 사용하세요. `$emit`이나 `$broadcasted` 메소드는 최소한으로 유지합니다.
 * `$emit`나 `$broadcast`를 통해서 넘겨지는 모든 메시지는 이름 충돌이나 버그를 유발할 수 있기 때문에 목록을 작성해서 관리하세요.
-* 형식화 기능(formatting logic)이나 데이터 형식을 캡슐화시킬 때에는 [필터](#filters)를 사용하거나 같이 의존성을 선언하세요.
+* 형식화 기능(formatting logic)이나 데이터 형식을 캡슐화시킬 때에는 [필터](#필터)를 사용하거나 같이 의존성을 선언하세요.
 
 
 ```JavaScript
@@ -333,8 +334,6 @@ function HomeCtrl() {
 
 * 디렉티브의 이름은 lowerCamelCase를 사용하세요.
 * link 함수에서 `$scope` 대신 `scope`를 사용하세요. complie 시 post/pre link 함수들을 호출할 때 인수(argument)들이 이미 정의되어 넘어오기 때문에 DI를 사용해 이것들을 변경할 수 없습니다. 이 스타일은 AngularJS 소스코드에서 사용하는 스타일입니다.
-* Use `scope` instead of `$scope` in your link function. In the compile, post/pre link functions you have already defined arguments which will be passed when the function is invoked, you won't be able to change them using DI. This style is also used in AngularJS's source code.
-
 * 여러분만의 특별한 전치사를 붙여서 사용하세요. 이는 Third-party 라이브러리와 이름 충돌을 방지해줍니다.
 * `ng`와 `ui`를 전치사로 사용하지 마세요. 이 단어들은 AngularJS와 AngularJS UI에서 사용되는 전치사입니다.
 * 디렉티브를 통해서만 DOM 조작을 해주세요.
