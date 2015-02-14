@@ -123,6 +123,18 @@ Here is its layout:
 └── test
 ```
 
+* In case the directory name contains multiple words, use lisp-case syntax:
+
+```
+app
+ ├── app.js
+ └── my-complex-module
+     ├── controllers
+     ├── directives
+     ├── filters
+     └── services
+```
+
 * When creating directives it may be useful to put all the files associated with the given directive files (i.e. templates, CSS/SASS files, JavaScript) in a single folder. If you choose to use this style be consistent and use it everywhere along your project.
 
 ```
