@@ -1,5 +1,7 @@
 # Introduction
 
+[![Join the chat at https://gitter.im/mgechev/angularjs-style-guide](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/mgechev/angularjs-style-guide?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 The goal of this style guide is to present a set of best practices and style guidelines for one AngularJS application.
 These best practices are collected from:
 
