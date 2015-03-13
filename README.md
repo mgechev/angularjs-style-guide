@@ -38,7 +38,7 @@ In AngularJS's GitHub wiki there is a similar section by [ProLoser](https://gith
 * [Services](#services)
 * [Templates](#templates)
 * [Routing](#routing)
-* [Testing](#testing)
+* [i18n](#i18n)
 * [Contribution](#contribution)
 * [Contributors](#contributors)
 
