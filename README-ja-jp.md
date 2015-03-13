@@ -27,12 +27,7 @@ AngularJSのGitHub Wikiに[ProLoser](https://github.com/ProLoser)が書いた似
 #目次
 * [全般](#全般)
     * [ディレクトリ構造](#ディレクトリ構造)
-<<<<<<< HEAD
-    * [マークアップ](#マークアップ)
-    * [digest cycle最適化](#digest cycle最適化)
-=======
     * [digestサイクルの最適化](#digestサイクルの最適化)
->>>>>>> a6c783a49fd0743f4d4098561f2f76112071275f
     * [その他](#その他)
 * [モジュール](#モジュール)
 * [コントローラー](#コントローラー)
@@ -176,7 +171,6 @@ services
 
 コンポーネントの命名に関する慣例は、各コンポーネントのセクションで見ることができます。
 
-<<<<<<< HEAD
 ## マークアップ
 
 [TLDR;](http://developer.yahoo.com/blogs/ydn/high-performance-sites-rule-6-move-scripts-bottom-7200.html) scriptは一番下に配置します。
@@ -210,10 +204,7 @@ services
 
 その他のHTML属性はCode Guideの[方針](http://mdo.github.io/code-guide/#html-attribute-order)に従うのがよいでしょう。
 
-## digest cycle最適化
-=======
 ## digestサイクルの最適化
->>>>>>> a6c783a49fd0743f4d4098561f2f76112071275f
 
 * 特に重要な変数に注意を払います（例：リアルタイム通信を使用する場合は、各受信メッセージ内で`$digest`ループが発生しないようにします）。
 * 初期化後に変更のないコンテンツを扱う場合、AngularJSの古いバージョンでは[`bindonce`](https://github.com/Pasvaz/bindonce)のようなシングルタイム・ワッチャーを使います。AngularJSのバージョン1.3.0以降では組み込みのワンタイム・バインディングを利用します。
