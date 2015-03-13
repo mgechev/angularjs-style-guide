@@ -1,6 +1,6 @@
-# Introduction
-
 [![Join the chat at https://gitter.im/mgechev/angularjs-style-guide](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/mgechev/angularjs-style-guide?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
+# Introduction
 
 The goal of this style guide is to present a set of best practices and style guidelines for one AngularJS application.
 These best practices are collected from:
@@ -137,7 +137,7 @@ app
      └── services
 ```
 
-* When creating directives it may be useful to put all the files associated with the given directive files (i.e. templates, CSS/SASS files, JavaScript) in a single folder. If you choose to use this style be consistent and use it everywhere along your project.
+* Put all the files associated with the given directive (i.e. templates, CSS/SASS files, JavaScript) in a single folder. If you choose to use this style be consistent and use it everywhere along your project.
 
 ```
 app
@@ -153,7 +153,7 @@ app
 ```
 
 This approach can be combined with both directory structures above.
-* One more slight variation of both directory structures is the one used in [ng-boilerplate](http://joshdmiller.github.io/ng-boilerplate/#/home). In it, the unit tests for a given component are put in the folder where the component is located. This way when you make changes to a given component finding its test is easy. The tests also act as documentation and show use cases.
+* The unit tests for a given component should be located in the directory where the component is. This way when you make changes to a given component finding its test is easy. The tests also act as documentation and show use cases.
 
 ```
 services
@@ -165,11 +165,9 @@ services
     └── model1.spec.js
 ```
 
-* The `app.js` file contains route definitions, configuration and/or manual bootstrap (if required).
-* Each JavaScript file should only hold a single component. The file should be named with the component's name.
-* Use Angular project structure template like [Yeoman](http://yeoman.io), [ng-boilerplate](http://joshdmiller.github.io/ng-boilerplate/#/home).
-
-I prefer the first structure because it makes common components easier to find.
+* The `app.js` file should contains route definitions, configuration and/or manual bootstrap (if required).
+* Each JavaScript file should only hold **a single component**. The file should be named with the component's name.
+* Use AngularJS project structure template like [Yeoman](http://yeoman.io), [ng-boilerplate](http://joshdmiller.github.io/ng-boilerplate/#/home).
 
 Conventions about component naming can be found in each component section.
 
