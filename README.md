@@ -226,13 +226,14 @@ This will make your testing easier and in some cases prevent unexpected behaviou
 
 * Automate your workflow using tools like:
     * [Yeoman](http://yeoman.io)
+    * [Gulp](http://gulpjs.com)
     * [Grunt](http://gruntjs.com)
     * [Bower](http://bower.io)
 
 * Use promises (`$q`) instead of callbacks. It will make your code look more elegant and clean, and save you from callback hell.
 * Use `$resource` instead of `$http` when possible. The higher level of abstraction will save you from redundancy.
 * Use an AngularJS pre-minifier ([ng-annotate](https://github.com/olov/ng-annotate)) for preventing problems after minification.
-* Don't use globals. Resolve all dependencies using Dependency Injection.
+* Don't use globals. Resolve all dependencies using Dependency Injection, this will prevent bugs and monkey patching when testing.
 * Do not pollute your `$scope`. Only add functions and variables that are being used in the templates.
 * Prefer the usage of [controllers instead of `ngInit`](https://github.com/angular/angular.js/pull/4366/files). The only appropriate use of `ngInit` is for aliasing special properties of `ngRepeat`. Besides this case, you should use controllers rather than `ngInit` to initialize values on a scope.
 * Do not use `$` prefix for the names of variables, properties and methods. This prefix is reserved for AngularJS usage.
@@ -262,31 +263,33 @@ Currently there's not a big difference, but the first way looks cleaner. Also, i
 * Do not manipulate DOM in your controllers, this will make your controllers harder for testing and will violate the [Separation of Concerns principle](https://en.wikipedia.org/wiki/Separation_of_concerns). Use directives instead.
 * The naming of the controller is done using the controller's functionality (for example shopping cart, homepage, admin panel) and the substring `Ctrl` in the end. The controllers are named UpperCamelCase (`HomePageCtrl`, `ShoppingCartCtrl`, `AdminPanelCtrl`, etc.).
 * The controllers should not be defined as globals (even though AngularJS allows this, it is a bad practice to pollute the global namespace).
-* Use array syntax for controller definitions:
-
+* Use the following syntax for defining controllers:
 
 ```JavaScript
-module.controller('MyCtrl', ['dependency1', 'dependency2', ..., 'dependencyn', function (dependency1, dependency2, ..., dependencyn) {
-  //...body
-}]);
+function MyCtrl(dependency1, dependency2, ..., dependencyn) {
+  // ...
+}
+module.controller('MyCtrl', MyCtrl);
 ```
 
-
-Using this type of definition avoids problems with minification. You can automatically generate the array definition from the standard one using tools like [ng-annotate](https://github.com/olov/ng-annotate) (and grunt task [grunt-ng-annotate](https://github.com/mzgol/grunt-ng-annotate)).
-* Use the original names of the controller's dependencies. This will help you produce more readable code:
+In order to prevent problems with minification, you can automatically generate the array definition syntax from the standard one using tools like [ng-annotate](https://github.com/olov/ng-annotate) (and grunt task [grunt-ng-annotate](https://github.com/mzgol/grunt-ng-annotate)).
+* If using array definition syntax, use the original names of the controller's dependencies. This will help you produce more readable code:
 
 ```JavaScript
-module.controller('MyCtrl', ['$scope', function (s) {
-  //...body
-}]);
+function MyCtrl(s) {
+  // ...
+}
+
+module.controller('MyCtrl', ['$scope', MyCtrl]);
 ```
 
 which is less readable than:
 
 ```JavaScript
-module.controller('MyCtrl', ['$scope', function ($scope) {
-  //...body
-}]);
+function MyCtrl($scope) {
+  // ...
+}
+module.controller('MyCtrl', ['$scope', MyCtrl]);
 ```
 
 This especially applies to a file that has so much code that you'd need to scroll through. This would possibly cause you to forget which variable is tied to which dependency.
@@ -294,6 +297,21 @@ This especially applies to a file that has so much code that you'd need to scrol
 * Make the controllers as lean as possible. Abstract commonly used functions into a service.
 * Communicate within different controllers using method invocation (possible when a child wants to communicate with its parent) or `$emit`, `$broadcast` and `$on` methods. The emitted and broadcasted messages should be kept to a minimum.
 * Make a list of all messages which are passed using `$emit`, `$broadcast` and manage it carefully because of name collisions and possible bugs.
+
+Example:
+
+```JavaScript
+// app.js
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+Custom events:
+  - 'authorization-message' - description of the message
+    - { user, role, action } - data format
+      - user - a string, which contains the username
+      - role - an ID of the role the user has
+      - action - specific ation the user tries to perform
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+```
+
 * When you need to format data encapsulate the formatting logic into a [filter](#filters) and declare it as dependency:
 
 ```JavaScript
