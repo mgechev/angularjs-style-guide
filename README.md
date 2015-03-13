@@ -315,15 +315,18 @@ Custom events:
 * When you need to format data encapsulate the formatting logic into a [filter](#filters) and declare it as dependency:
 
 ```JavaScript
-module.filter('myFormat', function () {
+function myFormat() {
   return function () {
-    //body...
+    // ...
   };
-});
+}
+module.filter('myFormat', myFormat);
 
-module.controller('MyCtrl', ['$scope', 'myFormatFilter', function ($scope, myFormatFilter) {
-  //body...
-}]);
+function MyCtrl($scope, myFormatFilter) {
+  // ...
+}
+
+module.controller('MyCtrl', MyCtrl);
 ```
 * In case of nested controllers use "nested scoping" (the `controllerAs` syntax):
 
@@ -358,7 +361,7 @@ function HomeCtrl() {
 * DOM manipulations must be done only through directives.
 * Create an isolated scope when you develop reusable components.
 * Use directives as attributes or elements instead of comments or classes, this will make your code more readable.
-* Use `$scope.$on('$destroy', fn)` for cleaning up. This is especially useful when you're wrapping third-party plugins as directives.
+* Use `scope.$on('$destroy', fn)` for cleaning up. This is especially useful when you're wrapping third-party plugins as directives.
 * Do not forget to use `$sce` when you should deal with untrusted content.
 
 # Filters
@@ -375,15 +378,19 @@ This section includes information about the service component in AngularJS. It i
   * UpperCamelCase (PascalCase) for naming your services, used as constructor functions i.e.:
 
     ```JavaScript
-    module.controller('MainCtrl', function ($scope, User) {
+    function MainCtrl($scope, User) {
       $scope.user = new User('foo', 42);
-    });
+    }
+
+    module.controller('MainCtrl', MainCtrl);
+
+    function User(name, age) {
+      this.name = name;
+      this.age = age;
+    }
 
     module.factory('User', function () {
-      return function User(name, age) {
-        this.name = name;
-        this.age = age;
-      };
+      return User;
     });
     ```
 
@@ -466,6 +473,10 @@ $scope.divStyle = {
 
 * Use `resolve` to resolve dependencies before the view is shown.
 * Do not place explicit RESTful calls inside the `resolve` callback. Isolate all the requests inside appropriate services. This way you can enable caching and follow the separation of concerns principle.
+
+# i18n
+
+* For newer versions of the framework (>=1.4.0) use the built-in i18n tools, when using older versions (<1.4.0) use [`angular-translate`](https://github.com/angular-translate/angular-translate).
 
 # Contribution
 
