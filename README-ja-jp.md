@@ -27,6 +27,7 @@ AngularJSのGitHub Wikiに[ProLoser](https://github.com/ProLoser)が書いた似
 #目次
 * [全般](#全般)
     * [ディレクトリ構造](#ディレクトリ構造)
+    * [マークアップ](#マークアップ)
     * [digestサイクルの最適化](#digestサイクルの最適化)
     * [その他](#その他)
 * [モジュール](#モジュール)
