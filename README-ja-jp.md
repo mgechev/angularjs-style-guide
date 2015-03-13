@@ -216,6 +216,7 @@ services
 
 * 使用する:
     * `setTimeout` の代わりに `$timeout` を使う
+    * `setInterval` の代わりに `$interval` を使う
     * `window` の代わりに `$window` を使う
     * `document` の代わりに `$document` を使う
     * `$.ajax` の代わりに `$http` を使う
@@ -224,17 +225,26 @@ services
 
 * 以下のツールを使用してワークフローを自動化する:
     * [Yeoman](http://yeoman.io)
+    * [Gulp](http://gulpjs.com)
     * [Grunt](http://gruntjs.com)
     * [Bower](http://bower.io)
 
-* コールバックの代わりにpromise(`$q`)を使う。これであなたのコードはよりエレガントでクリーンになり、コールバック地獄からあなたを救うでしょう。
-* 可能な場合は `$http` の代わりに `$resource` を使う。抽象度の高いコードは、冗長なコードからあなたを救います。
-* AngularJS pre-minifier ([ngmin](https://github.com/btford/ngmin), [ng-annotate](https://github.com/olov/ng-annotate)) を使い、先にminifyすることで、後からminifyするときの問題を防止できます。
-* グローバル変数を使用してはいけません。依存性の注入 を使って全ての依存関係を解決しましょう。
+* コールバックの代わりにpromise(`$q`)を使います。コードはよりエレガントでクリーンになり、コールバック地獄から解放されます。
+* 可能な場合は `$http` の代わりに `$resource` を使います。抽象性を高めることにより冗長なコードから解放されます。
+* minifyした後に発生する問題を回避する為に、AngularJS pre-minifier ([ng-annotate](https://github.com/olov/ng-annotate)) を使います。
+* グローバル変数を使用してはいけません。依存性の注入を使って全ての依存関係を解決することで、バグやテスト時のモンキーパッチを防ぎます。
 * `$scope` を汚してはいけません。テンプレートで使用するメソッドや変数のみ追加しましょう。
+* [`ngInit` の代わりに controller](https://github.com/angular/angular.js/pull/4366/files)の使用を優先します。`ngInit` の唯一の適切な使用方法は `ngRepeat` のプロパティのエイリアスを作る場合のみです。このケースに加え、スコープの変数を初期化する際にも`ngInit`よりもcontrollerを利用するべきです。
+* 変数名やメソッド名に`$`プレフィックスを使ってはいけません。このプレフィックスはAngularJSによって予約されています。
+* AngularJSの依存性の注入メカニズムによって依存性の解決を行う際には、AngularJSのビルトイン、カスタムというように並べます。
 
-* [`ngInit` の代わりに controllers を使うほうがよい](https://github.com/angular/angular.js/pull/4366/files)。`ngInit` の唯一の適切な使用方法は `ngRepeat` のプロパティのエイリアスを作るのに使用する方法のみである。他にも、スコープ上の値を初期化するのに `ngInit` 使う必要はなく、controllers を使ったほうが良い。
-* 変数名やメソッド名に`$`プレフィックスを使ってはいけません。このプレフィックスはAngularJSで予約されています。
+```javascript
+module.factory('Service', function ($rootScope, $timeout, MyCustomDependency1, MyCustomDependency2) {
+  return {
+    //Something
+  };
+});
+```
 
 #モジュール
 
