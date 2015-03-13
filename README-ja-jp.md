@@ -51,103 +51,125 @@ AngularJS を用いて作った大きなアプリケーションは複数のコ�
 
 この場合のディレクトリ構造は以下のようになります:
 
-    .
-    ├── app
-    │   ├── app.js
-    │   ├── controllers
-    │   │   ├── page1
-    │   │   │   ├── FirstCtrl.js
-    │   │   │   └── SecondCtrl.js
-    │   │   └── page2
-    │   │       └── ThirdCtrl.js
-    │   ├── directives
-    │   │   ├── page1
-    │   │   │   └── directive1.js
-    │   │   └── page2
-    │   │       ├── directive2.js
-    │   │       └── directive3.js
-    │   ├── filters
-    │   │   ├── page1
-    │   │   └── page2
-    │   └── services
-    │       ├── CommonService.js
-    │       ├── cache
-    │       │   ├── Cache1.js
-    │       │   └── Cache2.js
-    │       └── models
-    │           ├── Model1.js
-    │           └── Model2.js
-    ├── lib
-    └── test
+```
+.
+├── app
+│   ├── app.js
+│   ├── controllers
+│   │   ├── home
+│   │   │   ├── FirstCtrl.js
+│   │   │   └── SecondCtrl.js
+│   │   └── about
+│   │       └── ThirdCtrl.js
+│   ├── directives
+│   │   ├── home
+│   │   │   └── directive1.js
+│   │   └── about
+│   │       ├── directive2.js
+│   │       └── directive3.js
+│   ├── filters
+│   │   ├── home
+│   │   └── about
+│   └── services
+│       ├── CommonService.js
+│       ├── cache
+│       │   ├── Cache1.js
+│       │   └── Cache2.js
+│       └── models
+│           ├── Model1.js
+│           └── Model2.js
+├── partials
+├── lib
+└── test
+```
 
 * 上の階層を機能性で分けて、下の階層はコンポーネントタイプで分ける。
 
 レイアウトは以下のとおりです:
 
-    .
-    ├── app
-    │   ├── app.js
-    │   ├── common
-    │   │   ├── controllers
-    │   │   ├── directives
-    │   │   ├── filters
-    │   │   └── services
-    │   ├── page1
-    │   │   ├── controllers
-    │   │   │   ├── FirstCtrl.js
-    │   │   │   └── SecondCtrl.js
-    │   │   ├── directives
-    │   │   │   └── directive1.js
-    │   │   ├── filters
-    │   │   │   ├── filter1.js
-    │   │   │   └── filter2.js
-    │   │   └── services
-    │   │       ├── service1.js
-    │   │       └── service2.js
-    │   └── page2
-    │       ├── controllers
-    │       │   └── ThirdCtrl.js
-    │       ├── directives
-    │       │   ├── directive2.js
-    │       │   └── directive3.js
-    │       ├── filters
-    │       │   └── filter3.js
-    │       └── services
-    │           └── service3.js
-    ├── lib
-    └── test
+```
+.
+├── app
+│   ├── app.js
+│   ├── common
+│   │   ├── controllers
+│   │   ├── directives
+│   │   ├── filters
+│   │   └── services
+│   ├── home
+│   │   ├── controllers
+│   │   │   ├── FirstCtrl.js
+│   │   │   └── SecondCtrl.js
+│   │   ├── directives
+│   │   │   └── directive1.js
+│   │   ├── filters
+│   │   │   ├── filter1.js
+│   │   │   └── filter2.js
+│   │   └── services
+│   │       ├── service1.js
+│   │       └── service2.js
+│   └── about
+│       ├── controllers
+│       │   └── ThirdCtrl.js
+│       ├── directives
+│       │   ├── directive2.js
+│       │   └── directive3.js
+│       ├── filters
+│       │   └── filter3.js
+│       └── services
+│           └── service3.js
+├── partials
+├── lib
+└── test
+```
+
+* ディレクトリ名に複数の単語が含まれる場合は、lispケースで記述します:
+
+```
+app
+ ├── app.js
+ └── my-complex-module
+     ├── controllers
+     ├── directives
+     ├── filters
+     └── services
+```
 
 * ディレクティブを作成するとき、全てひとつのフォルダ内に入れてディレクティブファイル(テンプレート、CSS/SASS, JavaScript)として関連付けてしまうと便利です。もしこのスタイルを使う場合は、プロジェクト全体どこでもこのスタイルを一貫して使います。
 
-        app
-        └── directives
-            ├── directive1
-            │   ├── directive1.html
-            │   ├── directive1.js
-            │   └── directive1.sass
-            └── directive2
-                ├── directive2.html
-                ├── directive2.js
-                └── directive2.sass
+```
+app
+└── directives
+    ├── directive1
+    │   ├── directive1.html
+    │   ├── directive1.js
+    │   └── directive1.sass
+    └── directive2
+        ├── directive2.html
+        ├── directive2.js
+        └── directive2.sass
+```
 
-この方法は、上記の両方のディレクトリ構造と組み合わせられます。
-* 両方のディレクトリ構造のもう一つのバリエーションは[ng-boilerplate](http://joshdmiller.github.io/ng-boilerplate/#/home)を使うことです。特定のコンポーネント中の単体テストは、コンポーネントが配置されているフォルダに配置されるようにします。この方法なら、あなたが特定のコンポーネントに変更を加えた時にそのテストを見つけるのが簡単になり、テスト自体がマニュアルやショーケースのようになります。
+このアプローチは、上記のそれぞれのディレクトリ構造と組み合わせることができます。
+* それぞれのディレクトリ構造のバリエーションとして[ng-boilerplate](http://joshdmiller.github.io/ng-boilerplate/#/home)を利用するパターンがあります。特定のコンポーネント中の単体テストは、そのコンポーネントが配置されているフォルダ内に配置されます。このパターンでは特定のコンポーネントに変更を加えた際に、容易にテストを見つけることができます。テストはドキュメントやユースケースのようになります。
 
-        services
-        ├── cache
-        │   ├── cache1.js
-        │   └── cache1.spec.js
-        └── models
-            ├── model1.js
-            └── model1.spec.js
+```
+services
+├── cache
+│   ├── cache1.js
+│   └── cache1.spec.js
+└── models
+    ├── model1.js
+    └── model1.spec.js
+```
 
 * `app.js` ファイルはルート定義、設定(もし必要なら手動のブートストラップも）含まれています。
 * JavaScriptファイルは単一のコンポーネントを保持する必要があります。ファイル名には、コンポーネント名を付ける必要があります。
-* Angular プロジェクト構造のテンプレート[Yeoman](http://yeoman.io), [ng-boilerplate](http://joshdmiller.github.io/ng-boilerplate/#/home)を使いましょう。
+* [Yeoman](http://yeoman.io)や[ng-boilerplate](http://joshdmiller.github.io/ng-boilerplate/#/home)のようなAngularプロジェクト構造のテンプレートを使いましょう。
 
 私は共通のコンポーネントを見つけるのが簡単になる最初の構造のほうが好みです。
 
-コンポーネントの命名規則は、各コンポーネントのセクションで見つけられます。
+コンポーネントの命名に関する慣例は、各コンポーネントのセクションで見ることができます。
 
 ## digest cycle最適化
 
