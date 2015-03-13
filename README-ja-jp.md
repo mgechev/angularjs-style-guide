@@ -27,6 +27,7 @@ AngularJSのGitHub Wikiに[ProLoser](https://github.com/ProLoser)が書いた似
 #目次
 * [全般](#全般)
     * [ディレクトリ構造](#ディレクトリ構造)
+    * [マークアップ](#マークアップ)
     * [digest cycle最適化](#digest cycle最適化)
     * [その他](#その他)
 * [モジュール](#モジュール)
@@ -170,6 +171,39 @@ services
 私は共通のコンポーネントを見つけるのが簡単になる最初の構造のほうが好みです。
 
 コンポーネントの命名に関する慣例は、各コンポーネントのセクションで見ることができます。
+
+## マークアップ
+
+[TLDR;](http://developer.yahoo.com/blogs/ydn/high-performance-sites-rule-6-move-scripts-bottom-7200.html) scriptは一番下に配置します。
+
+```
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>MyApp</title>
+</head>
+<body>
+  <div ng-app="myApp">
+    <div ng-view></div>
+  </div>
+  <script src="angular.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
+```
+
+シンプルに保ちましょう。AngularJS固有のディレクティブは後ろに配置しましょう。コードが見やすくなりますし、フレームワークによって拡張されたHTMLを見つけやすくなります（保守性も高くなります）。
+
+```
+<form class="frm" ng-submit="login.authenticate()">
+  <div>
+    <input class="ipt" type="text" placeholder="name" require ng-model="user.name">
+  </div>
+</form>
+```
+
+その他のHTML属性はCode Guideの[方針](http://mdo.github.io/code-guide/#html-attribute-order)に従うのがよいでしょう。
 
 ## digest cycle最適化
 
