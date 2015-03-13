@@ -236,64 +236,111 @@ services
 * [`ngInit` の代わりに controllers を使うほうがよい](https://github.com/angular/angular.js/pull/4366/files)。`ngInit` の唯一の適切な使用方法は `ngRepeat` のプロパティのエイリアスを作るのに使用する方法のみである。他にも、スコープ上の値を初期化するのに `ngInit` 使う必要はなく、controllers を使ったほうが良い。
 * 変数名やメソッド名に`$`プレフィックスを使ってはいけません。このプレフィックスはAngularJSで予約されています。
 
-#モジュール
+# モジュール
+
+* モジュールはlowerCamelCaseで命名されるべきです。モジュール`b`がモジュール`a`のサブモジュールである場合、`a.b`のようにネームスペースを利用してネストすることができます。
 
 モジュールを構造化する方法は一般的に2つあります:
 
 0. 機能性
 0. コンポーネントタイプ
 
-今現在、2つに大きな違いはありませんが、1.の方法はクリーンに見えます。また、もしもモジュールの遅延ローディングが実装されたら(AnglarJSのロードマップにはありませんが)、アプリケーションのパフォーマンスが向上するでしょう。
+今現在、2つに大きな違いはありませんが、1.の方法がクリーンに見えます。また、もしモジュールの遅延ローディング・モジュールが実装されたら(AnglarJSのロードマップにはありませんが)、アプリケーションのパフォーマンスが向上するでしょう。
 
-#コントローラー
+# コントローラ
 
-* コントローラー内でDOMを操作してはいけません。代わりにディレクティブを使いましょう。
-* コントローラー名は、そのコントローラーの機能に則った名前を付けましょう(例: shopping cart, homepage, admin panel)。また、コントローラー名の最後には `Ctrl` を付けて、コントローラー名は UpperCamelCase (`HomePageCtrl`, `ShoppingCartCtrl`, `AdminPanelCtrl`, etc.)を使いましょう。
-* コントローラーはグローバルな名前空間に定義してはいけません。 (たとえAngularJSが許可しても、グローバルな名前空間を汚すのはバッドプラクティスです)。
-* コントローラーの定義には配列を使いましょう:
+* コントローラ内でDOMを操作してはいけません。テストがしづらくなりますし、[関心の分離](https://en.wikipedia.org/wiki/Separation_of_concerns)の原則を破ることになります。代わりにティレクティブを使いましょう。
+* コントローラ名は、そのコントローラの機能に則った名前をにしましょう(例: shopping cart, homepage, admin panel)。また、コントローラ名の最後には `Ctrl` を付けて、コントローラ名は UpperCamelCase (`HomePageCtrl`, `ShoppingCartCtrl`, `AdminPanelCtrl`, etc.)を使いましょう。
+* コントローラはグローバルな名前空間に定義してはいけません。 (たとえAngularJSが許可しても、グローバルな名前空間を汚すのはバッドプラクティスです)。
+* コントローラの定義には下記の構文を使いましょう：
 
 
-```javascript
-module.controller('MyCtrl', ['dependency1', 'dependency2', ..., 'dependencyn', function (dependency1, dependency2, ..., dependencyn) {
-  //...body
-}]);
+```JavaScript
+function MyCtrl(dependency1, dependency2, ..., dependencyn) {
+  // ...
+}
+module.controller('MyCtrl', MyCtrl);
 ```
 
-このようなタイプの定義を使用すると、 minify の問題を回避できます。[ng-annotate](https://github.com/olov/ng-annotate) (grunt task [grunt-ng-annotate](https://github.com/mzgol/grunt-ng-annotate))これらの標準的なツールを使えば配列定義を自動的に生成できます
+このようなタイプの定義を使用すると、 minify の問題を回避できます。[ng-annotate](https://github.com/olov/ng-annotate) (grunt task [grunt-ng-annotate](https://github.com/mzgol/grunt-ng-annotate))などの標準的なツールを使えば配列定義を自動的に生成できます
+* 配列定義構文を利用する場合、コントローラの依存性の名前をそのまま使いましょう。読みやすいコードを書く助けになります：
 
-* コントローラーの依存関係を示したもとの名前を使いましょう。これはより読みやすいコードを書く助けになります:
+```JavaScript
+function MyCtrl(s) {
+  // ...
+}
 
-```javascript
-module.controller('MyCtrl', ['$scope', function (s) {
-  //...body
-}]);
+module.controller('MyCtrl', ['$scope', MyCtrl]);
 ```
 
-このコードよりも次のほうが読みやすくなります:
+次のほうが読みやすくなります:
 
-```javascript
-module.controller('MyCtrl', ['$scope', function ($scope) {
-  //...body
-}]);
+```JavaScript
+function MyCtrl($scope) {
+  // ...
+}
+module.controller('MyCtrl', ['$scope', MyCtrl]);
 ```
 
 これは特に、スクロールが必要なほどとても多くのコードのあるファイルに当てはまります。ひょっとしたらあなたはどの変数がどの依存性を作っているかを忘れてしまうことになるでしょう。
 
 * なるべく無駄のないようにコントローラーを作りましょう。抽象的で広く使われているロジックはサービス内に入れましょう。
-* メソッド呼び出しを使用して他のコントローラー内で通信したい場合や(可能なら子供から親へと通信したい場合)、 `$emit` `$broadcast` `$on` メソッド使う場合、 broadcast する メッセージ は最小限に保ちましょう。
+* メソッド呼び出しを使用して他のコントローラー内で通信したい場合や(可能なら子供から親へと通信したい場合)、 `$emit` `$broadcast` `$on` メソッド使う場合、 emitとbroadcastするメッセージ は最小限に保ちましょう。
 * `$emit` `$broadcast` に渡すメッセージは、名前の衝突やバグの可能性があるため、全てのメッセージのリストを作成・管理しましょう
-* [filter](#filters)内に、データのフォーマットロジックを、カプセル化する必要がある場合、このように依存関係を宣言します:
 
-```javascript
-module.filter('myFormat', function () {
+例：
+
+```JavaScript
+// app.js
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+Custom events:
+  - 'authorization-message' - description of the message
+    - { user, role, action } - data format
+      - user - a string, which contains the username
+      - role - an ID of the role the user has
+      - action - specific ation the user tries to perform
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+```
+
+* データのフォーマットロジックを、[filter](#フィルタ)内にカプセル化する必要がある場合、このように依存関係を宣言します：
+
+```JavaScript
+function myFormat() {
   return function () {
-    //body...
+    // ...
   };
-});
+}
+module.filter('myFormat', myFormat);
 
-module.controller('MyCtrl', ['$scope', 'myFormatFilter', function ($scope, myFormatFilter) {
-  //body...
-}]);
+function MyCtrl($scope, myFormatFilter) {
+  // ...
+}
+
+module.controller('MyCtrl', MyCtrl);
+```
+
+* ネストしたコントローラを利用する場合、ネストスコープ（`controllerAs`構文）を使います。
+
+**app.js**
+```javascript
+module.config(function ($routeProvider) {
+  $routeProvider
+    .when('/route', {
+      templateUrl: 'partials/template.html',
+      controller: 'HomeCtrl',
+      controllerAs: 'home'
+    });
+});
+```
+**HomeCtrl**
+```javascript
+function HomeCtrl() {
+  this.bindingValue = 42;
+}
+```
+**template.html**
+```
+<div ng-bind="home.bindingValue"></div>
 ```
 
 #ディレクティブ
@@ -305,7 +352,7 @@ module.controller('MyCtrl', ['$scope', 'myFormatFilter', function ($scope, myFor
 * DOM 操作を行うのは全てディレクティブを介してのみにする必要があります。
 * isolated スコープを作り、コンポーネントを再利用可能なように開発しましょう。
 
-#フィルター
+#フィルタ
 
 * フィルター名は lowerCamelCase
 * フィルターを作るときにはできるだけ軽くしましょう。フィルターは `$digest` ループ内で頻繁に呼ばれるため、フィルターが遅いとあなたのアプリ全体が遅くなります。
