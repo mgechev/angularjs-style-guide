@@ -7,7 +7,10 @@
 0. 私が読んだコードや文章
 0. 私の経験
 
-**注意**: このスタイルガイドはまだドラフトであり、そのメインゴールはcommunity-drivenになることであり、そのためにコミュニティ全体との理解のギャップを大いに埋めることになるだろう。
+**注意1**: このスタイルガイドはまだドラフトであり、そのメインゴールはcommunity-drivenになることであり、そのためにコミュニティ全体との理解のギャップを大いに埋めることになるだろう。
+
+**注意2**:
+日本語版ガイドラインを読み始める前に、最新の状態であるか確認しましょう。[英語版](https://github.com/mgechev/angularjs-style-guide/blob/master/README.md)のAngularJSスタイルガイドが最新版のドキュメントになります。
 
 当ガイドラインは、JavaScript開発の共通のガイドラインではありません。それらはここで見つかります:
 
@@ -15,7 +18,7 @@
 0. [Mozilla JavaScript スタイルガイド](https://developer.mozilla.org/en-US/docs/Developer_Guide/Coding_Style)
 0. [GitHub JavaScript スタイルガイド](https://github.com/styleguide/javascript)
 0. [Douglas Crockford JavaScript スタイルガイド](http://javascript.crockford.com/code.html)
-
+0. [Airbnb JavaScript スタイルガイド](https://github.com/airbnb/javascript)
 
 AngularJS開発での推奨は[Google JavaScript スタイルガイド](http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml)です。
 
