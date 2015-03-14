@@ -1,18 +1,18 @@
-#はじめに
+# はじめに
 
 このスタイルガイドのゴールは現在のAngularJSアプリケーションのベストプラクティスとガイドラインを提供することです。
-これらのベストプラクティスは以下から集めたものです:
+これらのベストプラクティスは以下から集めたものです：
 
-0. AngularJS ソースコード
+0. AngularJSソースコード
 0. 私が読んだコードや文章
 0. 私の経験
 
-**注意1**: このスタイルガイドはまだドラフトであり、そのメインゴールはcommunity-drivenになることであり、そのためにコミュニティ全体との理解のギャップを大いに埋めることになるだろう。
+**注意1**： このスタイルガイドはまだドラフトであり、そのメインゴールはコミュニティ駆動になることであり、そのためにコミュニティ全体との理解のギャップを大いに埋めることになるだろう。
 
-**注意2**:
+**注意2**：
 日本語版ガイドラインを読み始める前に、最新の状態であるか確認しましょう。[英語版](https://github.com/mgechev/angularjs-style-guide/blob/master/README.md)のAngularJSスタイルガイドが最新版のドキュメントになります。
 
-当ガイドラインは、JavaScript開発の共通のガイドラインではありません。それらはここで見つかります:
+当ガイドラインは、JavaScript開発の共通のガイドラインではありません。それらはここで見つかります：
 
 0. [Google JavaScript スタイルガイド](http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml)
 0. [Mozilla JavaScript スタイルガイド](https://developer.mozilla.org/en-US/docs/Developer_Guide/Coding_Style)
@@ -22,7 +22,7 @@
 
 AngularJS開発での推奨は[Google JavaScript スタイルガイド](http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml)です。
 
-AngularJSのGitHub Wikiに[ProLoser](https://github.com/ProLoser)が書いた似たセクションがあります。 [ここ](https://github.com/angular/angular.js/wiki)からみつかります。
+AngularJSのGitHub Wikiに[ProLoser](https://github.com/ProLoser)が書いた似たセクションがあります。[ここ](https://github.com/angular/angular.js/wiki)からみつかります。
 
 #目次
 * [全般](#全般)
@@ -44,13 +44,12 @@ AngularJSのGitHub Wikiに[ProLoser](https://github.com/ProLoser)が書いた似
 
 ## ディレクトリ構造
 
-
-AngularJS を用いて作った大きなアプリケーションは複数のコンポーネントを持ってるため、ディレクトリ階層でコンポーネントを構築するのが最も良いでしょう。
-主に2つのアプローチがあります:
+AngularJSを用いて作った大きなアプリケーションは複数のコンポーネントを持ってるため、ディレクトリ階層でコンポーネントを構築するのが最も良いでしょう。
+主に2つのアプローチがあります：
 
 * 上の階層をコンポーネントタイプで分けて、下の階層は機能性で分ける。
 
-この場合のディレクトリ構造は以下のようになります:
+この場合のディレクトリ構造は以下のようになります：
 
 ```
 .
@@ -86,7 +85,7 @@ AngularJS を用いて作った大きなアプリケーションは複数のコ�
 
 * 上の階層を機能性で分けて、下の階層はコンポーネントタイプで分ける。
 
-レイアウトは以下のとおりです:
+レイアウトは以下のとおりです：
 
 ```
 .
@@ -124,7 +123,7 @@ AngularJS を用いて作った大きなアプリケーションは複数のコ�
 └── test
 ```
 
-* ディレクトリ名に複数の単語が含まれる場合は、lispケースで記述します:
+* ディレクトリ名に複数の単語が含まれる場合は、lisp-caseで記述します：
 
 ```
 app
@@ -136,7 +135,7 @@ app
      └── services
 ```
 
-* ディレクティブを作成するとき、全てひとつのフォルダ内に入れてディレクティブファイル(テンプレート、CSS/SASS, JavaScript)として関連付けてしまうと便利です。もしこのスタイルを使う場合は、プロジェクト全体どこでもこのスタイルを一貫して使います。
+* ディレクティブを作成するとき、全てひとつのフォルダ内に入れてディレクティブファイル(テンプレート、CSS/SASS、JavaScript)として関連付けてしまうと便利です。もしこのスタイルを使う場合は、プロジェクト全体どこでもこのスタイルを一貫して使います。
 
 ```
 app
@@ -207,10 +206,10 @@ services
 
 ## digestサイクルの最適化
 
-* 特に重要な変数に注意を払います（例：リアルタイム通信を使用する場合は、各受信メッセージ内で`$digest`ループが発生しないようにします）。
+* 特に重要な変数に注意を払います（例：リアルタイム通信を使用する場合は、各受信メッセージ内で `$digest` ループが発生しないようにします）。
 * 初期化後に変更のないコンテンツを扱う場合、AngularJSの古いバージョンでは[`bindonce`](https://github.com/Pasvaz/bindonce)のようなシングルタイム・ワッチャーを使います。AngularJSのバージョン1.3.0以降では組み込みのワンタイム・バインディングを利用します。
-* $watch 内はできるだけシンプルな処理にします。一つの `$watch` 内で重くて遅い処理を作ってしまうとアプリケーション全体が遅くなります。( JavaScriptがシングルスレッドである性質上、`$digest`のループはシングルスレッドで処理されます)。
-* `$timeout`のコールバック関数が呼ばれることによって影響を受ける監視対象の変数がない場合に、`$digest`ループをスキップするために、`$timeout`関数の3番目のパラメタをfalseにします。
+* $watch 内はできるだけシンプルな処理にします。一つの `$watch` 内で重くて遅い処理を作ってしまうとアプリケーション全体が遅くなります。(JavaScriptがシングルスレッドである性質上、 `$digest` のループはシングルスレッドで処理されます)。
+* `$timeout` のコールバック関数が呼ばれることによって影響を受ける監視対象の変数がない場合に、 `$digest` ループをスキップするために、 `$timeout` 関数の3番目のパラメタをfalseにします。
 
 ## その他
 
@@ -223,19 +222,19 @@ services
 
 これによってテストを簡単にし、いくつかのケースでは予期しない動作を防ぐことができます(例: `$scope.$apply` を `setTimeout` 内に書き忘れる)。
 
-* 以下のツールを使用してワークフローを自動化する:
+* 以下のツールを使用してワークフローを自動化する：
     * [Yeoman](http://yeoman.io)
     * [Gulp](http://gulpjs.com)
     * [Grunt](http://gruntjs.com)
     * [Bower](http://bower.io)
 
-* コールバックの代わりにpromise(`$q`)を使います。コードはよりエレガントでクリーンになり、コールバック地獄から解放されます。
+* コールバックの代わりにpromise( `$q` )を使います。コードはよりエレガントでクリーンになり、コールバック地獄から解放されます。
 * 可能な場合は `$http` の代わりに `$resource` を使います。抽象性を高めることにより冗長なコードから解放されます。
-* minifyした後に発生する問題を回避する為に、AngularJS pre-minifier ([ng-annotate](https://github.com/olov/ng-annotate)) を使います。
+* minifyした後に発生する問題を回避する為に、AngularJS pre-minifier([ng-annotate](https://github.com/olov/ng-annotate))を使います。
 * グローバル変数を使用してはいけません。依存性の注入を使って全ての依存関係を解決することで、バグやテスト時のモンキーパッチを防ぎます。
 * `$scope` を汚してはいけません。テンプレートで使用するメソッドや変数のみ追加しましょう。
-* [`ngInit` の代わりに controller](https://github.com/angular/angular.js/pull/4366/files)の使用を優先します。`ngInit` の唯一の適切な使用方法は `ngRepeat` のプロパティのエイリアスを作る場合のみです。このケースに加え、スコープの変数を初期化する際にも`ngInit`よりもcontrollerを利用するべきです。
-* 変数名やメソッド名に`$`プレフィックスを使ってはいけません。このプレフィックスはAngularJSによって予約されています。
+* [`ngInit` の代わりに controller](https://github.com/angular/angular.js/pull/4366/files)の使用を優先します。`ngInit` の唯一の適切な使用方法は `ngRepeat` のプロパティのエイリアスを作る場合のみです。このケースに加え、スコープの変数を初期化する際にも `ngInit` よりもcontrollerを利用するべきです。
+* 変数名やメソッド名に `$` プレフィックスを使ってはいけません。このプレフィックスはAngularJSによって予約されています。
 * AngularJSの依存性の注入メカニズムによって依存性の解決を行う際には、AngularJSのビルトイン、カスタムというように並べます。
 
 ```javascript
@@ -248,9 +247,9 @@ module.factory('Service', function ($rootScope, $timeout, MyCustomDependency1, M
 
 # モジュール
 
-* モジュールはlowerCamelCaseで命名されるべきです。モジュール`b`がモジュール`a`のサブモジュールである場合、`a.b`のようにネームスペースを利用してネストすることができます。
+* モジュールはlowerCamelCaseで命名されるべきです。モジュール `b` がモジュール `a` のサブモジュールである場合、 `a.b` のようにネームスペースを利用してネストすることができます。
 
-モジュールを構造化する方法は一般的に2つあります:
+モジュールを構造化する方法は一般的に2つあります：
 
 0. 機能性
 0. コンポーネントタイプ
@@ -260,10 +259,9 @@ module.factory('Service', function ($rootScope, $timeout, MyCustomDependency1, M
 # コントローラ
 
 * コントローラ内でDOMを操作してはいけません。テストがしづらくなりますし、[関心の分離](https://en.wikipedia.org/wiki/Separation_of_concerns)の原則を破ることになります。代わりにティレクティブを使いましょう。
-* コントローラ名は、そのコントローラの機能に則った名前をにしましょう(例: shopping cart, homepage, admin panel)。また、コントローラ名の最後には `Ctrl` を付けて、コントローラ名は UpperCamelCase (`HomePageCtrl`, `ShoppingCartCtrl`, `AdminPanelCtrl`, etc.)を使いましょう。
-* コントローラはグローバルな名前空間に定義してはいけません。 (たとえAngularJSが許可しても、グローバルな名前空間を汚すのはバッドプラクティスです)。
+* コントローラ名は、そのコントローラの機能に則った名前をにしましょう(例: shopping cart, homepage, admin panel)。また、コントローラ名の最後には `Ctrl` を付けて、コントローラ名はUpperCamelCase(`HomePageCtrl`, `ShoppingCartCtrl`, `AdminPanelCtrl`, etc.)を使いましょう。
+* コントローラはグローバルな名前空間に定義してはいけません。(たとえAngularJSが許可しても、グローバルな名前空間を汚すのはバッドプラクティスです)。
 * コントローラの定義には下記の構文を使いましょう：
-
 
 ```JavaScript
 function MyCtrl(dependency1, dependency2, ..., dependencyn) {
@@ -272,7 +270,7 @@ function MyCtrl(dependency1, dependency2, ..., dependencyn) {
 module.controller('MyCtrl', MyCtrl);
 ```
 
-このようなタイプの定義を使用すると、 minify の問題を回避できます。[ng-annotate](https://github.com/olov/ng-annotate) (grunt task [grunt-ng-annotate](https://github.com/mzgol/grunt-ng-annotate))などの標準的なツールを使えば配列定義を自動的に生成できます
+このようなタイプの定義を使用すると、minifyの問題を回避できます。[ng-annotate](https://github.com/olov/ng-annotate) (grunt task [grunt-ng-annotate](https://github.com/mzgol/grunt-ng-annotate))などの標準的なツールを使えば配列定義を自動的に生成できます
 * 配列定義構文を利用する場合、コントローラの依存性の名前をそのまま使いましょう。読みやすいコードを書く助けになります：
 
 ```JavaScript
@@ -283,7 +281,7 @@ function MyCtrl(s) {
 module.controller('MyCtrl', ['$scope', MyCtrl]);
 ```
 
-次のほうが読みやすくなります:
+次のほうが読みやすくなります：
 
 ```JavaScript
 function MyCtrl($scope) {
@@ -295,7 +293,7 @@ module.controller('MyCtrl', ['$scope', MyCtrl]);
 これは特に、スクロールが必要なほどとても多くのコードのあるファイルに当てはまります。ひょっとしたらあなたはどの変数がどの依存性を作っているかを忘れてしまうことになるでしょう。
 
 * なるべく無駄のないようにコントローラーを作りましょう。抽象的で広く使われているロジックはサービス内に入れましょう。
-* メソッド呼び出しを使用して他のコントローラー内で通信したい場合や(可能なら子供から親へと通信したい場合)、 `$emit` `$broadcast` `$on` メソッド使う場合、 emitとbroadcastするメッセージ は最小限に保ちましょう。
+* メソッド呼び出しを使用して他のコントローラー内で通信したい場合や(可能なら子供から親へと通信したい場合)、 `$emit` `$broadcast` `$on` メソッド使う場合、emitとbroadcastするメッセージ は最小限に保ちましょう。
 * `$emit` `$broadcast` に渡すメッセージは、名前の衝突やバグの可能性があるため、全てのメッセージのリストを作成・管理しましょう
 
 例：
@@ -329,7 +327,7 @@ function MyCtrl($scope, myFormatFilter) {
 module.controller('MyCtrl', MyCtrl);
 ```
 
-* ネストしたコントローラを利用する場合、ネストスコープ（`controllerAs`構文）を使います。
+* ネストしたコントローラを利用する場合、ネストスコープ（ `controllerAs` 構文）を使います。
 
 **app.js**
 ```javascript
@@ -356,14 +354,14 @@ function HomeCtrl() {
 # ディレクティブ
 
 * ディレクティブ名はlowerCamelCaseで記述します。
-* link関数では`$scope`の代わりに`scope`を使用します。compileメソッドやpre/post link 関数が呼び出されるときには、渡される引数は定義済みです。あなたはDIを使用してそれらを変更することはできません。この方式はAngularJSのソースコードでも使用されています。
+* link関数では `$scope` の代わりに `scope` を使用します。compileメソッドやpre/post link関数が呼び出されるときには、渡される引数は定義済みです。あなたはDIを使用してそれらを変更することはできません。この方式はAngularJSのソースコードでも使用されています。
 * サードパーティ製ライブラリとの名前空間の衝突を防ぐために、新たに作成するディレクティブ名にはプレフィックスを付けましょう。
-* `ng`や`ui`などのプレフィックスは使わないようにしましょう。これらはAngularJSやAngularJS UIによって予約されています。
+* `ng` や `ui` などのプレフィックスは使わないようにしましょう。これらはAngularJSやAngularJS UIによって予約されています。
 * DOM操作を行うのは全てディレクティブを介してのみにします。
 * 再利用可能なコンポーネントを開発する際は、分離スコープを作りましょう。
 * ディレクティブはコメントやクラスではなく、属性やエレメントとして使います。これによって可読性が上がります。
-* 後片付けのために`scope.$on('$destroy', fn)`を使いましょう。特にサードパーティー製のプラグインをディレクティブとして利用する際に便利です。
-* 信用出来ない内容を扱う際には`$sce`を使うのを忘れないようにしましょう。
+* 後片付けのために `scope.$on('$destroy', fn)` を使いましょう。特にサードパーティー製のプラグインをディレクティブとして利用する際に便利です。
+* 信用出来ない内容を扱う際には `$sce` を使うのを忘れないようにしましょう。
 
 # フィルタ
 
@@ -373,10 +371,10 @@ function HomeCtrl() {
 
 # サービス
 
-このセクションはAngularJSのサービスコンポーネントについての情報を含みます。特に言及されていない限り、定義方法（例： プロバイダー、`.factory`、`.service`）とは関係ありません。
+このセクションはAngularJSのサービスコンポーネントについての情報を含みます。特に言及されていない限り、定義方法（例： プロバイダー、 `.factory` 、 `.service` ）とは関係ありません。
 
 * サービス名はcamelCaseで記述します。
-  * コンストラクタ関数として利用される場合、サービス名はUpperCamelCase (PascalCase)で記述します。例：
+  * コンストラクタ関数として利用される場合、サービス名はUpperCamelCase(PascalCase)で記述します。例：
 
     ```JavaScript
     function MainCtrl($scope, User) {
@@ -398,7 +396,7 @@ function HomeCtrl() {
   * その他のサービス名はlowerCamelCaseで記述します。
 
 * ビジネスロジックはカプセル化してサービスに入れます。
-* ドメインを表現するサービスはなるべく`factory`の代わりに`service`を利用するのがよいでしょう。"klassical"な継承を利用できるメリットがあります：
+* ドメインを表現するサービスはなるべく `factory` の代わりに `service` を利用するのがよいでしょう。"klassical"な継承を利用できるメリットがあります：
 
 ```JavaScript
 function Human() {
@@ -422,7 +420,7 @@ myModule.service('Developer', Developer);
 ```
 
 * セッションレベルでのキャッシュには `$cacheFactory` が使えます。これはリクエスト結果をキャッシュしたい時や重い処理をキャッシュしたいときに使えます。
-* 設定が必要なサービスを利用する場合は、サービスをプロバイダとして利用し、`config`コールバックで設定をします。
+* 設定が必要なサービスを利用する場合は、サービスをプロバイダとして利用し、 `config` コールバックで設定をします。
 
 ```JavaScript
 angular.module('demo', [])
@@ -451,11 +449,11 @@ demo.config(function (sampleProvider) {
 
 # テンプレート
 
-* コンテンツの点滅を防ぐため、`{{ }}`の代わりに `ng-bind`か`ng-cloak`を使いましょう。
+* コンテンツの点滅を防ぐため、 `{{ }}` の代わりに `ng-bind` か `ng-cloak` を使いましょう。
 * テンプレートに複雑なコードを書くのは避けましょう。
-* イメージを動的に読み込むために`src`を使う必要がある場合は`src`や`{{ }}`の代わりに`ng-src`を使いましょう。
-* アンカータグの`href`の内容が動的な場合は、`href`の代わりに`{{ }}`と`ng-href`を使います。
-* `style`属性を付ける際に`{{ }}`とともにscopeの変数を文字列として使う代わりに、`ng-style`を利用することでオブジェクトのパラーメタのように記述できます。また、scopeの変数も値として利用できます：
+* イメージを動的に読み込むために `src` を使う必要がある場合は `src` や `{{ }}` の代わりに `ng-src` を使いましょう。
+* アンカータグの `href` の内容が動的な場合は、 `href` の代わりに `{{ }}` と `ng-href` を使います。
+* `style` 属性を付ける際に `{{ }}` とともにscopeの変数を文字列として使う代わりに、 `ng-style` を利用することでオブジェクトのパラーメタのように記述できます。また、scopeの変数も値として利用できます：
 
 ```HTML
 <script>
@@ -472,8 +470,8 @@ $scope.divStyle = {
 
 # ルーティング
 
-* ビューが表示される前に、`resolve`を使って依存関係の解決をしましょう
-* `resolve`コールバックの中に明示的なRESTfulの呼び出しはしないようにしましょう。全てのリクエストは適切なサービスに隠蔽します。この方法でキャッシュを使うことができますし、関心の分離に則ることができます。
+* ビューが表示される前に、 `resolve` を使って依存関係の解決をしましょう。
+* `resolve` コールバックの中に明示的なRESTfulの呼び出しはしないようにしましょう。全てのリクエストは適切なサービスに隠蔽します。この方法でキャッシュを使うことができますし、関心の分離に則ることができます。
 
 # i18n
 
