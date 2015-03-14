@@ -1,3 +1,5 @@
+[![Join the chat at https://gitter.im/mgechev/angularjs-style-guide](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/mgechev/angularjs-style-guide?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 # はじめに
 
 このスタイルガイドのゴールは現在のAngularJSアプリケーションのベストプラクティスとガイドラインを提供することです。
