@@ -9,12 +9,12 @@
 0. 私が読んだコードや文章
 0. 私の経験
 
-**注意1**： このスタイルガイドはドラフトであり、その主な目的はコミュニティ駆動にすることです。足りない部分を補うことはコミュニティ全体から大きな賞賛を受けることになります。
+**注意1**： このスタイルガイドは草稿であり、その主な目的はコミュニティ駆動にすることです。足りない部分を補うことはコミュニティ全体から大きな賞賛を受けることになります。
 
 **注意2**：
 日本語版ガイドラインを読み始める前に、最新の状態であるか確認しましょう。[英語版](https://github.com/mgechev/angularjs-style-guide/blob/master/README.md)のAngularJSスタイルガイドが最新版のドキュメントになります。
 
-当ガイドラインは、JavaScript開発のガイドラインではありません。JavaScript開発のガイドライはこちらで見つかります：
+当ガイドラインは、JavaScript開発のガイドラインではありません。JavaScript開発のガイドラインはこちらで見つけることができます：
 
 0. [Google JavaScript スタイルガイド](http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml)
 0. [Mozilla JavaScript スタイルガイド](https://developer.mozilla.org/en-US/docs/Developer_Guide/Coding_Style)
@@ -24,7 +24,7 @@
 
 AngularJS開発での推奨は[Google JavaScript スタイルガイド](http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml)です。
 
-AngularJSのGitHub Wikiに[ProLoser](https://github.com/ProLoser)の書いた類似のセクションがあります。[ここ](https://github.com/angular/angular.js/wiki)から見つけることができます。
+AngularJSのGitHub Wikiに[ProLoser](https://github.com/ProLoser)の書いた類似のセクションがあります。[こちら](https://github.com/angular/angular.js/wiki)から見つけることができます。
 
 # 目次
 
