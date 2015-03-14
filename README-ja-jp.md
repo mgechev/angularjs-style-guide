@@ -449,20 +449,23 @@ demo.config(function (sampleProvider) {
 });
 ```
 
-#テンプレート
+# テンプレート
 
-* コンテンツの点滅を防ぐため、 `{{ }}` の代わりに `ng-bind` か `ng-cloak` を使いましょう。
+* コンテンツの点滅を防ぐため、`{{ }}`の代わりに `ng-bind`か`ng-cloak`を使いましょう。
 * テンプレートに複雑なコードを書くのは避けましょう。
-* 動的な表現で `src` を設定する必要がある場合は `src` や `{{}}` の代わりに `ng-src` を使いましょう
-* scope の変数を文字列のように `style` 属性や、 `{{ }}` で使ってみたいとき、`ng-style` ディレクティブなら scope の変数を object-like パラメーターのように使えます:
+* イメージを動的に読み込むために`src`を使う必要がある場合は`src`や`{{ }}`の代わりに`ng-src`を使いましょう。
+* アンカータグの`href`の内容が動的な場合は、`href`の代わりに`{{ }}`と`ng-href`を使います。
+* `style`属性を付ける際に`{{ }}`とともにscopeの変数を文字列として使う代わりに、`ng-style`を利用することでオブジェクトのパラーメタのように記述できます。また、scopeの変数も値として利用できます：
 
-```html
+```HTML
+<script>
 ...
 $scope.divStyle = {
   width: 200,
   position: 'relative'
 };
 ...
+</script>
 
 <div ng-style="divStyle">my beautifully styled div which will work in IE</div>;
 ```
