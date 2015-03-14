@@ -371,12 +371,83 @@ function HomeCtrl() {
 * フィルタを作るときにはできるだけ軽くしましょう。フィルターは `$digest` ループ内で頻繁に呼ばれるため、フィルターが遅いとあなたのアプリ全体が遅くなります。
 * 明瞭さを保つために１つのフィルタでは1つのことだけをやらせましょう。複雑な操作は既存のフィルタのパイプで行います。
 
-#サービス
+# サービス
 
-* サービス名は camelCase (lower or upper)
-* カプセル化したビジネスロジックはサービスに入れます。
-* サービスカプセル化ビジネスロジックは `factory` の代わりに `service` が好ましいでしょう
+このセクションはAngularJSのサービスコンポーネントについての情報を含みます。特に言及されていない限り、定義方法（例： プロバイダー、`.factory`、`.service`）とは関係ありません。
+
+* サービス名はcamelCaseで記述します。
+  * コンストラクタ関数として利用される場合、サービス名はUpperCamelCase (PascalCase)で記述します。例：
+
+    ```JavaScript
+    function MainCtrl($scope, User) {
+      $scope.user = new User('foo', 42);
+    }
+
+    module.controller('MainCtrl', MainCtrl);
+
+    function User(name, age) {
+      this.name = name;
+      this.age = age;
+    }
+
+    module.factory('User', function () {
+      return User;
+    });
+    ```
+
+  * その他のサービス名はlowerCamelCaseで記述します。
+
+* ビジネスロジックはカプセル化してサービスに入れます。
+* ドメインを表現するサービスはなるべく`factory`の代わりに`service`を利用するのがよいでしょう。"klassical"な継承を利用できるメリットがあります：
+
+```JavaScript
+function Human() {
+  //body
+}
+Human.prototype.talk = function () {
+  return "I'm talking";
+};
+
+function Developer() {
+  //body
+}
+Developer.prototype = Object.create(Human.prototype);
+Developer.prototype.code = function () {
+  return "I'm coding";
+};
+
+myModule.service('Human', Human);
+myModule.service('Developer', Developer);
+
+```
+
 * セッションレベルでのキャッシュには `$cacheFactory` が使えます。これはリクエスト結果をキャッシュしたい時や重い処理をキャッシュしたいときに使えます。
+* 設定が必要なサービスを利用する場合は、サービスをプロバイダとして利用し、`config`コールバックで設定をします。
+
+```JavaScript
+angular.module('demo', [])
+.config(function ($provide) {
+  $provide.provider('sample', function () {
+    var foo = 42;
+    return {
+      setFoo: function (f) {
+        foo = f;
+      },
+      $get: function () {
+        return {
+          foo: foo
+        };
+      }
+    };
+  });
+});
+
+var demo = angular.module('demo');
+
+demo.config(function (sampleProvider) {
+  sampleProvider.setFoo(41);
+});
+```
 
 #テンプレート
 
