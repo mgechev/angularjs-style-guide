@@ -470,13 +470,14 @@ $scope.divStyle = {
 <div ng-style="divStyle">my beautifully styled div which will work in IE</div>;
 ```
 
-#ルーティング
+# ルーティング
 
-* viewが表示される前に、 `resolve` を使って依存関係の解決をしましょう
+* ビューが表示される前に、`resolve`を使って依存関係の解決をしましょう
+* `resolve`コールバックの中に明示的なRESTfulの呼び出しはしないようにしましょう。全てのリクエストは適切なサービスに隠蔽します。この方法でキャッシュを使うことができますし、関心の分離に則ることができます。
 
-#テスト
+# i18n
 
-TBD
+* バージョン1.4.0以降でビルトインのi18nツールを利用することができます。1.4.0より前のバージョンを利用している場合は、[`angular-translate`](https://github.com/angular-translate/angular-translate)を利用することができます。
 
 #コントリビュート
 
