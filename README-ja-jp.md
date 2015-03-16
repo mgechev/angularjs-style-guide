@@ -12,7 +12,7 @@
 **注意1**： このスタイルガイドは草稿であり、その主な目的はコミュニティ駆動にすることです。足りない部分を補うことはコミュニティ全体から大きな賞賛を受けることになります。
 
 **注意2**：
-日本語版ガイドラインを読み始める前に、最新の状態であるか確認しましょう。[英語版](https://github.com/mgechev/angularjs-style-guide/blob/master/README.md)のAngularJSスタイルガイドが最新版のドキュメントになります。
+ 翻訳版のガイドラインを読み始める前に、それが最新の状態であるか確認しましょう。[英語版](https://github.com/mgechev/angularjs-style-guide/blob/master/README.md)のAngularJSスタイルガイドが最新版となります。
 
 当ガイドラインは、JavaScript開発のガイドラインではありません。JavaScript開発のガイドラインはこちらで見つけることができます：
 
@@ -22,9 +22,9 @@
 0. [Douglas Crockford JavaScript スタイルガイド](http://javascript.crockford.com/code.html)
 0. [Airbnb JavaScript スタイルガイド](https://github.com/airbnb/javascript)
 
-AngularJS開発での推奨は[Google JavaScript スタイルガイド](http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml)です。
+AngularJSの開発をする上でのおすすめは[Google JavaScript スタイルガイド](http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml)です。
 
-AngularJSのGitHub Wikiに[ProLoser](https://github.com/ProLoser)の書いた類似のセクションがあります。[こちら](https://github.com/angular/angular.js/wiki)から見つけることができます。
+AngularJSのGitHub Wikiに[ProLoser](https://github.com/ProLoser)の書いた類似のセクションがあります。[こちら](https://github.com/angular/angular.js/wiki)で確認することができます。
 
 # 目次
 
@@ -47,7 +47,7 @@ AngularJSのGitHub Wikiに[ProLoser](https://github.com/ProLoser)の書いた類
 
 ## ディレクトリ構造
 
-AngularJSを用いて作った大きなアプリケーションは複数のコンポーネントを持つため、ディレクトリ階層でコンポーネントを構造化するのが最善です。
+規模の大きなAngularJSのアプリケーションは複数のコンポーネントを持つため、ディレクトリ階層でコンポーネントを構造化するのがよいでしょう。
 主に2つのアプローチがあります：
 
 * 上位の階層をコンポーネントの種類で分けて、下位の階層は機能性で分ける。
@@ -138,7 +138,7 @@ app
      └── services
 ```
 
-* ディレクティブに関連するファイル(例：templates, CSS/SASS files, JavaScript)は全て１つのディレクトリに格納しています。このスタイルを選択する場合は、プロジェクト全体に一貫してこのスタイルを適用します。
+* ディレクティブに関連するファイル(例：templates, CSS/SASS files, JavaScript)は全て１つのディレクトリに格納しています。このスタイルを選択する場合、プロジェクト全体に一貫してこのスタイルを適用します。
 
 ```
 app
@@ -207,10 +207,12 @@ services
 
 ## digestサイクルの最適化
 
-* 特に重要な変数に注意を払います（例：リアルタイム通信を使用する場合は、各受信メッセージ内で `$digest` ループが発生しないようにします）。
+* 特に重要な変数に対してのみ監視を行います。 `$digest` ループを明示的に記述する必要がある場合（例外的なケースだと思いますが）、本当に必要なときにのみ呼び出すようにします。（例えば、リアルタイム通信を使用する場合は、各受信メッセージ内で `$digest` ループが発生しないようにします）。
 * 初期化後に変更のないコンテンツを扱う場合、AngularJSの古いバージョンでは[`bindonce`](https://github.com/Pasvaz/bindonce)のようなシングルタイム・ワッチャーを使います。AngularJSのバージョン1.3.0以降では組み込みのワンタイム・バインディングを利用します。
-* $watch 内はできるだけシンプルな処理にします。一つの `$watch` 内で重くて遅い処理を作ってしまうとアプリケーション全体が遅くなります。(JavaScriptがシングルスレッドである性質上、 `$digest` のループはシングルスレッドで処理されます)。
+* `$watch` 内はできるだけシンプルな処理にします。一つの `$watch` 内で重くて遅い処理を作ってしまうとアプリケーション全体が遅くなってしまいます。(JavaScriptがシングルスレッドである性質上、 `$digest` のループはシングルスレッドで処理されます)。
+* コレクションを監視する場合、ほんとうに必要でなければオブジェクトの中身まで監視をするのはやめましょう。 `$watchCollection` を用いて同等性の浅いレベルでのん氏にとどめておくべきです。
 * `$timeout` のコールバック関数が呼ばれることによって影響を受ける監視対象の変数がない場合に、 `$timeout` 関数の3番目のパラメタをfalseにすることで `$digest` ループをスキップします。
+* 巨大なコレクションを扱う場合、それはほとんど変更されません。[不可変データ構造を利用しましょう](http://blog.mgechev.com/2015/03/02/immutability-in-angularjs-immutablejs/)。
 
 ## その他
 
@@ -221,16 +223,16 @@ services
     * `document` の代わりに `$document`
     * `$.ajax` の代わりに `$http`
 
-これによってテストを簡単にし、いくつかのケースでは予期しない動作を防ぐことができます(例えば、 `$scope.$apply` を `setTimeout` 内に書き忘れる)。
+テストがしやすくなり、また、予期しない動作を防ぐことができますこともあります(例えば、 `$scope.$apply` を `setTimeout` 内に書き忘れる)。
 
-* 以下のツールを使用してワークフローを自動化する：
+* 以下のツールを使用してワークフローを自動化しましょう：
     * [Yeoman](http://yeoman.io)
     * [Gulp](http://gulpjs.com)
     * [Grunt](http://gruntjs.com)
     * [Bower](http://bower.io)
 
-* コールバックの代わりにpromise( `$q` )を使います。コードはよりエレガントでクリーンになり、コールバック地獄から解放されます。
-* 可能な場合は `$http` の代わりに `$resource` を使います。抽象性を高めることにより冗長なコードから解放されます。
+* コールバックの代わりにpromise( `$q` )を使います。コードはよりエレガントですっきりとしますし、コールバック地獄から解放されます。
+* できるだけ `$http` の代わりに `$resource` を使います。抽象性を高めることにより冗長なコードから解放されます。
 * AngularJS pre-minifier([ng-annotate](https://github.com/olov/ng-annotate))を使うことで、minifyした後に発生する問題を回避しましょう。
 * グローバル変数を使用してはいけません。依存性の注入を使って全ての依存関係を解決することで、バグやテスト時のモンキーパッチを防ぎます。
 * `$scope` を汚染してはいけません。テンプレートで使用するメソッドや変数のみ追加しましょう。
@@ -255,11 +257,11 @@ module.factory('Service', function ($rootScope, $timeout, MyCustomDependency1, M
 0. 機能性
 0. コンポーネントタイプ
 
-今現在、2つに大きな違いはありませんが、1.の方法がクリーンに見えます。また、もしモジュールの遅延ローディング・モジュールが実装されたら(AnglarJSのロードマップにはありませんが)、アプリケーションのパフォーマンスが向上するでしょう。
+今現在、2つに大きな違いはありませんが、1.の方法がより整って見えます。また、もし遅延ローディング・モジュールが実装されたら(AnglarJSのロードマップにはありませんが)、アプリケーションのパフォーマンスが向上するでしょう。
 
 # コントローラ
 
-* コントローラ内でDOMを操作してはいけません。テストがやりにくくなりますし、[関心の分離](https://en.wikipedia.org/wiki/Separation_of_concerns)の原則を破ることになります。代わりにティレクティブを使いましょう。
+* コントローラ内でDOMを操作してはいけません。テストがしづらくなりますし、[関心の分離](https://en.wikipedia.org/wiki/Separation_of_concerns)の原則を破ることになります。代わりにティレクティブを使いましょう。
 * コントローラ名は、そのコントローラの機能を表す名前(例: shopping cart, homepage, admin panel)にし、最後に `Ctrl` を付けます。UpperCamelCase(`HomePageCtrl`, `ShoppingCartCtrl`, `AdminPanelCtrl`, etc.)を使いましょう。
 * コントローラはグローバルな名前空間に定義してはいけません。(たとえAngularJSが許可しても、グローバルな名前空間を汚染するバッドプラクティスになります)。
 * コントローラの定義には下記の構文を使いましょう：
@@ -295,7 +297,7 @@ module.controller('MyCtrl', ['$scope', MyCtrl]);
 
 * なるべく無駄のないようにコントローラを作りましょう。抽象的で広く使われているロジックはサービス内に入れましょう。
 * メソッド呼び出し（子が親へアクセスしたいと思った時に利用可能）や `$emit` `$broadcast` `$on` メソッドで他のコントローラと連携を取るようにします。emitやbroadcastするメッセージは最小限に保ちましょう。
-* `$emit` `$broadcast` に渡すメッセージは、名前の衝突やバグの可能性があるため、全てのメッセージのリストを作成しましょう。
+* 名前の衝突やバグの原因にならないように `$emit` `$broadcast` をに指定する全てのメッセージのリストを作り、注意深く管理しましょう。
 
 例：
 
@@ -355,7 +357,7 @@ function HomeCtrl() {
 # ディレクティブ
 
 * ディレクティブ名はlowerCamelCaseで記述します。
-* link関数では `$scope` の代わりに `scope` を使用します。compileメソッドやpre/post link関数が呼び出されるときには、引数は定義済みです。あなたはDIを使用してそれらを変更することはできません。この方式はAngularJSのソースコードでも使用されています。
+* link関数では `$scope` の代わりに `scope` を使用します。compileメソッドやpre/post link関数が呼び出されるときには、引数は定義済みです。DIを使用してそれらを変更することはできません。この方式はAngularJSのソースコードでも使用されています。
 * サードパーティ製ライブラリとの名前空間の衝突を防ぐために、新たに作成するディレクティブ名にはプレフィックスを付けましょう。
 * `ng` や `ui` などのプレフィックスは使わないようにしましょう。これらはAngularJSやAngularJS UIによって予約されています。
 * DOMの操作は全てディレクティブを介してのみ行うようにします。
@@ -372,7 +374,7 @@ function HomeCtrl() {
 
 # サービス
 
-このセクションにはAngularJSのサービスコンポーネントについての情報を含みます。特に言及されていない限り、定義方法（例： プロバイダ、 `.factory` 、 `.service` ）とは関係ありません。
+このセクションにはAngularJSのサービスコンポーネントについての情報を含みます。特に言及されていない限り、定義方法（例： プロバイダ、 `.factory` 、 `.service` ）と関係しています。
 
 * サービス名はcamelCaseで記述します。
   * コンストラクタ関数として利用される場合、サービス名はUpperCamelCase(PascalCase)で記述します。例：
@@ -397,7 +399,7 @@ function HomeCtrl() {
   * その他のサービス名はlowerCamelCaseで記述します。
 
 * ビジネスロジックはカプセル化してサービスに入れます。
-* ドメインを表現するサービスはなるべく `factory` の代わりに `service` を利用するのがよいでしょう。"klassical"な継承を利用できるメリットがあります：
+* ドメインを表すサービスは `factory` の代わりに `service` を利用するのがよいでしょう。"klassical"な継承を利用できるメリットがあります：
 
 ```JavaScript
 function Human() {
