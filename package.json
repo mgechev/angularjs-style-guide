@@ -1,0 +1,24 @@
+{
+  "name": "angularjs-style-guide-gh-pages",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/mgechev/angularjs-style-guide.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mgechev/angularjs-style-guide/issues"
+  },
+  "homepage": "https://github.com/mgechev/angularjs-style-guide",
+  "devDependencies": {
+    "markdown-styles": "https://github.com/mgechev/markdown-styles/tarball/master"
+  }
+}

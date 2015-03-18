@@ -1,0 +1,319 @@
+/* Minimal font */
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre,
+form, fieldset, input, p, blockquote, table, th, td, embed, object, hr {
+  padding: 0;
+  margin: 0;
+  }
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  }
+fieldset, img, abbr {
+  border: 0;
+  }
+address, caption, cite, code, dfn, em,
+h1, h2, h3, h4, h5, h6, th, var {
+  font-weight: normal;
+  font-style: normal;
+  }
+ul {
+  list-style: none;
+  }
+caption, th {
+  text-align: left;
+  }
+h1, h2, h3, h4, h5, h6 {
+  font-size: 1.0em;
+  }
+q:before, q:after {
+  content: '';
+  }
+a, ins {
+  text-decoration: none;
+  }
+
+/* I was originally using Cantarell for the body text, but it just isn't as readable the usual suspects. */
+
+body {
+  font-family: Helvetica, Arial, 'Liberation Sans', FreeSans, sans-serif;
+}
+
+a {
+  color: #c00;
+}
+
+hr {
+  color: #ededed;
+  background-color: #ededed;
+  height: 1px;
+  border: none;
+}
+
+/* Header */
+#header {
+  margin-top: 2.029em;
+  margin-left: auto;
+  margin-right: auto;
+  width: 940px;
+
+  position: relative;
+  height: 0em;
+}
+
+#header h1 {
+  font-family: 'Andika', sans-serif;
+  font-size: 37px;
+  font-weight: normal;
+  line-height: 48px;
+}
+#header span {
+  font-size: 14px;
+}
+
+#brand {
+  position: absolute; bottom: 0; left: 0;
+}
+
+#navi {
+  position: absolute;
+  right:0;
+  bottom:0;
+}
+
+#navi li {
+  display: inline;
+  list-style-type: none;
+  padding-right: 20px;
+}
+
+div.clear {
+  clear: both;
+}
+
+div.clear hr {
+  margin: 18px 0px;
+}
+
+#wrapper {
+  margin-left: auto;
+  margin-right: auto;
+  width: 960px;
+}
+
+#container {
+  width: 72%;
+  display: inline;
+  float: right;
+  margin-right: 5px;
+  margin-left: 15px;
+  overflow: visible;
+}
+
+/* Content */
+#content {
+  font-size: 16px;
+  line-height: 26px;
+  /* max-width: 540px; Optimal formula = 30 * font size in px. */
+
+  /* text-align: justify; */
+  margin-bottom: 0;
+  padding-bottom: 20px;
+  float: right;
+
+  overflow: visible;
+  width: 100%;
+}
+
+#sidebar {
+  width: 24%;
+  float: left;
+  position: fixed;
+}
+
+/* Date widget */
+#content small{
+  font-size: 10px;
+  color: #CCC;
+  padding: 10px 20px 5px 0px;
+  float: left;
+  text-transform: uppercase;
+}
+#content span.date {
+  font-size: 32px;
+  line-height: 0.8;
+  color: #C00;
+}
+
+/* Post titles */
+
+.post h1 {
+  font-size: 36px;
+  line-height: 1;
+  margin-bottom: 0.5em;
+}
+
+.post h2 {
+  font-size: 24px;
+  text-align: left;
+  color: black;
+  line-height: 32px;
+  margin-bottom: 15px;
+}
+
+.post p {
+  margin: 0 0 1.5em;
+  max-width: 580px;
+}
+
+.post ul {
+list-style-type: disc;
+}
+
+.post ul, .post ol {
+  margin: 0 1.5em 1.5em 0;
+  padding-left: 3.333em;
+}
+
+.post pre ul, .post pre ol {
+  margin: 0;
+  padding: 0;
+}
+
+.post pre {
+  font-size: 14px;
+
+  padding: 2em 1.6em 2em 1.2em;
+  vertical-align: top;
+  background: #F8F8F8;
+  border: 1px solid #E8E8E8;
+  border-width: 1px 1px 1px 6px;
+  margin: -0.5em 0 1.1em;
+}
+
+.post pre, .post table {
+  margin: -1em 0 1em 0;
+  padding: .5em 1em;
+  background: #F6F6F6 repeat 0 0;
+}
+
+.post pre, .post code, .post tt {
+  font-family: 'droid sans mono', 'lucida console', monospace;
+  line-height: 1.5;
+}
+
+.post h3 {
+  font-size: 1.5em;
+  line-height: 1;
+  margin-bottom: .5em;
+  padding-bottom: .5em;
+}
+
+.post h4 {
+  font-size: 1.2em;
+  line-height: 1.25;
+  margin-bottom: 1.25em;
+}
+
+.post p tt, .post p code {
+  background: ghostWhite;
+  border: 1px solid #DEDEDE;
+  padding: 0 0.2em;
+}
+
+
+
+#sidebar h2 {
+  font-size: 18px;
+  padding: 5px 0 10px 0;
+}
+
+#sidebar h3 {
+  font-size: 1.5em;
+  line-height: 1;
+  border-bottom: 1px solid #CCC;
+  margin-bottom: .5em;
+  padding-bottom: .5em;
+}
+
+
+table { width: 100%; border-collapse: collapse; border-spacing: 0; }
+table caption { text-align: center; }
+table th { font-weight: bold; }
+table th, table td { padding: 0.3em; vertical-align: top; border: solid 0.1em; }
+
+div.summary {
+  border-top: 3px solid #EEE;
+  border-bottom: 3px solid #EEE;
+  width: 580px;
+  color: #666;
+  margin-top: 2em;
+  margin-bottom: 1em;
+  padding-top: 1em;
+}
+
+div.summary ul {
+  margin: 0 1.5em 1em 0;
+}
+
+span.ref {
+  font-size: small;
+  color: #888;
+}
+
+span.ref a {
+  color: #666;
+}
+div.notice {
+  border: 1px solid #E8E8E8; background-color: #FBFBDD; padding: .5em 1em;
+}
+
+#bottom_navi {
+  font-size: larger;
+  margin: 8px;
+}
+
+.nav li {
+  margin-bottom: 6px;
+}
+
+.heading-1 {
+  margin-left: 0;
+}
+
+.heading-2 {
+  margin-left: 10px;
+}
+
+.heading-3 {
+  margin-left: 20px;
+}
+
+.heading-4 {
+  margin-left: 30px;
+  display: none;
+}
+
+.heading-5 {
+  margin-left: 40px;
+  display: none;
+}
+
+@media (max-width : 980px) {
+  #sidebar {
+    display: none;
+  }
+  #container,
+  #content {
+    float: none;
+  }
+  #content {
+    margin: auto;
+    width: 90%;
+  }
+  #wrapper {
+    width: 100%;
+  }
+  .post p {
+    max-width: 100%;
+  }
+}

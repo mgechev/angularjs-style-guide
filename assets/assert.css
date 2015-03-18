@@ -1,0 +1,10 @@
+.FAIL b, .ERROR b { color: red; /* #990066 */ }
+.PASS b { color: #73C836; }
+input.runner {
+  margin-top: 0.1em;
+  margin-bottom: 1em;
+  font-size: large;
+  padding: 0.3em;
+}
+ol.runner { margin-bottom: 0.2em; }
+pre.run { margin-bottom: 0.2em;}
