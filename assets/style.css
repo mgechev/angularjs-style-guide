@@ -193,7 +193,6 @@ list-style-type: disc;
 .post pre, .post table {
   margin: -1em 0 1em 0;
   padding: .5em 1em;
-  background: #F6F6F6 repeat 0 0;
 }
 
 .post pre, .post code, .post tt {
@@ -239,7 +238,7 @@ list-style-type: disc;
 table { width: 100%; border-collapse: collapse; border-spacing: 0; }
 table caption { text-align: center; }
 table th { font-weight: bold; }
-table th, table td { padding: 0.3em; vertical-align: top; border: solid 0.1em; }
+table th, table td { padding: 0.3em; vertical-align: top; }
 
 div.summary {
   border-top: 3px solid #EEE;
