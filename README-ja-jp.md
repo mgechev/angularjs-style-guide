@@ -399,7 +399,7 @@ function HomeCtrl() {
   * その他のサービス名はlowerCamelCaseで記述します。
 
 * ビジネスロジックはカプセル化してサービスに入れます。
-* ドメインを表すサービスは `factory` の代わりに `service` を利用するのがよいでしょう。"klassical"な継承を利用できるメリットがあります：
+* 問題領域(ドメイン)に関わる処理を行うサービスは `factory` の代わりに `service` を利用するのがよいでしょう。"klassical"な継承を利用できるメリットがあります：
 
 ```JavaScript
 function Human() {
