@@ -25,7 +25,6 @@ For AngularJS development recommended is the [Google's JavaScript style guide](h
 
 In AngularJS's GitHub wiki there is a similar section by [ProLoser](https://github.com/ProLoser), you can check it [here](https://github.com/angular/angular.js/wiki).
 
-<!--toc-->
 # Table of content
 * [General](#general)
     * [Directory structure](#directory-structure)
@@ -42,7 +41,6 @@ In AngularJS's GitHub wiki there is a similar section by [ProLoser](https://gith
 * [i18n](#i18n)
 * [Contribution](#contribution)
 * [Contributors](#contributors)
-<!--endtoc-->
 
 # General
 
