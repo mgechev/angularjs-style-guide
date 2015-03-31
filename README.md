@@ -1,5 +1,21 @@
 [![Join the chat at https://gitter.im/mgechev/angularjs-style-guide](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/mgechev/angularjs-style-guide?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
+# Translations
+
+- [German](https://github.com/mgechev/angularjs-style-guide/blob/master/README-de-de.md)
+- [Spanish](https://github.com/mgechev/angularjs-style-guide/blob/master/README-es-es.md)
+- [French](https://github.com/mgechev/angularjs-style-guide/blob/master/README-fr-fr.md)
+- [Indonesian](https://github.com/mgechev/angularjs-style-guide/blob/master/README-id-id.md)
+- [Italian](https://github.com/mgechev/angularjs-style-guide/blob/master/README-it-it.md)
+- [Japanese](https://github.com/mgechev/angularjs-style-guide/blob/master/README-ja-jp.md)
+- [Korean](https://github.com/mgechev/angularjs-style-guide/blob/master/README-ko-kr.md)
+- [Polish](https://github.com/mgechev/angularjs-style-guide/blob/master/README-pl-pl.md)
+- [Portuguese](https://github.com/mgechev/angularjs-style-guide/blob/master/README-pt-br.md)
+- [Russian](https://github.com/mgechev/angularjs-style-guide/blob/master/README-ru-ru.md)
+- [Serbian](https://github.com/mgechev/angularjs-style-guide/blob/master/README-sr.md)
+- [Serbian lat](https://github.com/mgechev/angularjs-style-guide/blob/master/README-sr-lat.md)
+- [Chinese](https://github.com/mgechev/angularjs-style-guide/blob/master/README-zh-cn.md)
+
 # Introduction
 
 The goal of this style guide is to present a set of best practices and style guidelines for one AngularJS application.
