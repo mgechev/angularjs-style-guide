@@ -167,6 +167,7 @@ app
 
 * 使用：
     * `$timeout`  替代 `setTimeout`
+    * `$interval` instead of `setInterval`
     * `$window`   替代 `window`
     * `$document` 替代 `document`
     * `$http`     替代 `$.ajax`
@@ -175,6 +176,7 @@ app
 
 使用如下工具自动化你的工作流
     * [Yeoman](http://yeoman.io)
+    * [Gulp](http://gulpjs.com)
     * [Grunt](http://gruntjs.com)
     * [Bower](http://bower.io)
 
@@ -183,7 +185,9 @@ app
 * 使用AngularJS的预压缩版 (像 [ngmin](https://github.com/btford/ngmin) 或 [ng-annotate](https://github.com/olov/ng-annotate)) 避免在压缩之后出现问题。
 * 不要使用全局。通过依赖注入解决所有依赖。
 * 不要污染 `$scope`。仅添加与视图相关的函数和变量。
-* 使用 controllers 而非 `ngInit`。
+* 使用 controllers 而非 `ngInit`。只有当 `ngInit` 是 `ngRepeat`的特殊别名. 除此之外, 你应该使用 controllers 而不是 `ngInit` 来初始化scope变量.
+* 不要使用 `$` 前缀来命名变量, 属性和方法. 这种前缀是预留给 AngularJS 来使用的.
+* 当使用 DI 机制来解决依赖关系, 要根据他们的类型进行排序 -  AngularJS 内建的依赖要优先, 之后才是你自定义的。
 
 # 模块
 
