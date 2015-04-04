@@ -285,11 +285,17 @@ function HomeCtrl() {
 * 不要使用 `ng` 或 `ui` 前缀，因为这些备用于 AngularJS 和 AngularJS UI。
 * DOM 操作只通过指令完成。
 * 为你开发的可复用组件创建独立作用域。
+* 将指令当属性和元素而不是评论和类来使用。这会使你的代码可读性更高.
+* 使用 `scope.$on('$destroy', fn)` 来清除. 这点在使用第三方指令的时候特别有用.
+* 不要忘记使用 `$sce` 当你处理不可信的资料时.
+
 
 # 过滤器
 
 * 使用小写字母开头的驼峰法命名过滤器
 * 尽可能使过滤器精简。过滤器在 `$digest` loop 中被频繁调用，过于复杂的运算将使得整个应用缓慢。
+* 在过滤器中只做一件事. 更加复杂的操作可以用pipe来实现.
+
 
 # 服务
 
@@ -303,17 +309,22 @@ function HomeCtrl() {
 * 使用 `ng-bind` 或者 `ng-cloak` 而非简单的 `{{ }}` 以防止页面渲染时的闪烁。
 * 避免在模板中使用复杂的代码。
 * 当需要动态设置 <img> 的 `src` 时使用 `ng-src` 而非 `src` 中嵌套 `{{}}` 的模板。
+* 当需要动态设置<a>的 `href` 时使用 `ng-href` 而非 `href` 中嵌套 `{{ }}` 的模板。
 * 通过对象参数和 scope 变量作为值来使用 `ng-style` 指令，而非将 scope 变量作为字符串通过 `{{ }}` 用于 `style` 属性。
 
-        ...
-        $scope.divStyle = {
-          width: 200,
-          position: 'relative'
-        };
-        ...
+```HTML
+<script>
+...
+$scope.divStyle = {
+  width: 200,
+  position: 'relative'
+};
+...
+</script>
 
-        <div ng-style="divStyle">my beautifully styled div which will work in IE</div>;
-
+<div ng-style="divStyle">my beautifully styled div which will work in IE</div>;
+```
 # 路由
 
 * 在视图展示之前通过 `resolve` 解决依赖。
+* 不要在 `resolve` 回调函数中直接使用RESTful调用. 将所有请求放在合适的服务中. 这样你就可以使用缓存和遵循SCP.
