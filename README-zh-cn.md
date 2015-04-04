@@ -110,6 +110,18 @@
     ├── lib
     └── test
 
+* 当目录里有多个单词时, 使用 lisp-case 语法:
+
+```
+app
+ ├── app.js
+ └── my-complex-module
+     ├── controllers
+     ├── directives
+     ├── filters
+     └── services
+```
+
 * 在创建指令时，合适的做法是将相关的文件放到同一目录下 (如：模板文件, CSS/SASS 文件, JavaScript文件)。如果你在整个项目周期都选择这种组织方式，
 
         app
@@ -144,12 +156,18 @@
 ## 优化 digest cycle
 
 * 只监听必要的变量(例如：在进行实时通讯时，不要在每次接收到消息时触发 `$digest` loop)
+* 对于那些只初始化一次并不再改变的内容, 使用一次性 watcher [`bindonce`](https://github.com/Pasvaz/bindonce) 对于早期的 AngularJS 或者一次性 bindings 对于 AngularJS >=1.3.0.
 * 尽可能使 `$watch` 中的运算简单。在单个 `$watch` 中进行繁杂的运算将使得整个应用延缓(由于JavaScript的单线程特性，`$digest` loop 只能在单一线程进行)
+* 当监听集合时, 如果不是必要的话不要深度监听. 最好使用 `$watchCollection`, 对监听的表达和之前表达的估值进行浅层的检测.
+* 在 `$timeout` 设置第三方参数为 false 来跳过 `$digest` 循环 当没有变量被  `$timeout` 回调函数所影响.
+* 当面对超大不太改变的集合, [使用 immutable data structures](http://blog.mgechev.com/2015/03/02/immutability-in-angularjs-immutablejs/).
+
 
 ## 其他
 
 * 使用：
     * `$timeout`  替代 `setTimeout`
+    * `$interval` instead of `setInterval`
     * `$window`   替代 `window`
     * `$document` 替代 `document`
     * `$http`     替代 `$.ajax`
@@ -158,6 +176,7 @@
 
 使用如下工具自动化你的工作流
     * [Yeoman](http://yeoman.io)
+    * [Gulp](http://gulpjs.com)
     * [Grunt](http://gruntjs.com)
     * [Bower](http://bower.io)
 
@@ -166,7 +185,9 @@
 * 使用AngularJS的预压缩版 (像 [ngmin](https://github.com/btford/ngmin) 或 [ng-annotate](https://github.com/olov/ng-annotate)) 避免在压缩之后出现问题。
 * 不要使用全局。通过依赖注入解决所有依赖。
 * 不要污染 `$scope`。仅添加与视图相关的函数和变量。
-* 使用 controllers 而非 `ngInit`。
+* 使用 controllers 而非 `ngInit`。只有当 `ngInit` 是 `ngRepeat`的特殊别名. 除此之外, 你应该使用 controllers 而不是 `ngInit` 来初始化scope变量.
+* 不要使用 `$` 前缀来命名变量, 属性和方法. 这种前缀是预留给 AngularJS 来使用的.
+* 当使用 DI 机制来解决依赖关系, 要根据他们的类型进行排序 -  AngularJS 内建的依赖要优先, 之后才是你自定义的。
 
 # 模块
 
@@ -182,24 +203,34 @@
 * 不要在控制器里操作 DOM。通过指令完成。
 * 通过控制器完成的功能命名控制器 (如：购物卡，主页，控制板)，并以字符串`Ctrl`结尾。控制器采用驼峰命名法 (`HomePageCtrl`, `ShoppingCartCtrl`, `AdminPanelCtrl`, etc.).
 * 控制器不应该在全局中定义 (尽管 AngularJS 允许，但污染全局空间是个糟糕的实践)。
-* 使用数组语法定义控制器：
+* 使用一下语法定义控制器：
 
-        module.controller('MyCtrl', ['dependency1', 'dependency2', ..., 'dependencyn', function (dependency1, dependency2, ..., dependencyn) {
-          //...body
-        }]);
+```JavaScript
+function MyCtrl(dependency1, dependency2, ..., dependencyn) {
+  // ...
+}
+module.controller('MyCtrl', MyCtrl);
+```
 
 使用这种定义方式可以最大的避免问题。你可以使用工具自动生成数组定义，如：[ng-annotate](https://github.com/olov/ng-annotate) (and grunt task [grunt-ng-annotate](https://github.com/mzgol/grunt-ng-annotate)).
 * 使用控制器依赖的原名。这将提高代码的可读性：
 
-        module.controller('MyCtrl', ['$scope', function (s) {
-          //...body
-        }]);
+```JavaScript
+function MyCtrl(s) {
+  // ...
+}
+
+module.controller('MyCtrl', ['$scope', MyCtrl]);
+```
 
 下面的代码更易理解
 
-        module.controller('MyCtrl', ['$scope', function ($scope) {
-          //...body
-        }]);
+```JavaScript
+function MyCtrl($scope) {
+  // ...
+}
+module.controller('MyCtrl', ['$scope', MyCtrl]);
+```
 
 对于包含大量代码的需要上下滚动的文件尤其适用。这可能使你忘记某一变量是对应哪一个依赖。
 
@@ -208,15 +239,43 @@
 * 制定一个通过 `$emit`, `$broadcast` 发送的消息列表并且仔细的管理以防命名冲突和bug。
 * 在需要格式化数据时将格式化逻辑封装成 [过滤器](#filters) 并将其声明为依赖：
 
-        module.filter('myFormat', function () {
-          return function () {
-            //body...
-          };
-        });
+```JavaScript
+function myFormat() {
+  return function () {
+    // ...
+  };
+}
+module.filter('myFormat', myFormat);
 
-        module.controller('MyCtrl', ['$scope', 'myFormatFilter', function ($scope, myFormatFilter) {
-          //body...
-        }]);
+function MyCtrl($scope, myFormatFilter) {
+  // ...
+}
+
+module.controller('MyCtrl', MyCtrl);
+```
+* 当内嵌的控制器 使用 "内嵌 scoping" ( `controllerAs` 语法):
+
+**app.js**
+```javascript
+module.config(function ($routeProvider) {
+  $routeProvider
+    .when('/route', {
+      templateUrl: 'partials/template.html',
+      controller: 'HomeCtrl',
+      controllerAs: 'home'
+    });
+});
+```
+**HomeCtrl**
+```javascript
+function HomeCtrl() {
+  this.bindingValue = 42;
+}
+```
+**template.html**
+```
+<div ng-bind="home.bindingValue"></div>
+```
 
 # 指令
 
@@ -226,11 +285,17 @@
 * 不要使用 `ng` 或 `ui` 前缀，因为这些备用于 AngularJS 和 AngularJS UI。
 * DOM 操作只通过指令完成。
 * 为你开发的可复用组件创建独立作用域。
+* 将指令当属性和元素而不是评论和类来使用。这会使你的代码可读性更高.
+* 使用 `scope.$on('$destroy', fn)` 来清除. 这点在使用第三方指令的时候特别有用.
+* 不要忘记使用 `$sce` 当你处理不可信的资料时.
+
 
 # 过滤器
 
 * 使用小写字母开头的驼峰法命名过滤器
 * 尽可能使过滤器精简。过滤器在 `$digest` loop 中被频繁调用，过于复杂的运算将使得整个应用缓慢。
+* 在过滤器中只做一件事. 更加复杂的操作可以用pipe来实现.
+
 
 # 服务
 
@@ -244,17 +309,22 @@
 * 使用 `ng-bind` 或者 `ng-cloak` 而非简单的 `{{ }}` 以防止页面渲染时的闪烁。
 * 避免在模板中使用复杂的代码。
 * 当需要动态设置 <img> 的 `src` 时使用 `ng-src` 而非 `src` 中嵌套 `{{}}` 的模板。
+* 当需要动态设置<a>的 `href` 时使用 `ng-href` 而非 `href` 中嵌套 `{{ }}` 的模板。
 * 通过对象参数和 scope 变量作为值来使用 `ng-style` 指令，而非将 scope 变量作为字符串通过 `{{ }}` 用于 `style` 属性。
 
-        ...
-        $scope.divStyle = {
-          width: 200,
-          position: 'relative'
-        };
-        ...
+```HTML
+<script>
+...
+$scope.divStyle = {
+  width: 200,
+  position: 'relative'
+};
+...
+</script>
 
-        <div ng-style="divStyle">my beautifully styled div which will work in IE</div>;
-
+<div ng-style="divStyle">my beautifully styled div which will work in IE</div>;
+```
 # 路由
 
 * 在视图展示之前通过 `resolve` 解决依赖。
+* 不要在 `resolve` 回调函数中直接使用RESTful调用. 将所有请求放在合适的服务中. 这样你就可以使用缓存和遵循SCP.
