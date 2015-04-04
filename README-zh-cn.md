@@ -203,24 +203,34 @@ app
 * 不要在控制器里操作 DOM。通过指令完成。
 * 通过控制器完成的功能命名控制器 (如：购物卡，主页，控制板)，并以字符串`Ctrl`结尾。控制器采用驼峰命名法 (`HomePageCtrl`, `ShoppingCartCtrl`, `AdminPanelCtrl`, etc.).
 * 控制器不应该在全局中定义 (尽管 AngularJS 允许，但污染全局空间是个糟糕的实践)。
-* 使用数组语法定义控制器：
+* 使用一下语法定义控制器：
 
-        module.controller('MyCtrl', ['dependency1', 'dependency2', ..., 'dependencyn', function (dependency1, dependency2, ..., dependencyn) {
-          //...body
-        }]);
+```JavaScript
+function MyCtrl(dependency1, dependency2, ..., dependencyn) {
+  // ...
+}
+module.controller('MyCtrl', MyCtrl);
+```
 
 使用这种定义方式可以最大的避免问题。你可以使用工具自动生成数组定义，如：[ng-annotate](https://github.com/olov/ng-annotate) (and grunt task [grunt-ng-annotate](https://github.com/mzgol/grunt-ng-annotate)).
 * 使用控制器依赖的原名。这将提高代码的可读性：
 
-        module.controller('MyCtrl', ['$scope', function (s) {
-          //...body
-        }]);
+```JavaScript
+function MyCtrl(s) {
+  // ...
+}
+
+module.controller('MyCtrl', ['$scope', MyCtrl]);
+```
 
 下面的代码更易理解
 
-        module.controller('MyCtrl', ['$scope', function ($scope) {
-          //...body
-        }]);
+```JavaScript
+function MyCtrl($scope) {
+  // ...
+}
+module.controller('MyCtrl', ['$scope', MyCtrl]);
+```
 
 对于包含大量代码的需要上下滚动的文件尤其适用。这可能使你忘记某一变量是对应哪一个依赖。
 
@@ -229,15 +239,43 @@ app
 * 制定一个通过 `$emit`, `$broadcast` 发送的消息列表并且仔细的管理以防命名冲突和bug。
 * 在需要格式化数据时将格式化逻辑封装成 [过滤器](#filters) 并将其声明为依赖：
 
-        module.filter('myFormat', function () {
-          return function () {
-            //body...
-          };
-        });
+```JavaScript
+function myFormat() {
+  return function () {
+    // ...
+  };
+}
+module.filter('myFormat', myFormat);
 
-        module.controller('MyCtrl', ['$scope', 'myFormatFilter', function ($scope, myFormatFilter) {
-          //body...
-        }]);
+function MyCtrl($scope, myFormatFilter) {
+  // ...
+}
+
+module.controller('MyCtrl', MyCtrl);
+```
+* 当内嵌的控制器 使用 "内嵌 scoping" ( `controllerAs` 语法):
+
+**app.js**
+```javascript
+module.config(function ($routeProvider) {
+  $routeProvider
+    .when('/route', {
+      templateUrl: 'partials/template.html',
+      controller: 'HomeCtrl',
+      controllerAs: 'home'
+    });
+});
+```
+**HomeCtrl**
+```javascript
+function HomeCtrl() {
+  this.bindingValue = 42;
+}
+```
+**template.html**
+```
+<div ng-bind="home.bindingValue"></div>
+```
 
 # 指令
 
