@@ -25,22 +25,6 @@ AngularJs geliştirmeleri için [Google's JavaScript dökümanı](http://google-
 
  AngularJS Github dökümanı için [ProLoser](https://github.com/ProLoser), buradan kontrol edebilirsin [here](https://github.com/angular/angular.js/wiki).
 
-# Çeviriler
-
-- [German](https://github.com/mgechev/angularjs-style-guide/blob/master/README-de-de.md)
-- [Spanish](https://github.com/mgechev/angularjs-style-guide/blob/master/README-es-es.md)
-- [French](https://github.com/mgechev/angularjs-style-guide/blob/master/README-fr-fr.md)
-- [Indonesian](https://github.com/mgechev/angularjs-style-guide/blob/master/README-id-id.md)
-- [Italian](https://github.com/mgechev/angularjs-style-guide/blob/master/README-it-it.md)
-- [Japanese](https://github.com/mgechev/angularjs-style-guide/blob/master/README-ja-jp.md)
-- [Korean](https://github.com/mgechev/angularjs-style-guide/blob/master/README-ko-kr.md)
-- [Polish](https://github.com/mgechev/angularjs-style-guide/blob/master/README-pl-pl.md)
-- [Portuguese](https://github.com/mgechev/angularjs-style-guide/blob/master/README-pt-br.md)
-- [Russian](https://github.com/mgechev/angularjs-style-guide/blob/master/README-ru-ru.md)
-- [Serbian](https://github.com/mgechev/angularjs-style-guide/blob/master/README-sr.md)
-- [Serbian lat](https://github.com/mgechev/angularjs-style-guide/blob/master/README-sr-lat.md)
-- [Chinese](https://github.com/mgechev/angularjs-style-guide/blob/master/README-zh-cn.md)
-- [Turkish](https://github.com/mgechev/angularjs-style-guide/blob/master/README-tr-tr.md)
 
 # Tablo içeriği
 * [Genel](#genel)
@@ -209,7 +193,7 @@ Conventions about component naming can be found in each component section.
 </html>
 ```
 
-Basit tutun ve özelleşmiş direktifleri sonra koyun.Bu yöntem ile kodu geliştirmede ve bakımını daha koaly hale getirir.Ayrıca Html tarafından daha kolay bulunmasını sağlar getirir.
+Basit yapıda tutun ve özelleşmiş direktifleri sonra koyun.Bu yöntem ile kodu geliştirmede ve bakımını daha koaly hale getirir.Ayrıca Html tarafından daha kolay bulunmasını sağlar getirir.
 
 ```
 <form class="frm" ng-submit="login.authenticate()">
@@ -251,10 +235,10 @@ Böylece kodu daha test edilebilir hale getirir ve beklenmeyen hataların önün
 * Mümkün olduğunca `$resource` kullanının, `$http` yerine.Soyutlama düzeyinde fazlalılıktan size kurtaracaktır.
 * AngularJS pre-minifier kullan  ([ng-annotate](https://github.com/olov/ng-annotate)) olası hataları önlemek için.
 * Globals kullanma.Tüm bağımlılıkları Dependency Injection ile çözümle,bu olası bugları ve test ederken kolaylık sağlayacaktır.
-* Do not pollute your `$scope`. Only add functions and variables that are being used in the templates.
+* Kodunuzu `$scope` ile kirletmeyin. Sadece fonksiyon ve değişkenlerde kullanın. Bu kullanılan değişken ve fonksiyonların şablonlarda kullanıldığına dikkat edin.
 * Prefer the usage of [controllers instead of `ngInit`](https://github.com/angular/angular.js/pull/4366/files). The only appropriate use of `ngInit` is for aliasing special properties of `ngRepeat`. Besides this case, you should use controllers rather than `ngInit` to initialize values on a scope.
-* Do not use `$` prefix for the names of variables, properties and methods. This prefix is reserved for AngularJS usage.
-* When resolving dependencies through the DI mechanism of AngularJS, sort the dependencies by their type - the built-in AngularJS dependencies should be first, followed by your custom ones:
+* Değişkenlerde,methodlarda ve özelliklerde `$` ön ekini kullanmayın.Çünkü bu ön ek AngularJs tarafından ayrılmıştır.
+* AngularJs DI yapısıyla bağımlılıkları çözerken,bağımlılıkları türlerine göre sıralayınız.AngularJs tarafından ayağa kaldırılan bağımlılıklar ilk sırada olmalı daha sonra sizin yaptığınız bağımlılıklar gelmelidir. Aşağıda bir örnek görebilirsiniz:
 
 ```javascript
 module.factory('Service', function ($rootScope, $timeout, MyCustomDependency1, MyCustomDependency2) {
@@ -264,23 +248,23 @@ module.factory('Service', function ($rootScope, $timeout, MyCustomDependency1, M
 });
 ```
 
-# Modules
+# Modüller
 
-* Modules should be named with lowerCamelCase. For indicating that module `b` is submodule of module `a` you can nest them by using namespacing like: `a.b`.
+* Modül isimleri lowerCamelCase yapısına uygun olmalıdır.Küçük harf ile başlamalıdır.`b` modülü `a` nın bir alt modülü ise isimlendirme `a.b` şekilde olmalıdır.
 
-There are two common ways for structuring the modules:
+Modülleri yapısına göre 2 şekilde sıralayabiliriz:
 
-0. By functionality
-0. By component type
+0. işlevselliğine göre,
+0. bileşen türüne göre.
 
-Currently there's not a big difference, but the first way looks cleaner. Also, if lazy-loading modules is implemented (currently not in the AngularJS roadmap), it will improve the app's performance.
+Aslında büyük bir fark yok aralarında, ama ilk yöntem daha temiz bir yapıdır. Bunun yanında, eğer lazy-loading modülü gelirse  (şuanda AngularJs yol haritasında yok), uygulama performansını artıracaktır.
 
-# Controllers
+# Kontrolörler
 
-* Do not manipulate DOM in your controllers, this will make your controllers harder for testing and will violate the [Separation of Concerns principle](https://en.wikipedia.org/wiki/Separation_of_concerns). Use directives instead.
-* The naming of the controller is done using the controller's functionality (for example shopping cart, homepage, admin panel) and the substring `Ctrl` in the end. The controllers are named UpperCamelCase (`HomePageCtrl`, `ShoppingCartCtrl`, `AdminPanelCtrl`, etc.).
-* The controllers should not be defined as globals (even though AngularJS allows this, it is a bad practice to pollute the global namespace).
-* Use the following syntax for defining controllers:
+* Kontroller tarafında DOM müdahale etmeyin,bu sizin kontroller tarafındanki test etmenizi zor hale getirecektir ve bazı prensibleri ihlal ediceksiniz [Separation of Concerns principle](https://en.wikipedia.org/wiki/Separation_of_concerns).Bunun yerine direktiveleri kullanın.
+* Kontrolörler ismi yaptığı iş ile aynı isimde olmalıdır. (örneğin; shopping cart, homepage, admin panel) ve sonu `Ctrl` bitmelidir.Kontrolörler ismi UpperCamelCase (`HomePageCtrl`, `ShoppingCartCtrl`, `AdminPanelCtrl`, etc.) yapısında olmalıdır.
+* Kontrolörler global olarak tanımlanmamalıdır. (AngularJs buna izin verse bile,bu kötü bir yaklaşımdır ve global isim alanını kirletir. Kullanmayın!).
+* Aşağıda tanımlanan örnek yapısında kullanın:
 
 ```JavaScript
 function MyCtrl(dependency1, dependency2, ..., dependencyn) {
@@ -413,7 +397,7 @@ This section includes information about the service component in AngularJS. It i
 
   * lowerCamelCase for all other services.
 
-* Encapsulate all the business logic in services.
+* Servis katmanınında tüm işlemleri saklayın.
 * Services representing the domain preferably a `service` instead of a `factory`. In this way we can take advantage of the "klassical" inheritance easier:
 
 ```JavaScript
@@ -465,12 +449,12 @@ demo.config(function (sampleProvider) {
 });
 ```
 
-# Templates
+# Şablonlar
 
-* Use `ng-bind` or `ng-cloak` instead of simple `{{ }}` to prevent flashing content.
-* Avoid writing complex expressions in the templates.
-* When you need to set the `src` of an image dynamically use `ng-src` instead of `src` with `{{ }}` template.
-* When you need to set the `href` of an anchor tag dynamically use `ng-href` instead of `href` with `{{ }}` template.
+* `ng-bind` veya `ng-cloak` kullanın.Instead of simple `{{ }}` to prevent flashing content.
+* Html Şablonları içinde karışık ifadeler yazmaktan kaçının.
+* Html Şablonların içinde `src` etiketi yerine AngularJs bize sunmuş olduğu `ng-src` etiketini kullanın.
+* Html Şablonların içinde `href` etiketi yerine AngularJs bize sunmuş olduğu `ng-href` etiketini kullanın.
 * Instead of using scope variable as string and using it with `style` attribute with `{{ }}`, use the directive `ng-style` with object-like parameters and scope variables as values:
 
 ```HTML
@@ -486,21 +470,21 @@ $scope.divStyle = {
 <div ng-style="divStyle">my beautifully styled div which will work in IE</div>;
 ```
 
-# Routing
+# Yönlendirme
 
-* Use `resolve` to resolve dependencies before the view is shown.
-* Do not place explicit RESTful calls inside the `resolve` callback. Isolate all the requests inside appropriate services. This way you can enable caching and follow the separation of concerns principle.
+* View gözükmeden önce bağımlılıklarınızı çözmek için `resolve` kullanın.
+* `resolve` callback içerisine açık olarak RESTful koymayın.Uygun servislerin içersine birbirden bağımsız olacak şekilde yerleştirin.Böylece önbelleğe izin verme ve separation of concerns principle sağlamış oluruz.
 
 # i18n
 
-* For newer versions of the framework (>=1.4.0) use the built-in i18n tools, when using older versions (<1.4.0) use [`angular-translate`](https://github.com/angular-translate/angular-translate).
+* Angular yeni versiyonu için (>=1.4.0) i18n araçını kullanın, eğer eski versiyonu kullanıyorsanız (<1.4.0) kullanın [`angular-translate`](https://github.com/angular-translate/angular-translate).
 
-# Contribution
+# Katkı
 
 Since the goal of this style guide is to be community-driven, contributions are greatly appreciated.
 For example, you can contribute by extending the Testing section or by translating the style guide to your language.
 
-# Contributors
+# Katkı Sağlayanlar
 
 [<img alt="mgechev" src="https://avatars.githubusercontent.com/u/455023?v=3&s=117" width="117">](https://github.com/mgechev) |[<img alt="pascalockert" src="https://avatars.githubusercontent.com/u/4253438?v=3&s=117" width="117">](https://github.com/pascalockert) |[<img alt="morizotter" src="https://avatars.githubusercontent.com/u/536954?v=3&s=117" width="117">](https://github.com/morizotter) |[<img alt="ericguirbal" src="https://avatars.githubusercontent.com/u/322135?v=3&s=117" width="117">](https://github.com/ericguirbal) |[<img alt="mainyaa" src="https://avatars.githubusercontent.com/u/800781?v=3&s=117" width="117">](https://github.com/mainyaa) |[<img alt="elfinxx" src="https://avatars.githubusercontent.com/u/4384908?v=3&s=117" width="117">](https://github.com/elfinxx) |
 :---: |:---: |:---: |:---: |:---: |:---: |
