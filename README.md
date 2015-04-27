@@ -40,6 +40,7 @@ In AngularJS's GitHub wiki there is a similar section by [ProLoser](https://gith
 - [Serbian](https://github.com/mgechev/angularjs-style-guide/blob/master/README-sr.md)
 - [Serbian lat](https://github.com/mgechev/angularjs-style-guide/blob/master/README-sr-lat.md)
 - [Chinese](https://github.com/mgechev/angularjs-style-guide/blob/master/README-zh-cn.md)
+- [Turkish](https://github.com/mgechev/angularjs-style-guide/blob/master/README-tr-tr.md)
 
 # Table of content
 * [General](#general)

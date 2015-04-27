@@ -126,7 +126,7 @@ Düzen yapısı:
 └── test
 ```
 
-* Dizin yapısı birden çok kelimeden oluşabilir,lisp-case sözdizimi kullanın !:
+* Dizin yapısı birden çok kelimeden oluşabilir(örn;my-complex-module ),lisp-case sözdizimi kullanın !:
 
 ```
 app
@@ -154,7 +154,7 @@ app
 ```
 
 Bu yaklaşım yukarıdaki iki dizin yapısı ile birleştirilmiştir.
-* The unit tests for a given component should be located in the directory where the component is. This way when you make changes to a given component finding its test is easy. The tests also act as documentation and show use cases.
+* Unit testlerimiz bulunduğu bileşen ile birlikte olmalıdır. Bu yol ile yaptığımız testleri daha kolay buluruz ve yönetimimiz daha kolay olur.Ayrıca testlerimiz dökümantasyon ve kullanıcı senaryolarını da içermelidir.
 
 ```
 services
@@ -250,7 +250,7 @@ module.factory('Service', function ($rootScope, $timeout, MyCustomDependency1, M
 
 # Modüller
 
-* Modül isimleri lowerCamelCase yapısına uygun olmalıdır.Küçük harf ile başlamalıdır.`b` modülü `a` nın bir alt modülü ise isimlendirme `a.b` şekilde olmalıdır.
+* Modül isimleri lowerCamelCase yapısına uygun olmalıdır.Küçük harf ile başlamalıdır.`b` modülü `a` nın bir alt modülü ise, isimlendirme `a.b` şekilde olmalıdır.
 
 Modülleri yapısına göre 2 şekilde sıralayabiliriz:
 
@@ -284,7 +284,7 @@ function MyCtrl(s) {
 module.controller('MyCtrl', ['$scope', MyCtrl]);
 ```
 
-which is less readable than:
+okunabilirliği daha az:
 
 ```JavaScript
 function MyCtrl($scope) {
@@ -355,9 +355,9 @@ function HomeCtrl() {
 
 # Directives
 
-* Name your directives with lowerCamelCase.
-* Use `scope` instead of `$scope` in your link function. In the compile, post/pre link functions you have already defined arguments which will be passed when the function is invoked, you won't be able to change them using DI. This style is also used in AngularJS's source code.
-* Use custom prefixes for your directives to prevent name collisions with third-party libraries.
+* Direktif isimleri lowerCamelCase yapısına uygun olmalıdır.
+* Link fonksiyonunda `$scope` yerine `scope` kullanın.In the compile, post/pre link functions you have already defined arguments which will be passed when the function is invoked, you won't be able to change them using DI. This style is also used in AngularJS's source code.
+* Direktiflerde özel ön ekler kullanın bunun amacı kullandığınız diğer kütüphanelerde isim karışıklığını engeller.Use custom prefixes for your directives to prevent name collisions with third-party libraries.
 * Do not use `ng` or `ui` prefixes since they are reserved for AngularJS and AngularJS UI usage.
 * DOM manipulations must be done only through directives.
 * Create an isolated scope when you develop reusable components.
@@ -365,18 +365,18 @@ function HomeCtrl() {
 * Use `scope.$on('$destroy', fn)` for cleaning up. This is especially useful when you're wrapping third-party plugins as directives.
 * Do not forget to use `$sce` when you should deal with untrusted content.
 
-# Filters
+# Filtreler
 
-* Name your filters with lowerCamelCase.
-* Make your filters as light as possible. They are called often during the `$digest` loop so creating a slow filter will slow down your app.
-* Do a single thing in your filters, keep them coherent. More complex manipulations can be achieved by piping existing filters.
+* Filtre isimleri lowerCamelCase yapısına uygun olmalıdır.
+* Tüm filtrelerin bağımsız olduğuna emin olun. They are called often during the `$digest` loop so creating a slow filter will slow down your app.
+* Filtreleme işlemlerinde sadece bir iş yapın,ve işler tutarlı olsun. More complex manipulations can be achieved by piping existing filters.
 
 # Services
 
-This section includes information about the service component in AngularJS. It is not dependent of the way of definition (i.e. as provider, `.factory`, `.service`), except if explicitly mentioned.
+Bu bölümde AngularJs Service yapısınına bakıyoruz.Hangisine bağlı olarak geliştirdiğinin önemi yoktur. (i.e. örnek; provider, `.factory`, `.service`).
 
-* Use camelCase to name your services.
-  * UpperCamelCase (PascalCase) for naming your services, used as constructor functions i.e.:
+* Servis isimleri camelCase yapısına uygun olmalıdır.
+  * UpperCamelCase (PascalCase) yapısında isimlendirilmelidir, yapıcı fonksiyon örneği kullanılmıştır i.e.:
 
     ```JavaScript
     function MainCtrl($scope, User) {
@@ -395,7 +395,7 @@ This section includes information about the service component in AngularJS. It i
     });
     ```
 
-  * lowerCamelCase for all other services.
+  * Diğer tüm servisler için lowerCamelCase kullanın.
 
 * Servis katmanınında tüm işlemleri saklayın.
 * Services representing the domain preferably a `service` instead of a `factory`. In this way we can take advantage of the "klassical" inheritance easier:
@@ -421,8 +421,8 @@ myModule.service('Developer', Developer);
 
 ```
 
-* For session-level cache you can use `$cacheFactory`. This should be used to cache results from requests or heavy computations.
-* If given service requires configuration define the service as provider and configure it in the `config` callback like:
+* Session-level önbellekleme yapmak için `$cacheFactory` kullanın.
+* Eğer kullandığınız servis yapılandırma gerekiyorsa, servis sağlayıcı kullanın ve bunu `config` callback yapılandırın. Aşağıda bir örnek tanımlanmıştır
 
 ```JavaScript
 angular.module('demo', [])
@@ -451,11 +451,11 @@ demo.config(function (sampleProvider) {
 
 # Şablonlar
 
-* `ng-bind` veya `ng-cloak` kullanın.Instead of simple `{{ }}` to prevent flashing content.
+* `ng-bind` veya `ng-cloak` kullanın.Instead of simple `{{ }}` to prevent flashing content. //
 * Html Şablonları içinde karışık ifadeler yazmaktan kaçının.
 * Html Şablonların içinde `src` etiketi yerine AngularJs bize sunmuş olduğu `ng-src` etiketini kullanın.
 * Html Şablonların içinde `href` etiketi yerine AngularJs bize sunmuş olduğu `ng-href` etiketini kullanın.
-* Instead of using scope variable as string and using it with `style` attribute with `{{ }}`, use the directive `ng-style` with object-like parameters and scope variables as values:
+* Scope değişkenlerini string kullanmak yerine `style` özelliği birlikte `{{ }}` kullanın ve direktif olarak `ng-style` kullanın.
 
 ```HTML
 <script>
@@ -479,10 +479,6 @@ $scope.divStyle = {
 
 * Angular yeni versiyonu için (>=1.4.0) i18n araçını kullanın, eğer eski versiyonu kullanıyorsanız (<1.4.0) kullanın [`angular-translate`](https://github.com/angular-translate/angular-translate).
 
-# Katkı
-
-Since the goal of this style guide is to be community-driven, contributions are greatly appreciated.
-For example, you can contribute by extending the Testing section or by translating the style guide to your language.
 
 # Katkı Sağlayanlar
 
@@ -521,4 +517,8 @@ For example, you can contribute by extending the Testing section or by translati
 [<img alt="kuzmeig1" src="https://avatars.githubusercontent.com/u/8707951?v=3&s=117" width="117">](https://github.com/kuzmeig1) |
 :---: |
 [kuzmeig1](https://github.com/kuzmeig1) |
+
+[<img alt="gokhan" src="https://avatars0.githubusercontent.com/u/6371971?v=3&s=460" width="117">](https://github.com/previousdeveloper) |
+:---: |
+[gokhan](https://github.com/previousdeveloper) |
 
