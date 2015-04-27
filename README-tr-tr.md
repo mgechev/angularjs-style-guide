@@ -1,74 +1,58 @@
 [![Join the chat at https://gitter.im/mgechev/angularjs-style-guide](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/mgechev/angularjs-style-guide?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-# Introduction
+# Başlangıç
 
-The goal of this style guide is to present a set of best practices and style guidelines for one AngularJS application.
-These best practices are collected from:
+Bu dökümanın amacı angular ile geliştirilen ve geçerli olan iyi tasarım ve stillerdir.
+En iyi kullanışlar:
 
-0. AngularJS source code
-0. Source code or articles I've read
-0. My own experience
+0. AngularJS kaynak kodu
+0. Kaynak kodları ve okuduğum makaleler
+0. Kendi deneyimlerim
 
-**Note 1**: this is still a draft of the style guide, its main goal is to be community-driven so filling the gaps will be greatly appreciated by the whole community.
+**Not 1**: Bu stil rehberi hala bir taslak aşamasındadır.Ana amacı tüm kesimlerce kabul edilmesidir.
 
-**Note 2**: before following any of the guidelines in the translations of the English document, make sure they are up-to date. The latest version of the AngularJS style guide is in the current document.
+**Not 2**: Herhangi bir döküman takip etmeden önce, dökümanın güncel olduğuna dikkat ediniz. Bu döküman en son versiyonu için geçerlidir.
 
-In this style guide you won't find common guidelines for JavaScript development. Such can be found at:
+Bu dökümanda genel Javascript geliştirmelerinin ortak kullanımını göremeyeceksiniz. Genel olarak kullanımlar aşağıdadır:
 
-0. [Google's JavaScript style guide](http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml)
-0. [Mozilla's JavaScript style guide](https://developer.mozilla.org/en-US/docs/Developer_Guide/Coding_Style)
-0. [GitHub's JavaScript style guide](https://github.com/styleguide/javascript)
-0. [Douglas Crockford's JavaScript style guide](http://javascript.crockford.com/code.html)
-0. [Airbnb JavaScript style guide](https://github.com/airbnb/javascript)
+0. [Google's JavaScript dökümanı](http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml)
+0. [Mozilla's JavaScript dökümanı](https://developer.mozilla.org/en-US/docs/Developer_Guide/Coding_Style)
+0. [GitHub's JavaScript dökümanı](https://github.com/styleguide/javascript)
+0. [Douglas Crockford's JavaScript dökümanı](http://javascript.crockford.com/code.html)
+0. [Airbnb JavaScript dökümanı](https://github.com/airbnb/javascript)
 
-For AngularJS development recommended is the [Google's JavaScript style guide](http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml).
+AngularJs geliştirmeleri için [Google's JavaScript dökümanı](http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml).
 
-In AngularJS's GitHub wiki there is a similar section by [ProLoser](https://github.com/ProLoser), you can check it [here](https://github.com/angular/angular.js/wiki).
+ AngularJS Github dökümanı için [ProLoser](https://github.com/ProLoser), buradan kontrol edebilirsin [here](https://github.com/angular/angular.js/wiki).
 
-# Translations
 
-- [German](https://github.com/mgechev/angularjs-style-guide/blob/master/README-de-de.md)
-- [Spanish](https://github.com/mgechev/angularjs-style-guide/blob/master/README-es-es.md)
-- [French](https://github.com/mgechev/angularjs-style-guide/blob/master/README-fr-fr.md)
-- [Indonesian](https://github.com/mgechev/angularjs-style-guide/blob/master/README-id-id.md)
-- [Italian](https://github.com/mgechev/angularjs-style-guide/blob/master/README-it-it.md)
-- [Japanese](https://github.com/mgechev/angularjs-style-guide/blob/master/README-ja-jp.md)
-- [Korean](https://github.com/mgechev/angularjs-style-guide/blob/master/README-ko-kr.md)
-- [Polish](https://github.com/mgechev/angularjs-style-guide/blob/master/README-pl-pl.md)
-- [Portuguese](https://github.com/mgechev/angularjs-style-guide/blob/master/README-pt-br.md)
-- [Russian](https://github.com/mgechev/angularjs-style-guide/blob/master/README-ru-ru.md)
-- [Serbian](https://github.com/mgechev/angularjs-style-guide/blob/master/README-sr.md)
-- [Serbian lat](https://github.com/mgechev/angularjs-style-guide/blob/master/README-sr-lat.md)
-- [Chinese](https://github.com/mgechev/angularjs-style-guide/blob/master/README-zh-cn.md)
-- [Turkish](https://github.com/mgechev/angularjs-style-guide/blob/master/README-tr-tr.md)
-
-# Table of content
-* [General](#general)
-    * [Directory structure](#directory-structure)
-    * [Markup](#markup)
+# Tablo içeriği
+* [Genel](#genel)
+    * [Dizin yapısı](#dizin-yapısı)
+    * [Biçimlendirme](#biçimlendirme)
     * [Optimize the digest cycle](#optimize-the-digest-cycle)
-    * [Others](#others)
-* [Modules](#modules)
-* [Controllers](#controllers)
-* [Directives](#directives)
-* [Filters](#filters)
+    * [Diğerleri](#diğerleri)
+* [Modüller](#modüller)
+* [Kontrolörler](#kontrolörler)
+* [Direktifler](#direktifler)
+* [Filtreler](#filtreler)
 * [Services](#services)
-* [Templates](#templates)
-* [Routing](#routing)
+* [Şablonlar](#şablonlar)
+* [Yönlendirme](#yönlendirme)
 * [i18n](#i18n)
-* [Contribution](#contribution)
-* [Contributors](#contributors)
+* [Katkı](#katkı)
+* [Katkı Sağlayanlar](#katkı-sağlayanlar)
 
-# General
+# Genel
 
-## Directory structure
+## Dizin yapısı
 
-Since a large AngularJS application has many components it's best to structure it in a directory hierarchy.
-There are two main approaches:
+Büyük AngularJs uygulamaları bir çok bileşenden oluşur. En iyi dizin yapısı dosyalama hiyerarşidir.
+2 tane ana yaklaşım:
 
-* Creating high-level divisions by component types and lower-level divisions by functionality.
+* Bileşen türü daha öncelikli olacak şekilde  bölünmeler ve işlevselliği daha az kullanıma  göre yapılandırma.
 
-In this way the directory structure will look like:
+Dizin yapısı aşağıdaki şekilde görünecektir:
 
 ```
 .
@@ -102,9 +86,9 @@ In this way the directory structure will look like:
 └── test
 ```
 
-* Creating high-level divisions by functionality and lower-level divisions by component types.
+* İşlevselliğin ön planda olduğu ve bileşen yapısının daha az yapıda kullanıldığı yapı aşağıdaki gibidir.
 
-Here is its layout:
+Düzen yapısı:
 
 ```
 .
@@ -142,7 +126,7 @@ Here is its layout:
 └── test
 ```
 
-* In case the directory name contains multiple words, use lisp-case syntax:
+* Dizin yapısı birden çok kelimeden oluşabilir(örn;my-complex-module ),lisp-case sözdizimi kullanın !:
 
 ```
 app
@@ -154,7 +138,7 @@ app
      └── services
 ```
 
-* Put all the files associated with the given directive (i.e. templates, CSS/SASS files, JavaScript) in a single folder. If you choose to use this style be consistent and use it everywhere along your project.
+* Tüm dosyalarınızı verilen yönergelere koyun.(i.e. şablonlar, CSS/SASS dosyaları, JavaScript) tek dosya içerisinde. Eğer böyle bir yaklaşım seçerseniz,proje yaşamı boyunca heryerde bu yaklaşımı kullanabilirsiniz.
 
 ```
 app
@@ -169,8 +153,8 @@ app
         └── directive2.sass
 ```
 
-This approach can be combined with both directory structures above.
-* The unit tests for a given component should be located in the directory where the component is. This way when you make changes to a given component finding its test is easy. The tests also act as documentation and show use cases.
+Bu yaklaşım yukarıdaki iki dizin yapısı ile birleştirilmiştir.
+* Unit testlerimiz bulunduğu bileşen ile birlikte olmalıdır. Bu yol ile yaptığımız testleri daha kolay buluruz ve yönetimimiz daha kolay olur.Ayrıca testlerimiz dökümantasyon ve kullanıcı senaryolarını da içermelidir.
 
 ```
 services
@@ -182,15 +166,15 @@ services
     └── model1.spec.js
 ```
 
-* The `app.js` file should contains route definitions, configuration and/or manual bootstrap (if required).
-* Each JavaScript file should only hold **a single component**. The file should be named with the component's name.
-* Use AngularJS project structure template like [Yeoman](http://yeoman.io), [ng-boilerplate](http://joshdmiller.github.io/ng-boilerplate/#/home).
+* `app.js` dosyasında yönlendirme bulunmalıdır.
+* Her bir JavaScript dosyası sadece  **tek bir bileşen** bulundurmalıdır. Dosya bileşenin adı ile adlandırılmış olmalıdır.
+* AngularJs proje yapısı şablonu örn olarak kullanabilirsiniz; [Yeoman](http://yeoman.io), [ng-boilerplate](http://joshdmiller.github.io/ng-boilerplate/#/home).
 
 Conventions about component naming can be found in each component section.
 
-## Markup
+## Biçimlendirme
 
-[TLDR;](http://developer.yahoo.com/blogs/ydn/high-performance-sites-rule-6-move-scripts-bottom-7200.html) Put the scripts at the bottom.
+[TLDR;](http://developer.yahoo.com/blogs/ydn/high-performance-sites-rule-6-move-scripts-bottom-7200.html) Alltaki komutları koyun.
 
 ```
 <!DOCTYPE html>
@@ -209,7 +193,7 @@ Conventions about component naming can be found in each component section.
 </html>
 ```
 
-Keep things simple and put AngularJS specific directives later. This way is easy to look to the code and find enhanced HTML by the framework (what improve the maintainibility).
+Basit yapıda tutun ve özelleşmiş direktifleri sonra koyun.Bu yöntem ile kodu geliştirmede ve bakımını daha koaly hale getirir.Ayrıca Html tarafından daha kolay bulunmasını sağlar getirir.
 
 ```
 <form class="frm" ng-submit="login.authenticate()">
@@ -219,7 +203,7 @@ Keep things simple and put AngularJS specific directives later. This way is easy
 </form>
 ```
 
-Other HTML atributes should follow the Code Guide's [recommendation](http://mdo.github.io/code-guide/#html-attribute-order)
+Diğer HTML niteliklerini bu dökümanda bulabilirsiniz. [recommendation](http://mdo.github.io/code-guide/#html-attribute-order)
 
 ## Optimize the digest cycle
 
@@ -230,31 +214,31 @@ Other HTML atributes should follow the Code Guide's [recommendation](http://mdo.
 * Set third parameter in `$timeout` function to false to skip the `$digest` loop when no watched variables are impacted by the invocation of the `$timeout` callback function.
 * When dealing with big collections, which change rarely, [use immutable data structures](http://blog.mgechev.com/2015/03/02/immutability-in-angularjs-immutablejs/).
 
-## Others
+## Diğerleri
 
-* Use:
-    * `$timeout` instead of `setTimeout`
-    * `$interval` instead of `setInterval`
-    * `$window` instead of `window`
-    * `$document` instead of `document`
-    * `$http` instead of `$.ajax`
+* Kullan:
+    * `$timeout` yerine `setTimeout`
+    * `$interval` yerine `setInterval`
+    * `$window` yerine `window`
+    * `$document` yerine `document`
+    * `$http` yerine `$.ajax`
 
-This will make your testing easier and in some cases prevent unexpected behaviour (for example, if you missed `$scope.$apply` in `setTimeout`).
+Böylece kodu daha test edilebilir hale getirir ve beklenmeyen hataların önüne geçilir. (Örneğin; unutursan `$scope.$apply` in `setTimeout`).
 
-* Automate your workflow using tools like:
+* İş akışını bu araçlar ile otomatik hale getirin:
     * [Yeoman](http://yeoman.io)
     * [Gulp](http://gulpjs.com)
     * [Grunt](http://gruntjs.com)
     * [Bower](http://bower.io)
 
-* Use promises (`$q`) instead of callbacks. It will make your code look more elegant and clean, and save you from callback hell.
-* Use `$resource` instead of `$http` when possible. The higher level of abstraction will save you from redundancy.
-* Use an AngularJS pre-minifier ([ng-annotate](https://github.com/olov/ng-annotate)) for preventing problems after minification.
-* Don't use globals. Resolve all dependencies using Dependency Injection, this will prevent bugs and monkey patching when testing.
-* Do not pollute your `$scope`. Only add functions and variables that are being used in the templates.
+* Promise yapısını kullan (`$q`) callbacks kullanma.Kodun daha güzel,temiz ve test edilebilir hale getirir. Ve bizi callback yapısından kurtarır.
+* Mümkün olduğunca `$resource` kullanının, `$http` yerine.Soyutlama düzeyinde fazlalılıktan size kurtaracaktır.
+* AngularJS pre-minifier kullan  ([ng-annotate](https://github.com/olov/ng-annotate)) olası hataları önlemek için.
+* Globals kullanma.Tüm bağımlılıkları Dependency Injection ile çözümle,bu olası bugları ve test ederken kolaylık sağlayacaktır.
+* Kodunuzu `$scope` ile kirletmeyin. Sadece fonksiyon ve değişkenlerde kullanın. Bu kullanılan değişken ve fonksiyonların şablonlarda kullanıldığına dikkat edin.
 * Prefer the usage of [controllers instead of `ngInit`](https://github.com/angular/angular.js/pull/4366/files). The only appropriate use of `ngInit` is for aliasing special properties of `ngRepeat`. Besides this case, you should use controllers rather than `ngInit` to initialize values on a scope.
-* Do not use `$` prefix for the names of variables, properties and methods. This prefix is reserved for AngularJS usage.
-* When resolving dependencies through the DI mechanism of AngularJS, sort the dependencies by their type - the built-in AngularJS dependencies should be first, followed by your custom ones:
+* Değişkenlerde,methodlarda ve özelliklerde `$` ön ekini kullanmayın.Çünkü bu ön ek AngularJs tarafından ayrılmıştır.
+* AngularJs DI yapısıyla bağımlılıkları çözerken,bağımlılıkları türlerine göre sıralayınız.AngularJs tarafından ayağa kaldırılan bağımlılıklar ilk sırada olmalı daha sonra sizin yaptığınız bağımlılıklar gelmelidir. Aşağıda bir örnek görebilirsiniz:
 
 ```javascript
 module.factory('Service', function ($rootScope, $timeout, MyCustomDependency1, MyCustomDependency2) {
@@ -264,23 +248,23 @@ module.factory('Service', function ($rootScope, $timeout, MyCustomDependency1, M
 });
 ```
 
-# Modules
+# Modüller
 
-* Modules should be named with lowerCamelCase. For indicating that module `b` is submodule of module `a` you can nest them by using namespacing like: `a.b`.
+* Modül isimleri lowerCamelCase yapısına uygun olmalıdır.Küçük harf ile başlamalıdır.`b` modülü `a` nın bir alt modülü ise, isimlendirme `a.b` şekilde olmalıdır.
 
-There are two common ways for structuring the modules:
+Modülleri yapısına göre 2 şekilde sıralayabiliriz:
 
-0. By functionality
-0. By component type
+0. işlevselliğine göre,
+0. bileşen türüne göre.
 
-Currently there's not a big difference, but the first way looks cleaner. Also, if lazy-loading modules is implemented (currently not in the AngularJS roadmap), it will improve the app's performance.
+Aslında büyük bir fark yok aralarında, ama ilk yöntem daha temiz bir yapıdır. Bunun yanında, eğer lazy-loading modülü gelirse  (şuanda AngularJs yol haritasında yok), uygulama performansını artıracaktır.
 
-# Controllers
+# Kontrolörler
 
-* Do not manipulate DOM in your controllers, this will make your controllers harder for testing and will violate the [Separation of Concerns principle](https://en.wikipedia.org/wiki/Separation_of_concerns). Use directives instead.
-* The naming of the controller is done using the controller's functionality (for example shopping cart, homepage, admin panel) and the substring `Ctrl` in the end. The controllers are named UpperCamelCase (`HomePageCtrl`, `ShoppingCartCtrl`, `AdminPanelCtrl`, etc.).
-* The controllers should not be defined as globals (even though AngularJS allows this, it is a bad practice to pollute the global namespace).
-* Use the following syntax for defining controllers:
+* Kontroller tarafında DOM müdahale etmeyin,bu sizin kontroller tarafındanki test etmenizi zor hale getirecektir ve bazı prensibleri ihlal ediceksiniz [Separation of Concerns principle](https://en.wikipedia.org/wiki/Separation_of_concerns).Bunun yerine direktiveleri kullanın.
+* Kontrolörler ismi yaptığı iş ile aynı isimde olmalıdır. (örneğin; shopping cart, homepage, admin panel) ve sonu `Ctrl` bitmelidir.Kontrolörler ismi UpperCamelCase (`HomePageCtrl`, `ShoppingCartCtrl`, `AdminPanelCtrl`, etc.) yapısında olmalıdır.
+* Kontrolörler global olarak tanımlanmamalıdır. (AngularJs buna izin verse bile,bu kötü bir yaklaşımdır ve global isim alanını kirletir. Kullanmayın!).
+* Aşağıda tanımlanan örnek yapısında kullanın:
 
 ```JavaScript
 function MyCtrl(dependency1, dependency2, ..., dependencyn) {
@@ -300,7 +284,7 @@ function MyCtrl(s) {
 module.controller('MyCtrl', ['$scope', MyCtrl]);
 ```
 
-which is less readable than:
+okunabilirliği daha az:
 
 ```JavaScript
 function MyCtrl($scope) {
@@ -371,9 +355,9 @@ function HomeCtrl() {
 
 # Directives
 
-* Name your directives with lowerCamelCase.
-* Use `scope` instead of `$scope` in your link function. In the compile, post/pre link functions you have already defined arguments which will be passed when the function is invoked, you won't be able to change them using DI. This style is also used in AngularJS's source code.
-* Use custom prefixes for your directives to prevent name collisions with third-party libraries.
+* Direktif isimleri lowerCamelCase yapısına uygun olmalıdır.
+* Link fonksiyonunda `$scope` yerine `scope` kullanın.In the compile, post/pre link functions you have already defined arguments which will be passed when the function is invoked, you won't be able to change them using DI. This style is also used in AngularJS's source code.
+* Direktiflerde özel ön ekler kullanın bunun amacı kullandığınız diğer kütüphanelerde isim karışıklığını engeller.Use custom prefixes for your directives to prevent name collisions with third-party libraries.
 * Do not use `ng` or `ui` prefixes since they are reserved for AngularJS and AngularJS UI usage.
 * DOM manipulations must be done only through directives.
 * Create an isolated scope when you develop reusable components.
@@ -381,18 +365,18 @@ function HomeCtrl() {
 * Use `scope.$on('$destroy', fn)` for cleaning up. This is especially useful when you're wrapping third-party plugins as directives.
 * Do not forget to use `$sce` when you should deal with untrusted content.
 
-# Filters
+# Filtreler
 
-* Name your filters with lowerCamelCase.
-* Make your filters as light as possible. They are called often during the `$digest` loop so creating a slow filter will slow down your app.
-* Do a single thing in your filters, keep them coherent. More complex manipulations can be achieved by piping existing filters.
+* Filtre isimleri lowerCamelCase yapısına uygun olmalıdır.
+* Tüm filtrelerin bağımsız olduğuna emin olun. They are called often during the `$digest` loop so creating a slow filter will slow down your app.
+* Filtreleme işlemlerinde sadece bir iş yapın,ve işler tutarlı olsun. More complex manipulations can be achieved by piping existing filters.
 
 # Services
 
-This section includes information about the service component in AngularJS. It is not dependent of the way of definition (i.e. as provider, `.factory`, `.service`), except if explicitly mentioned.
+Bu bölümde AngularJs Service yapısınına bakıyoruz.Hangisine bağlı olarak geliştirdiğinin önemi yoktur. (i.e. örnek; provider, `.factory`, `.service`).
 
-* Use camelCase to name your services.
-  * UpperCamelCase (PascalCase) for naming your services, used as constructor functions i.e.:
+* Servis isimleri camelCase yapısına uygun olmalıdır.
+  * UpperCamelCase (PascalCase) yapısında isimlendirilmelidir, yapıcı fonksiyon örneği kullanılmıştır i.e.:
 
     ```JavaScript
     function MainCtrl($scope, User) {
@@ -411,9 +395,9 @@ This section includes information about the service component in AngularJS. It i
     });
     ```
 
-  * lowerCamelCase for all other services.
+  * Diğer tüm servisler için lowerCamelCase kullanın.
 
-* Encapsulate all the business logic in services.
+* Servis katmanınında tüm işlemleri saklayın.
 * Services representing the domain preferably a `service` instead of a `factory`. In this way we can take advantage of the "klassical" inheritance easier:
 
 ```JavaScript
@@ -437,8 +421,8 @@ myModule.service('Developer', Developer);
 
 ```
 
-* For session-level cache you can use `$cacheFactory`. This should be used to cache results from requests or heavy computations.
-* If given service requires configuration define the service as provider and configure it in the `config` callback like:
+* Session-level önbellekleme yapmak için `$cacheFactory` kullanın.
+* Eğer kullandığınız servis yapılandırma gerekiyorsa, servis sağlayıcı kullanın ve bunu `config` callback yapılandırın. Aşağıda bir örnek tanımlanmıştır
 
 ```JavaScript
 angular.module('demo', [])
@@ -465,13 +449,13 @@ demo.config(function (sampleProvider) {
 });
 ```
 
-# Templates
+# Şablonlar
 
-* Use `ng-bind` or `ng-cloak` instead of simple `{{ }}` to prevent flashing content.
-* Avoid writing complex expressions in the templates.
-* When you need to set the `src` of an image dynamically use `ng-src` instead of `src` with `{{ }}` template.
-* When you need to set the `href` of an anchor tag dynamically use `ng-href` instead of `href` with `{{ }}` template.
-* Instead of using scope variable as string and using it with `style` attribute with `{{ }}`, use the directive `ng-style` with object-like parameters and scope variables as values:
+* `ng-bind` veya `ng-cloak` kullanın.Instead of simple `{{ }}` to prevent flashing content. //
+* Html Şablonları içinde karışık ifadeler yazmaktan kaçının.
+* Html Şablonların içinde `src` etiketi yerine AngularJs bize sunmuş olduğu `ng-src` etiketini kullanın.
+* Html Şablonların içinde `href` etiketi yerine AngularJs bize sunmuş olduğu `ng-href` etiketini kullanın.
+* Scope değişkenlerini string kullanmak yerine `style` özelliği birlikte `{{ }}` kullanın ve direktif olarak `ng-style` kullanın.
 
 ```HTML
 <script>
@@ -486,21 +470,17 @@ $scope.divStyle = {
 <div ng-style="divStyle">my beautifully styled div which will work in IE</div>;
 ```
 
-# Routing
+# Yönlendirme
 
-* Use `resolve` to resolve dependencies before the view is shown.
-* Do not place explicit RESTful calls inside the `resolve` callback. Isolate all the requests inside appropriate services. This way you can enable caching and follow the separation of concerns principle.
+* View gözükmeden önce bağımlılıklarınızı çözmek için `resolve` kullanın.
+* `resolve` callback içerisine açık olarak RESTful koymayın.Uygun servislerin içersine birbirden bağımsız olacak şekilde yerleştirin.Böylece önbelleğe izin verme ve separation of concerns principle sağlamış oluruz.
 
 # i18n
 
-* For newer versions of the framework (>=1.4.0) use the built-in i18n tools, when using older versions (<1.4.0) use [`angular-translate`](https://github.com/angular-translate/angular-translate).
+* Angular yeni versiyonu için (>=1.4.0) i18n araçını kullanın, eğer eski versiyonu kullanıyorsanız (<1.4.0) kullanın [`angular-translate`](https://github.com/angular-translate/angular-translate).
 
-# Contribution
 
-Since the goal of this style guide is to be community-driven, contributions are greatly appreciated.
-For example, you can contribute by extending the Testing section or by translating the style guide to your language.
-
-# Contributors
+# Katkı Sağlayanlar
 
 [<img alt="mgechev" src="https://avatars.githubusercontent.com/u/455023?v=3&s=117" width="117">](https://github.com/mgechev) |[<img alt="pascalockert" src="https://avatars.githubusercontent.com/u/4253438?v=3&s=117" width="117">](https://github.com/pascalockert) |[<img alt="morizotter" src="https://avatars.githubusercontent.com/u/536954?v=3&s=117" width="117">](https://github.com/morizotter) |[<img alt="ericguirbal" src="https://avatars.githubusercontent.com/u/322135?v=3&s=117" width="117">](https://github.com/ericguirbal) |[<img alt="mainyaa" src="https://avatars.githubusercontent.com/u/800781?v=3&s=117" width="117">](https://github.com/mainyaa) |[<img alt="elfinxx" src="https://avatars.githubusercontent.com/u/4384908?v=3&s=117" width="117">](https://github.com/elfinxx) |
 :---: |:---: |:---: |:---: |:---: |:---: |
@@ -537,4 +517,8 @@ For example, you can contribute by extending the Testing section or by translati
 [<img alt="kuzmeig1" src="https://avatars.githubusercontent.com/u/8707951?v=3&s=117" width="117">](https://github.com/kuzmeig1) |
 :---: |
 [kuzmeig1](https://github.com/kuzmeig1) |
+
+[<img alt="gokhan" src="https://avatars0.githubusercontent.com/u/6371971?v=3&s=460" width="117">](https://github.com/previousdeveloper) |
+:---: |
+[gokhan](https://github.com/previousdeveloper) |
 
