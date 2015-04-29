@@ -262,7 +262,13 @@ There are two main approaches:</p>
 <li>Use an AngularJS pre-minifier (<a href="https://github.com/olov/ng-annotate">ng-annotate</a>) for preventing problems after minification.</li>
 <li>Don&#39;t use globals. Resolve all dependencies using Dependency Injection, this will prevent bugs and monkey patching when testing.</li>
 <li>Do not pollute your <code>$scope</code>. Only add functions and variables that are being used in the templates.</li>
-<li>Prefer the usage of <a href="https://github.com/angular/angular.js/pull/4366/files">controllers instead of <code>ngInit</code></a>. The only appropriate use of <code>ngInit</code> is for aliasing special properties of <code>ngRepeat</code>. Besides this case, you should use controllers rather than <code>ngInit</code> to initialize values on a scope.</li>
+<li>Prefer the usage of <a href="https://github.com/angular/angular.js/pull/4366/files">controllers instead of <code>ngInit</code></a>. The only appropriate use of <code>ngInit</code> is for aliasing special properties of <code>ngRepeat</code>. Besides this case, you should use controllers rather than <code>ngInit</code> to initialize values on a scope. The expression passed to <code>ngInit</code> should go through lexing, parsing and evaluation by the Angular interpreter implemented inside the <code>$parse</code> service. This leads to:<ul class="list">
+<li>Performance impact, because the interpreter is implemented in JavaScript</li>
+<li>The caching of the parsed expressions inside the <code>$parse</code> service doesn&#39;t make a lot of sense in most cases, since <code>ngInit</code> expressions are often evaluated only once</li>
+<li>Is error-prone, since you&#39;re writing strings inside your templates, there&#39;s no syntax highlighting and further support by your editor</li>
+<li>No run-time errors are thrown</li>
+</ul>
+</li>
 <li>Do not use <code>$</code> prefix for the names of variables, properties and methods. This prefix is reserved for AngularJS usage.</li>
 <li>When resolving dependencies through the DI mechanism of AngularJS, sort the dependencies by their type - the built-in AngularJS dependencies should be first, followed by your custom ones:</li>
 </ul>
