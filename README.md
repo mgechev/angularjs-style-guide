@@ -252,7 +252,11 @@ This will make your testing easier and in some cases prevent unexpected behaviou
 * Use an AngularJS pre-minifier ([ng-annotate](https://github.com/olov/ng-annotate)) for preventing problems after minification.
 * Don't use globals. Resolve all dependencies using Dependency Injection, this will prevent bugs and monkey patching when testing.
 * Do not pollute your `$scope`. Only add functions and variables that are being used in the templates.
-* Prefer the usage of [controllers instead of `ngInit`](https://github.com/angular/angular.js/pull/4366/files). The only appropriate use of `ngInit` is for aliasing special properties of `ngRepeat`. Besides this case, you should use controllers rather than `ngInit` to initialize values on a scope.
+* Prefer the usage of [controllers instead of `ngInit`](https://github.com/angular/angular.js/pull/4366/files). The only appropriate use of `ngInit` is for aliasing special properties of `ngRepeat`. Besides this case, you should use controllers rather than `ngInit` to initialize values on a scope. The expression passed to `ngInit` should go through lexing, parsing and evaluation by the Angular interpreter implemented inside the `$parse` service. This leads to:
+    - Performance impact, because the interpreter is implemented in JavaScript
+    - The caching of the parsed expressions inside the `$parse` service doesn't make a lot of sense in most cases, since `ngInit` expressions are often evaluated only once
+    - Is error-prone, since you're writing strings inside your templates, there's no syntax highlighting and further support by your editor
+    - No run-time errors are thrown
 * Do not use `$` prefix for the names of variables, properties and methods. This prefix is reserved for AngularJS usage.
 * When resolving dependencies through the DI mechanism of AngularJS, sort the dependencies by their type - the built-in AngularJS dependencies should be first, followed by your custom ones:
 
