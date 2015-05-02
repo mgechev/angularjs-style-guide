@@ -262,7 +262,8 @@ module.factory('Service', function ($rootScope, $timeout, MyCustomDependency1, M
 # コントローラ
 
 * コントローラ内でDOMを操作してはいけません。テストがしづらくなりますし、[関心の分離](https://en.wikipedia.org/wiki/Separation_of_concerns)の原則を破ることになります。代わりにティレクティブを使いましょう。
-* コントローラ名は、そのコントローラの機能を表す名前(例: shopping cart, homepage, admin panel)にし、最後に `Ctrl` を付けます。UpperCamelCase(`HomePageCtrl`, `ShoppingCartCtrl`, `AdminPanelCtrl`, etc.)を使いましょう。
+* コントローラ名は、そのコントローラの機能を表す名前(例: shopping cart, homepage, admin panel)にし、最後に `Ctrl` を付けます。
+* コントローラは素のJavascriptなので（[constructors](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/constructor)）、命名はUpperCamelCase(`HomePageCtrl`, `ShoppingCartCtrl`, `AdminPanelCtrl`, etc.)を使います。
 * コントローラはグローバルな名前空間に定義してはいけません。(たとえAngularJSが許可しても、グローバルな名前空間を汚染するバッドプラクティスになります)。
 * コントローラの定義には下記の構文を使いましょう：
 
