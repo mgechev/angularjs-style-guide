@@ -336,20 +336,20 @@ Currently there's not a big difference, but the first way looks cleaner. Also, i
 
 * When you need to format data encapsulate the formatting logic into a [filter](#filters) and declare it as dependency:
 
-```JavaScript
-function myFormat() {
-  return function () {
-    // ...
-  };
-}
-module.filter('myFormat', myFormat);
-
-function MyCtrl($scope, myFormatFilter) {
-  // ...
-}
-
-module.controller('MyCtrl', MyCtrl);
-```
+   ```JavaScript
+   function myFormat() {
+     return function () {
+       // ...
+     };
+   }
+   module.filter('myFormat', myFormat);
+   
+   function MyCtrl($scope, myFormatFilter) {
+     // ...
+   }
+   
+   module.controller('MyCtrl', MyCtrl);
+   ```
 * In case of nested controllers use "nested scoping" (the `controllerAs` syntax):
 
 **app.js**
