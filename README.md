@@ -343,6 +343,60 @@ Currently there's not a big difference, but the first way looks cleaner. Also, i
    This especially applies to a file that has so much code that you'd need to scroll through. This would possibly cause you to forget which variable is tied to which dependency.
 
 * Make the controllers as lean as possible. Abstract commonly used functions into a service.
+* Avoid writing business logic inside controllers. Delegate business logic to a `model`, using a service. 
+	For example:
+
+	```Javascript
+	//This is a common behaviour (bad example) of using business logic inside a controller.
+	angular.module('Store', [])  
+	.controller('OrderCtrl', function($scope) {
+    
+    	$scope.items = [];
+
+		$scope.addToOrder = function(item) {
+    		$scope.items.push(item);//-->Business logic inside controller
+    	};
+
+	    $scope.removeFromOrder = function(item) {
+    	    $scope.items.splice($scope.items.indexOf(item), 1);//-->Business logic inside controller
+    	};
+
+	    $scope.totalPrice = function() {
+    	    return $scope.items.reduce(function(memo, item) {
+        	    return memo + (item.qty * item.price);//-->Business logic inside controller
+        	}, 0);
+    	};
+	});
+```
+
+	When delegating business logic into a 'model' service, controller will look like this (see [use services as your 'Model'] for service-model implementation):
+	
+	```Javascript
+	angular.module('Store', [])  
+	.controller('OrderCtrl', function(Order) {
+
+    	$scope.items = Order.items;
+
+    	$scope.addToOrder = function(item) {
+        	Order.addToOrder(item);
+    	};
+
+	    $scope.removeFromOrder = function(item) {
+    	    Order.removeFromOrder(item);
+    	};
+
+    	$scope.totalPrice = function() {
+      	  return Order.total();
+    	};
+	});
+```
+
+	Why business logic / app state inside controllers is bad?
+	* Controllers instantiated for each view and dies when the view unloads
+	* Controllers are not reusable - they are coupled with the view
+	* Controllers are not meant to be injected
+	
+
 * Communicate within different controllers using method invocation (possible when a child wants to communicate with its parent) or `$emit`, `$broadcast` and `$on` methods. The emitted and broadcasted messages should be kept to a minimum.
 * Make a list of all messages which are passed using `$emit`, `$broadcast` and manage it carefully because of name collisions and possible bugs.
 
