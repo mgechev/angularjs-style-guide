@@ -287,92 +287,92 @@ Currently there's not a big difference, but the first way looks cleaner. Also, i
 * The controllers should not be defined as globals (even though AngularJS allows this, it is a bad practice to pollute the global namespace).
 * Use the following syntax for defining controllers:
 
-```JavaScript
-function MyCtrl(dependency1, dependency2, ..., dependencyn) {
-  // ...
-}
-module.controller('MyCtrl', MyCtrl);
-```
-
-In order to prevent problems with minification, you can automatically generate the array definition syntax from the standard one using tools like [ng-annotate](https://github.com/olov/ng-annotate) (and grunt task [grunt-ng-annotate](https://github.com/mzgol/grunt-ng-annotate)).
+   ```JavaScript
+   function MyCtrl(dependency1, dependency2, ..., dependencyn) {
+     // ...
+   }
+   module.controller('MyCtrl', MyCtrl);
+   ```
+   
+   In order to prevent problems with minification, you can automatically generate the array definition syntax from    the standard one using tools like [ng-annotate](https://github.com/olov/ng-annotate) (and grunt task          [grunt-ng-annotate](https://github.com/mzgol/grunt-ng-annotate)).
 * If using array definition syntax, use the original names of the controller's dependencies. This will help you produce more readable code:
 
-```JavaScript
-function MyCtrl(s) {
-  // ...
-}
-
-module.controller('MyCtrl', ['$scope', MyCtrl]);
-```
-
-which is less readable than:
-
-```JavaScript
-function MyCtrl($scope) {
-  // ...
-}
-module.controller('MyCtrl', ['$scope', MyCtrl]);
-```
-
-This especially applies to a file that has so much code that you'd need to scroll through. This would possibly cause you to forget which variable is tied to which dependency.
+   ```JavaScript
+   function MyCtrl(s) {
+     // ...
+   }
+   
+   module.controller('MyCtrl', ['$scope', MyCtrl]);
+   ```
+   
+   which is less readable than:
+   
+   ```JavaScript
+   function MyCtrl($scope) {
+     // ...
+   }
+   module.controller('MyCtrl', ['$scope', MyCtrl]);
+   ```
+   
+   This especially applies to a file that has so much code that you'd need to scroll through. This would possibly cause you to forget which variable is tied to which dependency.
 
 * Make the controllers as lean as possible. Abstract commonly used functions into a service.
 * Communicate within different controllers using method invocation (possible when a child wants to communicate with its parent) or `$emit`, `$broadcast` and `$on` methods. The emitted and broadcasted messages should be kept to a minimum.
 * Make a list of all messages which are passed using `$emit`, `$broadcast` and manage it carefully because of name collisions and possible bugs.
 
-Example:
-
-```JavaScript
-// app.js
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-Custom events:
-  - 'authorization-message' - description of the message
-    - { user, role, action } - data format
-      - user - a string, which contains the username
-      - role - an ID of the role the user has
-      - action - specific ation the user tries to perform
-* * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-```
+   Example:
+   
+   ```JavaScript
+   // app.js
+   /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+   Custom events:
+     - 'authorization-message' - description of the message
+       - { user, role, action } - data format
+         - user - a string, which contains the username
+         - role - an ID of the role the user has
+         - action - specific ation the user tries to perform
+   * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+   ```
 
 * When you need to format data encapsulate the formatting logic into a [filter](#filters) and declare it as dependency:
 
-```JavaScript
-function myFormat() {
-  return function () {
-    // ...
-  };
-}
-module.filter('myFormat', myFormat);
-
-function MyCtrl($scope, myFormatFilter) {
-  // ...
-}
-
-module.controller('MyCtrl', MyCtrl);
-```
+   ```JavaScript
+   function myFormat() {
+     return function () {
+       // ...
+     };
+   }
+   module.filter('myFormat', myFormat);
+   
+   function MyCtrl($scope, myFormatFilter) {
+     // ...
+   }
+   
+   module.controller('MyCtrl', MyCtrl);
+   ```
 * In case of nested controllers use "nested scoping" (the `controllerAs` syntax):
 
-**app.js**
-```javascript
-module.config(function ($routeProvider) {
-  $routeProvider
-    .when('/route', {
-      templateUrl: 'partials/template.html',
-      controller: 'HomeCtrl',
-      controllerAs: 'home'
-    });
-});
-```
-**HomeCtrl**
-```javascript
-function HomeCtrl() {
-  this.bindingValue = 42;
-}
-```
-**template.html**
-```
-<div ng-bind="home.bindingValue"></div>
-```
+   **app.js**
+   ```javascript
+   module.config(function ($routeProvider) {
+     $routeProvider
+       .when('/route', {
+         templateUrl: 'partials/template.html',
+         controller: 'HomeCtrl',
+         controllerAs: 'home'
+       });
+   });
+   ```
+   **HomeCtrl**
+   ```javascript
+   function HomeCtrl() {
+     this.bindingValue = 42;
+   }
+   ```
+   **template.html**
+   ```
+   <div ng-bind="home.bindingValue"></div>
+   ```
 
 # Directives
 
