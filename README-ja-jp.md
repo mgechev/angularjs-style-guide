@@ -275,26 +275,33 @@ module.controller('MyCtrl', MyCtrl);
 ```
 
 minifyの問題を回避するために、[ng-annotate](https://github.com/olov/ng-annotate)や(grunt task [grunt-ng-annotate](https://github.com/mzgol/grunt-ng-annotate))などの標準的なツールを使って配列定義構文を自動的に生成することができます。
-* 配列定義構文を利用する場合、コントローラの依存性の名前をそのまま使いましょう。読みやすいコードを書く助けになります：
 
-```JavaScript
-function MyCtrl(s) {
-  // ...
-}
+* `controller as`シンタックスを使いましょう。
 
-module.controller('MyCtrl', ['$scope', MyCtrl]);
-```
+   ```
+   <div ng-controller="MainCtrl as main">
+      {{ main.title }}
+   </div>
+   ```
 
-次のほうが読みやすくなります：
+   ```JavaScript
+   app.controller('MainCtrl', MainCtrl);
 
-```JavaScript
-function MyCtrl($scope) {
-  // ...
-}
-module.controller('MyCtrl', ['$scope', MyCtrl]);
-```
+   function MainCtrl () {
+      this.title = 'Some title';
+   };
+   ```
 
-これは特に、スクロールが必要なほどとても多くのコードのあるファイルに当てはまります。どの変数がどの依存性と結びついているか忘れてしまうかもしれません。
+   このシンタックスを使う利点は下記のとおりです：
+   * '分離' されたコンポーネントが作成される。バインドされたプロパティは `$scope` プロトタイプ・チェーンに含まれません。 `$scope` プロトタイプ継承は大きな欠点（多分この欠点のために Angular 2 では採用されていません）があるのでこれは良いやり方です。
+      * データがどこから来たのかわからない。
+      * スコープの値の変更が想定していないところに影響する。
+      * リファクタが大変になる。
+      * '[ドット・ルール](http://jimhoskins.com/2012/12/14/nested-scopes-in-angularjs.html)' 。
+   * 特別な事情（ `$scope.$broadcast`など ）がない限り、 `$scope` は使わないようにしましょう。これはAngularJS V2 への良い備えになります。
+   * シンタックスは 'vanilla' JavaScriptのコンストラクタに近いです。
+
+   `controller as` について詳しくは、 [digging-into-angulars-controller-as-syntax](http://toddmotto.com/digging-into-angulars-controller-as-syntax/) を参照してください。
 
 * なるべく無駄のないようにコントローラを作りましょう。抽象的で広く使われているロジックはサービス内に入れましょう。
 * メソッド呼び出し（子が親へアクセスしたいと思った時に利用可能）や `$emit` `$broadcast` `$on` メソッドで他のコントローラと連携を取るようにします。emitやbroadcastするメッセージは最小限に保ちましょう。
