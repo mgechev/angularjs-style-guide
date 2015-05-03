@@ -295,6 +295,32 @@ Currently there's not a big difference, but the first way looks cleaner. Also, i
    ```
    
    In order to prevent problems with minification, you can automatically generate the array definition syntax from    the standard one using tools like [ng-annotate](https://github.com/olov/ng-annotate) (and grunt task          [grunt-ng-annotate](https://github.com/mzgol/grunt-ng-annotate)).
+* Prefer using `controller as` syntax:
+
+   ```
+   <div ng-controller="MainCtrl as main">
+      {{ main.title }}
+   </div>
+   ```
+   
+   ```JavaScript
+   app.controller('MainCtrl', MainCtrl);
+   
+   function MainCtrl () {
+      this.title = 'Some title';
+   });
+   ```
+   
+   The main benefits of using this syntax:
+   * Creates an 'isolated' component - binded properties are not part of `$scope` prototype chain. This is good practice since `$scope` prototype inheritance has some major drawbacks (this is probably the reason it was removed on Angular 2):
+      * It is hard to track where data is coming from.
+      * Scope's value changes can affect places you did not intend to affect.
+      * Harder to refactor.
+      * The '[dot rule](http://jimhoskins.com/2012/12/14/nested-scopes-in-angularjs.html)'.
+   * Removes the use of `$scope` when no need for special operations (like `$scope.$broadcast`). This is a good preparation for AngularJS V2.
+   * Syntax is closer to that of a 'vanilla' JavaScript constructor
+   
+   Digging more into `controller as`: [digging-into-angulars-controller-as-syntax](http://toddmotto.com/digging-into-angulars-controller-as-syntax/)
 * If using array definition syntax, use the original names of the controller's dependencies. This will help you produce more readable code:
 
    ```JavaScript
