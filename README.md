@@ -308,7 +308,7 @@ Currently there's not a big difference, but the first way looks cleaner. Also, i
    
    function MainCtrl () {
       this.title = 'Some title';
-   });
+   };
    ```
    
    The main benefits of using this syntax:
