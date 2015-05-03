@@ -297,24 +297,24 @@ Currently there's not a big difference, but the first way looks cleaner. Also, i
    In order to prevent problems with minification, you can automatically generate the array definition syntax from    the standard one using tools like [ng-annotate](https://github.com/olov/ng-annotate) (and grunt task          [grunt-ng-annotate](https://github.com/mzgol/grunt-ng-annotate)).
 * If using array definition syntax, use the original names of the controller's dependencies. This will help you produce more readable code:
 
-```JavaScript
-function MyCtrl(s) {
-  // ...
-}
-
-module.controller('MyCtrl', ['$scope', MyCtrl]);
-```
-
-which is less readable than:
-
-```JavaScript
-function MyCtrl($scope) {
-  // ...
-}
-module.controller('MyCtrl', ['$scope', MyCtrl]);
-```
-
-This especially applies to a file that has so much code that you'd need to scroll through. This would possibly cause you to forget which variable is tied to which dependency.
+   ```JavaScript
+   function MyCtrl(s) {
+     // ...
+   }
+   
+   module.controller('MyCtrl', ['$scope', MyCtrl]);
+   ```
+   
+   which is less readable than:
+   
+   ```JavaScript
+   function MyCtrl($scope) {
+     // ...
+   }
+   module.controller('MyCtrl', ['$scope', MyCtrl]);
+   ```
+   
+   This especially applies to a file that has so much code that you'd need to scroll through. This would possibly cause you to forget which variable is tied to which dependency.
 
 * Make the controllers as lean as possible. Abstract commonly used functions into a service.
 * Communicate within different controllers using method invocation (possible when a child wants to communicate with its parent) or `$emit`, `$broadcast` and `$on` methods. The emitted and broadcasted messages should be kept to a minimum.
