@@ -28,7 +28,7 @@
 
 # Переводы
 
-Данный документ является русским переводом рекомендаций. Оригинальный текст находится здесь: [English](https://github.com/mgechev/angularjs-style-guide/blob/master/README.md)
+Данный документ является русским переводом рекомендаций. Оригинальный текст на английском языке находится [здесь](https://github.com/mgechev/angularjs-style-guide/blob/master/README.md)
 
 Также доступны переводы на нижеперечисленных языках:
 
@@ -187,7 +187,7 @@ services
     └── model1.spec.js
 ```
 
-* Файл `app.js` содержит определения маршрутов, конфигурацию и/или начальную инициализацию (если требуется).
+* Файл `app.js` должен содержать определения маршрутов, конфигурацию и/или начальную инициализацию (если требуется).
 * Каждый JavaScript файл должен содержать только один компонент. Имя файла должно соответствовать названию компонента.
 * Используйте шаблоны для структуры AngularJS проектов, такие как [Yeoman](http://yeoman.io), [ng-boilerplate](http://joshdmiller.github.io/ng-boilerplate/#/home).
 
@@ -277,12 +277,12 @@ module.factory('Service', function ($rootScope, $timeout, MyCustomDependency1, M
 
 * Названия модулей должны соответстовать подходу lowerCamelCase. Для определения иерархии, например, что модуль `b` является подмодулем `a`, используйте пространства имён: `a.b`. 
 
-Существует два общих способа для структурирования модулей:
+Существует два основных способа структурирования модулей:
 
 0. По функциональности.
 0. По типу компонента.
 
-На самом деле они не очень то и отличаются, но первый путь выглядит чище. Также если ленивая загрузка модулей будет когда-нибудь реализована (в настоящее время нет в планах AngularJS) — это бы улучшило производительность приложения.
+На самом деле они не очень то и отличаются, но первый путь выглядит чище. Также, если ленивая загрузка модулей будет когда-нибудь реализована (в настоящее время нет в планах AngularJS) — это улучшит производительность приложения.
 
 # <a name="controllers"></a>Контроллеры
 * Не изменяйте DOM из контроллеров, это усложнит их тестирование, а также нарушит [Принцип разделения ответственности](https://en.wikipedia.org/wiki/Separation_of_concerns). Используйте для этого директивы.
@@ -299,7 +299,7 @@ module.factory('Service', function ($rootScope, $timeout, MyCustomDependency1, M
    ```
    
 
-Этот подход избавляет от проблем с минификацией файлов. Вы можете автоматически сгенерировать определение с синтаксисом массива используя инструмент такой, как [ng-annotate](https://github.com/olov/ng-annotate) (и задачи для grunt [grunt-ng-annotate](https://github.com/mzgol/grunt-ng-annotate)).
+Чтобы избежать проблем с минификацией файлов, вы можете автоматически генерировать определение с синтаксисом массива, используя инструменты типа [ng-annotate](https://github.com/olov/ng-annotate) (и задачи для grunt [grunt-ng-annotate](https://github.com/mzgol/grunt-ng-annotate)).
 
 * Настоятельно рекомендуется использовать синтаксис `controller as`:
 
@@ -350,6 +350,60 @@ module.factory('Service', function ($rootScope, $timeout, MyCustomDependency1, M
 Особенно это актуально для больших файлов со множеством строк кода, который придется проскролить весь, чтобы понять, что есть что. В итоге можно легко забыть, какой зависимости отвечает та или иная переменная.
 
 * Держите контроллеры настолько маленькими на сколько это возможно. Вынесите общие функции в сервисы.
+* Не помещайте бизнес-логику в контроллеры. Вынесите её в сервис, как `model`.
+  Пример:
+
+  ```Javascript
+  //Это часто наблюдаемый подход (и это очень плохой пример) использования бизнес-логики в контроллерах.
+  angular.module('Store', [])
+  .controller('OrderCtrl', function ($scope) {
+
+    $scope.items = [];
+
+    $scope.addToOrder = function (item) {
+      $scope.items.push(item);//--> Бизнес-логика внутри контроллера
+    };
+
+    $scope.removeFromOrder = function (item) {
+      $scope.items.splice($scope.items.indexOf(item), 1);//--> Бизнес-логика внутри контроллера
+    };
+
+    $scope.totalPrice = function () {
+      return $scope.items.reduce(function (memo, item) {
+        return memo + (item.qty * item.price);//--> Бизнес-логика внутри контроллера
+      }, 0);
+    };
+  });
+  ```
+
+  Если же мы вынесем бизнес-логику в сервис типа 'model', контроллер будет выглядеть так (для примера имплементации сервиса обратитесь к примеру 'Вся бизнес-логика должна размещаться в сервисах'):
+
+  ```Javascript
+  //сервис Order используется в качестве 'model'
+  angular.module('Store', [])
+  .controller('OrderCtrl', function (Order) {
+
+    $scope.items = Order.items;
+
+    $scope.addToOrder = function (item) {
+      Order.addToOrder(item);
+    };
+
+    $scope.removeFromOrder = function (item) {
+      Order.removeFromOrder(item);
+    };
+
+    $scope.totalPrice = function () {
+      return Order.total();
+    };
+  });
+  ```
+
+  Использование бизнес-логики или хранение состояния приложения в контроллерах не рекомендуется по следующим причинам:
+  * Контроллеры инициализируются для каждого `view` и уничтожаются с ним же
+  * Контроллеры нельзя переиспользовать - они завязаны на `view`
+  * Контроллеры не могут быть использованы при внедрении зависимости (dependency injection)
+
 * Организовывайте коммуникацию между контроллерами используя вызовы методов (например когда дети хотят связаться с родителями) или методы `$emit`, `$broadcast` и `$on`. Количество `$emit` и `$broadcast` сообщений должно быть сведено к минимуму.
 * Создайте и поддерживайте список со всеми сообщениями пересылаемыми с помощью `$emit`, `$broadcast`, чтобы избежать коллизий имён и прочих возможных ошибок.
 
@@ -422,33 +476,89 @@ function HomeCtrl() {
 # <a name="filters"></a>Фильтры
 
 * Называйте ваши фильтры используя lowerCamelCase.
-* Сохраняйте ваши фильтры настолько простыми насколько это возможно. Они часто вызываются  во время `$digest` цикла, так что медленный фильтр тормозит все приложение.
+* Фильтры должны быть максимально простыми. Они часто вызываются во время цикла `$digest`, поэтому один медленный фильтр может значительно замедлить все приложение.
 * Один фильтр - одно простое действие. Несколько действий - несколько фильтров через `|`.
 
 # <a name="services"></a>Сервисы
 
-В этой секции описывается информация о сервисах в AngularJS вне зависимости от способа определения (например, `.factory`, `.service`), если не сказано обратное.
+В этой секции описывается информация о сервисах в AngularJS. Способ объявления (например, `.factory`, `.service`) не важен, если не указано отдельно.
 
 * Используйте camelCase при определении имён сервисов.
   * UpperCamelCase (PascalCase) должен использоваться для сервисов, используемых в качестве конструкторов:
 
     ```JavaScript
-    module.controller('MainCtrl', function ($scope, User) {
-      $scope.user = new User('foo', 42);
-    });
-
-    module.factory('User', function () {
-      return function User(name, age) {
-        this.name = name;
-        this.age = age;
-      };
-    });
-    ```
+        function MainCtrl($scope, User) {
+          $scope.user = new User('foo', 42);
+        }
+    
+        module.controller('MainCtrl', MainCtrl);
+    
+        function User(name, age) {
+          this.name = name;
+          this.age = age;
+        }
+    
+        module.factory('User', function () {
+          return User;
+        });
+        ```
 
   * lowerCamelCase для всех остальных сервисов.
 
-* Вся бизнес-логика должна определяеться в сервисах.
-* При описании "классов" используйте `service` или `factory`. Единого мнения пока нет, обсуждение идёт [здесь](mgechev/angularjs-style-guide#63)
+* Вся бизнес-логика должна размещаться в сервисах. Хорошим подходом является использование принципа `model`:
+
+  ```Javascript
+  //Order is the 'model'
+  angular.module('Store')
+  .factory('Order', function () {
+      var add = function (item) {
+        this.items.push (item);
+      };
+
+      var remove = function (item) {
+        if (this.items.indexOf(item) > -1) {
+          this.items.splice(this.items.indexOf(item), 1);
+        }
+      };
+
+      var total = function () {
+        return this.items.reduce(function (memo, item) {
+          return memo + (item.qty * item.price);
+        }, 0);
+      };
+
+      return {
+        items: [],
+        addToOrder: add,
+        removeFromOrder: remove,
+        totalPrice: total
+      };
+  });
+  ```
+
+  Обратитесь к примеру 'Не помещайте бизнес-логику в контроллеры', в нём даны образцы кода "как не надо делать".
+* Если сервис является конструктором, используйте `service` вместо `factory`. Это позволит использовать классическое наследование через прототипы:
+
+	```JavaScript
+	function Human() {
+	  //body
+	}
+	Human.prototype.talk = function () {
+	  return "I'm talking";
+	};
+	
+	function Developer() {
+	  //body
+	}
+	Developer.prototype = Object.create(Human.prototype);
+	Developer.prototype.code = function () {
+	  return "I'm coding";
+	};
+	
+	myModule.service('Human', Human);
+	myModule.service('Developer', Developer);
+	
+	```
 * Для кеширования на уровне сессии можно использовать `$cacheFactory`. Этот метод подходит для кеширования результатов сложных вычислений или каких-либо запросов.
 * Если сервис нуждается в настройке при старте приложения, определяйте его через `provider`, а затем конфигурируйте через коллбек `config`:
 
@@ -503,11 +613,9 @@ $scope.divStyle = {
 * Используйте `resolve` для разрешения зависимостей перед тем, как представление будет показано.
 * Избегайте использования REST-запросов внутри `resolve`. Запросы должны размещаться в соответствующих сервисах. Это позволит использовать кеширование, а также следовать принципу разделения ответственности (Separation of concerns).
 
-# <a name="testing"></a>Тестирование
+# i18n
 
-TBD
-
-Пока эта секция не готова, можно использовать [эти рекомендации](https://github.com/daniellmb/angular-test-patterns).
+* Начиная с версии 1.4.0 AngularJS содержит встроенные инструменты i18n. При работе с предыдущими версиями (<1.4.0) используйте [`angular-translate`](https://github.com/angular-translate/angular-translate).
 
 # <a name="contribution"></a>Вклад
 
