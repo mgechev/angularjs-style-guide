@@ -251,28 +251,13 @@ This will make your testing easier and in some cases prevent unexpected behaviou
 * Use `$resource` instead of `$http` when possible. The higher level of abstraction will save you from redundancy.
 * Use an AngularJS pre-minifier ([ng-annotate](https://github.com/olov/ng-annotate)) for preventing problems after minification.
 * Don't use globals. Resolve all dependencies using Dependency Injection, this will prevent bugs and monkey patching when testing.
-* Use Immediately Invoked Function Expression (IIFE) to avoid globals
-	```javascript
-	//How many globals do you see here??? (hint - 3)
-	var app = angular
-				.module('app')
-		    	.controller('MyCtrl', MyCtrl);
+* Avoid globals by using Grunt/Gulp to wrap your code in Immediately Invoked Function Expression (IIFE). You can use plugins like [grunt-wrap](https://www.npmjs.com/package/grunt-wrap) or [gulp-wrap](https://www.npmjs.com/package/gulp-wrap/) for this purpose. Example (using Gulp)
 
-	function MyCtrl($scope){
-	    $scope.name = 'my name';
-	};
-
-	//Use Immediately Invoked Function Expression (IIFE) to avoid globals
-	(function(){
-		var app = angular
-					.module('app')
-					.controller('MyCtrl', MyCtrl);
-
-		function MyCtrl($scope){
-		    $scope.name = 'my name';
-		};
-	})();
-	```
+	```Javascript
+	gulp.src("./src/*.js")
+    .pipe(wrap('(function(){\n"use strict";\n<%= contents %>\n})();'))
+    .pipe(gulp.dest("./dist"));
+    ```
 * Do not pollute your `$scope`. Only add functions and variables that are being used in the templates.
 * Prefer the usage of [controllers instead of `ngInit`](https://github.com/angular/angular.js/pull/4366/files). The only appropriate use of `ngInit` is for aliasing special properties of `ngRepeat`. Besides this case, you should use controllers rather than `ngInit` to initialize values on a scope. The expression passed to `ngInit` should go through lexing, parsing and evaluation by the Angular interpreter implemented inside the `$parse` service. This leads to:
     - Performance impact, because the interpreter is implemented in JavaScript
