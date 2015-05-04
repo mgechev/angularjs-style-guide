@@ -26,6 +26,26 @@
 
 На wiki странице GitHub репозитория AngularJS есть похожая секция, созданная [ProLoser](https://github.com/ProLoser), которая находится [здесь](https://github.com/angular/angular.js/wiki).
 
+# Переводы
+
+Данный документ является русским переводом рекомендаций. Оригинальный текст находится здесь: [English](https://github.com/mgechev/angularjs-style-guide/blob/master/README.md)
+
+Также доступны переводы на нижеперечисленных языках:
+
+- [Немецкий](https://github.com/mgechev/angularjs-style-guide/blob/master/README-de-de.md)
+- [Испанский](https://github.com/mgechev/angularjs-style-guide/blob/master/README-es-es.md)
+- [Французский](https://github.com/mgechev/angularjs-style-guide/blob/master/README-fr-fr.md)
+- [Индонезийский](https://github.com/mgechev/angularjs-style-guide/blob/master/README-id-id.md)
+- [Итальянский](https://github.com/mgechev/angularjs-style-guide/blob/master/README-it-it.md)
+- [Японский](https://github.com/mgechev/angularjs-style-guide/blob/master/README-ja-jp.md)
+- [Корейский](https://github.com/mgechev/angularjs-style-guide/blob/master/README-ko-kr.md)
+- [Польский](https://github.com/mgechev/angularjs-style-guide/blob/master/README-pl-pl.md)
+- [Португальский](https://github.com/mgechev/angularjs-style-guide/blob/master/README-pt-br.md)
+- [Сербский](https://github.com/mgechev/angularjs-style-guide/blob/master/README-sr.md)
+- [Сербский латиница](https://github.com/mgechev/angularjs-style-guide/blob/master/README-sr-lat.md)
+- [Китайский](https://github.com/mgechev/angularjs-style-guide/blob/master/README-zh-cn.md)
+- [Турецкий](https://github.com/mgechev/angularjs-style-guide/blob/master/README-tr-tr.md)
+
 # Содержание
 * [Общие](#general)
     * [Файловая структура](#directory-structure)
