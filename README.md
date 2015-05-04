@@ -297,19 +297,19 @@ Currently there's not a big difference, but the first way looks cleaner. Also, i
    In order to prevent problems with minification, you can automatically generate the array definition syntax from    the standard one using tools like [ng-annotate](https://github.com/olov/ng-annotate) (and grunt task          [grunt-ng-annotate](https://github.com/mzgol/grunt-ng-annotate)).
 * Prefer using `controller as` syntax:
 
-   ```
-   <div ng-controller="MainCtrl as main">
-      {{ main.title }}
-   </div>
-   ```
+  ```
+  <div ng-controller="MainCtrl as main">
+     {{ main.title }}
+  </div>
+  ```
 
-   ```JavaScript
-   app.controller('MainCtrl', MainCtrl);
+  ```JavaScript
+  app.controller('MainCtrl', MainCtrl);
 
-   function MainCtrl () {
-     this.title = 'Some title';
-   };
-   ```
+  function MainCtrl () {
+    this.title = 'Some title';
+  }
+  ```
 
    The main benefits of using this syntax:
    * Creates an 'isolated' component - binded properties are not part of `$scope` prototype chain. This is good practice since `$scope` prototype inheritance has some major drawbacks (this is probably the reason it was removed on Angular 2):
