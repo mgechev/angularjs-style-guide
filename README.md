@@ -251,6 +251,7 @@ This will make your testing easier and in some cases prevent unexpected behaviou
 * Use `$resource` instead of `$http` when possible. The higher level of abstraction will save you from redundancy.
 * Use an AngularJS pre-minifier ([ng-annotate](https://github.com/olov/ng-annotate)) for preventing problems after minification.
 * Don't use globals. Resolve all dependencies using Dependency Injection, this will prevent bugs and monkey patching when testing.
+* Use Immediately Invoked Function Expression (IIFE) to avoid globals
 	```javascript
 	//How many globals do you see here??? (hint - 3)
 	var app = angular
