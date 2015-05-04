@@ -282,96 +282,178 @@ Currently there's not a big difference, but the first way looks cleaner. Also, i
 # Controllers
 
 * Do not manipulate DOM in your controllers, this will make your controllers harder for testing and will violate the [Separation of Concerns principle](https://en.wikipedia.org/wiki/Separation_of_concerns). Use directives instead.
-* The naming of the controller is done using the controller's functionality (for example shopping cart, homepage, admin panel) and the substring `Ctrl` in the end. The controllers are named UpperCamelCase (`HomePageCtrl`, `ShoppingCartCtrl`, `AdminPanelCtrl`, etc.).
+* The naming of the controller is done using the controller's functionality (for example shopping cart, homepage, admin panel) and the substring `Ctrl` in the end.
+* Controllers are plain javascript [constructors](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/constructor), so they will be named UpperCamelCase (`HomePageCtrl`, `ShoppingCartCtrl`, `AdminPanelCtrl`, etc.).
 * The controllers should not be defined as globals (even though AngularJS allows this, it is a bad practice to pollute the global namespace).
 * Use the following syntax for defining controllers:
 
-```JavaScript
-function MyCtrl(dependency1, dependency2, ..., dependencyn) {
-  // ...
-}
-module.controller('MyCtrl', MyCtrl);
-```
+   ```JavaScript
+   function MyCtrl(dependency1, dependency2, ..., dependencyn) {
+     // ...
+   }
+   module.controller('MyCtrl', MyCtrl);
+   ```
+   
+   In order to prevent problems with minification, you can automatically generate the array definition syntax from    the standard one using tools like [ng-annotate](https://github.com/olov/ng-annotate) (and grunt task          [grunt-ng-annotate](https://github.com/mzgol/grunt-ng-annotate)).
+* Prefer using `controller as` syntax:
 
-In order to prevent problems with minification, you can automatically generate the array definition syntax from the standard one using tools like [ng-annotate](https://github.com/olov/ng-annotate) (and grunt task [grunt-ng-annotate](https://github.com/mzgol/grunt-ng-annotate)).
+   ```
+   <div ng-controller="MainCtrl as main">
+      {{ main.title }}
+   </div>
+   ```
+   
+   ```JavaScript
+   app.controller('MainCtrl', MainCtrl);
+   
+   function MainCtrl () {
+      this.title = 'Some title';
+   };
+   ```
+   
+   The main benefits of using this syntax:
+   * Creates an 'isolated' component - binded properties are not part of `$scope` prototype chain. This is good practice since `$scope` prototype inheritance has some major drawbacks (this is probably the reason it was removed on Angular 2):
+      * It is hard to track where data is coming from.
+      * Scope's value changes can affect places you did not intend to affect.
+      * Harder to refactor.
+      * The '[dot rule](http://jimhoskins.com/2012/12/14/nested-scopes-in-angularjs.html)'.
+   * Removes the use of `$scope` when no need for special operations (like `$scope.$broadcast`). This is a good preparation for AngularJS V2.
+   * Syntax is closer to that of a 'vanilla' JavaScript constructor
+   
+   Digging more into `controller as`: [digging-into-angulars-controller-as-syntax](http://toddmotto.com/digging-into-angulars-controller-as-syntax/)
 * If using array definition syntax, use the original names of the controller's dependencies. This will help you produce more readable code:
 
-```JavaScript
-function MyCtrl(s) {
-  // ...
-}
-
-module.controller('MyCtrl', ['$scope', MyCtrl]);
-```
-
-which is less readable than:
-
-```JavaScript
-function MyCtrl($scope) {
-  // ...
-}
-module.controller('MyCtrl', ['$scope', MyCtrl]);
-```
-
-This especially applies to a file that has so much code that you'd need to scroll through. This would possibly cause you to forget which variable is tied to which dependency.
+   ```JavaScript
+   function MyCtrl(s) {
+     // ...
+   }
+   
+   module.controller('MyCtrl', ['$scope', MyCtrl]);
+   ```
+   
+   which is less readable than:
+   
+   ```JavaScript
+   function MyCtrl($scope) {
+     // ...
+   }
+   module.controller('MyCtrl', ['$scope', MyCtrl]);
+   ```
+   
+   This especially applies to a file that has so much code that you'd need to scroll through. This would possibly cause you to forget which variable is tied to which dependency.
 
 * Make the controllers as lean as possible. Abstract commonly used functions into a service.
+* Avoid writing business logic inside controllers. Delegate business logic to a `model`, using a service. 
+	For example:
+
+	```Javascript
+	//This is a common behaviour (bad example) of using business logic inside a controller.
+	angular.module('Store', [])  
+	.controller('OrderCtrl', function ($scope) {
+    
+    	$scope.items = [];
+
+		$scope.addToOrder = function (item) {
+    		$scope.items.push(item);//-->Business logic inside controller
+    	};
+
+	    $scope.removeFromOrder = function (item) {
+    	    $scope.items.splice($scope.items.indexOf(item), 1);//-->Business logic inside controller
+    	};
+
+	    $scope.totalPrice = function () {
+    	    return $scope.items.reduce(function (memo, item) {
+        	    return memo + (item.qty * item.price);//-->Business logic inside controller
+        	}, 0);
+    	};
+	});
+```
+
+	When delegating business logic into a 'model' service, controller will look like this (see 'use services as your Model' for service-model implementation):
+	
+	```Javascript
+	//Order is used as a 'model'
+	angular.module('Store', [])  
+	.controller('OrderCtrl', function (Order) {
+
+    	$scope.items = Order.items;
+
+    	$scope.addToOrder = function (item) {
+        	Order.addToOrder(item);
+    	};
+
+	    $scope.removeFromOrder = function (item) {
+    	    Order.removeFromOrder(item);
+    	};
+
+    	$scope.totalPrice = function () {
+      	  return Order.total();
+    	};
+	});
+```
+
+	Why business logic / app state inside controllers is bad?
+	* Controllers instantiated for each view and dies when the view unloads
+	* Controllers are not reusable - they are coupled with the view
+	* Controllers are not meant to be injected
+	
+
 * Communicate within different controllers using method invocation (possible when a child wants to communicate with its parent) or `$emit`, `$broadcast` and `$on` methods. The emitted and broadcasted messages should be kept to a minimum.
 * Make a list of all messages which are passed using `$emit`, `$broadcast` and manage it carefully because of name collisions and possible bugs.
 
-Example:
-
-```JavaScript
-// app.js
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-Custom events:
-  - 'authorization-message' - description of the message
-    - { user, role, action } - data format
-      - user - a string, which contains the username
-      - role - an ID of the role the user has
-      - action - specific ation the user tries to perform
-* * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-```
+   Example:
+   
+   ```JavaScript
+   // app.js
+   /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+   Custom events:
+     - 'authorization-message' - description of the message
+       - { user, role, action } - data format
+         - user - a string, which contains the username
+         - role - an ID of the role the user has
+         - action - specific ation the user tries to perform
+   * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+   ```
 
 * When you need to format data encapsulate the formatting logic into a [filter](#filters) and declare it as dependency:
 
-```JavaScript
-function myFormat() {
-  return function () {
-    // ...
-  };
-}
-module.filter('myFormat', myFormat);
-
-function MyCtrl($scope, myFormatFilter) {
-  // ...
-}
-
-module.controller('MyCtrl', MyCtrl);
-```
+   ```JavaScript
+   function myFormat() {
+     return function () {
+       // ...
+     };
+   }
+   module.filter('myFormat', myFormat);
+   
+   function MyCtrl($scope, myFormatFilter) {
+     // ...
+   }
+   
+   module.controller('MyCtrl', MyCtrl);
+   ```
 * In case of nested controllers use "nested scoping" (the `controllerAs` syntax):
 
-**app.js**
-```javascript
-module.config(function ($routeProvider) {
-  $routeProvider
-    .when('/route', {
-      templateUrl: 'partials/template.html',
-      controller: 'HomeCtrl',
-      controllerAs: 'home'
-    });
-});
-```
-**HomeCtrl**
-```javascript
-function HomeCtrl() {
-  this.bindingValue = 42;
-}
-```
-**template.html**
-```
-<div ng-bind="home.bindingValue"></div>
-```
+   **app.js**
+   ```javascript
+   module.config(function ($routeProvider) {
+     $routeProvider
+       .when('/route', {
+         templateUrl: 'partials/template.html',
+         controller: 'HomeCtrl',
+         controllerAs: 'home'
+       });
+   });
+   ```
+   **HomeCtrl**
+   ```javascript
+   function HomeCtrl() {
+     this.bindingValue = 42;
+   }
+   ```
+   **template.html**
+   ```
+   <div ng-bind="home.bindingValue"></div>
+   ```
 
 # Directives
 
@@ -417,7 +499,37 @@ This section includes information about the service component in AngularJS. It i
 
   * lowerCamelCase for all other services.
 
-* Encapsulate all the business logic in services.
+* Encapsulate all the business logic in services. Prefer using it as your `model`. For example:
+	```Javascript
+	//Order is the 'model'
+	angular.module('Store')  
+	.factory('Order', function () {    
+	    var add = function (item) {
+	        this.items.push (item);
+	    };
+	
+	    var remove = function (item) {
+	        if (this.items.indexOf(item) > -1) {
+	          this.items.splice(this.items.indexOf(item), 1);  
+	        }
+	    };
+	
+	    var total = function () {
+	        return this.items.reduce(function (memo, item) {
+	            return memo + (item.qty * item.price);
+	        }, 0);
+	    };
+	
+	    return {
+	        items: [],
+	        addToOrder: add,
+	        removeFromOrder: remove,
+	        totalPrice: total
+	    };
+	}); 
+```
+
+	See 'Avoid writing business logic inside controllers' for an example of a controller consuming this service.
 * Services representing the domain preferably a `service` instead of a `factory`. In this way we can take advantage of the "klassical" inheritance easier:
 
 ```JavaScript
