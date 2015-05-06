@@ -93,6 +93,7 @@ These best practices are collected from:</p>
 <li><a href="#templates">Templates</a></li>
 <li><a href="#routing">Routing</a></li>
 <li><a href="#i18n">i18n</a></li>
+<li><a href="#performance">Performance</a></li>
 <li><a href="#contribution">Contribution</a></li>
 <li><a href="#contributors">Contributors</a></li>
 </ul>
@@ -282,14 +283,16 @@ There are two main approaches:</p>
   };
 });</code></pre><h1 id="modules">Modules</h1>
 <ul class="list">
-<li>Modules should be named with lowerCamelCase. For indicating that module <code>b</code> is submodule of module <code>a</code> you can nest them by using namespacing like: <code>a.b</code>.</li>
-</ul>
-<p>There are two common ways for structuring the modules:</p>
+<li><p>Modules should be named with lowerCamelCase. For indicating that module <code>b</code> is submodule of module <code>a</code> you can nest them by using namespacing like: <code>a.b</code>.</p>
+<p>  There are two common ways for structuring the modules:</p>
 <ol class="list">
 <li>By functionality</li>
-<li>By component type</li>
-</ol>
+<li><p>By component type</p>
 <p>Currently there&#39;s not a big difference, but the first way looks cleaner. Also, if lazy-loading modules is implemented (currently not in the AngularJS roadmap), it will improve the app&#39;s performance.</p>
+</li>
+</ol>
+</li>
+</ul>
 <h1 id="controllers">Controllers</h1>
 <ul class="list">
 <li>Do not manipulate DOM in your controllers, this will make your controllers harder for testing and will violate the <a href="https://en.wikipedia.org/wiki/Separation_of_concerns">Separation of Concerns principle</a>. Use directives instead.</li>
@@ -565,6 +568,10 @@ $scope.divStyle = {
 <ul class="list">
 <li>For newer versions of the framework (&gt;=1.4.0) use the built-in i18n tools, when using older versions (&lt;1.4.0) use <a href="https://github.com/angular-translate/angular-translate"><code>angular-translate</code></a>.</li>
 </ul>
+<h1 id="performance">Performance</h1>
+<ul class="list">
+<li>Consider decreasing number of network requests by bundling/caching html template files into your main javascript file, using <a href="https://github.com/karlgoldstein/grunt-html2js">grunt-html2js</a> / <a href="https://github.com/fraserxu/gulp-html2js">gulp-html2js</a>. See <a href="http://ng-learn.org/2014/08/Populating_template_cache_with_html2js/">here</a> and <a href="http://slides.com/yanivefraim-1/real-world-angularjs#/34">here</a> for details. This is particularry usefull when the project has a lot of small html templates that can be a part of the main (minified and gzipped) javascript file.</li>
+</ul>
 <h1 id="contribution">Contribution</h1>
 <p>Since the goal of this style guide is to be community-driven, contributions are greatly appreciated.
 For example, you can contribute by extending the Testing section or by translating the style guide to your language.</p>
@@ -789,6 +796,7 @@ For example, you can contribute by extending the Testing section or by translati
     <li><a href="#templates" class="heading heading-1">Templates</a></li>
     <li><a href="#routing" class="heading heading-1">Routing</a></li>
     <li><a href="#i18n" class="heading heading-1">i18n</a></li>
+    <li><a href="#performance" class="heading heading-1">Performance</a></li>
     <li><a href="#contribution" class="heading heading-1">Contribution</a></li>
     <li><a href="#contributors" class="heading heading-1">Contributors</a></li>
 </ul>
