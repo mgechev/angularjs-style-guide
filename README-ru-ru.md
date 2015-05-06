@@ -60,6 +60,7 @@
 * [Шаблоны](#templates)
 * [Маршрутизация](#routing)
 * [i18n](#i18n)
+* [Производительность](#performance)
 * [Вклад](#contribution)
 
 # <a name="general"></a>Общие
@@ -624,6 +625,10 @@ $scope.divStyle = {
 # i18n
 
 * Начиная с версии 1.4.0 AngularJS содержит встроенные инструменты i18n. При работе с предыдущими версиями (<1.4.0) используйте [`angular-translate`](https://github.com/angular-translate/angular-translate).
+
+# <a name="performance"></a>Производительность
+
+* Не забывайте про способы уменьшения количества запросов к серверу. Одним из них является объединение/кеширование шаблонов в один файл, к примеру используя [grunt-html2js](https://github.com/karlgoldstein/grunt-html2js) / [gulp-html2js](https://github.com/fraserxu/gulp-html2js). [Здесь](http://ng-learn.org/2014/08/Populating_template_cache_with_html2js/) и [здесь](http://slides.com/yanivefraim-1/real-world-angularjs#/34) есть подробная информация. Эффект особенно ощутим, если проект содержит много отдельных файлов шаблонов небольшого размера.
 
 # <a name="contribution"></a>Вклад
 
