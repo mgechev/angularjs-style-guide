@@ -261,6 +261,10 @@ There are two main approaches:</p>
 <li>Use <code>$resource</code> instead of <code>$http</code> when possible. The higher level of abstraction will save you from redundancy.</li>
 <li>Use an AngularJS pre-minifier (<a href="https://github.com/olov/ng-annotate">ng-annotate</a>) for preventing problems after minification.</li>
 <li>Don&#39;t use globals. Resolve all dependencies using Dependency Injection, this will prevent bugs and monkey patching when testing.</li>
+<li><p>Avoid globals by using Grunt/Gulp to wrap your code in Immediately Invoked Function Expression (IIFE). You can use plugins like <a href="https://www.npmjs.com/package/grunt-wrap">grunt-wrap</a> or <a href="https://www.npmjs.com/package/gulp-wrap/">gulp-wrap</a> for this purpose. Example (using Gulp)</p>
+<pre class="hljs"><code>  <span class="hljs-tag">gulp</span><span class="hljs-class">.src</span>(<span class="hljs-string">"./src/*.js"</span>)
+  <span class="hljs-class">.pipe</span>(<span class="hljs-function">wrap</span>(<span class="hljs-string">'(function(){\n"use strict";\n&lt;%= contents %&gt;\n})();'</span>))
+  <span class="hljs-class">.pipe</span>(gulp.<span class="hljs-function">dest</span>(<span class="hljs-string">"./dist"</span>));</code></pre></li>
 <li>Do not pollute your <code>$scope</code>. Only add functions and variables that are being used in the templates.</li>
 <li>Prefer the usage of <a href="https://github.com/angular/angular.js/pull/4366/files">controllers instead of <code>ngInit</code></a>. The only appropriate use of <code>ngInit</code> is for aliasing special properties of <code>ngRepeat</code>. Besides this case, you should use controllers rather than <code>ngInit</code> to initialize values on a scope. The expression passed to <code>ngInit</code> should go through lexing, parsing and evaluation by the Angular interpreter implemented inside the <code>$parse</code> service. This leads to:<ul class="list">
 <li>Performance impact, because the interpreter is implemented in JavaScript</li>
@@ -289,70 +293,139 @@ There are two main approaches:</p>
 <h1 id="controllers">Controllers</h1>
 <ul class="list">
 <li>Do not manipulate DOM in your controllers, this will make your controllers harder for testing and will violate the <a href="https://en.wikipedia.org/wiki/Separation_of_concerns">Separation of Concerns principle</a>. Use directives instead.</li>
-<li>The naming of the controller is done using the controller&#39;s functionality (for example shopping cart, homepage, admin panel) and the substring <code>Ctrl</code> in the end. The controllers are named UpperCamelCase (<code>HomePageCtrl</code>, <code>ShoppingCartCtrl</code>, <code>AdminPanelCtrl</code>, etc.).</li>
+<li>The naming of the controller is done using the controller&#39;s functionality (for example shopping cart, homepage, admin panel) and the substring <code>Ctrl</code> in the end.</li>
+<li>Controllers are plain javascript <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/constructor">constructors</a>, so they will be named UpperCamelCase (<code>HomePageCtrl</code>, <code>ShoppingCartCtrl</code>, <code>AdminPanelCtrl</code>, etc.).</li>
 <li>The controllers should not be defined as globals (even though AngularJS allows this, it is a bad practice to pollute the global namespace).</li>
-<li>Use the following syntax for defining controllers:</li>
-</ul>
+<li><p>Use the following syntax for defining controllers:</p>
 <pre class="hljs"><code><span class="hljs-keyword">function</span> MyCtrl(dependency1, dependency2, <span class="hljs-keyword">...</span>, dependencyn) {
   // <span class="hljs-keyword">...</span>
 }
-module.controller(<span class="hljs-string">'MyCtrl'</span>, MyCtrl);</code></pre><p>In order to prevent problems with minification, you can automatically generate the array definition syntax from the standard one using tools like <a href="https://github.com/olov/ng-annotate">ng-annotate</a> (and grunt task <a href="https://github.com/mzgol/grunt-ng-annotate">grunt-ng-annotate</a>).</p>
+module.controller(<span class="hljs-string">'MyCtrl'</span>, MyCtrl);</code></pre><p> In order to prevent problems with minification, you can automatically generate the array definition syntax from    the standard one using tools like <a href="https://github.com/olov/ng-annotate">ng-annotate</a> (and grunt task          <a href="https://github.com/mzgol/grunt-ng-annotate">grunt-ng-annotate</a>).</p>
+</li>
+<li><p>Prefer using <code>controller as</code> syntax:</p>
+<pre class="hljs"><code><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">ng-controller</span>=<span class="hljs-value">"MainCtrl as main"</span>&gt;</span>
+   </span><span class="hljs-expression">{{ <span class="hljs-variable">main.title</span> }}</span><span class="xml">
+<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span></span></code></pre><pre class="hljs"><code>app.controller(<span class="hljs-string">'MainCtrl'</span>, MainCtrl);
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">MainCtrl</span> <span class="hljs-params">()</span> </span>{
+  <span class="hljs-keyword">this</span>.title = <span class="hljs-string">'Some title'</span>;
+}</code></pre><p> The main benefits of using this syntax:</p>
 <ul class="list">
-<li>If using array definition syntax, use the original names of the controller&#39;s dependencies. This will help you produce more readable code:</li>
+<li>Creates an &#39;isolated&#39; component - binded properties are not part of <code>$scope</code> prototype chain. This is good practice since <code>$scope</code> prototype inheritance has some major drawbacks (this is probably the reason it was removed on Angular 2):<ul class="list">
+<li>It is hard to track where data is coming from.</li>
+<li>Scope&#39;s value changes can affect places you did not intend to affect.</li>
+<li>Harder to refactor.</li>
+<li>The &#39;<a href="http://jimhoskins.com/2012/12/14/nested-scopes-in-angularjs.html">dot rule</a>&#39;.</li>
 </ul>
+</li>
+<li>Removes the use of <code>$scope</code> when no need for special operations (like <code>$scope.$broadcast</code>). This is a good preparation for AngularJS V2.</li>
+<li><p>Syntax is closer to that of a &#39;vanilla&#39; JavaScript constructor</p>
+<p>Digging more into <code>controller as</code>: <a href="http://toddmotto.com/digging-into-angulars-controller-as-syntax/">digging-into-angulars-controller-as-syntax</a></p>
+</li>
+</ul>
+</li>
+<li><p>If using array definition syntax, use the original names of the controller&#39;s dependencies. This will help you produce more readable code:</p>
 <pre class="hljs"><code><span class="hljs-keyword">function</span> MyCtrl(s) {
   // <span class="hljs-keyword">...</span>
 }
 
-module.controller(<span class="hljs-string">'MyCtrl'</span>, [<span class="hljs-string">'$scope'</span>, MyCtrl]);</code></pre><p>which is less readable than:</p>
+module.controller(<span class="hljs-string">'MyCtrl'</span>, [<span class="hljs-string">'$scope'</span>, MyCtrl]);</code></pre><p> which is less readable than:</p>
 <pre class="hljs"><code><span class="hljs-keyword">function</span> MyCtrl($scope) {
   // <span class="hljs-keyword">...</span>
 }
-module.controller(<span class="hljs-string">'MyCtrl'</span>, [<span class="hljs-string">'$scope'</span>, MyCtrl]);</code></pre><p>This especially applies to a file that has so much code that you&#39;d need to scroll through. This would possibly cause you to forget which variable is tied to which dependency.</p>
-<ul class="list">
-<li>Make the controllers as lean as possible. Abstract commonly used functions into a service.</li>
-<li>Communicate within different controllers using method invocation (possible when a child wants to communicate with its parent) or <code>$emit</code>, <code>$broadcast</code> and <code>$on</code> methods. The emitted and broadcasted messages should be kept to a minimum.</li>
-<li>Make a list of all messages which are passed using <code>$emit</code>, <code>$broadcast</code> and manage it carefully because of name collisions and possible bugs.</li>
-</ul>
-<p>Example:</p>
-<pre class="hljs"><code>// app.js
-/<span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span>
-Custom events:
-  - 'authorization-message' - description of the message
-    - { user, role, action } - data format
-      - user - a string, which contains the username
-      - role - an ID of the role the user has
-      - action - specific ation the user tries to perform
-<span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span>/</code></pre><ul class="list">
-<li>When you need to format data encapsulate the formatting logic into a <a href="#filters">filter</a> and declare it as dependency:</li>
-</ul>
-<pre class="hljs"><code><span class="hljs-keyword">function</span> myFormat() {
-  <span class="hljs-keyword">return</span> <span class="hljs-keyword">function</span> () {
-    // <span class="hljs-keyword">...</span>
+module.controller(<span class="hljs-string">'MyCtrl'</span>, [<span class="hljs-string">'$scope'</span>, MyCtrl]);</code></pre><p> This especially applies to a file that has so much code that you&#39;d need to scroll through. This would possibly cause you to forget which variable is tied to which dependency.</p>
+</li>
+<li><p>Make the controllers as lean as possible. Abstract commonly used functions into a service.</p>
+</li>
+<li><p>Avoid writing business logic inside controllers. Delegate business logic to a <code>model</code>, using a service.
+For example:</p>
+<pre class="hljs"><code><span class="hljs-comment">//This is a common behaviour (bad example) of using business logic inside a controller.</span>
+angular.module(<span class="hljs-string">'Store'</span>, [])
+.controller(<span class="hljs-string">'OrderCtrl'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(<span class="hljs-variable">$scope</span>)</span> </span>{
+
+  <span class="hljs-variable">$scope</span>.items = [];
+
+  <span class="hljs-variable">$scope</span>.addToOrder = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(item)</span> </span>{
+    <span class="hljs-variable">$scope</span>.items.push(item);<span class="hljs-comment">//--&gt;Business logic inside controller</span>
   };
-}
-module.filter(<span class="hljs-string">'myFormat'</span>, myFormat);
 
-<span class="hljs-keyword">function</span> MyCtrl($scope, myFormatFilter) {
-  // <span class="hljs-keyword">...</span>
-}
+  <span class="hljs-variable">$scope</span>.removeFromOrder = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(item)</span> </span>{
+    <span class="hljs-variable">$scope</span>.items.splice(<span class="hljs-variable">$scope</span>.items.indexOf(item), <span class="hljs-number">1</span>);<span class="hljs-comment">//--&gt;Business logic inside controller</span>
+  };
 
-module.controller(<span class="hljs-string">'MyCtrl'</span>, MyCtrl);</code></pre><ul class="list">
-<li>In case of nested controllers use &quot;nested scoping&quot; (the <code>controllerAs</code> syntax):</li>
+  <span class="hljs-variable">$scope</span>.totalPrice = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-variable">$scope</span>.items.reduce(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(memo, item)</span> </span>{
+      <span class="hljs-keyword">return</span> memo + (item.qty * item.price);<span class="hljs-comment">//--&gt;Business logic inside controller</span>
+    }, <span class="hljs-number">0</span>);
+  };
+});</code></pre><p>When delegating business logic into a &#39;model&#39; service, controller will look like this (see &#39;use services as your Model&#39; for service-model implementation):</p>
+<pre class="hljs"><code><span class="hljs-comment">//Order is used as a 'model'</span>
+angular.module(<span class="hljs-string">'Store'</span>, [])
+.controller(<span class="hljs-string">'OrderCtrl'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(Order)</span> </span>{
+
+  <span class="hljs-variable">$scope</span>.items = Order.items;
+
+  <span class="hljs-variable">$scope</span>.addToOrder = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(item)</span> </span>{
+    Order.addToOrder(item);
+  };
+
+  <span class="hljs-variable">$scope</span>.removeFromOrder = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(item)</span> </span>{
+    Order.removeFromOrder(item);
+  };
+
+  <span class="hljs-variable">$scope</span>.totalPrice = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+    <span class="hljs-keyword">return</span> Order.total();
+  };
+});</code></pre><p>Why business logic / app state inside controllers is bad?</p>
+<ul class="list">
+<li>Controllers instantiated for each view and dies when the view unloads</li>
+<li>Controllers are not reusable - they are coupled with the view</li>
+<li>Controllers are not meant to be injected</li>
 </ul>
-<p><strong>app.js</strong></p>
-<pre class="hljs"><code>module.config(function ($routeProvider) {
-  $routeProvider
-    .<span class="hljs-keyword">when</span>('/route', {
-      templateUrl: 'partials/<span class="hljs-keyword">template</span>.html',
-      controller: '<span class="hljs-type">HomeCtrl</span>',
-      controllerAs: 'home'
-    });
-});</code></pre><p><strong>HomeCtrl</strong></p>
-<pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">HomeCtrl</span><span class="hljs-params">()</span> </span>{
-  <span class="hljs-keyword">this</span>.bindingValue = <span class="hljs-number">42</span>;
-}</code></pre><p><strong>template.html</strong></p>
-<pre class="hljs"><code>&lt;<span class="hljs-keyword">div</span> ng-<span class="hljs-keyword">bind</span>=<span class="hljs-string">"home.bindingValue"</span>&gt;&lt;/<span class="hljs-keyword">div</span>&gt;</code></pre><h1 id="directives">Directives</h1>
+</li>
+</ul>
+<ul class="list">
+<li>Communicate within different controllers using method invocation (possible when a child wants to communicate with its parent) or <code>$emit</code>, <code>$broadcast</code> and <code>$on</code> methods. The emitted and broadcasted messages should be kept to a minimum.</li>
+<li><p>Make a list of all messages which are passed using <code>$emit</code>, <code>$broadcast</code> and manage it carefully because of name collisions and possible bugs.</p>
+<p> Example:</p>
+<pre class="hljs"><code> // app.js
+ /<span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span>
+ Custom events:
+   - 'authorization-message' - description of the message
+     - { user, role, action } - data format
+       - user - a string, which contains the username
+       - role - an ID of the role the user has
+       - action - specific ation the user tries to perform
+ <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span>/</code></pre></li>
+<li><p>When you need to format data encapsulate the formatting logic into a <a href="#filters">filter</a> and declare it as dependency:</p>
+<pre class="hljs"><code> <span class="hljs-keyword">function</span> myFormat() {
+   <span class="hljs-keyword">return</span> <span class="hljs-keyword">function</span> () {
+     // <span class="hljs-keyword">...</span>
+   };
+ }
+ module.filter(<span class="hljs-string">'myFormat'</span>, myFormat);
+
+ <span class="hljs-keyword">function</span> MyCtrl($scope, myFormatFilter) {
+   // <span class="hljs-keyword">...</span>
+ }
+
+ module.controller(<span class="hljs-string">'MyCtrl'</span>, MyCtrl);</code></pre></li>
+<li><p>In case of nested controllers use &quot;nested scoping&quot; (the <code>controllerAs</code> syntax):</p>
+<p> <strong>app.js</strong></p>
+<pre class="hljs"><code> module.config(function ($routeProvider) {
+   $routeProvider
+     .<span class="hljs-keyword">when</span>('/route', {
+       templateUrl: 'partials/<span class="hljs-keyword">template</span>.html',
+       controller: '<span class="hljs-type">HomeCtrl</span>',
+       controllerAs: 'home'
+     });
+ });</code></pre><p> <strong>HomeCtrl</strong></p>
+<pre class="hljs"><code> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">HomeCtrl</span><span class="hljs-params">()</span> </span>{
+   <span class="hljs-keyword">this</span>.bindingValue = <span class="hljs-number">42</span>;
+ }</code></pre><p> <strong>template.html</strong></p>
+<pre class="hljs"><code> &lt;<span class="hljs-keyword">div</span> ng-<span class="hljs-keyword">bind</span>=<span class="hljs-string">"home.bindingValue"</span>&gt;&lt;/<span class="hljs-keyword">div</span>&gt;</code></pre></li>
+</ul>
+<h1 id="directives">Directives</h1>
 <ul class="list">
 <li>Name your directives with lowerCamelCase.</li>
 <li>Use <code>scope</code> instead of <code>$scope</code> in your link function. In the compile, post/pre link functions you have already defined arguments which will be passed when the function is invoked, you won&#39;t be able to change them using DI. This style is also used in AngularJS&#39;s source code.</li>
@@ -394,52 +467,79 @@ module.controller(<span class="hljs-string">'MyCtrl'</span>, MyCtrl);</code></pr
 </li>
 </ul>
 </li>
-<li><p>Encapsulate all the business logic in services.</p>
-</li>
-<li>Services representing the domain preferably a <code>service</code> instead of a <code>factory</code>. In this way we can take advantage of the &quot;klassical&quot; inheritance easier:</li>
-</ul>
-<pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Human</span><span class="hljs-params">()</span> </span>{
-  <span class="hljs-comment">//body</span>
-}
-Human.prototype.talk = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
-  <span class="hljs-keyword">return</span> <span class="hljs-string">"I'm talking"</span>;
-};
+<li><p>Encapsulate all the business logic in services. Prefer using it as your <code>model</code>. For example:</p>
+<pre class="hljs"><code><span class="hljs-comment">//Order is the 'model'</span>
+angular.module(<span class="hljs-string">'Store'</span>)
+.factory(<span class="hljs-string">'Order'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+    <span class="hljs-keyword">var</span> add = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(item)</span> </span>{
+      <span class="hljs-keyword">this</span>.items.push (item);
+    };
 
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Developer</span><span class="hljs-params">()</span> </span>{
-  <span class="hljs-comment">//body</span>
-}
-Developer.prototype = <span class="hljs-built_in">Object</span>.create(Human.prototype);
-Developer.prototype.code = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
-  <span class="hljs-keyword">return</span> <span class="hljs-string">"I'm coding"</span>;
-};
-
-myModule.service(<span class="hljs-string">'Human'</span>, Human);
-myModule.service(<span class="hljs-string">'Developer'</span>, Developer);</code></pre><ul class="list">
-<li>For session-level cache you can use <code>$cacheFactory</code>. This should be used to cache results from requests or heavy computations.</li>
-<li>If given service requires configuration define the service as provider and configure it in the <code>config</code> callback like:</li>
-</ul>
-<pre class="hljs"><code>angular.module(<span class="hljs-string">'demo'</span>, [])
-.config(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(<span class="hljs-variable">$provide</span>)</span> </span>{
-  <span class="hljs-variable">$provide</span>.provider(<span class="hljs-string">'sample'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
-    <span class="hljs-keyword">var</span> foo = <span class="hljs-number">42</span>;
-    <span class="hljs-keyword">return</span> {
-      setFoo: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(f)</span> </span>{
-        foo = f;
-      },
-      <span class="hljs-variable">$get</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
-        <span class="hljs-keyword">return</span> {
-          foo: foo
-        };
+    <span class="hljs-keyword">var</span> remove = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(item)</span> </span>{
+      <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.items.indexOf(item) &gt; -<span class="hljs-number">1</span>) {
+        <span class="hljs-keyword">this</span>.items.splice(<span class="hljs-keyword">this</span>.items.indexOf(item), <span class="hljs-number">1</span>);
       }
     };
+
+    <span class="hljs-keyword">var</span> total = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+      <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.items.reduce(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(memo, item)</span> </span>{
+        <span class="hljs-keyword">return</span> memo + (item.qty * item.price);
+      }, <span class="hljs-number">0</span>);
+    };
+
+    <span class="hljs-keyword">return</span> {
+      items: [],
+      addToOrder: add,
+      removeFromOrder: remove,
+      totalPrice: total
+    };
+});</code></pre><p>See &#39;Avoid writing business logic inside controllers&#39; for an example of a controller consuming this service.</p>
+</li>
+<li><p>Services representing the domain preferably a <code>service</code> instead of a <code>factory</code>. In this way we can take advantage of the &quot;klassical&quot; inheritance easier:</p>
+<pre class="hljs"><code>  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Human</span><span class="hljs-params">()</span> </span>{
+    <span class="hljs-comment">//body</span>
+  }
+  Human.prototype.talk = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-string">"I'm talking"</span>;
+  };
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Developer</span><span class="hljs-params">()</span> </span>{
+    <span class="hljs-comment">//body</span>
+  }
+  Developer.prototype = <span class="hljs-built_in">Object</span>.create(Human.prototype);
+  Developer.prototype.code = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-string">"I'm coding"</span>;
+  };
+
+  myModule.service(<span class="hljs-string">'Human'</span>, Human);
+  myModule.service(<span class="hljs-string">'Developer'</span>, Developer);</code></pre></li>
+<li><p>For session-level cache you can use <code>$cacheFactory</code>. This should be used to cache results from requests or heavy computations.</p>
+</li>
+<li><p>If given service requires configuration define the service as provider and configure it in the <code>config</code> callback like:</p>
+<pre class="hljs"><code>  angular.module(<span class="hljs-string">'demo'</span>, [])
+  .config(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(<span class="hljs-variable">$provide</span>)</span> </span>{
+    <span class="hljs-variable">$provide</span>.provider(<span class="hljs-string">'sample'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+      <span class="hljs-keyword">var</span> foo = <span class="hljs-number">42</span>;
+      <span class="hljs-keyword">return</span> {
+        setFoo: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(f)</span> </span>{
+          foo = f;
+        },
+        <span class="hljs-variable">$get</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+          <span class="hljs-keyword">return</span> {
+            foo: foo
+          };
+        }
+      };
+    });
   });
-});
 
-<span class="hljs-keyword">var</span> demo = angular.module(<span class="hljs-string">'demo'</span>);
+  <span class="hljs-keyword">var</span> demo = angular.module(<span class="hljs-string">'demo'</span>);
 
-demo.config(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(sampleProvider)</span> </span>{
-  sampleProvider.setFoo(<span class="hljs-number">41</span>);
-});</code></pre><h1 id="templates">Templates</h1>
+  demo.config(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(sampleProvider)</span> </span>{
+    sampleProvider.setFoo(<span class="hljs-number">41</span>);
+  });</code></pre></li>
+</ul>
+<h1 id="templates">Templates</h1>
 <ul class="list">
 <li>Use <code>ng-bind</code> or <code>ng-cloak</code> instead of simple <code>{{ }}</code> to prevent flashing content.</li>
 <li>Avoid writing complex expressions in the templates.</li>
@@ -473,21 +573,21 @@ For example, you can contribute by extending the Testing section or by translati
 <thead>
 <tr>
 <th style="text-align:center"><a href="https://github.com/mgechev"><img alt="mgechev" src="https://avatars.githubusercontent.com/u/455023?v=3&s=117" width="117"></a></th>
-<th style="text-align:center"><a href="https://github.com/pascalockert"><img alt="pascalockert" src="https://avatars.githubusercontent.com/u/4253438?v=3&s=117" width="117"></a></th>
 <th style="text-align:center"><a href="https://github.com/morizotter"><img alt="morizotter" src="https://avatars.githubusercontent.com/u/536954?v=3&s=117" width="117"></a></th>
+<th style="text-align:center"><a href="https://github.com/pascalockert"><img alt="pascalockert" src="https://avatars.githubusercontent.com/u/4253438?v=3&s=117" width="117"></a></th>
 <th style="text-align:center"><a href="https://github.com/ericguirbal"><img alt="ericguirbal" src="https://avatars.githubusercontent.com/u/322135?v=3&s=117" width="117"></a></th>
+<th style="text-align:center"><a href="https://github.com/yanivefraim"><img alt="yanivefraim" src="https://avatars.githubusercontent.com/u/1336186?v=3&s=117" width="117"></a></th>
 <th style="text-align:center"><a href="https://github.com/mainyaa"><img alt="mainyaa" src="https://avatars.githubusercontent.com/u/800781?v=3&s=117" width="117"></a></th>
-<th style="text-align:center"><a href="https://github.com/elfinxx"><img alt="elfinxx" src="https://avatars.githubusercontent.com/u/4384908?v=3&s=117" width="117"></a></th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td style="text-align:center"><a href="https://github.com/mgechev">mgechev</a></td>
-<td style="text-align:center"><a href="https://github.com/pascalockert">pascalockert</a></td>
 <td style="text-align:center"><a href="https://github.com/morizotter">morizotter</a></td>
+<td style="text-align:center"><a href="https://github.com/pascalockert">pascalockert</a></td>
 <td style="text-align:center"><a href="https://github.com/ericguirbal">ericguirbal</a></td>
+<td style="text-align:center"><a href="https://github.com/yanivefraim">yanivefraim</a></td>
 <td style="text-align:center"><a href="https://github.com/mainyaa">mainyaa</a></td>
-<td style="text-align:center"><a href="https://github.com/elfinxx">elfinxx</a></td>
 <td></td>
 </tr>
 </tbody>
@@ -495,22 +595,22 @@ For example, you can contribute by extending the Testing section or by translati
 <table>
 <thead>
 <tr>
+<th style="text-align:center"><a href="https://github.com/elfinxx"><img alt="elfinxx" src="https://avatars.githubusercontent.com/u/4384908?v=3&s=117" width="117"></a></th>
 <th style="text-align:center"><a href="https://github.com/agnislav"><img alt="agnislav" src="https://avatars.githubusercontent.com/u/364255?v=3&s=117" width="117"></a></th>
 <th style="text-align:center"><a href="https://github.com/Xuefeng-Zhu"><img alt="Xuefeng-Zhu" src="https://avatars.githubusercontent.com/u/5875315?v=3&s=117" width="117"></a></th>
-<th style="text-align:center"><a href="https://github.com/rubystream"><img alt="rubystream" src="https://avatars.githubusercontent.com/u/3200?v=3&s=117" width="117"></a></th>
 <th style="text-align:center"><a href="https://github.com/lukaszklis"><img alt="lukaszklis" src="https://avatars.githubusercontent.com/u/11782?v=3&s=117" width="117"></a></th>
-<th style="text-align:center"><a href="https://github.com/susieyy"><img alt="susieyy" src="https://avatars.githubusercontent.com/u/62295?v=3&s=117" width="117"></a></th>
 <th style="text-align:center"><a href="https://github.com/previousdeveloper"><img alt="previousdeveloper" src="https://avatars.githubusercontent.com/u/6371971?v=3&s=117" width="117"></a></th>
+<th style="text-align:center"><a href="https://github.com/susieyy"><img alt="susieyy" src="https://avatars.githubusercontent.com/u/62295?v=3&s=117" width="117"></a></th>
 </tr>
 </thead>
 <tbody>
 <tr>
+<td style="text-align:center"><a href="https://github.com/elfinxx">elfinxx</a></td>
 <td style="text-align:center"><a href="https://github.com/agnislav">agnislav</a></td>
 <td style="text-align:center"><a href="https://github.com/Xuefeng-Zhu">Xuefeng-Zhu</a></td>
-<td style="text-align:center"><a href="https://github.com/rubystream">rubystream</a></td>
 <td style="text-align:center"><a href="https://github.com/lukaszklis">lukaszklis</a></td>
-<td style="text-align:center"><a href="https://github.com/susieyy">susieyy</a></td>
 <td style="text-align:center"><a href="https://github.com/previousdeveloper">previousdeveloper</a></td>
+<td style="text-align:center"><a href="https://github.com/susieyy">susieyy</a></td>
 <td></td>
 </tr>
 </tbody>
@@ -518,22 +618,22 @@ For example, you can contribute by extending the Testing section or by translati
 <table>
 <thead>
 <tr>
+<th style="text-align:center"><a href="https://github.com/rubystream"><img alt="rubystream" src="https://avatars.githubusercontent.com/u/3200?v=3&s=117" width="117"></a></th>
 <th style="text-align:center"><a href="https://github.com/cironunes"><img alt="cironunes" src="https://avatars.githubusercontent.com/u/469908?v=3&s=117" width="117"></a></th>
 <th style="text-align:center"><a href="https://github.com/cavarzan"><img alt="cavarzan" src="https://avatars.githubusercontent.com/u/3915288?v=3&s=117" width="117"></a></th>
 <th style="text-align:center"><a href="https://github.com/guiltry"><img alt="guiltry" src="https://avatars.githubusercontent.com/u/1484308?v=3&s=117" width="117"></a></th>
 <th style="text-align:center"><a href="https://github.com/tornad"><img alt="tornad" src="https://avatars.githubusercontent.com/u/2128499?v=3&s=117" width="117"></a></th>
 <th style="text-align:center"><a href="https://github.com/jmblog"><img alt="jmblog" src="https://avatars.githubusercontent.com/u/86085?v=3&s=117" width="117"></a></th>
-<th style="text-align:center"><a href="https://github.com/kuzzmi"><img alt="kuzzmi" src="https://avatars.githubusercontent.com/u/1727140?v=3&s=117" width="117"></a></th>
 </tr>
 </thead>
 <tbody>
 <tr>
+<td style="text-align:center"><a href="https://github.com/rubystream">rubystream</a></td>
 <td style="text-align:center"><a href="https://github.com/cironunes">cironunes</a></td>
 <td style="text-align:center"><a href="https://github.com/cavarzan">cavarzan</a></td>
 <td style="text-align:center"><a href="https://github.com/guiltry">guiltry</a></td>
 <td style="text-align:center"><a href="https://github.com/tornad">tornad</a></td>
 <td style="text-align:center"><a href="https://github.com/jmblog">jmblog</a></td>
-<td style="text-align:center"><a href="https://github.com/kuzzmi">kuzzmi</a></td>
 <td></td>
 </tr>
 </tbody>
@@ -541,7 +641,7 @@ For example, you can contribute by extending the Testing section or by translati
 <table>
 <thead>
 <tr>
-<th style="text-align:center"><a href="https://github.com/bradgearon"><img alt="bradgearon" src="https://avatars.githubusercontent.com/u/1731943?v=3&s=117" width="117"></a></th>
+<th style="text-align:center"><a href="https://github.com/kuzzmi"><img alt="kuzzmi" src="https://avatars.githubusercontent.com/u/1727140?v=3&s=117" width="117"></a></th>
 <th style="text-align:center"><a href="https://github.com/dchest"><img alt="dchest" src="https://avatars.githubusercontent.com/u/52677?v=3&s=117" width="117"></a></th>
 <th style="text-align:center"><a href="https://github.com/clbn"><img alt="clbn" src="https://avatars.githubusercontent.com/u/1071933?v=3&s=117" width="117"></a></th>
 <th style="text-align:center"><a href="https://github.com/apetro"><img alt="apetro" src="https://avatars.githubusercontent.com/u/952283?v=3&s=117" width="117"></a></th>
@@ -551,7 +651,7 @@ For example, you can contribute by extending the Testing section or by translati
 </thead>
 <tbody>
 <tr>
-<td style="text-align:center"><a href="https://github.com/bradgearon">bradgearon</a></td>
+<td style="text-align:center"><a href="https://github.com/kuzzmi">kuzzmi</a></td>
 <td style="text-align:center"><a href="https://github.com/dchest">dchest</a></td>
 <td style="text-align:center"><a href="https://github.com/clbn">clbn</a></td>
 <td style="text-align:center"><a href="https://github.com/apetro">apetro</a></td>
@@ -564,21 +664,21 @@ For example, you can contribute by extending the Testing section or by translati
 <table>
 <thead>
 <tr>
+<th style="text-align:center"><a href="https://github.com/bradgearon"><img alt="bradgearon" src="https://avatars.githubusercontent.com/u/1731943?v=3&s=117" width="117"></a></th>
 <th style="text-align:center"><a href="https://github.com/dreame4"><img alt="dreame4" src="https://avatars.githubusercontent.com/u/277870?v=3&s=117" width="117"></a></th>
 <th style="text-align:center"><a href="https://github.com/gsamokovarov"><img alt="gsamokovarov" src="https://avatars.githubusercontent.com/u/604618?v=3&s=117" width="117"></a></th>
 <th style="text-align:center"><a href="https://github.com/grvcoelho"><img alt="grvcoelho" src="https://avatars.githubusercontent.com/u/7416751?v=3&s=117" width="117"></a></th>
 <th style="text-align:center"><a href="https://github.com/bargaorobalo"><img alt="bargaorobalo" src="https://avatars.githubusercontent.com/u/993001?v=3&s=117" width="117"></a></th>
-<th style="text-align:center"><a href="https://github.com/hermankan"><img alt="hermankan" src="https://avatars.githubusercontent.com/u/2899106?v=3&s=117" width="117"></a></th>
 <th style="text-align:center"><a href="https://github.com/olov"><img alt="olov" src="https://avatars.githubusercontent.com/u/19247?v=3&s=117" width="117"></a></th>
 </tr>
 </thead>
 <tbody>
 <tr>
+<td style="text-align:center"><a href="https://github.com/bradgearon">bradgearon</a></td>
 <td style="text-align:center"><a href="https://github.com/dreame4">dreame4</a></td>
 <td style="text-align:center"><a href="https://github.com/gsamokovarov">gsamokovarov</a></td>
 <td style="text-align:center"><a href="https://github.com/grvcoelho">grvcoelho</a></td>
 <td style="text-align:center"><a href="https://github.com/bargaorobalo">bargaorobalo</a></td>
-<td style="text-align:center"><a href="https://github.com/hermankan">hermankan</a></td>
 <td style="text-align:center"><a href="https://github.com/olov">olov</a></td>
 <td></td>
 </tr>
@@ -587,22 +687,22 @@ For example, you can contribute by extending the Testing section or by translati
 <table>
 <thead>
 <tr>
-<th style="text-align:center"><a href="https://github.com/jabhishek"><img alt="jabhishek" src="https://avatars.githubusercontent.com/u/1830537?v=3&s=117" width="117"></a></th>
+<th style="text-align:center"><a href="https://github.com/hermankan"><img alt="hermankan" src="https://avatars.githubusercontent.com/u/2899106?v=3&s=117" width="117"></a></th>
+<th style="text-align:center"><a href="https://github.com/jesselpalmer"><img alt="jesselpalmer" src="https://avatars.githubusercontent.com/u/682097?v=3&s=117" width="117"></a></th>
 <th style="text-align:center"><a href="https://github.com/capaj"><img alt="capaj" src="https://avatars.githubusercontent.com/u/1305378?v=3&s=117" width="117"></a></th>
 <th style="text-align:center"><a href="https://github.com/johnnyghost"><img alt="johnnyghost" src="https://avatars.githubusercontent.com/u/1117330?v=3&s=117" width="117"></a></th>
 <th style="text-align:center"><a href="https://github.com/jordanyee"><img alt="jordanyee" src="https://avatars.githubusercontent.com/u/3303098?v=3&s=117" width="117"></a></th>
 <th style="text-align:center"><a href="https://github.com/nacyot"><img alt="nacyot" src="https://avatars.githubusercontent.com/u/148919?v=3&s=117" width="117"></a></th>
-<th style="text-align:center"><a href="https://github.com/mariolamacchia"><img alt="mariolamacchia" src="https://avatars.githubusercontent.com/u/6282722?v=3&s=117" width="117"></a></th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align:center"><a href="https://github.com/jabhishek">jabhishek</a></td>
+<td style="text-align:center"><a href="https://github.com/hermankan">hermankan</a></td>
+<td style="text-align:center"><a href="https://github.com/jesselpalmer">jesselpalmer</a></td>
 <td style="text-align:center"><a href="https://github.com/capaj">capaj</a></td>
 <td style="text-align:center"><a href="https://github.com/johnnyghost">johnnyghost</a></td>
 <td style="text-align:center"><a href="https://github.com/jordanyee">jordanyee</a></td>
 <td style="text-align:center"><a href="https://github.com/nacyot">nacyot</a></td>
-<td style="text-align:center"><a href="https://github.com/mariolamacchia">mariolamacchia</a></td>
 <td></td>
 </tr>
 </tbody>
@@ -610,22 +710,22 @@ For example, you can contribute by extending the Testing section or by translati
 <table>
 <thead>
 <tr>
+<th style="text-align:center"><a href="https://github.com/mariolamacchia"><img alt="mariolamacchia" src="https://avatars.githubusercontent.com/u/6282722?v=3&s=117" width="117"></a></th>
 <th style="text-align:center"><a href="https://github.com/kirstein"><img alt="kirstein" src="https://avatars.githubusercontent.com/u/426442?v=3&s=117" width="117"></a></th>
 <th style="text-align:center"><a href="https://github.com/mo-gr"><img alt="mo-gr" src="https://avatars.githubusercontent.com/u/95577?v=3&s=117" width="117"></a></th>
 <th style="text-align:center"><a href="https://github.com/cryptojuice"><img alt="cryptojuice" src="https://avatars.githubusercontent.com/u/458883?v=3&s=117" width="117"></a></th>
-<th style="text-align:center"><a href="https://github.com/jesselpalmer"><img alt="jesselpalmer" src="https://avatars.githubusercontent.com/u/682097?v=3&s=117" width="117"></a></th>
+<th style="text-align:center"><a href="https://github.com/jabhishek"><img alt="jabhishek" src="https://avatars.githubusercontent.com/u/1830537?v=3&s=117" width="117"></a></th>
 <th style="text-align:center"><a href="https://github.com/vorktanamobay"><img alt="vorktanamobay" src="https://avatars.githubusercontent.com/u/2623355?v=3&s=117" width="117"></a></th>
-<th style="text-align:center"><a href="https://github.com/sahat"><img alt="sahat" src="https://avatars.githubusercontent.com/u/544954?v=3&s=117" width="117"></a></th>
 </tr>
 </thead>
 <tbody>
 <tr>
+<td style="text-align:center"><a href="https://github.com/mariolamacchia">mariolamacchia</a></td>
 <td style="text-align:center"><a href="https://github.com/kirstein">kirstein</a></td>
 <td style="text-align:center"><a href="https://github.com/mo-gr">mo-gr</a></td>
 <td style="text-align:center"><a href="https://github.com/cryptojuice">cryptojuice</a></td>
-<td style="text-align:center"><a href="https://github.com/jesselpalmer">jesselpalmer</a></td>
+<td style="text-align:center"><a href="https://github.com/jabhishek">jabhishek</a></td>
 <td style="text-align:center"><a href="https://github.com/vorktanamobay">vorktanamobay</a></td>
-<td style="text-align:center"><a href="https://github.com/sahat">sahat</a></td>
 <td></td>
 </tr>
 </tbody>
@@ -633,22 +733,22 @@ For example, you can contribute by extending the Testing section or by translati
 <table>
 <thead>
 <tr>
+<th style="text-align:center"><a href="https://github.com/sahat"><img alt="sahat" src="https://avatars.githubusercontent.com/u/544954?v=3&s=117" width="117"></a></th>
 <th style="text-align:center"><a href="https://github.com/kaneshin"><img alt="kaneshin" src="https://avatars.githubusercontent.com/u/936972?v=3&s=117" width="117"></a></th>
 <th style="text-align:center"><a href="https://github.com/imaimiami"><img alt="imaimiami" src="https://avatars.githubusercontent.com/u/2256037?v=3&s=117" width="117"></a></th>
 <th style="text-align:center"><a href="https://github.com/thomastuts"><img alt="thomastuts" src="https://avatars.githubusercontent.com/u/1914255?v=3&s=117" width="117"></a></th>
 <th style="text-align:center"><a href="https://github.com/grapswiz"><img alt="grapswiz" src="https://avatars.githubusercontent.com/u/309459?v=3&s=117" width="117"></a></th>
 <th style="text-align:center"><a href="https://github.com/coderhaoxin"><img alt="coderhaoxin" src="https://avatars.githubusercontent.com/u/2569835?v=3&s=117" width="117"></a></th>
-<th style="text-align:center"><a href="https://github.com/ntaoo"><img alt="ntaoo" src="https://avatars.githubusercontent.com/u/511213?v=3&s=117" width="117"></a></th>
 </tr>
 </thead>
 <tbody>
 <tr>
+<td style="text-align:center"><a href="https://github.com/sahat">sahat</a></td>
 <td style="text-align:center"><a href="https://github.com/kaneshin">kaneshin</a></td>
 <td style="text-align:center"><a href="https://github.com/imaimiami">imaimiami</a></td>
 <td style="text-align:center"><a href="https://github.com/thomastuts">thomastuts</a></td>
 <td style="text-align:center"><a href="https://github.com/grapswiz">grapswiz</a></td>
 <td style="text-align:center"><a href="https://github.com/coderhaoxin">coderhaoxin</a></td>
-<td style="text-align:center"><a href="https://github.com/ntaoo">ntaoo</a></td>
 <td></td>
 </tr>
 </tbody>
@@ -656,11 +756,13 @@ For example, you can contribute by extending the Testing section or by translati
 <table>
 <thead>
 <tr>
+<th style="text-align:center"><a href="https://github.com/ntaoo"><img alt="ntaoo" src="https://avatars.githubusercontent.com/u/511213?v=3&s=117" width="117"></a></th>
 <th style="text-align:center"><a href="https://github.com/kuzmeig1"><img alt="kuzmeig1" src="https://avatars.githubusercontent.com/u/8707951?v=3&s=117" width="117"></a></th>
 </tr>
 </thead>
 <tbody>
 <tr>
+<td style="text-align:center"><a href="https://github.com/ntaoo">ntaoo</a></td>
 <td style="text-align:center"><a href="https://github.com/kuzmeig1">kuzmeig1</a></td>
 <td></td>
 </tr>
