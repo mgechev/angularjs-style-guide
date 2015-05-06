@@ -14,7 +14,7 @@
 
 **Замечание 2**: перед использованием рекомендаций, описанных в данном переводе, убедитесь, что они соответствуют текущей версии оригинала.
 
-В этом руководстве вы не найдете общих требований к стилю для разработки на JavaScript. Они есть тут:
+В данном руководстве вы не найдете общих требований к стилю для разработки на JavaScript. Они есть тут:
 
 0. [Google's JavaScript style guide](http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml)
 0. [Mozilla's JavaScript style guide](https://developer.mozilla.org/en-US/docs/Developer_Guide/Coding_Style)
@@ -74,37 +74,37 @@
 
 В этом случае структура каталогов будет выглядеть примерно так:
 
- ```
- .
- ├── app
- │   ├── app.js
- │   ├── controllers
- │   │   ├── home
- │   │   │   ├── FirstCtrl.js
- │   │   │   └── SecondCtrl.js
- │   │   └── about
- │   │       └── ThirdCtrl.js
- │   ├── directives
- │   │   ├── home
- │   │   │   └── directive1.js
- │   │   └── about
- │   │       ├── directive2.js
- │   │       └── directive3.js
- │   ├── filters
- │   │   ├── home
- │   │   └── about
- │   └── services
- │       ├── CommonService.js
- │       ├── cache
- │       │   ├── Cache1.js
- │       │   └── Cache2.js
- │       └── models
- │           ├── Model1.js
- │           └── Model2.js
- ├── partials
- ├── lib
- └── test
- ```
+```
+.
+├── app
+│   ├── app.js
+│   ├── controllers
+│   │   ├── home
+│   │   │   ├── FirstCtrl.js
+│   │   │   └── SecondCtrl.js
+│   │   └── about
+│   │       └── ThirdCtrl.js
+│   ├── directives
+│   │   ├── home
+│   │   │   └── directive1.js
+│   │   └── about
+│   │       ├── directive2.js
+│   │       └── directive3.js
+│   ├── filters
+│   │   ├── home
+│   │   └── about
+│   └── services
+│       ├── CommonService.js
+│       ├── cache
+│       │   ├── Cache1.js
+│       │   └── Cache2.js
+│       └── models
+│           ├── Model1.js
+│           └── Model2.js
+├── partials
+├── lib
+└── test
+```
 
 * Сперва разделить по функциональности, затем по типам компонентов.
 
@@ -256,6 +256,13 @@ services
 * Используйте `$resource` вместо `$http` где это возможно. Более высокий уровень абстракций убережет вас от избыточного кода.
 * Используйте AngularJS pre-minifier (такой, как [ngmin](https://github.com/btford/ngmin) или [ng-annotate](https://github.com/olov/ng-annotate)) для избежания проблем после сжатия скриптов.
 * Не используйте глобальное пространство имён. Разрешайте все зависимости с помощью Dependency Injection. Это уменьшит количество ошибок и убережёт от обезьяньей работы при тестировании.
+* Не используйте глобальное пространство имён. Автоматизаторы Grunt/Gulp могут оборачивать ваш код в самовызывающиеся функции. У обоих есть готовые пакеты [grunt-wrap](https://www.npmjs.com/package/grunt-wrap) и [gulp-wrap](https://www.npmjs.com/package/gulp-wrap/). Как это выглядит (используя Gulp)
+
+	```Javascript
+	gulp.src("./src/*.js")
+    .pipe(wrap('(function(){\n"use strict";\n<%= contents %>\n})();'))
+    .pipe(gulp.dest("./dist"));
+    ```
 * Не захламляйте ваш `$scope`. Добавляйте только те переменные и функции, который будут использованы в шаблонах.
 * Используйте [контроллеры вместо `ngInit`](https://github.com/angular/angular.js/pull/4366/files). Использовать `ngInit` рекомендуется только совместно с директивой `ngRepeat` и только для работы с её служебными свойствами. Во всех остальных случаях `$scope`-переменные должны инициализироваться в контроллерах. Переданные в `ngInit` выражения проходят лексический анализ, парсинг и выполнение интерпретатором сервиса `$parse`. Это может привести к:
     - Потере производительности, потому что интерпретатор написан на JavaScript
@@ -303,19 +310,19 @@ module.factory('Service', function ($rootScope, $timeout, MyCustomDependency1, M
 
 * Настоятельно рекомендуется использовать синтаксис `controller as`:
 
-   ```
-   <div ng-controller="MainCtrl as main">
-      {{ main.title }}
-   </div>
-   ```
-   
-   ```JavaScript
-   app.controller('MainCtrl', MainCtrl);
-   
-   function MainCtrl () {
-      this.title = 'Some title';
-   };
-   ```
+  ```
+  <div ng-controller="MainCtrl as main">
+    {{ main.title }}
+  </div>
+  ```
+  
+  ```JavaScript
+  app.controller('MainCtrl', MainCtrl);
+  
+  function MainCtrl () {
+    this.title = 'Some title';
+  };
+  ```
    
    Основные плюшки:
    * Создаётся 'изолированный' компонент - привязанные свойства не являются частью цепочки прототипов `$scope`. Это хороший подход, поскольку наследование прототипов `$scope` имеет серьёзные недостатки (вероятно, именно поэтому это было выкинуто из Angular 2):
@@ -330,22 +337,22 @@ module.factory('Service', function ($rootScope, $timeout, MyCustomDependency1, M
 
 * При использовании синтаксиса массива используйте оригинальные имена для зависимостей контроллера. Код будет более читабельным:
 
-   ```JavaScript
-   function MyCtrl(s) {
-     // ...
-   }
-   
-   module.controller('MyCtrl', ['$scope', MyCtrl]);
-   ```
+  ```JavaScript
+  function MyCtrl(s) {
+   // ...
+  }
+  
+  module.controller('MyCtrl', ['$scope', MyCtrl]);
+  ```
 
    читается гораздо хуже, чем:
 
-   ```JavaScript
-   function MyCtrl($scope) {
-     // ...
-   }
-   module.controller('MyCtrl', ['$scope', MyCtrl]);
-   ```
+  ```JavaScript
+  function MyCtrl($scope) {
+   // ...
+  }
+  module.controller('MyCtrl', ['$scope', MyCtrl]);
+  ```
 
 Особенно это актуально для больших файлов со множеством строк кода, который придется проскролить весь, чтобы понять, что есть что. В итоге можно легко забыть, какой зависимости отвечает та или иная переменная.
 
@@ -354,7 +361,7 @@ module.factory('Service', function ($rootScope, $timeout, MyCustomDependency1, M
   Пример:
 
   ```Javascript
-  //Это часто наблюдаемый подход (и это очень плохой пример) использования бизнес-логики в контроллерах.
+  //Это часто наблюдаемый подход (и хороший пример "как не надо делать") использования бизнес-логики в контроллерах.
   angular.module('Store', [])
   .controller('OrderCtrl', function ($scope) {
 
@@ -407,35 +414,36 @@ module.factory('Service', function ($rootScope, $timeout, MyCustomDependency1, M
 * Организовывайте коммуникацию между контроллерами используя вызовы методов (например когда дети хотят связаться с родителями) или методы `$emit`, `$broadcast` и `$on`. Количество `$emit` и `$broadcast` сообщений должно быть сведено к минимуму.
 * Создайте и поддерживайте список со всеми сообщениями пересылаемыми с помощью `$emit`, `$broadcast`, чтобы избежать коллизий имён и прочих возможных ошибок.
 
-   Пример:
-   
-   ```JavaScript
-   // app.js
-   /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-   Custom events:
-     - 'authorization-message' - description of the message
-       - { user, role, action } - data format
-         - user - a string, which contains the username
-         - role - an ID of the role the user has
-         - action - specific ation the user tries to perform
-   * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-   ```
-
-* Если вам нужно отформатировать данные, перенесите логику форматирования в [фильтр](#filters) и укажите его как зависимость:
-
-   ```JavaScript
-   function myFormat() {
-     return function () {
-       // ...
-     };
-   }
-   module.filter('myFormat', myFormat);
-   
-   function MyCtrl($scope, myFormatFilter) {
+  Пример:
+  
+  ```JavaScript
+  // app.js
+  /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+  Custom events:
+   - 'authorization-message' - description of the message
+     - { user, role, action } - data format
+       - user - a string, which contains the username
+       - role - an ID of the role the user has
+       - action - specific ation the user tries to perform
+  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+  ```
+  
+  * Если вам нужно отформатировать данные, перенесите логику форматирования в [фильтр](#filters) и укажите его как зависимость:
+  
+  ```JavaScript
+  function myFormat() {
+   return function () {
      // ...
-   }
-   
-   module.controller('MyCtrl', MyCtrl);
+   };
+  }
+  module.filter('myFormat', myFormat);
+  
+  function MyCtrl($scope, myFormatFilter) {
+   // ...
+  }
+  
+  module.controller('MyCtrl', MyCtrl);
+  ```
 
 * При использовании вложенных контроллеров не забывайте про "nested scoping" (синтаксис `controllerAs`):
 
