@@ -56,6 +56,7 @@ In AngularJS's GitHub wiki there is a similar section by [ProLoser](https://gith
 * [Templates](#templates)
 * [Routing](#routing)
 * [i18n](#i18n)
+* [Performance](#performance)
 * [Contribution](#contribution)
 * [Contributors](#contributors)
 
@@ -617,6 +618,10 @@ $scope.divStyle = {
 # i18n
 
 * For newer versions of the framework (>=1.4.0) use the built-in i18n tools, when using older versions (<1.4.0) use [`angular-translate`](https://github.com/angular-translate/angular-translate).
+
+# Performance
+
+* Consider decreasing number of network requests by bundling/caching html template files into your main javascript file, using [grunt-html2js](https://github.com/karlgoldstein/grunt-html2js) / [gulp-html2js](https://github.com/fraserxu/gulp-html2js). See [here](ng-learn.org/2014/08/Populating_template_cache_with_html2js/) and [here](http://slides.com/yanivefraim-1/real-world-angularjs#/34) for details. This is particularry usefull when the project has a lot of small html templates that can be a part of the main (minified and gzipped) javascript file.
 
 # Contribution
 
