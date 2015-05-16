@@ -370,7 +370,7 @@ module.factory('Service', function ($rootScope, $timeout, MyCustomDependency1, M
   ```
 
   `model` にビジネスロジックを委譲すると、コントローラはこのようになります（）。
-  When delegating business logic into a 'model' service, controller will look like this (サービスモデルの実装は 'use services as your Model'をご確認下さい):
+  When delegating business logic into a 'model' service, controller will look like this (サービスモデルの実装はサービスの項目で確認できます):
 
   ```Javascript
   //Orderは `model` として扱われています
@@ -497,59 +497,8 @@ module.factory('Service', function ($rootScope, $timeout, MyCustomDependency1, M
 
   * その他のサービス名はlowerCamelCaseで記述します。
 
-<!-- * ビジネスロジックはカプセル化してサービスに入れます。
-* 問題領域(ドメイン)に関わる処理を行うサービスは `factory` の代わりに `service` を利用するのがよいでしょう。"klassical"な継承を利用できるメリットがあります：
+* ビジネスロジックはカプセル化してサービスに入れます。 `model` として利用するのがよいでしょう。例えば:
 
-```JavaScript
-function Human() {
-  //body
-}
-Human.prototype.talk = function () {
-  return "I'm talking";
-};
-
-function Developer() {
-  //body
-}
-Developer.prototype = Object.create(Human.prototype);
-Developer.prototype.code = function () {
-  return "I'm coding";
-};
-
-myModule.service('Human', Human);
-myModule.service('Developer', Developer);
-
-```
-
-* セッションレベルでのキャッシュには `$cacheFactory` が使えます。これはリクエスト結果をキャッシュしたい時や重い処理をキャッシュしたいときに使えます。
-* 設定が必要なサービスを利用する場合は、サービスをプロバイダとして利用し、 `config` コールバックで設定をします。
-
-
-```JavaScript
-angular.module('demo', [])
-.config(function ($provide) {
-  $provide.provider('sample', function () {
-    var foo = 42;
-    return {
-      setFoo: function (f) {
-        foo = f;
-      },
-      $get: function () {
-        return {
-          foo: foo
-        };
-      }
-    };
-  });
-});
-
-var demo = angular.module('demo');
-
-demo.config(function (sampleProvider) {
-  sampleProvider.setFoo(41);
-});
-```-->
-* Encapsulate all the business logic in services. Prefer using it as your `model`. For example:
   ```Javascript
   //Order is the 'model'
   angular.module('Store')
@@ -579,8 +528,9 @@ demo.config(function (sampleProvider) {
   });
   ```
 
-  See 'Avoid writing business logic inside controllers' for an example of a controller consuming this service.
-* Services representing the domain preferably a `service` instead of a `factory`. In this way we can take advantage of the "klassical" inheritance easier:
+
+  Controllersの項目でコントローラがこのサービスを使った例はを確認できます。
+* 問題領域(ドメイン)に関わる処理を行うサービスは `factory` の代わりに `service` を利用するのがよいでしょう。"klassical"な継承を利用できるメリットがあります：
 
 	```JavaScript
 	function Human() {
@@ -603,8 +553,8 @@ demo.config(function (sampleProvider) {
 
 	```
 
-* For session-level cache you can use `$cacheFactory`. This should be used to cache results from requests or heavy computations.
-* If given service requires configuration define the service as provider and configure it in the `config` callback like:
+* セッションレベルでのキャッシュには `$cacheFactory` が使えます。これはリクエスト結果をキャッシュしたい時や重い処理をキャッシュしたいときに使えます。
+* 設定が必要なサービスを利用する場合は、サービスをプロバイダとして利用し、 `config` コールバックで設定をします。
 
 	```JavaScript
 	angular.module('demo', [])
@@ -630,7 +580,6 @@ demo.config(function (sampleProvider) {
 	  sampleProvider.setFoo(41);
 	});
 	```
-
 
 # テンプレート
 
