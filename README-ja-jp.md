@@ -223,15 +223,6 @@ services
 
 その他のHTML属性はCode Guideの[方針](http://mdo.github.io/code-guide/#html-attribute-order)に従うのがよいでしょう。
 
-<!-- ## digestサイクルの最適化
-
-* 特に重要な変数に対してのみ監視を行います。 `$digest` ループを明示的に記述する必要がある場合（例外的なケースだと思いますが）、本当に必要なときにのみ呼び出すようにします。（例えば、リアルタイム通信を使用する場合は、各受信メッセージ内で `$digest` ループが発生しないようにします）。
-* 初期化後に変更のないコンテンツを扱う場合、AngularJSの古いバージョンでは[`bindonce`](https://github.com/Pasvaz/bindonce)のようなシングルタイム・ワッチャーを使います。AngularJSのバージョン1.3.0以降では組み込みのワンタイム・バインディングを利用します。
-* `$watch` 内はできるだけシンプルな処理にします。一つの `$watch` 内で重くて遅い処理を作ってしまうとアプリケーション全体が遅くなってしまいます。(JavaScriptがシングルスレッドである性質上、 `$digest` のループはシングルスレッドで処理されます)。
-* コレクションを監視する場合、ほんとうに必要でなければオブジェクトの中身まで監視をするのはやめましょう。 `$watchCollection` を用いて同等性の浅いレベルでの監視にとどめておくべきです。
-* `$timeout` のコールバック関数が呼ばれることによって影響を受ける監視対象の変数がない場合に、 `$timeout` 関数の3番目のパラメータをfalseにすることで `$digest` ループをスキップします。
-* 巨大なコレクションを扱う場合、それはほとんど変更されません。[不可変データ構造を利用しましょう](http://blog.mgechev.com/2015/03/02/immutability-in-angularjs-immutablejs/)。 -->
-
 ## その他
 
 * これらを使うようにしましょう:
@@ -705,15 +696,14 @@ $scope.divStyle = {
 
 # パフォーマンス
 
-* Optimize the digest cycle
+* digestサイクルの最適化
 
-	* Watch only the most vital variables. When required to invoke the `$digest` loop explicitly (it should happen only in exceptional cases), invoke it only when required (for example: when using real-time communication, don't cause a `$digest` loop in each received message).
-	* For content that is initialized only once and then never changed, use single-time watchers like [`bindonce`](https://github.com/Pasvaz/bindonce) for older versions of AngularJS or one-time bindings in AngularJS >=1.3.0.
-	* Make the computations in `$watch` as simple as possible. Making heavy and slow computations in a single `$watch` will slow down the whole application (the `$digest` loop is done in a single thread because of the single-threaded nature of JavaScript).
-	* When watching collections, do not watch them deeply when not strongly required. Better use `$watchCollection`, which performs a shallow check for equility of the result of the watched expression and the previous value of the expression's evaluation.
-	* Set third parameter in `$timeout` function to false to skip the `$digest` loop when no watched variables are impacted by the invocation of the `$timeout` callback function.
-	* When dealing with big collections, which change rarely, [use immutable data structures](http://blog.mgechev.com/2015/03/02/immutability-in-angularjs-immutablejs/).
-
+  * 特に重要な変数に対してのみ監視を行います。 `$digest` ループを明示的に記述する必要がある場合（例外的なケースだと思いますが）、本当に必要なときにのみ呼び出すようにします。（例えば、リアルタイム通信を使用する場合は、各受信メッセージ内で `$digest` ループが発生しないようにします）。
+  * 初期化後に変更のないコンテンツを扱う場合、AngularJSの古いバージョンでは[`bindonce`](https://github.com/Pasvaz/bindonce)のようなシングルタイム・ワッチャーを使います。AngularJSのバージョン1.3.0以降では組み込みのワンタイム・バインディングを利用します。
+  * `$watch` 内はできるだけシンプルな処理にします。一つの `$watch` 内で重くて遅い処理を作ってしまうとアプリケーション全体が遅くなってしまいます。(JavaScriptがシングルスレッドである性質上、 `$digest` のループはシングルスレッドで処理されます)。
+  * コレクションを監視する場合、ほんとうに必要でなければオブジェクトの中身まで監視をするのはやめましょう。 `$watchCollection` を用いて同等性の浅いレベルでの監視にとどめておくべきです。
+  * `$timeout` のコールバック関数が呼ばれることによって影響を受ける監視対象の変数がない場合に、 `$timeout` 関数の3番目のパラメータをfalseにすることで `$digest` ループをスキップします。
+  * 巨大なコレクションを扱う場合、それはほとんど変更されません。[不可変データ構造を利用しましょう](http://blog.mgechev.com/2015/03/02/immutability-in-angularjs-immutablejs/)。 -->
 
 # コントリビューション
 
