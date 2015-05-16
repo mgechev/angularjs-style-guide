@@ -144,7 +144,7 @@ AngularJSのGitHub Wikiに[ProLoser](https://github.com/ProLoser)の書いた類
 └── test
 ```
 
-* ディレクトリ名に複数の単語が含まれる場合は、lisp-case構文で記述します：
+* ディレクトリ名に複数の単語が含まれる場合は、lisp-caseシンタックスで記述します：
 
 ```
 app
@@ -286,7 +286,7 @@ module.factory('Service', function ($rootScope, $timeout, MyCustomDependency1, M
 * コントローラ名は、そのコントローラの機能を表す名前(例: shopping cart, homepage, admin panel)にし、最後に `Ctrl` を付けます。
 * コントローラは素のJavascriptなので（[constructors](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/constructor)）、命名はUpperCamelCase(`HomePageCtrl`, `ShoppingCartCtrl`, `AdminPanelCtrl`, etc.)を使います。
 * コントローラはグローバルな名前空間に定義してはいけません。(たとえAngularJSが許可しても、グローバルな名前空間を汚染するバッドプラクティスになります)。
-* コントローラの定義には下記の構文を使いましょう：
+* コントローラの定義には下記のシンタックスを使いましょう：
 
   ```JavaScript
   function MyCtrl(dependency1, dependency2, ..., dependencyn) {
@@ -295,7 +295,7 @@ module.factory('Service', function ($rootScope, $timeout, MyCustomDependency1, M
   module.controller('MyCtrl', MyCtrl);
   ```
 
-  minifyの問題を回避するために、[ng-annotate](https://github.com/olov/ng-annotate)や(grunt task [grunt-ng-annotate](https://github.com/mzgol/grunt-ng-annotate))などの標準的なツールを使って配列定義構文を自動的に生成することができます。
+  minifyの問題を回避するために、[ng-annotate](https://github.com/olov/ng-annotate)や(grunt task [grunt-ng-annotate](https://github.com/mzgol/grunt-ng-annotate))などの標準的なツールを使って配列定義シンタックスを自動的に生成することができます。
 * `controller as`シンタックスを使いましょう。
 
    ```
@@ -429,7 +429,7 @@ module.factory('Service', function ($rootScope, $timeout, MyCustomDependency1, M
    module.controller('MyCtrl', MyCtrl);
    ```
 
-* ネストしたコントローラを利用する場合、ネストスコープ（ `controllerAs` 構文）を使います。
+* ネストしたコントローラを利用する場合、ネストスコープ（ `controllerAs` シンタックス）を使います。
 
    **app.js**
    ```javascript
@@ -589,18 +589,18 @@ module.factory('Service', function ($rootScope, $timeout, MyCustomDependency1, M
 * アンカータグの `href` の内容が動的な場合は、 `href` と `{{ }}` を組み合わせて使う代わりに `ng-href` を使いましょう。
 * `style` 属性を付ける際に `{{ }}` とともにscopeの変数を文字列として使う代わりに、 `ng-style` を利用することでオブジェクトのパラメータのように記述できます。また、scopeの変数も値として利用できます：
 
-```HTML
-<script>
-...
-$scope.divStyle = {
-  width: 200,
-  position: 'relative'
-};
-...
-</script>
+  ```HTML
+  <script>
+  ...
+  $scope.divStyle = {
+    width: 200,
+    position: 'relative'
+  };
+  ...
+  </script>
 
-<div ng-style="divStyle">my beautifully styled div which will work in IE</div>;
-```
+  <div ng-style="divStyle">my beautifully styled div which will work in IE</div>;
+  ```
 
 # ルーティング
 
