@@ -26,6 +26,23 @@ AngularJSの開発をする上でのおすすめは[Google JavaScript スタイ�
 
 AngularJSのGitHub Wikiに[ProLoser](https://github.com/ProLoser)の書いた類似のセクションがあります。[こちら](https://github.com/angular/angular.js/wiki)で確認することができます。
 
+# Translations
+
+- [German](https://github.com/mgechev/angularjs-style-guide/blob/master/README-de-de.md)
+- [Spanish](https://github.com/mgechev/angularjs-style-guide/blob/master/README-es-es.md)
+- [French](https://github.com/mgechev/angularjs-style-guide/blob/master/README-fr-fr.md)
+- [Indonesian](https://github.com/mgechev/angularjs-style-guide/blob/master/README-id-id.md)
+- [Italian](https://github.com/mgechev/angularjs-style-guide/blob/master/README-it-it.md)
+- [Japanese](https://github.com/mgechev/angularjs-style-guide/blob/master/README-ja-jp.md)
+- [Korean](https://github.com/mgechev/angularjs-style-guide/blob/master/README-ko-kr.md)
+- [Polish](https://github.com/mgechev/angularjs-style-guide/blob/master/README-pl-pl.md)
+- [Portuguese](https://github.com/mgechev/angularjs-style-guide/blob/master/README-pt-br.md)
+- [Russian](https://github.com/mgechev/angularjs-style-guide/blob/master/README-ru-ru.md)
+- [Serbian](https://github.com/mgechev/angularjs-style-guide/blob/master/README-sr.md)
+- [Serbian lat](https://github.com/mgechev/angularjs-style-guide/blob/master/README-sr-lat.md)
+- [Chinese](https://github.com/mgechev/angularjs-style-guide/blob/master/README-zh-cn.md)
+- [Turkish](https://github.com/mgechev/angularjs-style-guide/blob/master/README-tr-tr.md)
+
 # 目次
 
 * [全般](#全般)
