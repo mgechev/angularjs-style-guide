@@ -244,7 +244,7 @@ services
 * できるだけ `$http` の代わりに `$resource` を使います。抽象性を高めることにより冗長なコードから解放されます。
 * AngularJS pre-minifier([ng-annotate](https://github.com/olov/ng-annotate))を使うことで、minifyした後に発生する問題を回避しましょう。
 * グローバル変数を使用してはいけません。依存性の注入を使って全ての依存関係を解決することで、バグやテスト時のモンキーパッチを防ぎます。
-* Avoid globals by using Grunt/Gulp to wrap your code in Immediately Invoked Function Expression (IIFE). You can use plugins like [grunt-wrap](https://www.npmjs.com/package/grunt-wrap) or [gulp-wrap](https://www.npmjs.com/package/gulp-wrap/) for this purpose. Example (using Gulp)
+* GruntやGulpを使ってコードをIIFE（Immediately Invoked Function Expression）にラップすることによってglobalを使わないようにしましょう。プラグインとしては[grunt-wrap](https://www.npmjs.com/package/grunt-wrap) や [gulp-wrap](https://www.npmjs.com/package/gulp-wrap/) があります。Gulpを使った場合の例です。
 
 	```Javascript
 	gulp.src("./src/*.js")
@@ -252,12 +252,12 @@ services
     .pipe(gulp.dest("./dist"));
     ```
 * `$scope` を汚染してはいけません。テンプレートで使用するメソッドや変数のみ追加しましょう。
-<!-- * [`ngInit` の代わりにcontroller](https://github.com/angular/angular.js/pull/4366/files)の使用を優先します。 `ngRepeat` のプロパティのエイリアスを作る場合にのみ `ngInit` を利用します。このケースに加え、スコープの変数を初期化する際にも `ngInit` よりもcontrollerを利用するべきです。 -->
-* Prefer the usage of [controllers instead of `ngInit`](https://github.com/angular/angular.js/pull/4366/files). The only appropriate use of `ngInit` is for aliasing special properties of `ngRepeat`. Besides this case, you should use controllers rather than `ngInit` to initialize values on a scope. The expression passed to `ngInit` should go through lexing, parsing and evaluation by the Angular interpreter implemented inside the `$parse` service. This leads to:
-    - Performance impact, because the interpreter is implemented in JavaScript
-    - The caching of the parsed expressions inside the `$parse` service doesn't make a lot of sense in most cases, since `ngInit` expressions are often evaluated only once
-    - Is error-prone, since you're writing strings inside your templates, there's no syntax highlighting and further support by your editor
-    - No run-time errors are thrown
+* [`ngInit` の代わりにcontroller](https://github.com/angular/angular.js/pull/4366/files)の使用を優先します。 `ngRepeat` のプロパティのエイリアスを作る場合にのみ `ngInit` を利用します。このケースに加え、スコープの変数を初期化する際にも `ngInit` よりもcontrollerを利用するべきです。 `ng-init` に渡されたエクスプレッションは `$parse` サービスに実装されたAngularのインタープリタによって字句解析されパースされ、評価されます。これは次のことを引き起こします。
+  - インタープリタはJavaScriptで実装されているのでパフォーマンスに影響が出ます。
+  - `$parse` サービス内でのパース済みエクスプレッションのキャッシュはうまい具外に働からないことが多いです。 `ng-init` エクスプレッションが多くの場合1度しか実行されないからです。
+  - エラーを起こしやすくなります。文字列をテンプレートに書くことになるので、エディタのシンタックスハイライトやその他のサポートが効きません。
+  - ランタイムエラーがでません。
+
 * 変数名やメソッド名に `$` プレフィックスを使ってはいけません。このプレフィックスはAngularJSによって予約されています。
 * AngularJSの依存性の注入メカニズムによって依存性の解決を行う際には、AngularJSのビルトイン、カスタムという順に並べます。
 
