@@ -273,26 +273,18 @@ module.factory('Service', function ($rootScope, $timeout, MyCustomDependency1, M
 
 * モジュールはlowerCamelCaseで命名します。モジュール `b` がモジュール `a` のサブモジュールである場合、 `a.b` のようにネームスペースを利用してネストすることができます。
 
-<!-- モジュールを構造化する方法は一般的に2つあります：
+  モジュールを構造化する方法は一般的に2つあります：
 
-0. 機能性
-0. コンポーネントタイプ
+  0. 機能性
+  0. コンポーネントタイプ
 
-今現在、2つに大きな違いはありませんが、1.の方法がより整って見えます。また、もし遅延ローディング・モジュールが実装されたら(AnglarJSのロードマップにはありませんが)、アプリケーションのパフォーマンスが向上するでしょう。 -->
-  There are two common ways for structuring the modules:
-
-  0. By functionality
-  0. By component type
-
-  Currently there's not a big difference, but the first way looks cleaner. Also, if lazy-loading modules is implemented (currently not in the AngularJS roadmap), it will improve the app's performance.
+  今現在、2つに大きな違いはありませんが、1.の方法がより整って見えます。また、もし遅延ローディング・モジュールが実装されたら(AnglarJSのロードマップにはありませんが)、アプリケーションのパフォーマンスが向上するでしょう。
 
 # コントローラ
 
 * コントローラ内でDOMを操作してはいけません。テストがしづらくなりますし、[関心の分離](https://en.wikipedia.org/wiki/Separation_of_concerns)の原則を破ることになります。代わりにティレクティブを使いましょう。
-<!-- * コントローラ名は、そのコントローラの機能を表す名前(例: shopping cart, homepage, admin panel)にし、最後に `Ctrl` を付けます。
-* コントローラは素のJavascriptなので（[constructors](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/constructor)）、命名はUpperCamelCase(`HomePageCtrl`, `ShoppingCartCtrl`, `AdminPanelCtrl`, etc.)を使います。 -->
-* The naming of the controller is done using the controller's functionality (for example shopping cart, homepage, admin panel) and the substring `Ctrl` in the end.
-* Controllers are plain javascript [constructors](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/constructor), so they will be named UpperCamelCase (`HomePageCtrl`, `ShoppingCartCtrl`, `AdminPanelCtrl`, etc.).
+* コントローラ名は、そのコントローラの機能を表す名前(例: shopping cart, homepage, admin panel)にし、最後に `Ctrl` を付けます。
+* コントローラは素のJavascriptなので（[constructors](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/constructor)）、命名はUpperCamelCase(`HomePageCtrl`, `ShoppingCartCtrl`, `AdminPanelCtrl`, etc.)を使います。
 * コントローラはグローバルな名前空間に定義してはいけません。(たとえAngularJSが許可しても、グローバルな名前空間を汚染するバッドプラクティスになります)。
 * コントローラの定義には下記の構文を使いましょう：
 
@@ -303,9 +295,7 @@ module.factory('Service', function ($rootScope, $timeout, MyCustomDependency1, M
   module.controller('MyCtrl', MyCtrl);
   ```
 
-<!-- minifyの問題を回避するために、[ng-annotate](https://github.com/olov/ng-annotate)や(grunt task [grunt-ng-annotate](https://github.com/mzgol/grunt-ng-annotate))などの標準的なツールを使って配列定義構文を自動的に生成することができます。
-  In order to prevent problems with minification, you can automatically generate the array definition syntax from    the standard one using tools like [ng-annotate](https://github.com/olov/ng-annotate) (and grunt task          [grunt-ng-annotate](https://github.com/mzgol/grunt-ng-annotate)).
-
+  minifyの問題を回避するために、[ng-annotate](https://github.com/olov/ng-annotate)や(grunt task [grunt-ng-annotate](https://github.com/mzgol/grunt-ng-annotate))などの標準的なツールを使って配列定義構文を自動的に生成することができます。
 * `controller as`シンタックスを使いましょう。
 
    ```
@@ -332,25 +322,7 @@ module.factory('Service', function ($rootScope, $timeout, MyCustomDependency1, M
    * シンタックスは 'vanilla' JavaScriptのコンストラクタに近いです。
 
    `controller as` について詳しくは、 [digging-into-angulars-controller-as-syntax](http://toddmotto.com/digging-into-angulars-controller-as-syntax/) を参照してください。
-
-<!-- * なるべく無駄のないようにコントローラを作りましょう。抽象的で広く使われているロジックはサービス内に入れましょう。
-* メソッド呼び出し（子が親へアクセスしたいと思った時に利用可能）や `$emit` `$broadcast` `$on` メソッドで他のコントローラと連携を取るようにします。emitやbroadcastするメッセージは最小限に保ちましょう。
-* 名前の衝突やバグの原因にならないように `$emit` `$broadcast` をに指定する全てのメッセージのリストを作り、注意深く管理しましょう。
-
-例：
-
-```JavaScript
-// app.js
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-Custom events:
-  - 'authorization-message' - description of the message
-    - { user, role, action } - data format
-      - user - a string, which contains the username
-      - role - an ID of the role the user has
-      - action - specific ation the user tries to perform
-* * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-``` -->
-* If using array definition syntax, use the original names of the controller's dependencies. This will help you produce more readable code:
+* 配列で定義する場合は、依存性の正しい名前を使いましょう。コードが読みやすくなります:
 
   ```JavaScript
   function MyCtrl(s) {
@@ -360,7 +332,7 @@ Custom events:
   module.controller('MyCtrl', ['$scope', MyCtrl]);
   ```
 
-   which is less readable than:
+   次に書くようにすることで読みやすくなります:
 
   ```JavaScript
   function MyCtrl($scope) {
@@ -368,15 +340,14 @@ Custom events:
   }
   module.controller('MyCtrl', ['$scope', MyCtrl]);
   ```
+   特にスクロールしなければ読みきれないようなコードを含んだファイルに適用します。どの変数がどの依存性に結びついているのか忘れてしまうことを防げます。
 
-   This especially applies to a file that has so much code that you'd need to scroll through. This would possibly cause you to forget which variable is tied to which dependency.
-
-* Make the controllers as lean as possible. Abstract commonly used functions into a service.
-* Avoid writing business logic inside controllers. Delegate business logic to a `model`, using a service.
-  For example:
+* なるべく無駄のないようにコントローラを作りましょう。抽象的で広く使われているロジックはサービス内に入れましょう。
+* ビジネスロジックをコントローラ内に書かないようにしましょう。ビジネスロジックは、サービスを使って `model` に委譲します。
+  例:
 
   ```Javascript
-  //This is a common behaviour (bad example) of using business logic inside a controller.
+  //これはビジネスロジックをコントローラの中に書く良く行われる例です（悪い例ですが）
   angular.module('Store', [])
   .controller('OrderCtrl', function ($scope) {
 
@@ -398,10 +369,11 @@ Custom events:
   });
   ```
 
-  When delegating business logic into a 'model' service, controller will look like this (see 'use services as your Model' for service-model implementation):
+  `model` にビジネスロジックを委譲すると、コントローラはこのようになります（）。
+  When delegating business logic into a 'model' service, controller will look like this (サービスモデルの実装は 'use services as your Model'をご確認下さい):
 
   ```Javascript
-  //Order is used as a 'model'
+  //Orderは `model` として扱われています
   angular.module('Store', [])
   .controller('OrderCtrl', function (Order) {
 
@@ -421,14 +393,10 @@ Custom events:
   });
   ```
 
-  Why business logic / app state inside controllers is bad?
-  * Controllers instantiated for each view and dies when the view unloads
-  * Controllers are not reusable - they are coupled with the view
-  * Controllers are not meant to be injected
-
-
-* Communicate within different controllers using method invocation (possible when a child wants to communicate with its parent) or `$emit`, `$broadcast` and `$on` methods. The emitted and broadcasted messages should be kept to a minimum.
-* Make a list of all messages which are passed using `$emit`, `$broadcast` and manage it carefully because of name collisions and possible bugs.
+  どうしてビジネスロジックとステートをコントローラの中に書くのが悪いのでしょうか？
+  * コントローラはそれぞれのビューで生成され、ビューがアンドー度された時に消滅します。
+  * コントローラはビューと結びついているので再利用可能なものではありません。
+  * コントローラはインジェクションできません。
 
    Example:
 
