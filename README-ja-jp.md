@@ -48,7 +48,6 @@ AngularJSのGitHub Wikiに[ProLoser](https://github.com/ProLoser)の書いた類
 * [全般](#全般)
     * [ディレクトリ構造](#ディレクトリ構造)
     * [マークアップ](#マークアップ)
-    * [digestサイクルの最適化](#digestサイクルの最適化)
     * [その他](#その他)
 * [モジュール](#モジュール)
 * [コントローラ](#コントローラ)
@@ -58,6 +57,7 @@ AngularJSのGitHub Wikiに[ProLoser](https://github.com/ProLoser)の書いた類
 * [テンプレート](#テンプレート)
 * [ルーティング](#ルーティング)
 * [i18n](#i18n)
+* [パフォーマンス](#パフォーマンス)
 * [コントリビューション](#コントリビューション)
 * [Contributors](#contributors)
 
@@ -223,14 +223,14 @@ services
 
 その他のHTML属性はCode Guideの[方針](http://mdo.github.io/code-guide/#html-attribute-order)に従うのがよいでしょう。
 
-## digestサイクルの最適化
+<!-- ## digestサイクルの最適化
 
 * 特に重要な変数に対してのみ監視を行います。 `$digest` ループを明示的に記述する必要がある場合（例外的なケースだと思いますが）、本当に必要なときにのみ呼び出すようにします。（例えば、リアルタイム通信を使用する場合は、各受信メッセージ内で `$digest` ループが発生しないようにします）。
 * 初期化後に変更のないコンテンツを扱う場合、AngularJSの古いバージョンでは[`bindonce`](https://github.com/Pasvaz/bindonce)のようなシングルタイム・ワッチャーを使います。AngularJSのバージョン1.3.0以降では組み込みのワンタイム・バインディングを利用します。
 * `$watch` 内はできるだけシンプルな処理にします。一つの `$watch` 内で重くて遅い処理を作ってしまうとアプリケーション全体が遅くなってしまいます。(JavaScriptがシングルスレッドである性質上、 `$digest` のループはシングルスレッドで処理されます)。
 * コレクションを監視する場合、ほんとうに必要でなければオブジェクトの中身まで監視をするのはやめましょう。 `$watchCollection` を用いて同等性の浅いレベルでの監視にとどめておくべきです。
 * `$timeout` のコールバック関数が呼ばれることによって影響を受ける監視対象の変数がない場合に、 `$timeout` 関数の3番目のパラメータをfalseにすることで `$digest` ループをスキップします。
-* 巨大なコレクションを扱う場合、それはほとんど変更されません。[不可変データ構造を利用しましょう](http://blog.mgechev.com/2015/03/02/immutability-in-angularjs-immutablejs/)。
+* 巨大なコレクションを扱う場合、それはほとんど変更されません。[不可変データ構造を利用しましょう](http://blog.mgechev.com/2015/03/02/immutability-in-angularjs-immutablejs/)。 -->
 
 ## その他
 
@@ -253,8 +253,20 @@ services
 * できるだけ `$http` の代わりに `$resource` を使います。抽象性を高めることにより冗長なコードから解放されます。
 * AngularJS pre-minifier([ng-annotate](https://github.com/olov/ng-annotate))を使うことで、minifyした後に発生する問題を回避しましょう。
 * グローバル変数を使用してはいけません。依存性の注入を使って全ての依存関係を解決することで、バグやテスト時のモンキーパッチを防ぎます。
+* Avoid globals by using Grunt/Gulp to wrap your code in Immediately Invoked Function Expression (IIFE). You can use plugins like [grunt-wrap](https://www.npmjs.com/package/grunt-wrap) or [gulp-wrap](https://www.npmjs.com/package/gulp-wrap/) for this purpose. Example (using Gulp)
+
+	```Javascript
+	gulp.src("./src/*.js")
+    .pipe(wrap('(function(){\n"use strict";\n<%= contents %>\n})();'))
+    .pipe(gulp.dest("./dist"));
+    ```
 * `$scope` を汚染してはいけません。テンプレートで使用するメソッドや変数のみ追加しましょう。
-* [`ngInit` の代わりにcontroller](https://github.com/angular/angular.js/pull/4366/files)の使用を優先します。 `ngRepeat` のプロパティのエイリアスを作る場合にのみ `ngInit` を利用します。このケースに加え、スコープの変数を初期化する際にも `ngInit` よりもcontrollerを利用するべきです。
+<!-- * [`ngInit` の代わりにcontroller](https://github.com/angular/angular.js/pull/4366/files)の使用を優先します。 `ngRepeat` のプロパティのエイリアスを作る場合にのみ `ngInit` を利用します。このケースに加え、スコープの変数を初期化する際にも `ngInit` よりもcontrollerを利用するべきです。 -->
+* Prefer the usage of [controllers instead of `ngInit`](https://github.com/angular/angular.js/pull/4366/files). The only appropriate use of `ngInit` is for aliasing special properties of `ngRepeat`. Besides this case, you should use controllers rather than `ngInit` to initialize values on a scope. The expression passed to `ngInit` should go through lexing, parsing and evaluation by the Angular interpreter implemented inside the `$parse` service. This leads to:
+    - Performance impact, because the interpreter is implemented in JavaScript
+    - The caching of the parsed expressions inside the `$parse` service doesn't make a lot of sense in most cases, since `ngInit` expressions are often evaluated only once
+    - Is error-prone, since you're writing strings inside your templates, there's no syntax highlighting and further support by your editor
+    - No run-time errors are thrown
 * 変数名やメソッド名に `$` プレフィックスを使ってはいけません。このプレフィックスはAngularJSによって予約されています。
 * AngularJSの依存性の注入メカニズムによって依存性の解決を行う際には、AngularJSのビルトイン、カスタムという順に並べます。
 
@@ -270,29 +282,38 @@ module.factory('Service', function ($rootScope, $timeout, MyCustomDependency1, M
 
 * モジュールはlowerCamelCaseで命名します。モジュール `b` がモジュール `a` のサブモジュールである場合、 `a.b` のようにネームスペースを利用してネストすることができます。
 
-モジュールを構造化する方法は一般的に2つあります：
+<!-- モジュールを構造化する方法は一般的に2つあります：
 
 0. 機能性
 0. コンポーネントタイプ
 
-今現在、2つに大きな違いはありませんが、1.の方法がより整って見えます。また、もし遅延ローディング・モジュールが実装されたら(AnglarJSのロードマップにはありませんが)、アプリケーションのパフォーマンスが向上するでしょう。
+今現在、2つに大きな違いはありませんが、1.の方法がより整って見えます。また、もし遅延ローディング・モジュールが実装されたら(AnglarJSのロードマップにはありませんが)、アプリケーションのパフォーマンスが向上するでしょう。 -->
+  There are two common ways for structuring the modules:
+
+  0. By functionality
+  0. By component type
+
+  Currently there's not a big difference, but the first way looks cleaner. Also, if lazy-loading modules is implemented (currently not in the AngularJS roadmap), it will improve the app's performance.
 
 # コントローラ
 
 * コントローラ内でDOMを操作してはいけません。テストがしづらくなりますし、[関心の分離](https://en.wikipedia.org/wiki/Separation_of_concerns)の原則を破ることになります。代わりにティレクティブを使いましょう。
-* コントローラ名は、そのコントローラの機能を表す名前(例: shopping cart, homepage, admin panel)にし、最後に `Ctrl` を付けます。
-* コントローラは素のJavascriptなので（[constructors](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/constructor)）、命名はUpperCamelCase(`HomePageCtrl`, `ShoppingCartCtrl`, `AdminPanelCtrl`, etc.)を使います。
+<!-- * コントローラ名は、そのコントローラの機能を表す名前(例: shopping cart, homepage, admin panel)にし、最後に `Ctrl` を付けます。
+* コントローラは素のJavascriptなので（[constructors](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/constructor)）、命名はUpperCamelCase(`HomePageCtrl`, `ShoppingCartCtrl`, `AdminPanelCtrl`, etc.)を使います。 -->
+* The naming of the controller is done using the controller's functionality (for example shopping cart, homepage, admin panel) and the substring `Ctrl` in the end.
+* Controllers are plain javascript [constructors](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/constructor), so they will be named UpperCamelCase (`HomePageCtrl`, `ShoppingCartCtrl`, `AdminPanelCtrl`, etc.).
 * コントローラはグローバルな名前空間に定義してはいけません。(たとえAngularJSが許可しても、グローバルな名前空間を汚染するバッドプラクティスになります)。
 * コントローラの定義には下記の構文を使いましょう：
 
-```JavaScript
-function MyCtrl(dependency1, dependency2, ..., dependencyn) {
-  // ...
-}
-module.controller('MyCtrl', MyCtrl);
-```
+  ```JavaScript
+  function MyCtrl(dependency1, dependency2, ..., dependencyn) {
+    // ...
+  }
+  module.controller('MyCtrl', MyCtrl);
+  ```
 
-minifyの問題を回避するために、[ng-annotate](https://github.com/olov/ng-annotate)や(grunt task [grunt-ng-annotate](https://github.com/mzgol/grunt-ng-annotate))などの標準的なツールを使って配列定義構文を自動的に生成することができます。
+<!-- minifyの問題を回避するために、[ng-annotate](https://github.com/olov/ng-annotate)や(grunt task [grunt-ng-annotate](https://github.com/mzgol/grunt-ng-annotate))などの標準的なツールを使って配列定義構文を自動的に生成することができます。
+  In order to prevent problems with minification, you can automatically generate the array definition syntax from    the standard one using tools like [ng-annotate](https://github.com/olov/ng-annotate) (and grunt task          [grunt-ng-annotate](https://github.com/mzgol/grunt-ng-annotate)).
 
 * `controller as`シンタックスを使いましょう。
 
@@ -321,7 +342,7 @@ minifyの問題を回避するために、[ng-annotate](https://github.com/olov/
 
    `controller as` について詳しくは、 [digging-into-angulars-controller-as-syntax](http://toddmotto.com/digging-into-angulars-controller-as-syntax/) を参照してください。
 
-* なるべく無駄のないようにコントローラを作りましょう。抽象的で広く使われているロジックはサービス内に入れましょう。
+<!-- * なるべく無駄のないようにコントローラを作りましょう。抽象的で広く使われているロジックはサービス内に入れましょう。
 * メソッド呼び出し（子が親へアクセスしたいと思った時に利用可能）や `$emit` `$broadcast` `$on` メソッドで他のコントローラと連携を取るようにします。emitやbroadcastするメッセージは最小限に保ちましょう。
 * 名前の衝突やバグの原因にならないように `$emit` `$broadcast` をに指定する全てのメッセージのリストを作り、注意深く管理しましょう。
 
@@ -337,48 +358,141 @@ Custom events:
       - role - an ID of the role the user has
       - action - specific ation the user tries to perform
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-```
+``` -->
+* If using array definition syntax, use the original names of the controller's dependencies. This will help you produce more readable code:
+
+  ```JavaScript
+  function MyCtrl(s) {
+    // ...
+  }
+
+  module.controller('MyCtrl', ['$scope', MyCtrl]);
+  ```
+
+   which is less readable than:
+
+  ```JavaScript
+  function MyCtrl($scope) {
+    // ...
+  }
+  module.controller('MyCtrl', ['$scope', MyCtrl]);
+  ```
+
+   This especially applies to a file that has so much code that you'd need to scroll through. This would possibly cause you to forget which variable is tied to which dependency.
+
+* Make the controllers as lean as possible. Abstract commonly used functions into a service.
+* Avoid writing business logic inside controllers. Delegate business logic to a `model`, using a service.
+  For example:
+
+  ```Javascript
+  //This is a common behaviour (bad example) of using business logic inside a controller.
+  angular.module('Store', [])
+  .controller('OrderCtrl', function ($scope) {
+
+    $scope.items = [];
+
+    $scope.addToOrder = function (item) {
+      $scope.items.push(item);//-->Business logic inside controller
+    };
+
+    $scope.removeFromOrder = function (item) {
+      $scope.items.splice($scope.items.indexOf(item), 1);//-->Business logic inside controller
+    };
+
+    $scope.totalPrice = function () {
+      return $scope.items.reduce(function (memo, item) {
+        return memo + (item.qty * item.price);//-->Business logic inside controller
+      }, 0);
+    };
+  });
+  ```
+
+  When delegating business logic into a 'model' service, controller will look like this (see 'use services as your Model' for service-model implementation):
+
+  ```Javascript
+  //Order is used as a 'model'
+  angular.module('Store', [])
+  .controller('OrderCtrl', function (Order) {
+
+    $scope.items = Order.items;
+
+    $scope.addToOrder = function (item) {
+      Order.addToOrder(item);
+    };
+
+    $scope.removeFromOrder = function (item) {
+      Order.removeFromOrder(item);
+    };
+
+    $scope.totalPrice = function () {
+      return Order.total();
+    };
+  });
+  ```
+
+  Why business logic / app state inside controllers is bad?
+  * Controllers instantiated for each view and dies when the view unloads
+  * Controllers are not reusable - they are coupled with the view
+  * Controllers are not meant to be injected
+
+
+* Communicate within different controllers using method invocation (possible when a child wants to communicate with its parent) or `$emit`, `$broadcast` and `$on` methods. The emitted and broadcasted messages should be kept to a minimum.
+* Make a list of all messages which are passed using `$emit`, `$broadcast` and manage it carefully because of name collisions and possible bugs.
+
+   Example:
+
+   ```JavaScript
+   // app.js
+   /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+   Custom events:
+     - 'authorization-message' - description of the message
+       - { user, role, action } - data format
+         - user - a string, which contains the username
+         - role - an ID of the role the user has
+         - action - specific ation the user tries to perform
+   * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+   ```
 
 * データのフォーマットロジックを、[filter](#フィルタ)内にカプセル化する必要がある場合、このように依存関係を宣言します：
 
-```JavaScript
-function myFormat() {
-  return function () {
-    // ...
-  };
-}
-module.filter('myFormat', myFormat);
+   ```JavaScript
+   function myFormat() {
+     return function () {
+       // ...
+     };
+   }
+   module.filter('myFormat', myFormat);
 
-function MyCtrl($scope, myFormatFilter) {
-  // ...
-}
+   function MyCtrl($scope, myFormatFilter) {
+     // ...
+   }
 
-module.controller('MyCtrl', MyCtrl);
-```
+   module.controller('MyCtrl', MyCtrl);
+   ```
 
 * ネストしたコントローラを利用する場合、ネストスコープ（ `controllerAs` 構文）を使います。
 
-**app.js**
-```javascript
-module.config(function ($routeProvider) {
-  $routeProvider
-    .when('/route', {
-      templateUrl: 'partials/template.html',
-      controller: 'HomeCtrl',
-      controllerAs: 'home'
-    });
-});
-```
-**HomeCtrl**
-```javascript
-function HomeCtrl() {
-  this.bindingValue = 42;
-}
-```
-**template.html**
-```
-<div ng-bind="home.bindingValue"></div>
-```
+   **app.js**
+   ```javascript
+   module.config(function ($routeProvider) {
+     $routeProvider
+       .when('/route', {
+         templateUrl: 'partials/template.html',
+         controller: 'HomeCtrl',
+         controllerAs: 'home'
+       });
+   });
+   ```
+   **HomeCtrl**
+   ```javascript
+   function HomeCtrl() {
+     this.bindingValue = 42;
+   }
+   ```
+   **template.html**
+   ```
+   <div ng-bind="home.bindingValue"></div>
+   ```
 
 # ディレクティブ
 
@@ -424,7 +538,7 @@ function HomeCtrl() {
 
   * その他のサービス名はlowerCamelCaseで記述します。
 
-* ビジネスロジックはカプセル化してサービスに入れます。
+<!-- * ビジネスロジックはカプセル化してサービスに入れます。
 * 問題領域(ドメイン)に関わる処理を行うサービスは `factory` の代わりに `service` を利用するのがよいでしょう。"klassical"な継承を利用できるメリットがあります：
 
 ```JavaScript
@@ -451,6 +565,7 @@ myModule.service('Developer', Developer);
 * セッションレベルでのキャッシュには `$cacheFactory` が使えます。これはリクエスト結果をキャッシュしたい時や重い処理をキャッシュしたいときに使えます。
 * 設定が必要なサービスを利用する場合は、サービスをプロバイダとして利用し、 `config` コールバックで設定をします。
 
+
 ```JavaScript
 angular.module('demo', [])
 .config(function ($provide) {
@@ -474,7 +589,89 @@ var demo = angular.module('demo');
 demo.config(function (sampleProvider) {
   sampleProvider.setFoo(41);
 });
-```
+```-->
+* Encapsulate all the business logic in services. Prefer using it as your `model`. For example:
+  ```Javascript
+  //Order is the 'model'
+  angular.module('Store')
+  .factory('Order', function () {
+      var add = function (item) {
+        this.items.push (item);
+      };
+
+      var remove = function (item) {
+        if (this.items.indexOf(item) > -1) {
+          this.items.splice(this.items.indexOf(item), 1);
+        }
+      };
+
+      var total = function () {
+        return this.items.reduce(function (memo, item) {
+          return memo + (item.qty * item.price);
+        }, 0);
+      };
+
+      return {
+        items: [],
+        addToOrder: add,
+        removeFromOrder: remove,
+        totalPrice: total
+      };
+  });
+  ```
+
+  See 'Avoid writing business logic inside controllers' for an example of a controller consuming this service.
+* Services representing the domain preferably a `service` instead of a `factory`. In this way we can take advantage of the "klassical" inheritance easier:
+
+	```JavaScript
+	function Human() {
+	  //body
+	}
+	Human.prototype.talk = function () {
+	  return "I'm talking";
+	};
+
+	function Developer() {
+	  //body
+	}
+	Developer.prototype = Object.create(Human.prototype);
+	Developer.prototype.code = function () {
+	  return "I'm coding";
+	};
+
+	myModule.service('Human', Human);
+	myModule.service('Developer', Developer);
+
+	```
+
+* For session-level cache you can use `$cacheFactory`. This should be used to cache results from requests or heavy computations.
+* If given service requires configuration define the service as provider and configure it in the `config` callback like:
+
+	```JavaScript
+	angular.module('demo', [])
+	.config(function ($provide) {
+	  $provide.provider('sample', function () {
+	    var foo = 42;
+	    return {
+	      setFoo: function (f) {
+	        foo = f;
+	      },
+	      $get: function () {
+	        return {
+	          foo: foo
+	        };
+	      }
+	    };
+	  });
+	});
+
+	var demo = angular.module('demo');
+
+	demo.config(function (sampleProvider) {
+	  sampleProvider.setFoo(41);
+	});
+	```
+
 
 # テンプレート
 
@@ -505,6 +702,18 @@ $scope.divStyle = {
 # i18n
 
 * バージョン1.4.0以降でビルトインのi18nツールを利用することができます。1.4.0より前のバージョンを利用している場合は、[`angular-translate`](https://github.com/angular-translate/angular-translate)を利用することができます。
+
+# パフォーマンス
+
+* Optimize the digest cycle
+
+	* Watch only the most vital variables. When required to invoke the `$digest` loop explicitly (it should happen only in exceptional cases), invoke it only when required (for example: when using real-time communication, don't cause a `$digest` loop in each received message).
+	* For content that is initialized only once and then never changed, use single-time watchers like [`bindonce`](https://github.com/Pasvaz/bindonce) for older versions of AngularJS or one-time bindings in AngularJS >=1.3.0.
+	* Make the computations in `$watch` as simple as possible. Making heavy and slow computations in a single `$watch` will slow down the whole application (the `$digest` loop is done in a single thread because of the single-threaded nature of JavaScript).
+	* When watching collections, do not watch them deeply when not strongly required. Better use `$watchCollection`, which performs a shallow check for equility of the result of the watched expression and the previous value of the expression's evaluation.
+	* Set third parameter in `$timeout` function to false to skip the `$digest` loop when no watched variables are impacted by the invocation of the `$timeout` callback function.
+	* When dealing with big collections, which change rarely, [use immutable data structures](http://blog.mgechev.com/2015/03/02/immutability-in-angularjs-immutablejs/).
+
 
 # コントリビューション
 
