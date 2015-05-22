@@ -81,7 +81,6 @@ These best practices are collected from:</p>
 <li><a href="#general">General</a><ul class="list">
 <li><a href="#directory-structure">Directory structure</a></li>
 <li><a href="#markup">Markup</a></li>
-<li><a href="#optimize-the-digest-cycle">Optimize the digest cycle</a></li>
 <li><a href="#others">Others</a></li>
 </ul>
 </li>
@@ -227,15 +226,6 @@ There are two main approaches:</p>
     &lt;input <span class="hljs-variable">class=</span><span class="hljs-string">"ipt"</span> <span class="hljs-variable">type=</span><span class="hljs-string">"text"</span> <span class="hljs-variable">placeholder=</span><span class="hljs-string">"name"</span> require <span class="hljs-variable">ng-model=</span><span class="hljs-string">"user.name"</span>&gt;
   &lt;/div&gt;
 &lt;/form&gt;</code></pre><p>Other HTML atributes should follow the Code Guide&#39;s <a href="http://mdo.github.io/code-guide/#html-attribute-order">recommendation</a></p>
-<h2 id="optimize-the-digest-cycle">Optimize the digest cycle</h2>
-<ul class="list">
-<li>Watch only the most vital variables. When required to invoke the <code>$digest</code> loop explicitly (it should happen only in exceptional cases), invoke it only when required (for example: when using real-time communication, don&#39;t cause a <code>$digest</code> loop in each received message).</li>
-<li>For content that is initialized only once and then never changed, use single-time watchers like <a href="https://github.com/Pasvaz/bindonce"><code>bindonce</code></a> for older versions of AngularJS or one-time bindings in AngularJS &gt;=1.3.0.</li>
-<li>Make the computations in <code>$watch</code> as simple as possible. Making heavy and slow computations in a single <code>$watch</code> will slow down the whole application (the <code>$digest</code> loop is done in a single thread because of the single-threaded nature of JavaScript).</li>
-<li>When watching collections, do not watch them deeply when not strongly required. Better use <code>$watchCollection</code>, which performs a shallow check for equility of the result of the watched expression and the previous value of the expression&#39;s evaluation.</li>
-<li>Set third parameter in <code>$timeout</code> function to false to skip the <code>$digest</code> loop when no watched variables are impacted by the invocation of the <code>$timeout</code> callback function.</li>
-<li>When dealing with big collections, which change rarely, <a href="http://blog.mgechev.com/2015/03/02/immutability-in-angularjs-immutablejs/">use immutable data structures</a>.</li>
-</ul>
 <h2 id="others">Others</h2>
 <ul class="list">
 <li>Use:<ul class="list">
@@ -570,7 +560,19 @@ $scope.divStyle = {
 </ul>
 <h1 id="performance">Performance</h1>
 <ul class="list">
-<li>Consider decreasing number of network requests by bundling/caching html template files into your main javascript file, using <a href="https://github.com/karlgoldstein/grunt-html2js">grunt-html2js</a> / <a href="https://github.com/fraserxu/gulp-html2js">gulp-html2js</a>. See <a href="http://ng-learn.org/2014/08/Populating_template_cache_with_html2js/">here</a> and <a href="http://slides.com/yanivefraim-1/real-world-angularjs#/34">here</a> for details. This is particularry usefull when the project has a lot of small html templates that can be a part of the main (minified and gzipped) javascript file.</li>
+<li><p>Optimize the digest cycle</p>
+<ul class="list">
+<li>Watch only the most vital variables. When required to invoke the <code>$digest</code> loop explicitly (it should happen only in exceptional cases), invoke it only when required (for example: when using real-time communication, don&#39;t cause a <code>$digest</code> loop in each received message).</li>
+<li>For content that is initialized only once and then never changed, use single-time watchers like <a href="https://github.com/Pasvaz/bindonce"><code>bindonce</code></a> for older versions of AngularJS or one-time bindings in AngularJS &gt;=1.3.0.</li>
+<li>Make the computations in <code>$watch</code> as simple as possible. Making heavy and slow computations in a single <code>$watch</code> will slow down the whole application (the <code>$digest</code> loop is done in a single thread because of the single-threaded nature of JavaScript).</li>
+<li>When watching collections, do not watch them deeply when not strongly required. Better use <code>$watchCollection</code>, which performs a shallow check for equility of the result of the watched expression and the previous value of the expression&#39;s evaluation.</li>
+<li>Set third parameter in <code>$timeout</code> function to false to skip the <code>$digest</code> loop when no watched variables are impacted by the invocation of the <code>$timeout</code> callback function.</li>
+<li>When dealing with big collections, which change rarely, <a href="http://blog.mgechev.com/2015/03/02/immutability-in-angularjs-immutablejs/">use immutable data structures</a>.</li>
+</ul>
+</li>
+</ul>
+<ul class="list">
+<li>Consider decreasing number of network requests by bundling/caching html template files into your main javascript file, using <a href="https://github.com/karlgoldstein/grunt-html2js">grunt-html2js</a> / <a href="https://github.com/fraserxu/gulp-html2js">gulp-html2js</a>. See <a href="http://ng-learn.org/2014/08/Populating_template_cache_with_html2js/">here</a> and <a href="http://slides.com/yanivefraim-1/real-world-angularjs#/34">here</a> for details. This is particularly useful when the project has a lot of small html templates that can be a part of the main (minified and gzipped) javascript file.</li>
 </ul>
 <h1 id="contribution">Contribution</h1>
 <p>Since the goal of this style guide is to be community-driven, contributions are greatly appreciated.
@@ -582,9 +584,9 @@ For example, you can contribute by extending the Testing section or by translati
 <th style="text-align:center"><a href="https://github.com/mgechev"><img alt="mgechev" src="https://avatars.githubusercontent.com/u/455023?v=3&s=117" width="117"></a></th>
 <th style="text-align:center"><a href="https://github.com/morizotter"><img alt="morizotter" src="https://avatars.githubusercontent.com/u/536954?v=3&s=117" width="117"></a></th>
 <th style="text-align:center"><a href="https://github.com/pascalockert"><img alt="pascalockert" src="https://avatars.githubusercontent.com/u/4253438?v=3&s=117" width="117"></a></th>
-<th style="text-align:center"><a href="https://github.com/ericguirbal"><img alt="ericguirbal" src="https://avatars.githubusercontent.com/u/322135?v=3&s=117" width="117"></a></th>
 <th style="text-align:center"><a href="https://github.com/yanivefraim"><img alt="yanivefraim" src="https://avatars.githubusercontent.com/u/1336186?v=3&s=117" width="117"></a></th>
-<th style="text-align:center"><a href="https://github.com/mainyaa"><img alt="mainyaa" src="https://avatars.githubusercontent.com/u/800781?v=3&s=117" width="117"></a></th>
+<th style="text-align:center"><a href="https://github.com/ericguirbal"><img alt="ericguirbal" src="https://avatars.githubusercontent.com/u/322135?v=3&s=117" width="117"></a></th>
+<th style="text-align:center"><a href="https://github.com/agnislav"><img alt="agnislav" src="https://avatars.githubusercontent.com/u/364255?v=3&s=117" width="117"></a></th>
 </tr>
 </thead>
 <tbody>
@@ -592,9 +594,9 @@ For example, you can contribute by extending the Testing section or by translati
 <td style="text-align:center"><a href="https://github.com/mgechev">mgechev</a></td>
 <td style="text-align:center"><a href="https://github.com/morizotter">morizotter</a></td>
 <td style="text-align:center"><a href="https://github.com/pascalockert">pascalockert</a></td>
-<td style="text-align:center"><a href="https://github.com/ericguirbal">ericguirbal</a></td>
 <td style="text-align:center"><a href="https://github.com/yanivefraim">yanivefraim</a></td>
-<td style="text-align:center"><a href="https://github.com/mainyaa">mainyaa</a></td>
+<td style="text-align:center"><a href="https://github.com/ericguirbal">ericguirbal</a></td>
+<td style="text-align:center"><a href="https://github.com/agnislav">agnislav</a></td>
 <td></td>
 </tr>
 </tbody>
@@ -602,8 +604,8 @@ For example, you can contribute by extending the Testing section or by translati
 <table>
 <thead>
 <tr>
+<th style="text-align:center"><a href="https://github.com/mainyaa"><img alt="mainyaa" src="https://avatars.githubusercontent.com/u/800781?v=3&s=117" width="117"></a></th>
 <th style="text-align:center"><a href="https://github.com/elfinxx"><img alt="elfinxx" src="https://avatars.githubusercontent.com/u/4384908?v=3&s=117" width="117"></a></th>
-<th style="text-align:center"><a href="https://github.com/agnislav"><img alt="agnislav" src="https://avatars.githubusercontent.com/u/364255?v=3&s=117" width="117"></a></th>
 <th style="text-align:center"><a href="https://github.com/Xuefeng-Zhu"><img alt="Xuefeng-Zhu" src="https://avatars.githubusercontent.com/u/5875315?v=3&s=117" width="117"></a></th>
 <th style="text-align:center"><a href="https://github.com/lukaszklis"><img alt="lukaszklis" src="https://avatars.githubusercontent.com/u/11782?v=3&s=117" width="117"></a></th>
 <th style="text-align:center"><a href="https://github.com/previousdeveloper"><img alt="previousdeveloper" src="https://avatars.githubusercontent.com/u/6371971?v=3&s=117" width="117"></a></th>
@@ -612,8 +614,8 @@ For example, you can contribute by extending the Testing section or by translati
 </thead>
 <tbody>
 <tr>
+<td style="text-align:center"><a href="https://github.com/mainyaa">mainyaa</a></td>
 <td style="text-align:center"><a href="https://github.com/elfinxx">elfinxx</a></td>
-<td style="text-align:center"><a href="https://github.com/agnislav">agnislav</a></td>
 <td style="text-align:center"><a href="https://github.com/Xuefeng-Zhu">Xuefeng-Zhu</a></td>
 <td style="text-align:center"><a href="https://github.com/lukaszklis">lukaszklis</a></td>
 <td style="text-align:center"><a href="https://github.com/previousdeveloper">previousdeveloper</a></td>
@@ -786,7 +788,6 @@ For example, you can contribute by extending the Testing section or by translati
     <li><a href="#general" class="heading heading-1">General</a></li>
     <li><a href="#directory-structure" class="heading heading-2">Directory structure</a></li>
     <li><a href="#markup" class="heading heading-2">Markup</a></li>
-    <li><a href="#optimize-the-digest-cycle" class="heading heading-2">Optimize the digest cycle</a></li>
     <li><a href="#others" class="heading heading-2">Others</a></li>
     <li><a href="#modules" class="heading heading-1">Modules</a></li>
     <li><a href="#controllers" class="heading heading-1">Controllers</a></li>
