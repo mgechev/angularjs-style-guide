@@ -230,7 +230,7 @@ services
 
 * Используйте:
     * `$timeout` вместо `setTimeout`
-    * `$interval` instead of `setInterval`
+    * `$interval` вместо `setInterval`
     * `$window` вместо `window`
     * `$document` вместо `document`
     * `$http` вместо `$.ajax`
