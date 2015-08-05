@@ -199,7 +199,7 @@ Les autres attributs HTML devraient suivre les recommandations du [Code Guide](h
 
 ## Autres
 
-* Utilisation:
+* Utiliser:
     * `$timeout` au lieu de `setTimeout`
     * `$window` au lieu de `window`
     * `$document` au lieu de `document`
@@ -208,19 +208,30 @@ Les autres attributs HTML devraient suivre les recommandations du [Code Guide](h
 Cela rendra vos tests plus facile et, dans certains cas, évitera les comportements inattendus (par exemple, si vous avez oublié `$scope.$apply` dans `setTimeout`).
 
 * Automatisez votre flux de travail en utilisant des outils comme:
-     * [Yeoman](http://yeoman.io)
-     * [Grunt](http://gruntjs.com)
-     * [Bower](http://bower.io)
-	 * [Component](http://component.io)
+    * [Yeoman](http://yeoman.io)
+    * [Gulp](http://gulpjs.com)
+    * [Grunt](http://gruntjs.com)
+    * [Bower](http://bower.io)
 
 * Utilisez des promises (`$q`) au lieu de rappels (callback). Il rendra votre code plus élégant, propre et simple à regarder, et vous sauvera de l'enfer des callbacks.
 * Utilisez `$resource` au lieu de `$http` quand cela est possible. Un niveau d'abstraction plus élevé vous permet d'économiser de la redondance.
-* Utilisez un pré-minifier AngularJS (comme [ngmin](https://github.com/btford/ngmin) ou [ng_annote](https://github.com/olov/ng-annotate)) pour la prévention des problèmes après minification.
-* Ne pas utiliser de globales. Résoudre toutes les dépendances en utilisant l'injection de dépendances.
+* Utilisez un pré-minifier AngularJS (comme [ng-annotate](https://github.com/olov/ng-annotate)) pour la prévention des problèmes après minification.
+* Ne pas utiliser de variables globales. Résoudre toutes les dépendances en utilisant l'injection de dépendances.
 * Ne pas polluer votre portée `$scope`. Ajouter uniquement des fonctions et des variables qui sont utilisés dans les gabarits.
-* Préférer l'utilisation de contrôleurs au lieu de [`ngInit`](https://github.com/angular/angular.js/pull/4366/files). La seule utilisation appropriée de `ngInit` est pour initialiser des propriétés particulières de `ngRepeat`. Outre ce cas, vous devez utiliser les contrôleurs plutôt que `ngInit` pour initialiser les valeurs sur une portée.
+* Eliminez les variables globales avec Grunt/Gulp pour anglober votre code dans des Expressions de Fonction Immediatement Invoquée (Immediately Invoked Function Expression, IIFE). Vous pouvez utiliser des plugins comme [grunt-wrap](https://www.npmjs.com/package/grunt-wrap) ou [gulp-wrap](https://www.npmjs.com/package/gulp-wrap/) pour cet usage. Example (avec Gulp)
+
+	```Javascript
+	gulp.src("./src/*.js")
+    .pipe(wrap('(function(){\n"use strict";\n<%= contents %>\n})();'))
+    .pipe(gulp.dest("./dist"));
+    ```
+* Préférer l'utilisation de contrôleurs au lieu de [`ngInit`](https://github.com/angular/angular.js/pull/4366/files). La seule utilisation appropriée de `ngInit` est pour initialiser des propriétés particulières de `ngRepeat`. Outre ce cas, vous devez utiliser les contrôleurs plutôt que `ngInit` pour initialiser les valeurs sur une portée. L'expression passée à `ngInit` doit être analysée et évaluée par l'interpréteur d'Angular implémenté dans le service `$parse`. Ceci mène à:
+    - Des impacts sur la performance, car l'interpréteur es implémenté en JavaScript
+    - La mise en cache des expressions passées au service `$parse` n'a pas réellement de sens dans la plus part des cas, étant donnée que l'expression `ngInit` est évaluée une seule fois
+    - Ecrire des chaînes de caractère dans votre HTML peut apporter des erreurs, puisqu'il n'y a pas d'auto-complétion ou de support par l'éditeur de texte
+    - Aucune levée d'exception à l'éxécution
 * Ne pas utiliser le prefixe `$` pour les noms de variables, les propriétés et les méthodes. Ce préfixe est réservé pour un usage de AngularJS.
-* Lors de la résolution des dépendances par le système DI d'AngularJS, trier les dépendances par leur type &mdash; les dépendances intégrées à AngularJS en premier, suivies des vôtres :
+* Lors de la résolution des dépendances par le système d'Injection de Dépendances (Dependancy Injection, DI) d'AngularJS, trier les dépendances par leur type &mdash; les dépendances intégrées à AngularJS en premier, suivies des vôtres :
 
 ```javascript
 module.factory('Service', function ($rootScope, $timeout, MyCustomDependency1, MyCustomDependency2) {
