@@ -192,7 +192,7 @@ Conventions about component naming can be found in each component section.
 
 [TLDR;](http://developer.yahoo.com/blogs/ydn/high-performance-sites-rule-6-move-scripts-bottom-7200.html) Put the scripts at the bottom.
 
-```
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -211,7 +211,7 @@ Conventions about component naming can be found in each component section.
 
 Keep things simple and put AngularJS specific directives later. This way is easy to look to the code and find enhanced HTML by the framework (what improve the maintainibility).
 
-```
+```html
 <form class="frm" ng-submit="login.authenticate()">
   <div>
     <input class="ipt" type="text" placeholder="name" require ng-model="user.name">
