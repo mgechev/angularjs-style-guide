@@ -218,7 +218,7 @@ Cela rendra vos tests plus facile et, dans certains cas, évitera les comporteme
 * Utilisez un pré-minifier AngularJS (comme [ng-annotate](https://github.com/olov/ng-annotate)) pour la prévention des problèmes après minification.
 * Ne pas utiliser de variables globales. Résoudre toutes les dépendances en utilisant l'injection de dépendances.
 * Ne pas polluer votre portée `$scope`. Ajouter uniquement des fonctions et des variables qui sont utilisés dans les gabarits.
-* Eliminez les variables globales avec Grunt/Gulp pour anglober votre code dans des Expressions de Fonction Immediatement Invoquée (Immediately Invoked Function Expression, IIFE). Vous pouvez utiliser des plugins comme [grunt-wrap](https://www.npmjs.com/package/grunt-wrap) ou [gulp-wrap](https://www.npmjs.com/package/gulp-wrap/) pour cet usage. Example (avec Gulp)
+* Eliminez les variables globales avec Grunt/Gulp pour anglober votre code dans des Expressions de Fonction Immediatement Invoquée (Immediately Invoked Function Expression, IIFE). Vous pouvez utiliser des plugins comme [grunt-wrap](https://www.npmjs.com/package/grunt-wrap) ou [gulp-wrap](https://www.npmjs.com/package/gulp-wrap/) pour cet usage. Exemple (avec Gulp)
 
 	```Javascript
 	gulp.src("./src/*.js")
@@ -287,6 +287,19 @@ Cela s'applique particulièrement à un fichier qui a tellement de lignes de cod
 * Faites les contrôleurs aussi simples que possible. Extrayez les fonctions couramment utilisées dans un service.
 * Communiquez entre les différents contrôleurs en utilisant l'appel de méthode (possible lorsqu'un enfant veut communiquer avec son parent) ou `$emit`, `$broadcast` et `$on`. Les messages émis et diffusés doivent être réduits au minimum.
 * Faites une liste de tous les messages qui sont passés en utilisant `$emit` et `$broadcast`, et gérez-la avec précaution à cause des conflits de nom et bugs éventuels.
+Exemple:
+
+   ```JavaScript
+   // app.js
+   /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+   Custom events:
+     - 'authorization-message' - description of the message
+       - { user, role, action } - data format
+         - user - a string, which contains the username
+         - role - an ID of the role the user has
+         - action - specific ation the user tries to perform
+   * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+   ```
 * Si vous devez formater les données alors encapsulez la logique de mise en forme dans un [filtre](#filtres) et déclarez-le comme dépendance&#8239;:
 
 ```JavaScript
@@ -300,6 +313,87 @@ module.controller('MyCtrl', ['$scope', 'myFormatFilter', function ($scope, myFor
   //body...
 }]);
 ```
+
+* Il est préférable d'utiliser la syntaxe `controller as`:
+
+  ```
+  <div ng-controller="MainCtrl as main">
+     {{ main.title }}
+  </div>
+  ```
+
+  ```JavaScript
+  app.controller('MainCtrl', MainCtrl);
+
+  function MainCtrl () {
+    this.title = 'Some title';
+  }
+  ```
+
+   Les principales avantages d'utiliser cette syntaxe:
+   * Créer des composants isolés - les propriétés liées ne font pas parties de la chaîne de prototypage de `$scope`. C'est une bonne pratique depuis que l'héritage du prototype de `$scope` a quelques inconvénients majeurs (c'est probablement la raison pour laquelle il serat supprimé d'Angular 2):
+      * Il est difficile de suivre la trace des données pour savoir où elles vont.
+      * Le changement de valeur d'un scope peut affecter certaines portées de façon inattendue.
+      * Plus difficile à réusiner (refactoring).
+      * La règle des points : '[dot rule(in English)](http://jimhoskins.com/2012/12/14/nested-scopes-in-angularjs.html)'.
+   * Ne pas utiliser `$scope` sauf pour le besoin d'opérations spéciales (comme `$scope.$broadcast`) est une bonne preparation pour AngularJS V2.
+   * La syntaxe est plus proche du constructeur Javascript brut ('vanilla').
+
+   Decouvrez la syntaxe `controller as` en détail: [adoptez-la-syntaxe-controller-as](http://www.occitech.fr/blog/2014/06/adoptez-la-syntaxe-controller-as-angularjs/)
+
+* Eviter d'écrire la logique métier dans le contrôleur. Déplacez la logique métier dans un `modèle`, grâce à un service.
+  Par exemple:
+
+  ```Javascript
+  //Ceci est un comportement répandu (mauvais exemple) d'utiliser le contrôleur pour implémenter la logique métier.
+  angular.module('Store', [])
+  .controller('OrderCtrl', function ($scope) {
+
+    $scope.items = [];
+
+    $scope.addToOrder = function (item) {
+      $scope.items.push(item);//-->Logique métier dans le contrôleur
+    };
+
+    $scope.removeFromOrder = function (item) {
+      $scope.items.splice($scope.items.indexOf(item), 1);//-->Logique métier dans le contrôleur
+    };
+
+    $scope.totalPrice = function () {
+      return $scope.items.reduce(function (memo, item) {
+        return memo + (item.qty * item.price);//-->Logique métier dans le contrôleur
+      }, 0);
+    };
+  });
+  ```
+
+  Quand on utilise un service comme 'modèle' pour implémenter la logique métier, voici à quoi ressemble le contrôleur (voir 'utilisez un service comme votre Modèle' pour une implémentation d'un service-modèle):
+
+  ```Javascript
+  //Order est utilisé comme un 'modèle'
+  angular.module('Store', [])
+  .controller('OrderCtrl', function (Order) {
+
+    $scope.items = Order.items;
+
+    $scope.addToOrder = function (item) {
+      Order.addToOrder(item);
+    };
+
+    $scope.removeFromOrder = function (item) {
+      Order.removeFromOrder(item);
+    };
+
+    $scope.totalPrice = function () {
+      return Order.total();
+    };
+  });
+  ```
+
+  Pourquoi la mise en place de la logique métier dans le contrôleur est une mauvaise pratique ?
+  * Les contrôleurs sont instanciés pour chaque vue HTML et sont détruits au déchargement de la vue.
+  * Les contrôleurs ne sont pas ré-utilisables - ils sont liés à la vue HTML.
+  * Les contrôleurs ne sont pas destinés à êtres injectés.
 
 * Dans le cas de contrôleurs imbriqués utilisez les portées emboitées (avec `controllerAs`)&#8239;:
 
@@ -448,5 +542,4 @@ TBD
 #Contribution
 
 Puisque ce guide de style a pour but d'être un projet communautaire, les contributions sont très appréciées. Par exemple, vous pouvez contribuer en développant la section [Tests](#tests) ou en traduisant le guide dans votre langue.
-
 
