@@ -218,7 +218,7 @@ Cela rendra vos tests plus facile et, dans certains cas, évitera les comporteme
 * Utilisez un pré-minifier AngularJS (comme [ng-annotate](https://github.com/olov/ng-annotate)) pour la prévention des problèmes après minification.
 * Ne pas utiliser de variables globales. Résoudre toutes les dépendances en utilisant l'injection de dépendances.
 * Ne pas polluer votre portée `$scope`. Ajouter uniquement des fonctions et des variables qui sont utilisés dans les gabarits.
-* Eliminez les variables globales avec Grunt/Gulp pour anglober votre code dans des Expressions de Fonction Immediatement Invoquée (Immediately Invoked Function Expression, IIFE). Vous pouvez utiliser des plugins comme [grunt-wrap](https://www.npmjs.com/package/grunt-wrap) ou [gulp-wrap](https://www.npmjs.com/package/gulp-wrap/) pour cet usage. Example (avec Gulp)
+* Eliminez les variables globales avec Grunt/Gulp pour anglober votre code dans des Expressions de Fonction Immediatement Invoquée (Immediately Invoked Function Expression, IIFE). Vous pouvez utiliser des plugins comme [grunt-wrap](https://www.npmjs.com/package/grunt-wrap) ou [gulp-wrap](https://www.npmjs.com/package/gulp-wrap/) pour cet usage. Exemple (avec Gulp)
 
 	```Javascript
 	gulp.src("./src/*.js")
@@ -287,7 +287,7 @@ Cela s'applique particulièrement à un fichier qui a tellement de lignes de cod
 * Faites les contrôleurs aussi simples que possible. Extrayez les fonctions couramment utilisées dans un service.
 * Communiquez entre les différents contrôleurs en utilisant l'appel de méthode (possible lorsqu'un enfant veut communiquer avec son parent) ou `$emit`, `$broadcast` et `$on`. Les messages émis et diffusés doivent être réduits au minimum.
 * Faites une liste de tous les messages qui sont passés en utilisant `$emit` et `$broadcast`, et gérez-la avec précaution à cause des conflits de nom et bugs éventuels.
-Example:
+Exemple:
 
    ```JavaScript
    // app.js
@@ -342,10 +342,10 @@ module.controller('MyCtrl', ['$scope', 'myFormatFilter', function ($scope, myFor
    Decouvrez la syntaxe `controller as` en détail: [adoptez-la-syntaxe-controller-as](http://www.occitech.fr/blog/2014/06/adoptez-la-syntaxe-controller-as-angularjs/)
 
 * Eviter d'écrire la logique métier dans le contrôleur. Déplacez la logique métier dans un `modèle`, grâce à un service.
-  Par example:
+  Par exemple:
 
   ```Javascript
-  //Ceci est un comportement répandu (mauvais example) d'utiliser le contrôleur pour implémenter la logique métier.
+  //Ceci est un comportement répandu (mauvais exemple) d'utiliser le contrôleur pour implémenter la logique métier.
   angular.module('Store', [])
   .controller('OrderCtrl', function ($scope) {
 
