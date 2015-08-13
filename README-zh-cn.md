@@ -7,7 +7,8 @@
 0. 本人阅读过的源码和文章
 0. 本人的实践经历
 
-**说明**: 这只是风格指南的草案，主要目的是通过交流以消除分歧，进而被社区广泛采纳。
+**说明1**: 这只是风格指南的草案，主要目的是通过交流以消除分歧，进而被社区广泛采纳。  
+**说明2**: 本版本是翻译自英文原版，在遵循下面的指南之前请确认你看到的是比较新的版本。
 
 在本指南中不会包含基本的JavaScript开发指南。这些基本的指南可以在下面的列表中找到：
 
@@ -15,15 +16,33 @@
 0. [Mozilla's JavaScript style guide](https://developer.mozilla.org/en-US/docs/Developer_Guide/Coding_Style)
 0. [GitHub's JavaScript style guide](https://github.com/styleguide/javascript)
 0. [Douglas Crockford's JavaScript style guide](http://javascript.crockford.com/code.html)
+0. [Airbnb JavaScript style guide](https://github.com/airbnb/javascript)
 
 对于AngularJS开发，推荐 [Google's JavaScript style guide](http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml).
 
 在AngularJS的Github wiki中有一个相似的章节 [ProLoser](https://github.com/ProLoser), you can check it [here](https://github.com/angular/angular.js/wiki).
 
+# 其它翻译版本
+
+- [英语](https://github.com/mgechev/angularjs-style-guide/blob/master/README.md)
+- [德语](https://github.com/mgechev/angularjs-style-guide/blob/master/README-de-de.md)
+- [西班牙语](https://github.com/mgechev/angularjs-style-guide/blob/master/README-es-es.md)
+- [法语](https://github.com/mgechev/angularjs-style-guide/blob/master/README-fr-fr.md)
+- [印度尼西亚语](https://github.com/mgechev/angularjs-style-guide/blob/master/README-id-id.md)
+- [意大利语](https://github.com/mgechev/angularjs-style-guide/blob/master/README-it-it.md)
+- [日语](https://github.com/mgechev/angularjs-style-guide/blob/master/README-ja-jp.md)
+- [韩语](https://github.com/mgechev/angularjs-style-guide/blob/master/README-ko-kr.md)
+- [波兰语](https://github.com/mgechev/angularjs-style-guide/blob/master/README-pl-pl.md)
+- [葡萄牙语](https://github.com/mgechev/angularjs-style-guide/blob/master/README-pt-br.md)
+- [俄语](https://github.com/mgechev/angularjs-style-guide/blob/master/README-ru-ru.md)
+- [塞尔维亚语](https://github.com/mgechev/angularjs-style-guide/blob/master/README-sr.md)
+- [塞尔维亚拉丁语](https://github.com/mgechev/angularjs-style-guide/blob/master/README-sr-lat.md)
+- [土耳其语](https://github.com/mgechev/angularjs-style-guide/blob/master/README-tr-tr.md)
+
 # 内容目录
 * [概览](#general)
     * [目录结构](#directory-structure)
-    * [优化 digest cycle](#optimize-the-digest-cycle)
+    * [标记](#markup)
     * [其他](#others)
 * [模块](#modules)
 * [控制器](#controllers)
@@ -32,6 +51,10 @@
 * [服务](#services)
 * [模板](#templates)
 * [路由](#routing)
+* [多语言支持](#i18n)
+* [性能](#performance)
+* [加入我们](#contribution)
+* [贡献者](#contributors)
 
 # 概览
 
