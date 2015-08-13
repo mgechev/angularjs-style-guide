@@ -40,21 +40,21 @@
 - [土耳其语](https://github.com/mgechev/angularjs-style-guide/blob/master/README-tr-tr.md)
 
 # 内容目录
-* [概览](#general)
-    * [目录结构](#directory-structure)
-    * [标记](#markup)
-    * [其他](#others)
-* [模块](#modules)
-* [控制器](#controllers)
-* [指令](#directives)
-* [过滤器](#filters)
-* [服务](#services)
-* [模板](#templates)
-* [路由](#routing)
-* [多语言支持](#i18n)
-* [性能](#performance)
-* [加入我们](#contribution)
-* [贡献者](#contributors)
+* [概览](#概览)
+    * [目录结构](#目录结构)
+    * [标记](#标记)
+    * [其他](#其他)
+* [模块](#模块)
+* [控制器](#控制器)
+* [指令](#指令)
+* [过滤器](#过滤器)
+* [服务](#服务)
+* [模板](#模板)
+* [路由](#路由)
+* [国际化](#国际化)
+* [性能](#性能)
+* [加入我们](#加入我们)
+* [贡献者](#贡献者)
 
 # 概览
 
@@ -176,15 +176,39 @@ app
 
 本人更倾向于第一种组织方式，因为更易于查找组件。
 
-## 优化 digest cycle
+## 标记
 
-* 只监听必要的变量(例如：在进行实时通讯时，不要在每次接收到消息时触发 `$digest` loop)
-* 对于那些只初始化一次并不再改变的内容, 使用一次性 watcher [`bindonce`](https://github.com/Pasvaz/bindonce) 对于早期的 AngularJS 或者一次性 bindings 对于 AngularJS >=1.3.0.
-* 尽可能使 `$watch` 中的运算简单。在单个 `$watch` 中进行繁杂的运算将使得整个应用延缓(由于JavaScript的单线程特性，`$digest` loop 只能在单一线程进行)
-* 当监听集合时, 如果不是必要的话不要深度监听. 最好使用 `$watchCollection`, 对监听的表达和之前表达的估值进行浅层的检测.
-* 在 `$timeout` 设置第三方参数为 false 来跳过 `$digest` 循环 当没有变量被  `$timeout` 回调函数所影响.
-* 当面对超大不太改变的集合, [使用 immutable data structures](http://blog.mgechev.com/2015/03/02/immutability-in-angularjs-immutablejs/).
+[太长慎读](http://developer.yahoo.com/blogs/ydn/high-performance-sites-rule-6-move-scripts-bottom-7200.html) 把script标签放在文档底部。
 
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>MyApp</title>
+</head>
+<body>
+  <div ng-app="myApp">
+    <div ng-view></div>
+  </div>
+  <script src="angular.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
+```
+
+保持标签的简洁并把AngularJS的标签放在后面。这样有利于提高代码可读性，方便找出框架增强的HTML片段（提高可维护性）。
+Keep things simple and put AngularJS specific directives later. This way is easy to look to the code and find enhanced HTML by the framework (what improve the maintainibility).
+
+```html
+<form class="frm" ng-submit="login.authenticate()">
+  <div>
+    <input class="ipt" type="text" placeholder="name" require ng-model="user.name">
+  </div>
+</form>
+```
+
+其它的HTML标签应该遵循下面的指南的 [建议](http://mdo.github.io/code-guide/#html-attribute-order)
 
 ## 其他
 
@@ -351,3 +375,19 @@ $scope.divStyle = {
 
 * 在视图展示之前通过 `resolve` 解决依赖。
 * 不要在 `resolve` 回调函数中直接使用RESTful调用. 将所有请求放在合适的服务中. 这样你就可以使用缓存和遵循SCP.
+
+# 国际化
+
+# 性能
+
+* 优化 digest cycle
+
+	* 只监听必要的变量。仅在必要时显式调用 `$digest` 循环(例如：在进行实时通讯时，不要在每次接收到消息时触发 `$digest` 循环)。
+	* 对于那些只初始化一次并不再改变的内容, 使用一次性 watcher [`bindonce`](https://github.com/Pasvaz/bindonce) （对于早期的 AngularJS）。如果是 AngularJS >=1.3.0 的版本，应使用Angular内置的一次性数据绑定(One-time bindings).
+	* 尽可能使 `$watch` 中的运算简单。在单个 `$watch` 中进行繁杂的运算将使得整个应用变慢(由于JavaScript的单线程特性，`$digest` loop 只能在单一线程进行)
+	* 当监听集合时, 如果不是必要的话不要深度监听. 最好使用 `$watchCollection`, 对监听的表达式和之前表达式的值进行浅层的检测.
+	* 当没有变量被  `$timeout` 回调函数所影响时，在 `$timeout` 设置第三个参数为 false 来跳过 `$digest` 循环.
+	* 当面对超大不太改变的集合, [使用 immutable data structures](http://blog.mgechev.com/2015/03/02/immutability-in-angularjs-immutablejs/).
+
+
+* 用打包、缓存html模板文件到你的主js文件中，减少网络请求, 可以用 [grunt-html2js](https://github.com/karlgoldstein/grunt-html2js) / [gulp-html2js](https://github.com/fraserxu/gulp-html2js). 详见 [这里](http://ng-learn.org/2014/08/Populating_template_cache_with_html2js/) 和 [这里](http://slides.com/yanivefraim-1/real-world-angularjs#/34) 。 在项目有很多小html模板并可以放进主js文件中时（通过minify和gzip压缩），这个办法是很有用的。
