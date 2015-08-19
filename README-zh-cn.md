@@ -67,71 +67,77 @@
 
 这种方式的目录结构看起来如下：
 
-    .
-    ├── app
-    │   ├── app.js
-    │   ├── controllers
-    │   │   ├── page1
-    │   │   │   ├── FirstCtrl.js
-    │   │   │   └── SecondCtrl.js
-    │   │   └── page2
-    │   │       └── ThirdCtrl.js
-    │   ├── directives
-    │   │   ├── page1
-    │   │   │   └── directive1.js
-    │   │   └── page2
-    │   │       ├── directive2.js
-    │   │       └── directive3.js
-    │   ├── filters
-    │   │   ├── page1
-    │   │   └── page2
-    │   └── services
-    │       ├── CommonService.js
-    │       ├── cache
-    │       │   ├── Cache1.js
-    │       │   └── Cache2.js
-    │       └── models
-    │           ├── Model1.js
-    │           └── Model2.js
-    ├── lib
-    └── test
+```
+.
+├── app
+│   ├── app.js
+│   ├── controllers
+│   │   ├── home
+│   │   │   ├── FirstCtrl.js
+│   │   │   └── SecondCtrl.js
+│   │   └── about
+│   │       └── ThirdCtrl.js
+│   ├── directives
+│   │   ├── home
+│   │   │   └── directive1.js
+│   │   └── about
+│   │       ├── directive2.js
+│   │       └── directive3.js
+│   ├── filters
+│   │   ├── home
+│   │   └── about
+│   └── services
+│       ├── CommonService.js
+│       ├── cache
+│       │   ├── Cache1.js
+│       │   └── Cache2.js
+│       └── models
+│           ├── Model1.js
+│           └── Model2.js
+├── partials
+├── lib
+└── test
+```
 
 * 按照业务功能优先，类型其次的组织方式
 
 如下：
 
-    .
-    ├── app
-    │   ├── app.js
-    │   ├── common
-    │   │   ├── controllers
-    │   │   ├── directives
-    │   │   ├── filters
-    │   │   └── services
-    │   ├── page1
-    │   │   ├── controllers
-    │   │   │   ├── FirstCtrl.js
-    │   │   │   └── SecondCtrl.js
-    │   │   ├── directives
-    │   │   │   └── directive1.js
-    │   │   ├── filters
-    │   │   │   ├── filter1.js
-    │   │   │   └── filter2.js
-    │   │   └── services
-    │   │       ├── service1.js
-    │   │       └── service2.js
-    │   └── page2
-    │       ├── controllers
-    │       │   └── ThirdCtrl.js
-    │       ├── directives
-    │       │   ├── directive2.js
-    │       │   └── directive3.js
-    │       ├── filters
-    │       │   └── filter3.js
-    │       └── services
-    │           └── service3.js
-    ├── lib
-    └── test
+```
+.
+├── app
+│   ├── app.js
+│   ├── common
+│   │   ├── controllers
+│   │   ├── directives
+│   │   ├── filters
+│   │   └── services
+│   ├── home
+│   │   ├── controllers
+│   │   │   ├── FirstCtrl.js
+│   │   │   └── SecondCtrl.js
+│   │   ├── directives
+│   │   │   └── directive1.js
+│   │   ├── filters
+│   │   │   ├── filter1.js
+│   │   │   └── filter2.js
+│   │   └── services
+│   │       ├── service1.js
+│   │       └── service2.js
+│   └── about
+│       ├── controllers
+│       │   └── ThirdCtrl.js
+│       ├── directives
+│       │   ├── directive2.js
+│       │   └── directive3.js
+│       ├── filters
+│       │   └── filter3.js
+│       └── services
+│           └── service3.js
+├── partials
+├── lib
+└── test
+```
 
 * 当目录里有多个单词时, 使用 lisp-case 语法:
 
@@ -147,34 +153,37 @@ app
 
 * 在创建指令时，合适的做法是将相关的文件放到同一目录下 (如：模板文件, CSS/SASS 文件, JavaScript文件)。如果你在整个项目周期都选择这种组织方式，
 
-        app
-        └── directives
-            ├── directive1
-            │   ├── directive1.html
-            │   ├── directive1.js
-            │   └── directive1.sass
-            └── directive2
-                ├── directive2.html
-                ├── directive2.js
-                └── directive2.sass
+```
+app
+└── directives
+    ├── directive1
+    │   ├── directive1.html
+    │   ├── directive1.js
+    │   └── directive1.sass
+    └── directive2
+        ├── directive2.html
+        ├── directive2.js
+        └── directive2.sass
+```
 
 那么，上述的两种目录结构均能适用。
+* 组件的单元测试应与组件放置在同一目录下下。在这种方式下，当改变组件时，更加容易找到对应的测试。同时，单元测试也充当了文档和示例。
 
-* [ng-boilerplate](http://joshdmiller.github.io/ng-boilerplate/#/home) 采用了两种目录结构的一种更加轻量的方式。在这里，组件的单元测试与组件放置在同一目录下。在这种方式下，当改变组件时，更加容易找到对应的测试以及相关文档和用例。
+```
+services
+├── cache
+│   ├── cache1.js
+│   └── cache1.spec.js
+└── models
+    ├── model1.js
+    └── model1.spec.js
+```
 
-        services
-        ├── cache
-        │   ├── cache1.js
-        │   └── cache1.spec.js
-        └── models
-            ├── model1.js
-            └── model1.spec.js
-
-* `app.js`文件包含路由定义、配置和启动说明(如果需要的话)
-* 每一个 JavaScript 文件应该仅包含一个组件。文件名应该以组件名命名。
+* `app.js`文件包含路由定义、配置和启动说明(如果需要的话)。
+* 每一个 JavaScript 文件应该仅包含 **一个组件** 。文件名应该以组件名命名。
 * 使用 Angular 项目模板，如 [Yeoman](http://yeoman.io), [ng-boilerplate](http://joshdmiller.github.io/ng-boilerplate/#/home).
 
-本人更倾向于第一种组织方式，因为更易于查找组件。
+组件命名的约定可以在每个组件中看到。
 
 ## 标记
 
@@ -198,7 +207,6 @@ app
 ```
 
 保持标签的简洁并把AngularJS的标签放在后面。这样有利于提高代码可读性，方便找出框架增强的HTML片段（提高可维护性）。
-Keep things simple and put AngularJS specific directives later. This way is easy to look to the code and find enhanced HTML by the framework (what improve the maintainibility).
 
 ```html
 <form class="frm" ng-submit="login.authenticate()">
@@ -230,20 +238,42 @@ Keep things simple and put AngularJS specific directives later. This way is easy
 * 使用 promise (`$q`) 而非回调。这将使你的代码更加优雅、直观，并且免于回调地狱。
 * 尽可能使用 `$resource` 而非 `$http`。更高的抽象可以避免冗余。
 * 使用AngularJS的预压缩版 (像 [ngmin](https://github.com/btford/ngmin) 或 [ng-annotate](https://github.com/olov/ng-annotate)) 避免在压缩之后出现问题。
-* 不要使用全局。通过依赖注入解决所有依赖。
+* 不要使用全局变量或函数。通过依赖注入解决所有依赖，这可以减少 bug ，规避很多测试时的麻烦。
+* 为避免使用全局变量或函数，可以借助 Grunt 或 Gulp 把你的代码放到一个立即执行的函数表达式（IIFE）中。可用的插件有 [grunt-wrap](https://www.npmjs.com/package/grunt-wrap) 或 [gulp-wrap](https://www.npmjs.com/package/gulp-wrap/)。下面是 Gulp 的示例：
+
+```Javascript
+gulp.src("./src/*.js")
+    .pipe(wrap('(function(){\n"use strict";\n<%= contents %>\n})();'))
+    .pipe(gulp.dest("./dist"));
+```
+
 * 不要污染 `$scope`。仅添加与视图相关的函数和变量。
-* 使用 controllers 而非 `ngInit`。只有当 `ngInit` 是 `ngRepeat`的特殊别名. 除此之外, 你应该使用 controllers 而不是 `ngInit` 来初始化scope变量.
+* [使用 controllers 而非 `ngInit`](https://github.com/angular/angular.js/pull/4366/files)。`ngInit` 只有在一种情况下的使用是合适的：用来给 `ngRepeat`的特殊属性赋予一个别名。除此之外, 你应该使用 controllers 而不是 `ngInit` 来初始化scope变量。`ngInit` 中的表达式会传递给 Angular 的 `$parse` 服务，通过词法分析，语法分析，求值等过程。这会导致:
+    - 对性能的巨大影响，因为解释器由 Javascript 写成
+    - 多数情况下，`$parse` 服务中对表达式的缓存基本不起作用，因为 `ngInit` 表达式经常只有一次求值
+    - 很容易出错，因为是模板中写字符串，没有针对表达式的语法高亮和进一步的编辑器支持
+    - 不会抛出运行时错误
 * 不要使用 `$` 前缀来命名变量, 属性和方法. 这种前缀是预留给 AngularJS 来使用的.
-* 当使用 DI 机制来解决依赖关系, 要根据他们的类型进行排序 -  AngularJS 内建的依赖要优先, 之后才是你自定义的。
+* 当使用 DI 机制来解决依赖关系, 要根据他们的类型进行排序 -  AngularJS 内建的依赖要优先, 之后才是你自定义的：
+
+```javascript
+module.factory('Service', function ($rootScope, $timeout, MyCustomDependency1, MyCustomDependency2) {
+  return {
+    //Something
+  };
+});
+```
 
 # 模块
 
-有两种常见的组织模块的方式：
+* 模块应该用驼峰式命名。为表明模块 `b` 是模块 `a` 的子模块, 可以用点号连接: `a.b` 。
 
-0. 按照功能
-0. 按照组件类型
+	有两种常见的组织模块的方式：
 
-当前并无太大差别，但前者更加清晰。同时，如果 lazy-loading modules 被实现的话 (当前并未列入 AngularJS 的路线图)，他将改善应用的性能。
+	0. 按照功能组织
+	0. 按照组件类型组织
+
+	当前并无太大差别，但前者更加清晰。同时，如果 lazy-loading modules 被实现的话 (当前并未列入 AngularJS 的路线图)，这种方式将改善应用的性能。
 
 # 控制器
 
