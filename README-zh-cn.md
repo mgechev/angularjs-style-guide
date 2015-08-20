@@ -277,82 +277,179 @@ module.factory('Service', function ($rootScope, $timeout, MyCustomDependency1, M
 
 # 控制器
 
-* 不要在控制器里操作 DOM。通过指令完成。
-* 通过控制器完成的功能命名控制器 (如：购物卡，主页，控制板)，并以字符串`Ctrl`结尾。控制器采用驼峰命名法 (`HomePageCtrl`, `ShoppingCartCtrl`, `AdminPanelCtrl`, etc.).
-* 控制器不应该在全局中定义 (尽管 AngularJS 允许，但污染全局空间是个糟糕的实践)。
-* 使用一下语法定义控制器：
+* 不要在控制器里操作 DOM，这会让你的控制器难以测试，而且违背了[关注点分离原则](https://en.wikipedia.org/wiki/Separation_of_concerns)。应该通过指令操作 DOM。
+* 通过控制器完成的功能命名控制器 (如：购物卡，主页，控制板)，并以字符串`Ctrl`结尾。
+* 控制器是纯 Javascript [构造函数](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/constructor)，所以应该用首字母大写的驼峰命名法（`HomePageCtrl`, `ShoppingCartCtrl`, `AdminPanelCtrl`, 等等）。
+* 控制器不应该在全局中定义 (尽管 AngularJS 允许，但污染全局命名空间是个糟糕的实践)。
+* 使用以下语法定义控制器：
 
-```JavaScript
-function MyCtrl(dependency1, dependency2, ..., dependencyn) {
-  // ...
-}
-module.controller('MyCtrl', MyCtrl);
-```
+  ```JavaScript
+  function MyCtrl(dependency1, dependency2, ..., dependencyn) {
+    // ...
+  }
+  module.controller('MyCtrl', MyCtrl);
+  ```
 
-使用这种定义方式可以最大的避免问题。你可以使用工具自动生成数组定义，如：[ng-annotate](https://github.com/olov/ng-annotate) (and grunt task [grunt-ng-annotate](https://github.com/mzgol/grunt-ng-annotate)).
-* 使用控制器依赖的原名。这将提高代码的可读性：
+   为了避免在压缩代码时产生问题，你可以使用工具自动生成标准的数组定义式语法，如：[ng-annotate](https://github.com/olov/ng-annotate) （还有 grunt 任务 [grunt-ng-annotate](https://github.com/mzgol/grunt-ng-annotate)）
 
-```JavaScript
-function MyCtrl(s) {
-  // ...
-}
+* 使用 `controller as` 语法:
 
-module.controller('MyCtrl', ['$scope', MyCtrl]);
-```
+  ```
+  <div ng-controller="MainCtrl as main">
+     {{ main.title }}
+  </div>
+  ```
 
-下面的代码更易理解
+  ```JavaScript
+  app.controller('MainCtrl', MainCtrl);
 
-```JavaScript
-function MyCtrl($scope) {
-  // ...
-}
-module.controller('MyCtrl', ['$scope', MyCtrl]);
-```
+  function MainCtrl () {
+    this.title = 'Some title';
+  }
+  ```
 
-对于包含大量代码的需要上下滚动的文件尤其适用。这可能使你忘记某一变量是对应哪一个依赖。
+   使用 `controller as` 主要的优点是:
+   * 创建了一个“独立”的组件——绑定的属性不属于 `$scope` 原型链。这是一个很好的实践，因为 `$scope` 原型继承有一些重要的缺点（这可能是为什么它在 Angular 2 中被移除了）：
+      * Scope值的改变会在你不注意的地方有影响。
+      * 难以重构。
+      * [dot rule](http://jimhoskins.com/2012/12/14/nested-scopes-in-angularjs.html)'.
+   * 当你不需要做必须由 `$scope` 完成的操作（比如`$scope.$broadcast`）时，移除掉了 `$scope`，就是为 Angular2 做好准备。
+   * 语法上更接近于普通的 JavaScript 构造函数。
+
+   想深入了解 `controller as` ，请看: [digging-into-angulars-controller-as-syntax](http://toddmotto.com/digging-into-angulars-controller-as-syntax/)
+* 如果使用数组定义语法声明控制器，使用控制器依赖的原名。这将提高代码的可读性：
+
+  ```JavaScript
+  function MyCtrl(s) {
+    // ...
+  }
+
+  module.controller('MyCtrl', ['$scope', MyCtrl]);
+  ```
+
+   下面的代码更易理解
+
+  ```JavaScript
+  function MyCtrl($scope) {
+    // ...
+  }
+  module.controller('MyCtrl', ['$scope', MyCtrl]);
+  ```
+
+   对于包含大量代码的需要上下滚动的文件尤其适用。这可能使你忘记某一变量是对应哪一个依赖。
 
 * 尽可能的精简控制器。将通用函数抽象为独立的服务。
-* 通过方法引用进行跨控制器通讯 (通常是子控制器与父控制器通讯) 或者 `$emit`, `$broadcast` 及 `$on` 方法。发送或广播的消息应该限定在最小的作用域。
+* 不要再控制器中写业务逻辑。把业务逻辑交给模型层的服务。
+  举个例子:
+
+  ```Javascript
+  // 这是把业务逻辑放在控制器的常见做法
+  angular.module('Store', [])
+  .controller('OrderCtrl', function ($scope) {
+
+    $scope.items = [];
+
+    $scope.addToOrder = function (item) {
+      $scope.items.push(item);//-->控制器中的业务逻辑
+    };
+
+    $scope.removeFromOrder = function (item) {
+      $scope.items.splice($scope.items.indexOf(item), 1);//-->控制器中的业务逻辑
+    };
+
+    $scope.totalPrice = function () {
+      return $scope.items.reduce(function (memo, item) {
+        return memo + (item.qty * item.price);//-->控制器中的业务逻辑
+      }, 0);
+    };
+  });
+  ```
+
+  当你把业务逻辑交给模型层的服务，控制器看起来就会想这样：（关于 service-model 的实现，参看 'use services as your Model'）:
+
+  ```Javascript
+  // Order 在此作为一个 'model'
+  angular.module('Store', [])
+  .controller('OrderCtrl', function (Order) {
+
+    $scope.items = Order.items;
+
+    $scope.addToOrder = function (item) {
+      Order.addToOrder(item);
+    };
+
+    $scope.removeFromOrder = function (item) {
+      Order.removeFromOrder(item);
+    };
+
+    $scope.totalPrice = function () {
+      return Order.total();
+    };
+  });
+  ```
+
+  为什么控制器不应该包含业务逻辑和应用状态？
+  * 控制器会在每个视图中被实例化，在视图被销毁时也要同时销毁
+  * 控制器是不可重用的——它与视图有耦合
+  * Controllers are not meant to be injected
+
+
+* 需要进行跨控制器通讯时，通过方法引用(通常是子控制器到父控制器的通讯)或者 `$emit`, `$broadcast` 及 `$on` 方法。发送或广播的消息应该限定在最小的作用域。
 * 制定一个通过 `$emit`, `$broadcast` 发送的消息列表并且仔细的管理以防命名冲突和bug。
-* 在需要格式化数据时将格式化逻辑封装成 [过滤器](#filters) 并将其声明为依赖：
 
-```JavaScript
-function myFormat() {
-  return function () {
-    // ...
-  };
-}
-module.filter('myFormat', myFormat);
+   Example:
 
-function MyCtrl($scope, myFormatFilter) {
-  // ...
-}
+   ```JavaScript
+   // app.js
+   /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+   Custom events:
+     - 'authorization-message' - description of the message
+       - { user, role, action } - data format
+         - user - a string, which contains the username
+         - role - an ID of the role the user has
+         - action - specific ation the user tries to perform
+   * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+   ```
 
-module.controller('MyCtrl', MyCtrl);
-```
-* 当内嵌的控制器 使用 "内嵌 scoping" ( `controllerAs` 语法):
+* 在需要格式化数据时将格式化逻辑封装成 [过滤器](#过滤器) 并将其声明为依赖：
 
-**app.js**
-```javascript
-module.config(function ($routeProvider) {
-  $routeProvider
-    .when('/route', {
-      templateUrl: 'partials/template.html',
-      controller: 'HomeCtrl',
-      controllerAs: 'home'
-    });
-});
-```
-**HomeCtrl**
-```javascript
-function HomeCtrl() {
-  this.bindingValue = 42;
-}
-```
-**template.html**
-```
-<div ng-bind="home.bindingValue"></div>
-```
+   ```JavaScript
+   function myFormat() {
+     return function () {
+       // ...
+     };
+   }
+   module.filter('myFormat', myFormat);
+
+   function MyCtrl($scope, myFormatFilter) {
+     // ...
+   }
+
+   module.controller('MyCtrl', MyCtrl);
+   ```
+* 有内嵌的控制器时使用 "内嵌作用域" ( `controllerAs` 语法)：
+
+   **app.js**
+   ```javascript
+   module.config(function ($routeProvider) {
+     $routeProvider
+       .when('/route', {
+         templateUrl: 'partials/template.html',
+         controller: 'HomeCtrl',
+         controllerAs: 'home'
+       });
+   });
+   ```
+   **HomeCtrl**
+   ```javascript
+   function HomeCtrl() {
+     this.bindingValue = 42;
+   }
+   ```
+   **template.html**
+   ```
+   <div ng-bind="home.bindingValue"></div>
+   ```
 
 # 指令
 
