@@ -473,10 +473,111 @@ module.factory('Service', function ($rootScope, $timeout, MyCustomDependency1, M
 
 # 服务
 
-* 用驼峰法命名服务(大写或小写开头)。
-* 将业务逻辑封装为服务。
-* 将业务逻辑封装成 `service` 而非 `factory`
-* 可以使用 `$cacheFactory` 进行会话级别的缓存。这应该用于缓存请求或复杂运算的结果。
+这个部分包含了 AngularJS 服务组件的相关信息。下面提到的东西与定义服务的具体方式（`.provider`, `.factory`, `.service` 等）无关，除非有特别提到。
+
+* 用驼峰法命名服务。
+  * 用首字母大写的驼峰法命名你自己的服务, 把服务写成构造函数的形式，例如：
+
+    ```JavaScript
+    function MainCtrl($scope, User) {
+      $scope.user = new User('foo', 42);
+    }
+
+    module.controller('MainCtrl', MainCtrl);
+
+    function User(name, age) {
+      this.name = name;
+      this.age = age;
+    }
+
+    module.factory('User', function () {
+      return User;
+    });
+    ```
+
+  * 用首字母小写的驼峰法命名其它所有的服务。
+
+* 把业务逻辑封装到服务中，把业务逻辑抽象为服务作为你的 `model`。例如：
+  ```Javascript
+  //Order is the 'model'
+  angular.module('Store')
+  .factory('Order', function () {
+      var add = function (item) {
+        this.items.push (item);
+      };
+
+      var remove = function (item) {
+        if (this.items.indexOf(item) > -1) {
+          this.items.splice(this.items.indexOf(item), 1);
+        }
+      };
+
+      var total = function () {
+        return this.items.reduce(function (memo, item) {
+          return memo + (item.qty * item.price);
+        }, 0);
+      };
+
+      return {
+        items: [],
+        addToOrder: add,
+        removeFromOrder: remove,
+        totalPrice: total
+      };
+  });
+  ```
+
+  如果需要例子展现如何在控制器中使用服务，请参考 'Avoid writing business logic inside controllers'。
+* 将业务逻辑封装成 `service` 而非 `factory`，这样我们可以更容易在服务间实现“经典式”继承：
+
+	```JavaScript
+	function Human() {
+	  //body
+	}
+	Human.prototype.talk = function () {
+	  return "I'm talking";
+	};
+
+	function Developer() {
+	  //body
+	}
+	Developer.prototype = Object.create(Human.prototype);
+	Developer.prototype.code = function () {
+	  return "I'm coding";
+	};
+
+	myModule.service('Human', Human);
+	myModule.service('Developer', Developer);
+
+	```
+
+* 使用 `$cacheFactory` 进行会话级别的缓存，缓存网络请求或复杂运算的结果。
+* 如果给定的服务需要配置，把配置相关代码放在 `config` 回调里，就像这样：
+
+	```JavaScript
+	angular.module('demo', [])
+	.config(function ($provide) {
+	  $provide.provider('sample', function () {
+	    var foo = 42;
+	    return {
+	      setFoo: function (f) {
+	        foo = f;
+	      },
+	      $get: function () {
+	        return {
+	          foo: foo
+	        };
+	      }
+	    };
+	  });
+	});
+
+	var demo = angular.module('demo');
+
+	demo.config(function (sampleProvider) {
+	  sampleProvider.setFoo(41);
+	});
+	```
 
 # 模板
 
