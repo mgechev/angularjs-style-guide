@@ -1,66 +1,60 @@
 <!DOCTYPE html>
-<html>
+<html lang="en-us">
   <head>
-    <title>Introduction</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <style type="text/css">
-    @font-face {
-      font-family: 'Droid Sans';
-      font-style: normal;
-      font-weight: normal;
-      src: local('Droid Sans'), local('DroidSans'), url('DroidSans.woff') format('woff');
-    }
-    </style>
-    <link href='//fonts.googleapis.com/css?family=Andika|Cantarell:400,700,400italic' rel='stylesheet' type='text/css' />
-    <link href='//fonts.googleapis.com/css?family=Droid+Sans+Mono' rel='stylesheet' type='text/css' />
-    <script src="assets/jquery-1.6.1.min.js"></script>
-    <link type="text/css" rel="stylesheet" href="assets/style.css"/>
-    <link type="text/css" rel="stylesheet" href="assets/assert.css"/>
-    <link type="text/css" rel="stylesheet" href="assets/prettify.css"/>
-    <link type="text/css" rel="stylesheet" href="assets/hljs-github.min.css"/>
-
-    <script type="text/javascript" src="assets/prettify.js"></script>
-    <!-- Script runner -->
-    <script type="text/javascript" src="assets/runner.js"></script>
+    <meta charset="UTF-8">
+    <title>AngularJS Style Guide by mgechev</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
   </head>
-<body>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">AngularJS Style Guide</h1>
+      <h2 class="project-tagline">Community-driven set of best practices for AngularJS application development</h2>
+      <a href="https://github.com/mgechev/angularjs-style-guide" class="btn">View on GitHub</a>
+      <a href="https://github.com/mgechev/angularjs-style-guide/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/mgechev/angularjs-style-guide/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
 
-<a href="https://github.com/mgechev/angularjs-style-guide"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/652c5b9acfaddf3a9c326fa6bde407b87f7be0f4/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6f72616e67655f6666373630302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_ff7600.png"></a>
+    <section class="main-content">
+      <p><a href="https://gitter.im/mgechev/angularjs-style-guide?utm_source=badge&amp;utm_medium=badge&amp;utm_campaign=pr-badge&amp;utm_content=badge"><img src="https://badges.gitter.im/Join%20Chat.svg" alt="Join the chat at https://gitter.im/mgechev/angularjs-style-guide"></a></p>
 
-  <div id="wrapper">
-    <div id="header">
-    </div>
-    <div class="clear">
-      <hr>
-    </div>
+<h1>
+<a id="introduction" class="anchor" href="#introduction" aria-hidden="true"><span class="octicon octicon-link"></span></a>Introduction</h1>
 
-     <!-- Main -->
-
-    <div id="main">
-      <div id="container">
-        <div id="content" class="post"><p><a href="https://gitter.im/mgechev/angularjs-style-guide?utm_source=badge&amp;utm_medium=badge&amp;utm_campaign=pr-badge&amp;utm_content=badge"><img src="https://badges.gitter.im/Join%20Chat.svg" alt="Join the chat at https://gitter.im/mgechev/angularjs-style-guide"></a></p>
-<h1 id="introduction">Introduction</h1>
 <p>The goal of this style guide is to present a set of best practices and style guidelines for one AngularJS application.
 These best practices are collected from:</p>
-<ol class="list">
+
+<ol>
 <li>AngularJS source code</li>
-<li>Source code or articles I&#39;ve read</li>
+<li>Source code or articles I've read</li>
 <li>My own experience</li>
 </ol>
+
 <p><strong>Note 1</strong>: this is still a draft of the style guide, its main goal is to be community-driven so filling the gaps will be greatly appreciated by the whole community.</p>
+
 <p><strong>Note 2</strong>: before following any of the guidelines in the translations of the English document, make sure they are up-to date. The latest version of the AngularJS style guide is in the current document.</p>
-<p>In this style guide you won&#39;t find common guidelines for JavaScript development. Such can be found at:</p>
-<ol class="list">
-<li><a href="http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml">Google&#39;s JavaScript style guide</a></li>
-<li><a href="https://developer.mozilla.org/en-US/docs/Developer_Guide/Coding_Style">Mozilla&#39;s JavaScript style guide</a></li>
-<li><a href="https://github.com/styleguide/javascript">GitHub&#39;s JavaScript style guide</a></li>
-<li><a href="http://javascript.crockford.com/code.html">Douglas Crockford&#39;s JavaScript style guide</a></li>
+
+<p>In this style guide you won't find common guidelines for JavaScript development. Such can be found at:</p>
+
+<ol>
+<li><a href="http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml">Google's JavaScript style guide</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Developer_Guide/Coding_Style">Mozilla's JavaScript style guide</a></li>
+<li><a href="https://github.com/styleguide/javascript">GitHub's JavaScript style guide</a></li>
+<li><a href="http://javascript.crockford.com/code.html">Douglas Crockford's JavaScript style guide</a></li>
 <li><a href="https://github.com/airbnb/javascript">Airbnb JavaScript style guide</a></li>
 </ol>
-<p>For AngularJS development recommended is the <a href="http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml">Google&#39;s JavaScript style guide</a>.</p>
-<p>In AngularJS&#39;s GitHub wiki there is a similar section by <a href="https://github.com/ProLoser">ProLoser</a>, you can check it <a href="https://github.com/angular/angular.js/wiki">here</a>.</p>
-<h1 id="translations">Translations</h1>
-<ul class="list">
+
+<p>For AngularJS development recommended is the <a href="http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml">Google's JavaScript style guide</a>.</p>
+
+<p>In AngularJS's GitHub wiki there is a similar section by <a href="https://github.com/ProLoser">ProLoser</a>, you can check it <a href="https://github.com/angular/angular.js/wiki">here</a>.</p>
+
+<h1>
+<a id="translations" class="anchor" href="#translations" aria-hidden="true"><span class="octicon octicon-link"></span></a>Translations</h1>
+
+<ul>
 <li><a href="https://github.com/mgechev/angularjs-style-guide/blob/master/README-de-de.md">German</a></li>
 <li><a href="https://github.com/mgechev/angularjs-style-guide/blob/master/README-es-es.md">Spanish</a></li>
 <li><a href="https://github.com/mgechev/angularjs-style-guide/blob/master/README-fr-fr.md">French</a></li>
@@ -76,9 +70,15 @@ These best practices are collected from:</p>
 <li><a href="https://github.com/mgechev/angularjs-style-guide/blob/master/README-zh-cn.md">Chinese</a></li>
 <li><a href="https://github.com/mgechev/angularjs-style-guide/blob/master/README-tr-tr.md">Turkish</a></li>
 </ul>
-<h1 id="table-of-content">Table of content</h1>
-<ul class="list">
-<li><a href="#general">General</a><ul class="list">
+
+<h1>
+<a id="table-of-content" class="anchor" href="#table-of-content" aria-hidden="true"><span class="octicon octicon-link"></span></a>Table of content</h1>
+
+<ul>
+<li>
+<a href="#general">General</a>
+
+<ul>
 <li><a href="#directory-structure">Directory structure</a></li>
 <li><a href="#markup">Markup</a></li>
 <li><a href="#others">Others</a></li>
@@ -96,720 +96,860 @@ These best practices are collected from:</p>
 <li><a href="#contribution">Contribution</a></li>
 <li><a href="#contributors">Contributors</a></li>
 </ul>
-<h1 id="general">General</h1>
-<h2 id="directory-structure">Directory structure</h2>
-<p>Since a large AngularJS application has many components it&#39;s best to structure it in a directory hierarchy.
+
+<h1>
+<a id="general" class="anchor" href="#general" aria-hidden="true"><span class="octicon octicon-link"></span></a>General</h1>
+
+<h2>
+<a id="directory-structure" class="anchor" href="#directory-structure" aria-hidden="true"><span class="octicon octicon-link"></span></a>Directory structure</h2>
+
+<p>Since a large AngularJS application has many components it's best to structure it in a directory hierarchy.
 There are two main approaches:</p>
-<ul class="list">
+
+<ul>
 <li>Creating high-level divisions by component types and lower-level divisions by functionality.</li>
 </ul>
+
 <p>In this way the directory structure will look like:</p>
-<pre class="hljs"><code>.
+
+<pre><code>.
 ├── app
-│   ├── app<span class="hljs-class">.js</span>
-│   ├── controllers
-│   │   ├── home
-│   │   │   ├── FirstCtrl<span class="hljs-class">.js</span>
-│   │   │   └── SecondCtrl<span class="hljs-class">.js</span>
-│   │   └── about
-│   │       └── ThirdCtrl<span class="hljs-class">.js</span>
-│   ├── directives
-│   │   ├── home
-│   │   │   └── directive1<span class="hljs-class">.js</span>
-│   │   └── about
-│   │       ├── directive2<span class="hljs-class">.js</span>
-│   │       └── directive3<span class="hljs-class">.js</span>
-│   ├── filters
-│   │   ├── home
-│   │   └── about
-│   └── services
-│       ├── CommonService<span class="hljs-class">.js</span>
-│       ├── cache
-│       │   ├── Cache1<span class="hljs-class">.js</span>
-│       │   └── Cache2<span class="hljs-class">.js</span>
-│       └── models
-│           ├── Model1<span class="hljs-class">.js</span>
-│           └── Model2<span class="hljs-class">.js</span>
+│   ├── app.js
+│   ├── controllers
+│   │   ├── home
+│   │   │   ├── FirstCtrl.js
+│   │   │   └── SecondCtrl.js
+│   │   └── about
+│   │       └── ThirdCtrl.js
+│   ├── directives
+│   │   ├── home
+│   │   │   └── directive1.js
+│   │   └── about
+│   │       ├── directive2.js
+│   │       └── directive3.js
+│   ├── filters
+│   │   ├── home
+│   │   └── about
+│   └── services
+│       ├── CommonService.js
+│       ├── cache
+│       │   ├── Cache1.js
+│       │   └── Cache2.js
+│       └── models
+│           ├── Model1.js
+│           └── Model2.js
 ├── partials
 ├── lib
-└── test</code></pre><ul class="list">
+└── test
+</code></pre>
+
+<ul>
 <li>Creating high-level divisions by functionality and lower-level divisions by component types.</li>
 </ul>
+
 <p>Here is its layout:</p>
-<pre class="hljs"><code>.
+
+<pre><code>.
 ├── app
-│   ├── app<span class="hljs-class">.js</span>
-│   ├── common
-│   │   ├── controllers
-│   │   ├── directives
-│   │   ├── filters
-│   │   └── services
-│   ├── home
-│   │   ├── controllers
-│   │   │   ├── FirstCtrl<span class="hljs-class">.js</span>
-│   │   │   └── SecondCtrl<span class="hljs-class">.js</span>
-│   │   ├── directives
-│   │   │   └── directive1<span class="hljs-class">.js</span>
-│   │   ├── filters
-│   │   │   ├── filter1<span class="hljs-class">.js</span>
-│   │   │   └── filter2<span class="hljs-class">.js</span>
-│   │   └── services
-│   │       ├── service1<span class="hljs-class">.js</span>
-│   │       └── service2<span class="hljs-class">.js</span>
-│   └── about
-│       ├── controllers
-│       │   └── ThirdCtrl<span class="hljs-class">.js</span>
-│       ├── directives
-│       │   ├── directive2<span class="hljs-class">.js</span>
-│       │   └── directive3<span class="hljs-class">.js</span>
-│       ├── filters
-│       │   └── filter3<span class="hljs-class">.js</span>
-│       └── services
-│           └── service3<span class="hljs-class">.js</span>
+│   ├── app.js
+│   ├── common
+│   │   ├── controllers
+│   │   ├── directives
+│   │   ├── filters
+│   │   └── services
+│   ├── home
+│   │   ├── controllers
+│   │   │   ├── FirstCtrl.js
+│   │   │   └── SecondCtrl.js
+│   │   ├── directives
+│   │   │   └── directive1.js
+│   │   ├── filters
+│   │   │   ├── filter1.js
+│   │   │   └── filter2.js
+│   │   └── services
+│   │       ├── service1.js
+│   │       └── service2.js
+│   └── about
+│       ├── controllers
+│       │   └── ThirdCtrl.js
+│       ├── directives
+│       │   ├── directive2.js
+│       │   └── directive3.js
+│       ├── filters
+│       │   └── filter3.js
+│       └── services
+│           └── service3.js
 ├── partials
 ├── lib
-└── test</code></pre><ul class="list">
+└── test
+</code></pre>
+
+<ul>
 <li>In case the directory name contains multiple words, use lisp-case syntax:</li>
 </ul>
-<pre class="hljs"><code>app
+
+<pre><code>app
  ├── app.js
- └── my-complex-<span class="hljs-class"><span class="hljs-keyword">module</span></span>
-     ├── controllers
-     ├── directives
-     ├── filters
-     └── services</code></pre><ul class="list">
+ └── my-complex-module
+     ├── controllers
+     ├── directives
+     ├── filters
+     └── services
+</code></pre>
+
+<ul>
 <li>Put all the files associated with the given directive (i.e. templates, CSS/SASS files, JavaScript) in a single folder. If you choose to use this style be consistent and use it everywhere along your project.</li>
 </ul>
-<pre class="hljs"><code>app
+
+<pre><code>app
 └── directives
     ├── directive1
-    │   ├── directive1<span class="hljs-class">.html</span>
-    │   ├── directive1<span class="hljs-class">.js</span>
-    │   └── directive1<span class="hljs-class">.sass</span>
+    │   ├── directive1.html
+    │   ├── directive1.js
+    │   └── directive1.sass
     └── directive2
-        ├── directive2<span class="hljs-class">.html</span>
-        ├── directive2<span class="hljs-class">.js</span>
-        └── directive2.sass</code></pre><p>This approach can be combined with both directory structures above.</p>
-<ul class="list">
+        ├── directive2.html
+        ├── directive2.js
+        └── directive2.sass
+</code></pre>
+
+<p>This approach can be combined with both directory structures above.</p>
+
+<ul>
 <li>The unit tests for a given component should be located in the directory where the component is. This way when you make changes to a given component finding its test is easy. The tests also act as documentation and show use cases.</li>
 </ul>
-<pre class="hljs"><code>services
+
+<pre><code>services
 ├── cache
-│   ├── cache1<span class="hljs-class">.js</span>
-│   └── cache1<span class="hljs-class">.spec</span><span class="hljs-class">.js</span>
+│   ├── cache1.js
+│   └── cache1.spec.js
 └── models
-    ├── model1<span class="hljs-class">.js</span>
-    └── model1<span class="hljs-class">.spec</span><span class="hljs-class">.js</span></code></pre><ul class="list">
+    ├── model1.js
+    └── model1.spec.js
+</code></pre>
+
+<ul>
 <li>The <code>app.js</code> file should contains route definitions, configuration and/or manual bootstrap (if required).</li>
-<li>Each JavaScript file should only hold <strong>a single component</strong>. The file should be named with the component&#39;s name.</li>
+<li>Each JavaScript file should only hold <strong>a single component</strong>. The file should be named with the component's name.</li>
 <li>Use AngularJS project structure template like <a href="http://yeoman.io">Yeoman</a>, <a href="http://joshdmiller.github.io/ng-boilerplate/#/home">ng-boilerplate</a>.</li>
 </ul>
+
 <p>Conventions about component naming can be found in each component section.</p>
-<h2 id="markup">Markup</h2>
+
+<h2>
+<a id="markup" class="anchor" href="#markup" aria-hidden="true"><span class="octicon octicon-link"></span></a>Markup</h2>
+
 <p><a href="http://developer.yahoo.com/blogs/ydn/high-performance-sites-rule-6-move-scripts-bottom-7200.html">TLDR;</a> Put the scripts at the bottom.</p>
-<pre class="hljs"><code><span class="hljs-doctype">&lt;!DOCTYPE html&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-title">html</span> <span class="hljs-attribute">lang</span>=<span class="hljs-value">"en"</span>&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-title">head</span>&gt;</span>
-  <span class="hljs-tag">&lt;<span class="hljs-title">meta</span> <span class="hljs-attribute">charset</span>=<span class="hljs-value">"utf-8"</span>&gt;</span>
-  <span class="hljs-tag">&lt;<span class="hljs-title">title</span>&gt;</span>MyApp<span class="hljs-tag">&lt;/<span class="hljs-title">title</span>&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-title">head</span>&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-title">body</span>&gt;</span>
-  <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">ng-app</span>=<span class="hljs-value">"myApp"</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">ng-view</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
-  <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
-  <span class="hljs-tag">&lt;<span class="hljs-title">script</span> <span class="hljs-attribute">src</span>=<span class="hljs-value">"angular.js"</span>&gt;</span><span class="javascript"></span><span class="hljs-tag">&lt;/<span class="hljs-title">script</span>&gt;</span>
-  <span class="hljs-tag">&lt;<span class="hljs-title">script</span> <span class="hljs-attribute">src</span>=<span class="hljs-value">"app.js"</span>&gt;</span><span class="javascript"></span><span class="hljs-tag">&lt;/<span class="hljs-title">script</span>&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-title">body</span>&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-title">html</span>&gt;</span></code></pre><p>Keep things simple and put AngularJS specific directives later. This way is easy to look to the code and find enhanced HTML by the framework (what improve the maintainibility).</p>
-<pre class="hljs"><code>&lt;form <span class="hljs-variable">class=</span><span class="hljs-string">"frm"</span> <span class="hljs-variable">ng-submit=</span><span class="hljs-string">"login.authenticate()"</span>&gt;
-  &lt;div&gt;
-    &lt;input <span class="hljs-variable">class=</span><span class="hljs-string">"ipt"</span> <span class="hljs-variable">type=</span><span class="hljs-string">"text"</span> <span class="hljs-variable">placeholder=</span><span class="hljs-string">"name"</span> require <span class="hljs-variable">ng-model=</span><span class="hljs-string">"user.name"</span>&gt;
-  &lt;/div&gt;
-&lt;/form&gt;</code></pre><p>Other HTML atributes should follow the Code Guide&#39;s <a href="http://mdo.github.io/code-guide/#html-attribute-order">recommendation</a></p>
-<h2 id="others">Others</h2>
-<ul class="list">
-<li>Use:<ul class="list">
-<li><code>$timeout</code> instead of <code>setTimeout</code></li>
-<li><code>$interval</code> instead of <code>setInterval</code></li>
-<li><code>$window</code> instead of <code>window</code></li>
-<li><code>$document</code> instead of <code>document</code></li>
-<li><code>$http</code> instead of <code>$.ajax</code></li>
+
+<div class="highlight highlight-html"><pre>&lt;!DOCTYPE html&gt;
+&lt;<span class="pl-ent">html</span> <span class="pl-e">lang</span>=<span class="pl-s"><span class="pl-pds">"</span>en<span class="pl-pds">"</span></span>&gt;
+&lt;<span class="pl-ent">head</span>&gt;
+  &lt;<span class="pl-ent">meta</span> <span class="pl-e">charset</span>=<span class="pl-s"><span class="pl-pds">"</span>utf-8<span class="pl-pds">"</span></span>&gt;
+  &lt;<span class="pl-ent">title</span>&gt;MyApp&lt;/<span class="pl-ent">title</span>&gt;
+&lt;/<span class="pl-ent">head</span>&gt;
+&lt;<span class="pl-ent">body</span>&gt;
+  &lt;<span class="pl-ent">div</span> <span class="pl-e">ng-app</span>=<span class="pl-s"><span class="pl-pds">"</span>myApp<span class="pl-pds">"</span></span>&gt;
+    &lt;<span class="pl-ent">div</span> <span class="pl-e">ng-view</span>&gt;&lt;/<span class="pl-ent">div</span>&gt;
+  &lt;/<span class="pl-ent">div</span>&gt;
+<span class="pl-s1">  &lt;<span class="pl-ent">script</span> <span class="pl-e">src</span>=<span class="pl-s"><span class="pl-pds">"</span>angular.js<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">script</span>&gt;</span>
+<span class="pl-s1">  &lt;<span class="pl-ent">script</span> <span class="pl-e">src</span>=<span class="pl-s"><span class="pl-pds">"</span>app.js<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">script</span>&gt;</span>
+&lt;/<span class="pl-ent">body</span>&gt;
+&lt;/<span class="pl-ent">html</span>&gt;</pre></div>
+
+<p>Keep things simple and put AngularJS specific directives later. This way is easy to look to the code and find enhanced HTML by the framework (what improve the maintainibility).</p>
+
+<div class="highlight highlight-html"><pre>&lt;<span class="pl-ent">form</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>frm<span class="pl-pds">"</span></span> <span class="pl-e">ng-submit</span>=<span class="pl-s"><span class="pl-pds">"</span>login.authenticate()<span class="pl-pds">"</span></span>&gt;
+  &lt;<span class="pl-ent">div</span>&gt;
+    &lt;<span class="pl-ent">input</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>ipt<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>text<span class="pl-pds">"</span></span> <span class="pl-e">placeholder</span>=<span class="pl-s"><span class="pl-pds">"</span>name<span class="pl-pds">"</span></span> <span class="pl-e">require</span> <span class="pl-e">ng-model</span>=<span class="pl-s"><span class="pl-pds">"</span>user.name<span class="pl-pds">"</span></span>&gt;
+  &lt;/<span class="pl-ent">div</span>&gt;
+&lt;/<span class="pl-ent">form</span>&gt;</pre></div>
+
+<p>Other HTML atributes should follow the Code Guide's <a href="http://mdo.github.io/code-guide/#html-attribute-order">recommendation</a></p>
+
+<h2>
+<a id="others" class="anchor" href="#others" aria-hidden="true"><span class="octicon octicon-link"></span></a>Others</h2>
+
+<ul>
+<li>Use:
+
+<ul>
+<li>
+<code>$timeout</code> instead of <code>setTimeout</code>
+</li>
+<li>
+<code>$interval</code> instead of <code>setInterval</code>
+</li>
+<li>
+<code>$window</code> instead of <code>window</code>
+</li>
+<li>
+<code>$document</code> instead of <code>document</code>
+</li>
+<li>
+<code>$http</code> instead of <code>$.ajax</code>
+</li>
 </ul>
 </li>
 </ul>
+
 <p>This will make your testing easier and in some cases prevent unexpected behaviour (for example, if you missed <code>$scope.$apply</code> in <code>setTimeout</code>).</p>
-<ul class="list">
-<li><p>Automate your workflow using tools like:</p>
-<ul class="list">
+
+<ul>
+<li>
+<p>Automate your workflow using tools like:</p>
+
+<ul>
 <li><a href="http://yeoman.io">Yeoman</a></li>
 <li><a href="http://gulpjs.com">Gulp</a></li>
 <li><a href="http://gruntjs.com">Grunt</a></li>
 <li><a href="http://bower.io">Bower</a></li>
 </ul>
 </li>
-<li><p>Use promises (<code>$q</code>) instead of callbacks. It will make your code look more elegant and clean, and save you from callback hell.</p>
-</li>
+<li><p>Use promises (<code>$q</code>) instead of callbacks. It will make your code look more elegant and clean, and save you from callback hell.</p></li>
 <li>Use <code>$resource</code> instead of <code>$http</code> when possible. The higher level of abstraction will save you from redundancy.</li>
 <li>Use an AngularJS pre-minifier (<a href="https://github.com/olov/ng-annotate">ng-annotate</a>) for preventing problems after minification.</li>
-<li>Don&#39;t use globals. Resolve all dependencies using Dependency Injection, this will prevent bugs and monkey patching when testing.</li>
-<li><p>Avoid globals by using Grunt/Gulp to wrap your code in Immediately Invoked Function Expression (IIFE). You can use plugins like <a href="https://www.npmjs.com/package/grunt-wrap">grunt-wrap</a> or <a href="https://www.npmjs.com/package/gulp-wrap/">gulp-wrap</a> for this purpose. Example (using Gulp)</p>
-<pre class="hljs"><code>  <span class="hljs-tag">gulp</span><span class="hljs-class">.src</span>(<span class="hljs-string">"./src/*.js"</span>)
-  <span class="hljs-class">.pipe</span>(<span class="hljs-function">wrap</span>(<span class="hljs-string">'(function(){\n"use strict";\n&lt;%= contents %&gt;\n})();'</span>))
-  <span class="hljs-class">.pipe</span>(gulp.<span class="hljs-function">dest</span>(<span class="hljs-string">"./dist"</span>));</code></pre></li>
+<li>Don't use globals. Resolve all dependencies using Dependency Injection, this will prevent bugs and monkey patching when testing.</li>
+<li>
+<p>Avoid globals by using Grunt/Gulp to wrap your code in Immediately Invoked Function Expression (IIFE). You can use plugins like <a href="https://www.npmjs.com/package/grunt-wrap">grunt-wrap</a> or <a href="https://www.npmjs.com/package/gulp-wrap/">gulp-wrap</a> for this purpose. Example (using Gulp)</p>
+
+<div class="highlight highlight-Javascript"><pre>gulp.<span class="pl-c1">src</span>(<span class="pl-s"><span class="pl-pds">"</span>./src/*.js<span class="pl-pds">"</span></span>)
+.<span class="pl-c1">pipe</span>(<span class="pl-c1">wrap</span>(<span class="pl-s"><span class="pl-pds">'</span>(function(){<span class="pl-cce">\n</span>"use strict";<span class="pl-cce">\n</span>&lt;%= contents %&gt;<span class="pl-cce">\n</span>})();<span class="pl-pds">'</span></span>))
+.<span class="pl-c1">pipe</span>(gulp.<span class="pl-c1">dest</span>(<span class="pl-s"><span class="pl-pds">"</span>./dist<span class="pl-pds">"</span></span>));</pre></div>
+</li>
 <li>Do not pollute your <code>$scope</code>. Only add functions and variables that are being used in the templates.</li>
-<li>Prefer the usage of <a href="https://github.com/angular/angular.js/pull/4366/files">controllers instead of <code>ngInit</code></a>. The only appropriate use of <code>ngInit</code> is for aliasing special properties of <code>ngRepeat</code>. Besides this case, you should use controllers rather than <code>ngInit</code> to initialize values on a scope. The expression passed to <code>ngInit</code> should go through lexing, parsing and evaluation by the Angular interpreter implemented inside the <code>$parse</code> service. This leads to:<ul class="list">
+<li>Prefer the usage of <a href="https://github.com/angular/angular.js/pull/4366/files">controllers instead of <code>ngInit</code></a>. The only appropriate use of <code>ngInit</code> is for aliasing special properties of <code>ngRepeat</code>. Besides this case, you should use controllers rather than <code>ngInit</code> to initialize values on a scope. The expression passed to <code>ngInit</code> should go through lexing, parsing and evaluation by the Angular interpreter implemented inside the <code>$parse</code> service. This leads to:
+
+<ul>
 <li>Performance impact, because the interpreter is implemented in JavaScript</li>
-<li>The caching of the parsed expressions inside the <code>$parse</code> service doesn&#39;t make a lot of sense in most cases, since <code>ngInit</code> expressions are often evaluated only once</li>
-<li>Is error-prone, since you&#39;re writing strings inside your templates, there&#39;s no syntax highlighting and further support by your editor</li>
+<li>The caching of the parsed expressions inside the <code>$parse</code> service doesn't make a lot of sense in most cases, since <code>ngInit</code> expressions are often evaluated only once</li>
+<li>Is error-prone, since you're writing strings inside your templates, there's no syntax highlighting and further support by your editor</li>
 <li>No run-time errors are thrown</li>
 </ul>
 </li>
 <li>Do not use <code>$</code> prefix for the names of variables, properties and methods. This prefix is reserved for AngularJS usage.</li>
 <li>When resolving dependencies through the DI mechanism of AngularJS, sort the dependencies by their type - the built-in AngularJS dependencies should be first, followed by your custom ones:</li>
 </ul>
-<pre class="hljs"><code>module.factory(<span class="hljs-string">'Service'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(<span class="hljs-variable">$rootScope</span>, <span class="hljs-variable">$timeout</span>, MyCustomDependency1, MyCustomDependency2)</span> </span>{
-  <span class="hljs-keyword">return</span> {
-    <span class="hljs-comment">//Something</span>
+
+<div class="highlight highlight-javascript"><pre><span class="pl-c1">module</span>.<span class="pl-c1">factory</span>(<span class="pl-s"><span class="pl-pds">'</span>Service<span class="pl-pds">'</span></span>, <span class="pl-k">function</span> (<span class="pl-smi">$rootScope</span>, <span class="pl-smi">$timeout</span>, <span class="pl-smi">MyCustomDependency1</span>, <span class="pl-smi">MyCustomDependency2</span>) {
+  <span class="pl-k">return</span> {
+    <span class="pl-c">//Something</span>
   };
-});</code></pre><h1 id="modules">Modules</h1>
-<ul class="list">
-<li><p>Modules should be named with lowerCamelCase. For indicating that module <code>b</code> is submodule of module <code>a</code> you can nest them by using namespacing like: <code>a.b</code>.</p>
-<p>  There are two common ways for structuring the modules:</p>
-<ol class="list">
+});</pre></div>
+
+<h1>
+<a id="modules" class="anchor" href="#modules" aria-hidden="true"><span class="octicon octicon-link"></span></a>Modules</h1>
+
+<ul>
+<li>
+<p>Modules should be named with lowerCamelCase. For indicating that module <code>b</code> is submodule of module <code>a</code> you can nest them by using namespacing like: <code>a.b</code>.</p>
+
+<p>There are two common ways for structuring the modules:</p>
+
+<ol>
 <li>By functionality</li>
-<li><p>By component type</p>
-<p>Currently there&#39;s not a big difference, but the first way looks cleaner. Also, if lazy-loading modules is implemented (currently not in the AngularJS roadmap), it will improve the app&#39;s performance.</p>
-</li>
+<li>By component type</li>
 </ol>
+
+<p>Currently there's not a big difference, but the first way looks cleaner. Also, if lazy-loading modules is implemented (currently not in the AngularJS roadmap), it will improve the app's performance.</p>
 </li>
 </ul>
-<h1 id="controllers">Controllers</h1>
-<ul class="list">
+
+<h1>
+<a id="controllers" class="anchor" href="#controllers" aria-hidden="true"><span class="octicon octicon-link"></span></a>Controllers</h1>
+
+<ul>
 <li>Do not manipulate DOM in your controllers, this will make your controllers harder for testing and will violate the <a href="https://en.wikipedia.org/wiki/Separation_of_concerns">Separation of Concerns principle</a>. Use directives instead.</li>
-<li>The naming of the controller is done using the controller&#39;s functionality (for example shopping cart, homepage, admin panel) and the substring <code>Ctrl</code> in the end.</li>
+<li>The naming of the controller is done using the controller's functionality (for example shopping cart, homepage, admin panel) and the substring <code>Ctrl</code> in the end.</li>
 <li>Controllers are plain javascript <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/constructor">constructors</a>, so they will be named UpperCamelCase (<code>HomePageCtrl</code>, <code>ShoppingCartCtrl</code>, <code>AdminPanelCtrl</code>, etc.).</li>
 <li>The controllers should not be defined as globals (even though AngularJS allows this, it is a bad practice to pollute the global namespace).</li>
-<li><p>Use the following syntax for defining controllers:</p>
-<pre class="hljs"><code><span class="hljs-keyword">function</span> MyCtrl(dependency1, dependency2, <span class="hljs-keyword">...</span>, dependencyn) {
-  // <span class="hljs-keyword">...</span>
-}
-module.controller(<span class="hljs-string">'MyCtrl'</span>, MyCtrl);</code></pre><p> In order to prevent problems with minification, you can automatically generate the array definition syntax from    the standard one using tools like <a href="https://github.com/olov/ng-annotate">ng-annotate</a> (and grunt task          <a href="https://github.com/mzgol/grunt-ng-annotate">grunt-ng-annotate</a>).</p>
-</li>
-<li><p>Prefer using <code>controller as</code> syntax:</p>
-<pre class="hljs"><code><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">ng-controller</span>=<span class="hljs-value">"MainCtrl as main"</span>&gt;</span>
-   </span><span class="hljs-expression">{{ <span class="hljs-variable">main.title</span> }}</span><span class="xml">
-<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span></span></code></pre><pre class="hljs"><code>app.controller(<span class="hljs-string">'MainCtrl'</span>, MainCtrl);
+<li>
+<p>Use the following syntax for defining controllers:</p>
 
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">MainCtrl</span> <span class="hljs-params">()</span> </span>{
-  <span class="hljs-keyword">this</span>.title = <span class="hljs-string">'Some title'</span>;
-}</code></pre><p> The main benefits of using this syntax:</p>
-<ul class="list">
-<li>Creates an &#39;isolated&#39; component - binded properties are not part of <code>$scope</code> prototype chain. This is good practice since <code>$scope</code> prototype inheritance has some major drawbacks (this is probably the reason it was removed on Angular 2):<ul class="list">
+<div class="highlight highlight-JavaScript"><pre><span class="pl-k">function</span> <span class="pl-en">MyCtrl</span>(<span class="pl-smi">dependency1</span>, <span class="pl-smi">dependency2</span>, ..., <span class="pl-smi">dependencyn</span>) {
+  <span class="pl-c">// ...</span>
+}
+<span class="pl-c1">module</span>.<span class="pl-c1">controller</span>(<span class="pl-s"><span class="pl-pds">'</span>MyCtrl<span class="pl-pds">'</span></span>, MyCtrl);</pre></div>
+
+<p>In order to prevent problems with minification, you can automatically generate the array definition syntax from    the standard one using tools like <a href="https://github.com/olov/ng-annotate">ng-annotate</a> (and grunt task          <a href="https://github.com/mzgol/grunt-ng-annotate">grunt-ng-annotate</a>).</p>
+</li>
+<li>
+<p>Prefer using <code>controller as</code> syntax:</p>
+
+<pre><code>&lt;div ng-controller="MainCtrl as main"&gt;
+   {{ main.title }}
+&lt;/div&gt;
+</code></pre>
+
+<div class="highlight highlight-JavaScript"><pre>app.<span class="pl-c1">controller</span>(<span class="pl-s"><span class="pl-pds">'</span>MainCtrl<span class="pl-pds">'</span></span>, MainCtrl);
+
+<span class="pl-k">function</span> <span class="pl-en">MainCtrl</span> () {
+  <span class="pl-v">this</span>.<span class="pl-c1">title</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span>Some title<span class="pl-pds">'</span></span>;
+}</pre></div>
+
+<p>The main benefits of using this syntax:</p>
+
+<ul>
+<li>Creates an 'isolated' component - binded properties are not part of <code>$scope</code> prototype chain. This is good practice since <code>$scope</code> prototype inheritance has some major drawbacks (this is probably the reason it was removed on Angular 2):
+
+<ul>
 <li>It is hard to track where data is coming from.</li>
-<li>Scope&#39;s value changes can affect places you did not intend to affect.</li>
+<li>Scope's value changes can affect places you did not intend to affect.</li>
 <li>Harder to refactor.</li>
-<li>The &#39;<a href="http://jimhoskins.com/2012/12/14/nested-scopes-in-angularjs.html">dot rule</a>&#39;.</li>
+<li>The '<a href="http://jimhoskins.com/2012/12/14/nested-scopes-in-angularjs.html">dot rule</a>'.</li>
 </ul>
 </li>
 <li>Removes the use of <code>$scope</code> when no need for special operations (like <code>$scope.$broadcast</code>). This is a good preparation for AngularJS V2.</li>
-<li><p>Syntax is closer to that of a &#39;vanilla&#39; JavaScript constructor</p>
+<li>Syntax is closer to that of a 'vanilla' JavaScript constructor</li>
+</ul>
+
 <p>Digging more into <code>controller as</code>: <a href="http://toddmotto.com/digging-into-angulars-controller-as-syntax/">digging-into-angulars-controller-as-syntax</a></p>
 </li>
-</ul>
-</li>
-<li><p>If using array definition syntax, use the original names of the controller&#39;s dependencies. This will help you produce more readable code:</p>
-<pre class="hljs"><code><span class="hljs-keyword">function</span> MyCtrl(s) {
-  // <span class="hljs-keyword">...</span>
+<li>
+<p>If using array definition syntax, use the original names of the controller's dependencies. This will help you produce more readable code:</p>
+
+<div class="highlight highlight-JavaScript"><pre><span class="pl-k">function</span> <span class="pl-en">MyCtrl</span>(<span class="pl-smi">s</span>) {
+  <span class="pl-c">// ...</span>
 }
 
-module.controller(<span class="hljs-string">'MyCtrl'</span>, [<span class="hljs-string">'$scope'</span>, MyCtrl]);</code></pre><p> which is less readable than:</p>
-<pre class="hljs"><code><span class="hljs-keyword">function</span> MyCtrl($scope) {
-  // <span class="hljs-keyword">...</span>
+<span class="pl-c1">module</span>.<span class="pl-c1">controller</span>(<span class="pl-s"><span class="pl-pds">'</span>MyCtrl<span class="pl-pds">'</span></span>, [<span class="pl-s"><span class="pl-pds">'</span>$scope<span class="pl-pds">'</span></span>, MyCtrl]);</pre></div>
+
+<p>which is less readable than:</p>
+
+<div class="highlight highlight-JavaScript"><pre><span class="pl-k">function</span> <span class="pl-en">MyCtrl</span>(<span class="pl-smi">$scope</span>) {
+  <span class="pl-c">// ...</span>
 }
-module.controller(<span class="hljs-string">'MyCtrl'</span>, [<span class="hljs-string">'$scope'</span>, MyCtrl]);</code></pre><p> This especially applies to a file that has so much code that you&#39;d need to scroll through. This would possibly cause you to forget which variable is tied to which dependency.</p>
+<span class="pl-c1">module</span>.<span class="pl-c1">controller</span>(<span class="pl-s"><span class="pl-pds">'</span>MyCtrl<span class="pl-pds">'</span></span>, [<span class="pl-s"><span class="pl-pds">'</span>$scope<span class="pl-pds">'</span></span>, MyCtrl]);</pre></div>
+
+<p>This especially applies to a file that has so much code that you'd need to scroll through. This would possibly cause you to forget which variable is tied to which dependency.</p>
 </li>
-<li><p>Make the controllers as lean as possible. Abstract commonly used functions into a service.</p>
-</li>
-<li><p>Avoid writing business logic inside controllers. Delegate business logic to a <code>model</code>, using a service.
+<li><p>Make the controllers as lean as possible. Abstract commonly used functions into a service.</p></li>
+<li>
+<p>Avoid writing business logic inside controllers. Delegate business logic to a <code>model</code>, using a service.
 For example:</p>
-<pre class="hljs"><code><span class="hljs-comment">//This is a common behaviour (bad example) of using business logic inside a controller.</span>
-angular.module(<span class="hljs-string">'Store'</span>, [])
-.controller(<span class="hljs-string">'OrderCtrl'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(<span class="hljs-variable">$scope</span>)</span> </span>{
 
-  <span class="hljs-variable">$scope</span>.items = [];
+<div class="highlight highlight-Javascript"><pre><span class="pl-c">//This is a common behaviour (bad example) of using business logic inside a controller.</span>
+angular.<span class="pl-c1">module</span>(<span class="pl-s"><span class="pl-pds">'</span>Store<span class="pl-pds">'</span></span>, [])
+.<span class="pl-c1">controller</span>(<span class="pl-s"><span class="pl-pds">'</span>OrderCtrl<span class="pl-pds">'</span></span>, <span class="pl-k">function</span> (<span class="pl-smi">$scope</span>) {
 
-  <span class="hljs-variable">$scope</span>.addToOrder = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(item)</span> </span>{
-    <span class="hljs-variable">$scope</span>.items.push(item);<span class="hljs-comment">//--&gt;Business logic inside controller</span>
+  $scope.<span class="pl-c1">items</span> <span class="pl-k">=</span> [];
+
+  <span class="pl-c1">$scope</span>.<span class="pl-en">addToOrder</span> <span class="pl-k">=</span> <span class="pl-k">function</span> (<span class="pl-smi">item</span>) {
+    $scope.<span class="pl-c1">items</span>.<span class="pl-c1">push</span>(item);<span class="pl-c">//--&gt;Business logic inside controller</span>
   };
 
-  <span class="hljs-variable">$scope</span>.removeFromOrder = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(item)</span> </span>{
-    <span class="hljs-variable">$scope</span>.items.splice(<span class="hljs-variable">$scope</span>.items.indexOf(item), <span class="hljs-number">1</span>);<span class="hljs-comment">//--&gt;Business logic inside controller</span>
+  <span class="pl-c1">$scope</span>.<span class="pl-en">removeFromOrder</span> <span class="pl-k">=</span> <span class="pl-k">function</span> (<span class="pl-smi">item</span>) {
+    $scope.<span class="pl-c1">items</span>.<span class="pl-c1">splice</span>($scope.<span class="pl-c1">items</span>.<span class="pl-c1">indexOf</span>(item), <span class="pl-c1">1</span>);<span class="pl-c">//--&gt;Business logic inside controller</span>
   };
 
-  <span class="hljs-variable">$scope</span>.totalPrice = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
-    <span class="hljs-keyword">return</span> <span class="hljs-variable">$scope</span>.items.reduce(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(memo, item)</span> </span>{
-      <span class="hljs-keyword">return</span> memo + (item.qty * item.price);<span class="hljs-comment">//--&gt;Business logic inside controller</span>
-    }, <span class="hljs-number">0</span>);
+  <span class="pl-c1">$scope</span>.<span class="pl-en">totalPrice</span> <span class="pl-k">=</span> <span class="pl-k">function</span> () {
+    <span class="pl-k">return</span> $scope.<span class="pl-c1">items</span>.<span class="pl-c1">reduce</span>(<span class="pl-k">function</span> (<span class="pl-smi">memo</span>, <span class="pl-smi">item</span>) {
+      <span class="pl-k">return</span> memo <span class="pl-k">+</span> (item.<span class="pl-c1">qty</span> <span class="pl-k">*</span> item.<span class="pl-c1">price</span>);<span class="pl-c">//--&gt;Business logic inside controller</span>
+    }, <span class="pl-c1">0</span>);
   };
-});</code></pre><p>When delegating business logic into a &#39;model&#39; service, controller will look like this (see &#39;use services as your Model&#39; for service-model implementation):</p>
-<pre class="hljs"><code><span class="hljs-comment">//Order is used as a 'model'</span>
-angular.module(<span class="hljs-string">'Store'</span>, [])
-.controller(<span class="hljs-string">'OrderCtrl'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(Order)</span> </span>{
+});</pre></div>
 
-  <span class="hljs-variable">$scope</span>.items = Order.items;
+<p>When delegating business logic into a 'model' service, controller will look like this (see 'use services as your Model' for service-model implementation):</p>
 
-  <span class="hljs-variable">$scope</span>.addToOrder = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(item)</span> </span>{
-    Order.addToOrder(item);
+<div class="highlight highlight-Javascript"><pre><span class="pl-c">//Order is used as a 'model'</span>
+angular.<span class="pl-c1">module</span>(<span class="pl-s"><span class="pl-pds">'</span>Store<span class="pl-pds">'</span></span>, [])
+.<span class="pl-c1">controller</span>(<span class="pl-s"><span class="pl-pds">'</span>OrderCtrl<span class="pl-pds">'</span></span>, <span class="pl-k">function</span> (<span class="pl-smi">Order</span>) {
+
+  $scope.<span class="pl-c1">items</span> <span class="pl-k">=</span> Order.<span class="pl-c1">items</span>;
+
+  <span class="pl-c1">$scope</span>.<span class="pl-en">addToOrder</span> <span class="pl-k">=</span> <span class="pl-k">function</span> (<span class="pl-smi">item</span>) {
+    Order.<span class="pl-c1">addToOrder</span>(item);
   };
 
-  <span class="hljs-variable">$scope</span>.removeFromOrder = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(item)</span> </span>{
-    Order.removeFromOrder(item);
+  <span class="pl-c1">$scope</span>.<span class="pl-en">removeFromOrder</span> <span class="pl-k">=</span> <span class="pl-k">function</span> (<span class="pl-smi">item</span>) {
+    Order.<span class="pl-c1">removeFromOrder</span>(item);
   };
 
-  <span class="hljs-variable">$scope</span>.totalPrice = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
-    <span class="hljs-keyword">return</span> Order.total();
+  <span class="pl-c1">$scope</span>.<span class="pl-en">totalPrice</span> <span class="pl-k">=</span> <span class="pl-k">function</span> () {
+    <span class="pl-k">return</span> Order.<span class="pl-c1">total</span>();
   };
-});</code></pre><p>Why business logic / app state inside controllers is bad?</p>
-<ul class="list">
+});</pre></div>
+
+<p>Why business logic / app state inside controllers is bad?</p>
+
+<ul>
 <li>Controllers instantiated for each view and dies when the view unloads</li>
 <li>Controllers are not reusable - they are coupled with the view</li>
 <li>Controllers are not meant to be injected</li>
 </ul>
 </li>
-</ul>
-<ul class="list">
-<li>Communicate within different controllers using method invocation (possible when a child wants to communicate with its parent) or <code>$emit</code>, <code>$broadcast</code> and <code>$on</code> methods. The emitted and broadcasted messages should be kept to a minimum.</li>
-<li><p>Make a list of all messages which are passed using <code>$emit</code>, <code>$broadcast</code> and manage it carefully because of name collisions and possible bugs.</p>
-<p> Example:</p>
-<pre class="hljs"><code> // app.js
- /<span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span>
- Custom events:
-   - 'authorization-message' - description of the message
-     - { user, role, action } - data format
-       - user - a string, which contains the username
-       - role - an ID of the role the user has
-       - action - specific ation the user tries to perform
- <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span>/</code></pre></li>
-<li><p>When you need to format data encapsulate the formatting logic into a <a href="#filters">filter</a> and declare it as dependency:</p>
-<pre class="hljs"><code> <span class="hljs-keyword">function</span> myFormat() {
-   <span class="hljs-keyword">return</span> <span class="hljs-keyword">function</span> () {
-     // <span class="hljs-keyword">...</span>
-   };
- }
- module.filter(<span class="hljs-string">'myFormat'</span>, myFormat);
+<li><p>Communicate within different controllers using method invocation (possible when a child wants to communicate with its parent) or <code>$emit</code>, <code>$broadcast</code> and <code>$on</code> methods. The emitted and broadcasted messages should be kept to a minimum.</p></li>
+<li>
+<p>Make a list of all messages which are passed using <code>$emit</code>, <code>$broadcast</code> and manage it carefully because of name collisions and possible bugs.</p>
 
- <span class="hljs-keyword">function</span> MyCtrl($scope, myFormatFilter) {
-   // <span class="hljs-keyword">...</span>
- }
+<p>Example:</p>
 
- module.controller(<span class="hljs-string">'MyCtrl'</span>, MyCtrl);</code></pre></li>
-<li><p>In case of nested controllers use &quot;nested scoping&quot; (the <code>controllerAs</code> syntax):</p>
-<p> <strong>app.js</strong></p>
-<pre class="hljs"><code> module.config(function ($routeProvider) {
-   $routeProvider
-     .<span class="hljs-keyword">when</span>('/route', {
-       templateUrl: 'partials/<span class="hljs-keyword">template</span>.html',
-       controller: '<span class="hljs-type">HomeCtrl</span>',
-       controllerAs: 'home'
-     });
- });</code></pre><p> <strong>HomeCtrl</strong></p>
-<pre class="hljs"><code> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">HomeCtrl</span><span class="hljs-params">()</span> </span>{
-   <span class="hljs-keyword">this</span>.bindingValue = <span class="hljs-number">42</span>;
- }</code></pre><p> <strong>template.html</strong></p>
-<pre class="hljs"><code> &lt;<span class="hljs-keyword">div</span> ng-<span class="hljs-keyword">bind</span>=<span class="hljs-string">"home.bindingValue"</span>&gt;&lt;/<span class="hljs-keyword">div</span>&gt;</code></pre></li>
+<div class="highlight highlight-JavaScript"><pre><span class="pl-c">// app.js</span>
+<span class="pl-c">/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * *</span>
+<span class="pl-c">Custom events:</span>
+<span class="pl-c"> - 'authorization-message' - description of the message</span>
+<span class="pl-c">   - { user, role, action } - data format</span>
+<span class="pl-c">     - user - a string, which contains the username</span>
+<span class="pl-c">     - role - an ID of the role the user has</span>
+<span class="pl-c">     - action - specific ation the user tries to perform</span>
+<span class="pl-c">* * * * * * * * * * * * * * * * * * * * * * * * * * * * * */</span></pre></div>
+</li>
+<li>
+<p>When you need to format data encapsulate the formatting logic into a <a href="#filters">filter</a> and declare it as dependency:</p>
+
+<div class="highlight highlight-JavaScript"><pre><span class="pl-k">function</span> <span class="pl-en">myFormat</span>() {
+ <span class="pl-k">return</span> <span class="pl-k">function</span> () {
+   <span class="pl-c">// ...</span>
+ };
+}
+<span class="pl-c1">module</span>.<span class="pl-c1">filter</span>(<span class="pl-s"><span class="pl-pds">'</span>myFormat<span class="pl-pds">'</span></span>, myFormat);
+
+<span class="pl-k">function</span> <span class="pl-en">MyCtrl</span>(<span class="pl-smi">$scope</span>, <span class="pl-smi">myFormatFilter</span>) {
+ <span class="pl-c">// ...</span>
+}
+
+<span class="pl-c1">module</span>.<span class="pl-c1">controller</span>(<span class="pl-s"><span class="pl-pds">'</span>MyCtrl<span class="pl-pds">'</span></span>, MyCtrl);</pre></div>
+</li>
+<li>
+<p>In case of nested controllers use "nested scoping" (the <code>controllerAs</code> syntax):</p>
+
+<p><strong>app.js</strong></p>
+
+<div class="highlight highlight-javascript"><pre><span class="pl-c1">module</span>.<span class="pl-c1">config</span>(<span class="pl-k">function</span> (<span class="pl-smi">$routeProvider</span>) {
+ $routeProvider
+   .<span class="pl-c1">when</span>(<span class="pl-s"><span class="pl-pds">'</span>/route<span class="pl-pds">'</span></span>, {
+     templateUrl<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>partials/template.html<span class="pl-pds">'</span></span>,
+     controller<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>HomeCtrl<span class="pl-pds">'</span></span>,
+     controllerAs<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>home<span class="pl-pds">'</span></span>
+   });
+});</pre></div>
+
+<p><strong>HomeCtrl</strong></p>
+
+<div class="highlight highlight-javascript"><pre><span class="pl-k">function</span> <span class="pl-en">HomeCtrl</span>() {
+ <span class="pl-v">this</span>.<span class="pl-c1">bindingValue</span> <span class="pl-k">=</span> <span class="pl-c1">42</span>;
+}</pre></div>
+
+<p><strong>template.html</strong></p>
+
+<pre><code>&lt;div ng-bind="home.bindingValue"&gt;&lt;/div&gt;
+</code></pre>
+</li>
 </ul>
-<h1 id="directives">Directives</h1>
-<ul class="list">
+
+<h1>
+<a id="directives" class="anchor" href="#directives" aria-hidden="true"><span class="octicon octicon-link"></span></a>Directives</h1>
+
+<ul>
 <li>Name your directives with lowerCamelCase.</li>
-<li>Use <code>scope</code> instead of <code>$scope</code> in your link function. In the compile, post/pre link functions you have already defined arguments which will be passed when the function is invoked, you won&#39;t be able to change them using DI. This style is also used in AngularJS&#39;s source code.</li>
+<li>Use <code>scope</code> instead of <code>$scope</code> in your link function. In the compile, post/pre link functions you have already defined arguments which will be passed when the function is invoked, you won't be able to change them using DI. This style is also used in AngularJS's source code.</li>
 <li>Use custom prefixes for your directives to prevent name collisions with third-party libraries.</li>
 <li>Do not use <code>ng</code> or <code>ui</code> prefixes since they are reserved for AngularJS and AngularJS UI usage.</li>
 <li>DOM manipulations must be done only through directives.</li>
 <li>Create an isolated scope when you develop reusable components.</li>
 <li>Use directives as attributes or elements instead of comments or classes, this will make your code more readable.</li>
-<li>Use <code>scope.$on(&#39;$destroy&#39;, fn)</code> for cleaning up. This is especially useful when you&#39;re wrapping third-party plugins as directives.</li>
+<li>Use <code>scope.$on('$destroy', fn)</code> for cleaning up. This is especially useful when you're wrapping third-party plugins as directives.</li>
 <li>Do not forget to use <code>$sce</code> when you should deal with untrusted content.</li>
 </ul>
-<h1 id="filters">Filters</h1>
-<ul class="list">
+
+<h1>
+<a id="filters" class="anchor" href="#filters" aria-hidden="true"><span class="octicon octicon-link"></span></a>Filters</h1>
+
+<ul>
 <li>Name your filters with lowerCamelCase.</li>
 <li>Make your filters as light as possible. They are called often during the <code>$digest</code> loop so creating a slow filter will slow down your app.</li>
 <li>Do a single thing in your filters, keep them coherent. More complex manipulations can be achieved by piping existing filters.</li>
 </ul>
-<h1 id="services">Services</h1>
+
+<h1>
+<a id="services" class="anchor" href="#services" aria-hidden="true"><span class="octicon octicon-link"></span></a>Services</h1>
+
 <p>This section includes information about the service component in AngularJS. It is not dependent of the way of definition (i.e. as provider, <code>.factory</code>, <code>.service</code>), except if explicitly mentioned.</p>
-<ul class="list">
-<li><p>Use camelCase to name your services.</p>
-<ul class="list">
-<li><p>UpperCamelCase (PascalCase) for naming your services, used as constructor functions i.e.:</p>
-<pre class="hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">MainCtrl</span><span class="hljs-params">($scope, User)</span> </span>{
-  $scope.user = <span class="hljs-keyword">new</span> User(<span class="hljs-string">'foo'</span>, <span class="hljs-number">42</span>);
+
+<ul>
+<li>
+<p>Use camelCase to name your services.</p>
+
+<ul>
+<li>
+<p>UpperCamelCase (PascalCase) for naming your services, used as constructor functions i.e.:</p>
+
+<div class="highlight highlight-JavaScript"><pre><span class="pl-k">function</span> <span class="pl-en">MainCtrl</span>(<span class="pl-smi">$scope</span>, <span class="pl-smi">User</span>) {
+  $scope.<span class="pl-c1">user</span> <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">User</span>(<span class="pl-s"><span class="pl-pds">'</span>foo<span class="pl-pds">'</span></span>, <span class="pl-c1">42</span>);
 }
 
-<span class="hljs-built_in">module</span>.controller(<span class="hljs-string">'MainCtrl'</span>, MainCtrl);
+<span class="pl-c1">module</span>.<span class="pl-c1">controller</span>(<span class="pl-s"><span class="pl-pds">'</span>MainCtrl<span class="pl-pds">'</span></span>, MainCtrl);
 
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">User</span><span class="hljs-params">(name, age)</span> </span>{
-  <span class="hljs-keyword">this</span>.name = name;
-  <span class="hljs-keyword">this</span>.age = age;
+<span class="pl-k">function</span> <span class="pl-en">User</span>(<span class="pl-smi">name</span>, <span class="pl-smi">age</span>) {
+  <span class="pl-v">this</span>.<span class="pl-c1">name</span> <span class="pl-k">=</span> name;
+  <span class="pl-v">this</span>.<span class="pl-c1">age</span> <span class="pl-k">=</span> age;
 }
 
-<span class="hljs-built_in">module</span>.factory(<span class="hljs-string">'User'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
-  <span class="hljs-keyword">return</span> User;
-});</code></pre></li>
-<li><p>lowerCamelCase for all other services.</p>
+<span class="pl-c1">module</span>.<span class="pl-c1">factory</span>(<span class="pl-s"><span class="pl-pds">'</span>User<span class="pl-pds">'</span></span>, <span class="pl-k">function</span> () {
+  <span class="pl-k">return</span> User;
+});</pre></div>
 </li>
+<li><p>lowerCamelCase for all other services.</p></li>
 </ul>
 </li>
-<li><p>Encapsulate all the business logic in services. Prefer using it as your <code>model</code>. For example:</p>
-<pre class="hljs"><code><span class="hljs-comment">//Order is the 'model'</span>
-angular.module(<span class="hljs-string">'Store'</span>)
-.factory(<span class="hljs-string">'Order'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
-    <span class="hljs-keyword">var</span> add = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(item)</span> </span>{
-      <span class="hljs-keyword">this</span>.items.push (item);
+<li>
+<p>Encapsulate all the business logic in services. Prefer using it as your <code>model</code>. For example:</p>
+
+<div class="highlight highlight-Javascript"><pre><span class="pl-c">//Order is the 'model'</span>
+angular.<span class="pl-c1">module</span>(<span class="pl-s"><span class="pl-pds">'</span>Store<span class="pl-pds">'</span></span>)
+.<span class="pl-c1">factory</span>(<span class="pl-s"><span class="pl-pds">'</span>Order<span class="pl-pds">'</span></span>, <span class="pl-k">function</span> () {
+    <span class="pl-k">var</span> <span class="pl-en">add</span> <span class="pl-k">=</span> <span class="pl-k">function</span> (<span class="pl-smi">item</span>) {
+      <span class="pl-v">this</span>.<span class="pl-c1">items</span>.<span class="pl-c1">push</span> (item);
     };
 
-    <span class="hljs-keyword">var</span> remove = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(item)</span> </span>{
-      <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.items.indexOf(item) &gt; -<span class="hljs-number">1</span>) {
-        <span class="hljs-keyword">this</span>.items.splice(<span class="hljs-keyword">this</span>.items.indexOf(item), <span class="hljs-number">1</span>);
+    <span class="pl-k">var</span> <span class="pl-en">remove</span> <span class="pl-k">=</span> <span class="pl-k">function</span> (<span class="pl-smi">item</span>) {
+      <span class="pl-k">if</span> (<span class="pl-v">this</span>.<span class="pl-c1">items</span>.<span class="pl-c1">indexOf</span>(item) <span class="pl-k">&gt;</span> <span class="pl-k">-</span><span class="pl-c1">1</span>) {
+        <span class="pl-v">this</span>.<span class="pl-c1">items</span>.<span class="pl-c1">splice</span>(<span class="pl-v">this</span>.<span class="pl-c1">items</span>.<span class="pl-c1">indexOf</span>(item), <span class="pl-c1">1</span>);
       }
     };
 
-    <span class="hljs-keyword">var</span> total = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
-      <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.items.reduce(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(memo, item)</span> </span>{
-        <span class="hljs-keyword">return</span> memo + (item.qty * item.price);
-      }, <span class="hljs-number">0</span>);
+    <span class="pl-k">var</span> <span class="pl-en">total</span> <span class="pl-k">=</span> <span class="pl-k">function</span> () {
+      <span class="pl-k">return</span> <span class="pl-v">this</span>.<span class="pl-c1">items</span>.<span class="pl-c1">reduce</span>(<span class="pl-k">function</span> (<span class="pl-smi">memo</span>, <span class="pl-smi">item</span>) {
+        <span class="pl-k">return</span> memo <span class="pl-k">+</span> (item.<span class="pl-c1">qty</span> <span class="pl-k">*</span> item.<span class="pl-c1">price</span>);
+      }, <span class="pl-c1">0</span>);
     };
 
-    <span class="hljs-keyword">return</span> {
-      items: [],
-      addToOrder: add,
-      removeFromOrder: remove,
-      totalPrice: total
+    <span class="pl-k">return</span> {
+      items<span class="pl-k">:</span> [],
+      addToOrder<span class="pl-k">:</span> add,
+      removeFromOrder<span class="pl-k">:</span> remove,
+      totalPrice<span class="pl-k">:</span> total
     };
-});</code></pre><p>See &#39;Avoid writing business logic inside controllers&#39; for an example of a controller consuming this service.</p>
-</li>
-<li><p>Services representing the domain preferably a <code>service</code> instead of a <code>factory</code>. In this way we can take advantage of the &quot;klassical&quot; inheritance easier:</p>
-<pre class="hljs"><code>  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Human</span><span class="hljs-params">()</span> </span>{
-    <span class="hljs-comment">//body</span>
-  }
-  Human.prototype.talk = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
-    <span class="hljs-keyword">return</span> <span class="hljs-string">"I'm talking"</span>;
-  };
+});</pre></div>
 
-  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Developer</span><span class="hljs-params">()</span> </span>{
-    <span class="hljs-comment">//body</span>
-  }
-  Developer.prototype = <span class="hljs-built_in">Object</span>.create(Human.prototype);
-  Developer.prototype.code = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
-    <span class="hljs-keyword">return</span> <span class="hljs-string">"I'm coding"</span>;
-  };
-
-  myModule.service(<span class="hljs-string">'Human'</span>, Human);
-  myModule.service(<span class="hljs-string">'Developer'</span>, Developer);</code></pre></li>
-<li><p>For session-level cache you can use <code>$cacheFactory</code>. This should be used to cache results from requests or heavy computations.</p>
+<p>See 'Avoid writing business logic inside controllers' for an example of a controller consuming this service.</p>
 </li>
-<li><p>If given service requires configuration define the service as provider and configure it in the <code>config</code> callback like:</p>
-<pre class="hljs"><code>  angular.module(<span class="hljs-string">'demo'</span>, [])
-  .config(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(<span class="hljs-variable">$provide</span>)</span> </span>{
-    <span class="hljs-variable">$provide</span>.provider(<span class="hljs-string">'sample'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
-      <span class="hljs-keyword">var</span> foo = <span class="hljs-number">42</span>;
-      <span class="hljs-keyword">return</span> {
-        setFoo: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(f)</span> </span>{
-          foo = f;
-        },
-        <span class="hljs-variable">$get</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
-          <span class="hljs-keyword">return</span> {
-            foo: foo
-          };
-        }
-      };
-    });
+<li>
+<p>Services representing the domain preferably a <code>service</code> instead of a <code>factory</code>. In this way we can take advantage of the "klassical" inheritance easier:</p>
+
+<div class="highlight highlight-JavaScript"><pre><span class="pl-k">function</span> <span class="pl-en">Human</span>() {
+  <span class="pl-c">//body</span>
+}
+<span class="pl-c1">Human</span>.<span class="pl-c1">prototype</span>.<span class="pl-en">talk</span> <span class="pl-k">=</span> <span class="pl-k">function</span> () {
+  <span class="pl-k">return</span> <span class="pl-s"><span class="pl-pds">"</span>I'm talking<span class="pl-pds">"</span></span>;
+};
+
+<span class="pl-k">function</span> <span class="pl-en">Developer</span>() {
+  <span class="pl-c">//body</span>
+}
+<span class="pl-c1">Developer</span>.<span class="pl-c1">prototype</span> <span class="pl-k">=</span> <span class="pl-c1">Object</span>.<span class="pl-c1">create</span>(Human.<span class="pl-c1">prototype</span>);
+<span class="pl-c1">Developer</span>.<span class="pl-c1">prototype</span>.<span class="pl-en">code</span> <span class="pl-k">=</span> <span class="pl-k">function</span> () {
+  <span class="pl-k">return</span> <span class="pl-s"><span class="pl-pds">"</span>I'm coding<span class="pl-pds">"</span></span>;
+};
+
+myModule.<span class="pl-c1">service</span>(<span class="pl-s"><span class="pl-pds">'</span>Human<span class="pl-pds">'</span></span>, Human);
+myModule.<span class="pl-c1">service</span>(<span class="pl-s"><span class="pl-pds">'</span>Developer<span class="pl-pds">'</span></span>, Developer);
+</pre></div>
+</li>
+<li><p>For session-level cache you can use <code>$cacheFactory</code>. This should be used to cache results from requests or heavy computations.</p></li>
+<li>
+<p>If given service requires configuration define the service as provider and configure it in the <code>config</code> callback like:</p>
+
+<div class="highlight highlight-JavaScript"><pre>angular.<span class="pl-c1">module</span>(<span class="pl-s"><span class="pl-pds">'</span>demo<span class="pl-pds">'</span></span>, [])
+.<span class="pl-c1">config</span>(<span class="pl-k">function</span> (<span class="pl-smi">$provide</span>) {
+  $provide.<span class="pl-c1">provider</span>(<span class="pl-s"><span class="pl-pds">'</span>sample<span class="pl-pds">'</span></span>, <span class="pl-k">function</span> () {
+    <span class="pl-k">var</span> foo <span class="pl-k">=</span> <span class="pl-c1">42</span>;
+    <span class="pl-k">return</span> {
+      <span class="pl-en">setFoo</span><span class="pl-k">:</span> <span class="pl-k">function</span> (<span class="pl-smi">f</span>) {
+        foo <span class="pl-k">=</span> f;
+      },
+      $<span class="pl-en">get</span><span class="pl-k">:</span> <span class="pl-k">function</span> () {
+        <span class="pl-k">return</span> {
+          foo<span class="pl-k">:</span> foo
+        };
+      }
+    };
   });
+});
 
-  <span class="hljs-keyword">var</span> demo = angular.module(<span class="hljs-string">'demo'</span>);
+<span class="pl-k">var</span> demo <span class="pl-k">=</span> angular.<span class="pl-c1">module</span>(<span class="pl-s"><span class="pl-pds">'</span>demo<span class="pl-pds">'</span></span>);
 
-  demo.config(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(sampleProvider)</span> </span>{
-    sampleProvider.setFoo(<span class="hljs-number">41</span>);
-  });</code></pre></li>
+demo.<span class="pl-c1">config</span>(<span class="pl-k">function</span> (<span class="pl-smi">sampleProvider</span>) {
+  sampleProvider.<span class="pl-c1">setFoo</span>(<span class="pl-c1">41</span>);
+});</pre></div>
+</li>
 </ul>
-<h1 id="templates">Templates</h1>
-<ul class="list">
+
+<h1>
+<a id="templates" class="anchor" href="#templates" aria-hidden="true"><span class="octicon octicon-link"></span></a>Templates</h1>
+
+<ul>
 <li>Use <code>ng-bind</code> or <code>ng-cloak</code> instead of simple <code>{{ }}</code> to prevent flashing content.</li>
 <li>Avoid writing complex expressions in the templates.</li>
 <li>When you need to set the <code>src</code> of an image dynamically use <code>ng-src</code> instead of <code>src</code> with <code>{{ }}</code> template.</li>
 <li>When you need to set the <code>href</code> of an anchor tag dynamically use <code>ng-href</code> instead of <code>href</code> with <code>{{ }}</code> template.</li>
 <li>Instead of using scope variable as string and using it with <code>style</code> attribute with <code>{{ }}</code>, use the directive <code>ng-style</code> with object-like parameters and scope variables as values:</li>
 </ul>
-<pre class="hljs"><code>&lt;script&gt;
-<span class="hljs-keyword">...</span>
-$scope.divStyle = {
-  width: <span class="hljs-number">200</span>,
-  position: <span class="hljs-string">'relative'</span>
-};
-<span class="hljs-keyword">...</span>
-&lt;/script&gt;
 
-&lt;div ng-style=<span class="hljs-string">"divStyle"</span>&gt;my beautifully styled div which will work <span class="hljs-keyword">in</span> IE&lt;/div&gt;;</code></pre><h1 id="routing">Routing</h1>
-<ul class="list">
+<div class="highlight highlight-HTML"><pre><span class="pl-s1">&lt;<span class="pl-ent">script</span>&gt;</span>
+<span class="pl-s1">...</span>
+<span class="pl-s1">$scope.<span class="pl-c1">divStyle</span> <span class="pl-k">=</span> {</span>
+<span class="pl-s1">  width<span class="pl-k">:</span> <span class="pl-c1">200</span>,</span>
+<span class="pl-s1">  position<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>relative<span class="pl-pds">'</span></span></span>
+<span class="pl-s1">};</span>
+<span class="pl-s1">...</span>
+<span class="pl-s1">&lt;/<span class="pl-ent">script</span>&gt;</span>
+
+&lt;<span class="pl-ent">div</span> <span class="pl-e">ng-style</span>=<span class="pl-s"><span class="pl-pds">"</span>divStyle<span class="pl-pds">"</span></span>&gt;my beautifully styled div which will work in IE&lt;/<span class="pl-ent">div</span>&gt;;</pre></div>
+
+<h1>
+<a id="routing" class="anchor" href="#routing" aria-hidden="true"><span class="octicon octicon-link"></span></a>Routing</h1>
+
+<ul>
 <li>Use <code>resolve</code> to resolve dependencies before the view is shown.</li>
 <li>Do not place explicit RESTful calls inside the <code>resolve</code> callback. Isolate all the requests inside appropriate services. This way you can enable caching and follow the separation of concerns principle.</li>
 </ul>
-<h1 id="i18n">i18n</h1>
-<ul class="list">
+
+<h1>
+<a id="i18n" class="anchor" href="#i18n" aria-hidden="true"><span class="octicon octicon-link"></span></a>i18n</h1>
+
+<ul>
 <li>For newer versions of the framework (&gt;=1.4.0) use the built-in i18n tools, when using older versions (&lt;1.4.0) use <a href="https://github.com/angular-translate/angular-translate"><code>angular-translate</code></a>.</li>
 </ul>
-<h1 id="performance">Performance</h1>
-<ul class="list">
-<li><p>Optimize the digest cycle</p>
-<ul class="list">
-<li>Watch only the most vital variables. When required to invoke the <code>$digest</code> loop explicitly (it should happen only in exceptional cases), invoke it only when required (for example: when using real-time communication, don&#39;t cause a <code>$digest</code> loop in each received message).</li>
+
+<h1>
+<a id="performance" class="anchor" href="#performance" aria-hidden="true"><span class="octicon octicon-link"></span></a>Performance</h1>
+
+<ul>
+<li>
+<p>Optimize the digest cycle</p>
+
+<ul>
+<li>Watch only the most vital variables. When required to invoke the <code>$digest</code> loop explicitly (it should happen only in exceptional cases), invoke it only when required (for example: when using real-time communication, don't cause a <code>$digest</code> loop in each received message).</li>
 <li>For content that is initialized only once and then never changed, use single-time watchers like <a href="https://github.com/Pasvaz/bindonce"><code>bindonce</code></a> for older versions of AngularJS or one-time bindings in AngularJS &gt;=1.3.0.</li>
 <li>Make the computations in <code>$watch</code> as simple as possible. Making heavy and slow computations in a single <code>$watch</code> will slow down the whole application (the <code>$digest</code> loop is done in a single thread because of the single-threaded nature of JavaScript).</li>
-<li>When watching collections, do not watch them deeply when not strongly required. Better use <code>$watchCollection</code>, which performs a shallow check for equility of the result of the watched expression and the previous value of the expression&#39;s evaluation.</li>
+<li>When watching collections, do not watch them deeply when not strongly required. Better use <code>$watchCollection</code>, which performs a shallow check for equility of the result of the watched expression and the previous value of the expression's evaluation.</li>
 <li>Set third parameter in <code>$timeout</code> function to false to skip the <code>$digest</code> loop when no watched variables are impacted by the invocation of the <code>$timeout</code> callback function.</li>
 <li>When dealing with big collections, which change rarely, <a href="http://blog.mgechev.com/2015/03/02/immutability-in-angularjs-immutablejs/">use immutable data structures</a>.</li>
 </ul>
 </li>
+<li><p>Consider decreasing number of network requests by bundling/caching html template files into your main javascript file, using <a href="https://github.com/karlgoldstein/grunt-html2js">grunt-html2js</a> / <a href="https://github.com/fraserxu/gulp-html2js">gulp-html2js</a>. See <a href="http://ng-learn.org/2014/08/Populating_template_cache_with_html2js/">here</a> and <a href="http://slides.com/yanivefraim-1/real-world-angularjs#/34">here</a> for details. This is particularly useful when the project has a lot of small html templates that can be a part of the main (minified and gzipped) javascript file.</p></li>
 </ul>
-<ul class="list">
-<li>Consider decreasing number of network requests by bundling/caching html template files into your main javascript file, using <a href="https://github.com/karlgoldstein/grunt-html2js">grunt-html2js</a> / <a href="https://github.com/fraserxu/gulp-html2js">gulp-html2js</a>. See <a href="http://ng-learn.org/2014/08/Populating_template_cache_with_html2js/">here</a> and <a href="http://slides.com/yanivefraim-1/real-world-angularjs#/34">here</a> for details. This is particularly useful when the project has a lot of small html templates that can be a part of the main (minified and gzipped) javascript file.</li>
-</ul>
-<h1 id="contribution">Contribution</h1>
+
+<h1>
+<a id="contribution" class="anchor" href="#contribution" aria-hidden="true"><span class="octicon octicon-link"></span></a>Contribution</h1>
+
 <p>Since the goal of this style guide is to be community-driven, contributions are greatly appreciated.
 For example, you can contribute by extending the Testing section or by translating the style guide to your language.</p>
-<h1 id="contributors">Contributors</h1>
+
+<h1>
+<a id="contributors" class="anchor" href="#contributors" aria-hidden="true"><span class="octicon octicon-link"></span></a>Contributors</h1>
+
 <table>
 <thead>
 <tr>
-<th style="text-align:center"><a href="https://github.com/mgechev"><img alt="mgechev" src="https://avatars.githubusercontent.com/u/455023?v=3&s=117" width="117"></a></th>
-<th style="text-align:center"><a href="https://github.com/morizotter"><img alt="morizotter" src="https://avatars.githubusercontent.com/u/536954?v=3&s=117" width="117"></a></th>
-<th style="text-align:center"><a href="https://github.com/pascalockert"><img alt="pascalockert" src="https://avatars.githubusercontent.com/u/4253438?v=3&s=117" width="117"></a></th>
-<th style="text-align:center"><a href="https://github.com/yanivefraim"><img alt="yanivefraim" src="https://avatars.githubusercontent.com/u/1336186?v=3&s=117" width="117"></a></th>
-<th style="text-align:center"><a href="https://github.com/ericguirbal"><img alt="ericguirbal" src="https://avatars.githubusercontent.com/u/322135?v=3&s=117" width="117"></a></th>
-<th style="text-align:center"><a href="https://github.com/agnislav"><img alt="agnislav" src="https://avatars.githubusercontent.com/u/364255?v=3&s=117" width="117"></a></th>
+<th align="center"><a href="https://github.com/mgechev"><img alt="mgechev" src="https://avatars.githubusercontent.com/u/455023?v=3&amp;s=117" width="117"></a></th>
+<th align="center"><a href="https://github.com/morizotter"><img alt="morizotter" src="https://avatars.githubusercontent.com/u/536954?v=3&amp;s=117" width="117"></a></th>
+<th align="center"><a href="https://github.com/pascalockert"><img alt="pascalockert" src="https://avatars.githubusercontent.com/u/4253438?v=3&amp;s=117" width="117"></a></th>
+<th align="center"><a href="https://github.com/yanivefraim"><img alt="yanivefraim" src="https://avatars.githubusercontent.com/u/1336186?v=3&amp;s=117" width="117"></a></th>
+<th align="center"><a href="https://github.com/ericguirbal"><img alt="ericguirbal" src="https://avatars.githubusercontent.com/u/322135?v=3&amp;s=117" width="117"></a></th>
+<th align="center"><a href="https://github.com/agnislav"><img alt="agnislav" src="https://avatars.githubusercontent.com/u/364255?v=3&amp;s=117" width="117"></a></th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align:center"><a href="https://github.com/mgechev">mgechev</a></td>
-<td style="text-align:center"><a href="https://github.com/morizotter">morizotter</a></td>
-<td style="text-align:center"><a href="https://github.com/pascalockert">pascalockert</a></td>
-<td style="text-align:center"><a href="https://github.com/yanivefraim">yanivefraim</a></td>
-<td style="text-align:center"><a href="https://github.com/ericguirbal">ericguirbal</a></td>
-<td style="text-align:center"><a href="https://github.com/agnislav">agnislav</a></td>
-<td></td>
-</tr>
-</tbody>
-</table>
-<table>
-<thead>
-<tr>
-<th style="text-align:center"><a href="https://github.com/mainyaa"><img alt="mainyaa" src="https://avatars.githubusercontent.com/u/800781?v=3&s=117" width="117"></a></th>
-<th style="text-align:center"><a href="https://github.com/elfinxx"><img alt="elfinxx" src="https://avatars.githubusercontent.com/u/4384908?v=3&s=117" width="117"></a></th>
-<th style="text-align:center"><a href="https://github.com/Xuefeng-Zhu"><img alt="Xuefeng-Zhu" src="https://avatars.githubusercontent.com/u/5875315?v=3&s=117" width="117"></a></th>
-<th style="text-align:center"><a href="https://github.com/lukaszklis"><img alt="lukaszklis" src="https://avatars.githubusercontent.com/u/11782?v=3&s=117" width="117"></a></th>
-<th style="text-align:center"><a href="https://github.com/previousdeveloper"><img alt="previousdeveloper" src="https://avatars.githubusercontent.com/u/6371971?v=3&s=117" width="117"></a></th>
-<th style="text-align:center"><a href="https://github.com/susieyy"><img alt="susieyy" src="https://avatars.githubusercontent.com/u/62295?v=3&s=117" width="117"></a></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center"><a href="https://github.com/mainyaa">mainyaa</a></td>
-<td style="text-align:center"><a href="https://github.com/elfinxx">elfinxx</a></td>
-<td style="text-align:center"><a href="https://github.com/Xuefeng-Zhu">Xuefeng-Zhu</a></td>
-<td style="text-align:center"><a href="https://github.com/lukaszklis">lukaszklis</a></td>
-<td style="text-align:center"><a href="https://github.com/previousdeveloper">previousdeveloper</a></td>
-<td style="text-align:center"><a href="https://github.com/susieyy">susieyy</a></td>
-<td></td>
-</tr>
-</tbody>
-</table>
-<table>
-<thead>
-<tr>
-<th style="text-align:center"><a href="https://github.com/rubystream"><img alt="rubystream" src="https://avatars.githubusercontent.com/u/3200?v=3&s=117" width="117"></a></th>
-<th style="text-align:center"><a href="https://github.com/cironunes"><img alt="cironunes" src="https://avatars.githubusercontent.com/u/469908?v=3&s=117" width="117"></a></th>
-<th style="text-align:center"><a href="https://github.com/cavarzan"><img alt="cavarzan" src="https://avatars.githubusercontent.com/u/3915288?v=3&s=117" width="117"></a></th>
-<th style="text-align:center"><a href="https://github.com/guiltry"><img alt="guiltry" src="https://avatars.githubusercontent.com/u/1484308?v=3&s=117" width="117"></a></th>
-<th style="text-align:center"><a href="https://github.com/tornad"><img alt="tornad" src="https://avatars.githubusercontent.com/u/2128499?v=3&s=117" width="117"></a></th>
-<th style="text-align:center"><a href="https://github.com/jmblog"><img alt="jmblog" src="https://avatars.githubusercontent.com/u/86085?v=3&s=117" width="117"></a></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center"><a href="https://github.com/rubystream">rubystream</a></td>
-<td style="text-align:center"><a href="https://github.com/cironunes">cironunes</a></td>
-<td style="text-align:center"><a href="https://github.com/cavarzan">cavarzan</a></td>
-<td style="text-align:center"><a href="https://github.com/guiltry">guiltry</a></td>
-<td style="text-align:center"><a href="https://github.com/tornad">tornad</a></td>
-<td style="text-align:center"><a href="https://github.com/jmblog">jmblog</a></td>
-<td></td>
-</tr>
-</tbody>
-</table>
-<table>
-<thead>
-<tr>
-<th style="text-align:center"><a href="https://github.com/kuzzmi"><img alt="kuzzmi" src="https://avatars.githubusercontent.com/u/1727140?v=3&s=117" width="117"></a></th>
-<th style="text-align:center"><a href="https://github.com/dchest"><img alt="dchest" src="https://avatars.githubusercontent.com/u/52677?v=3&s=117" width="117"></a></th>
-<th style="text-align:center"><a href="https://github.com/clbn"><img alt="clbn" src="https://avatars.githubusercontent.com/u/1071933?v=3&s=117" width="117"></a></th>
-<th style="text-align:center"><a href="https://github.com/apetro"><img alt="apetro" src="https://avatars.githubusercontent.com/u/952283?v=3&s=117" width="117"></a></th>
-<th style="text-align:center"><a href="https://github.com/valgreens"><img alt="valgreens" src="https://avatars.githubusercontent.com/u/903263?v=3&s=117" width="117"></a></th>
-<th style="text-align:center"><a href="https://github.com/astalker"><img alt="astalker" src="https://avatars.githubusercontent.com/u/1486567?v=3&s=117" width="117"></a></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center"><a href="https://github.com/kuzzmi">kuzzmi</a></td>
-<td style="text-align:center"><a href="https://github.com/dchest">dchest</a></td>
-<td style="text-align:center"><a href="https://github.com/clbn">clbn</a></td>
-<td style="text-align:center"><a href="https://github.com/apetro">apetro</a></td>
-<td style="text-align:center"><a href="https://github.com/valgreens">valgreens</a></td>
-<td style="text-align:center"><a href="https://github.com/astalker">astalker</a></td>
-<td></td>
-</tr>
-</tbody>
-</table>
-<table>
-<thead>
-<tr>
-<th style="text-align:center"><a href="https://github.com/bradgearon"><img alt="bradgearon" src="https://avatars.githubusercontent.com/u/1731943?v=3&s=117" width="117"></a></th>
-<th style="text-align:center"><a href="https://github.com/dreame4"><img alt="dreame4" src="https://avatars.githubusercontent.com/u/277870?v=3&s=117" width="117"></a></th>
-<th style="text-align:center"><a href="https://github.com/gsamokovarov"><img alt="gsamokovarov" src="https://avatars.githubusercontent.com/u/604618?v=3&s=117" width="117"></a></th>
-<th style="text-align:center"><a href="https://github.com/grvcoelho"><img alt="grvcoelho" src="https://avatars.githubusercontent.com/u/7416751?v=3&s=117" width="117"></a></th>
-<th style="text-align:center"><a href="https://github.com/bargaorobalo"><img alt="bargaorobalo" src="https://avatars.githubusercontent.com/u/993001?v=3&s=117" width="117"></a></th>
-<th style="text-align:center"><a href="https://github.com/nikshulipa"><img alt="nikshulipa" src="https://avatars.githubusercontent.com/u/1872256?v=3&s=117" width="117"></a></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center"><a href="https://github.com/bradgearon">bradgearon</a></td>
-<td style="text-align:center"><a href="https://github.com/dreame4">dreame4</a></td>
-<td style="text-align:center"><a href="https://github.com/gsamokovarov">gsamokovarov</a></td>
-<td style="text-align:center"><a href="https://github.com/grvcoelho">grvcoelho</a></td>
-<td style="text-align:center"><a href="https://github.com/bargaorobalo">bargaorobalo</a></td>
-<td style="text-align:center"><a href="https://github.com/nikshulipa">nikshulipa</a></td>
-<td></td>
-</tr>
-</tbody>
-</table>
-<table>
-<thead>
-<tr>
-<th style="text-align:center"><a href="https://github.com/hermankan"><img alt="hermankan" src="https://avatars.githubusercontent.com/u/2899106?v=3&s=117" width="117"></a></th>
-<th style="text-align:center"><a href="https://github.com/jesselpalmer"><img alt="jesselpalmer" src="https://avatars.githubusercontent.com/u/682097?v=3&s=117" width="117"></a></th>
-<th style="text-align:center"><a href="https://github.com/capaj"><img alt="capaj" src="https://avatars.githubusercontent.com/u/1305378?v=3&s=117" width="117"></a></th>
-<th style="text-align:center"><a href="https://github.com/johnnyghost"><img alt="johnnyghost" src="https://avatars.githubusercontent.com/u/1117330?v=3&s=117" width="117"></a></th>
-<th style="text-align:center"><a href="https://github.com/jordanyee"><img alt="jordanyee" src="https://avatars.githubusercontent.com/u/3303098?v=3&s=117" width="117"></a></th>
-<th style="text-align:center"><a href="https://github.com/nacyot"><img alt="nacyot" src="https://avatars.githubusercontent.com/u/148919?v=3&s=117" width="117"></a></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center"><a href="https://github.com/hermankan">hermankan</a></td>
-<td style="text-align:center"><a href="https://github.com/jesselpalmer">jesselpalmer</a></td>
-<td style="text-align:center"><a href="https://github.com/capaj">capaj</a></td>
-<td style="text-align:center"><a href="https://github.com/johnnyghost">johnnyghost</a></td>
-<td style="text-align:center"><a href="https://github.com/jordanyee">jordanyee</a></td>
-<td style="text-align:center"><a href="https://github.com/nacyot">nacyot</a></td>
-<td></td>
-</tr>
-</tbody>
-</table>
-<table>
-<thead>
-<tr>
-<th style="text-align:center"><a href="https://github.com/mariolamacchia"><img alt="mariolamacchia" src="https://avatars.githubusercontent.com/u/6282722?v=3&s=117" width="117"></a></th>
-<th style="text-align:center"><a href="https://github.com/kirstein"><img alt="kirstein" src="https://avatars.githubusercontent.com/u/426442?v=3&s=117" width="117"></a></th>
-<th style="text-align:center"><a href="https://github.com/mo-gr"><img alt="mo-gr" src="https://avatars.githubusercontent.com/u/95577?v=3&s=117" width="117"></a></th>
-<th style="text-align:center"><a href="https://github.com/cryptojuice"><img alt="cryptojuice" src="https://avatars.githubusercontent.com/u/458883?v=3&s=117" width="117"></a></th>
-<th style="text-align:center"><a href="https://github.com/jabhishek"><img alt="jabhishek" src="https://avatars.githubusercontent.com/u/1830537?v=3&s=117" width="117"></a></th>
-<th style="text-align:center"><a href="https://github.com/olov"><img alt="olov" src="https://avatars.githubusercontent.com/u/19247?v=3&s=117" width="117"></a></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center"><a href="https://github.com/mariolamacchia">mariolamacchia</a></td>
-<td style="text-align:center"><a href="https://github.com/kirstein">kirstein</a></td>
-<td style="text-align:center"><a href="https://github.com/mo-gr">mo-gr</a></td>
-<td style="text-align:center"><a href="https://github.com/cryptojuice">cryptojuice</a></td>
-<td style="text-align:center"><a href="https://github.com/jabhishek">jabhishek</a></td>
-<td style="text-align:center"><a href="https://github.com/olov">olov</a></td>
-<td></td>
-</tr>
-</tbody>
-</table>
-<table>
-<thead>
-<tr>
-<th style="text-align:center"><a href="https://github.com/vorktanamobay"><img alt="vorktanamobay" src="https://avatars.githubusercontent.com/u/2623355?v=3&s=117" width="117"></a></th>
-<th style="text-align:center"><a href="https://github.com/sahat"><img alt="sahat" src="https://avatars.githubusercontent.com/u/544954?v=3&s=117" width="117"></a></th>
-<th style="text-align:center"><a href="https://github.com/kaneshin"><img alt="kaneshin" src="https://avatars.githubusercontent.com/u/936972?v=3&s=117" width="117"></a></th>
-<th style="text-align:center"><a href="https://github.com/imaimiami"><img alt="imaimiami" src="https://avatars.githubusercontent.com/u/2256037?v=3&s=117" width="117"></a></th>
-<th style="text-align:center"><a href="https://github.com/thomastuts"><img alt="thomastuts" src="https://avatars.githubusercontent.com/u/1914255?v=3&s=117" width="117"></a></th>
-<th style="text-align:center"><a href="https://github.com/grapswiz"><img alt="grapswiz" src="https://avatars.githubusercontent.com/u/309459?v=3&s=117" width="117"></a></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center"><a href="https://github.com/vorktanamobay">vorktanamobay</a></td>
-<td style="text-align:center"><a href="https://github.com/sahat">sahat</a></td>
-<td style="text-align:center"><a href="https://github.com/kaneshin">kaneshin</a></td>
-<td style="text-align:center"><a href="https://github.com/imaimiami">imaimiami</a></td>
-<td style="text-align:center"><a href="https://github.com/thomastuts">thomastuts</a></td>
-<td style="text-align:center"><a href="https://github.com/grapswiz">grapswiz</a></td>
-<td></td>
-</tr>
-</tbody>
-</table>
-<table>
-<thead>
-<tr>
-<th style="text-align:center"><a href="https://github.com/coderhaoxin"><img alt="coderhaoxin" src="https://avatars.githubusercontent.com/u/2569835?v=3&s=117" width="117"></a></th>
-<th style="text-align:center"><a href="https://github.com/ntaoo"><img alt="ntaoo" src="https://avatars.githubusercontent.com/u/511213?v=3&s=117" width="117"></a></th>
-<th style="text-align:center"><a href="https://github.com/kuzmeig1"><img alt="kuzmeig1" src="https://avatars.githubusercontent.com/u/8707951?v=3&s=117" width="117"></a></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center"><a href="https://github.com/coderhaoxin">coderhaoxin</a></td>
-<td style="text-align:center"><a href="https://github.com/ntaoo">ntaoo</a></td>
-<td style="text-align:center"><a href="https://github.com/kuzmeig1">kuzmeig1</a></td>
-<td></td>
+<td align="center"><a href="https://github.com/mgechev">mgechev</a></td>
+<td align="center"><a href="https://github.com/morizotter">morizotter</a></td>
+<td align="center"><a href="https://github.com/pascalockert">pascalockert</a></td>
+<td align="center"><a href="https://github.com/yanivefraim">yanivefraim</a></td>
+<td align="center"><a href="https://github.com/ericguirbal">ericguirbal</a></td>
+<td align="center"><a href="https://github.com/agnislav">agnislav</a></td>
 </tr>
 </tbody>
 </table>
 
-        </div>
-      </div>
-    </div>
-    <div id="sidebar"><ul class="nav nav-list">
-    <li><a href="#introduction" class="heading heading-1">Introduction</a></li>
-    <li><a href="#translations" class="heading heading-1">Translations</a></li>
-    <li><a href="#table-of-content" class="heading heading-1">Table of content</a></li>
-    <li><a href="#general" class="heading heading-1">General</a></li>
-    <li><a href="#directory-structure" class="heading heading-2">Directory structure</a></li>
-    <li><a href="#markup" class="heading heading-2">Markup</a></li>
-    <li><a href="#others" class="heading heading-2">Others</a></li>
-    <li><a href="#modules" class="heading heading-1">Modules</a></li>
-    <li><a href="#controllers" class="heading heading-1">Controllers</a></li>
-    <li><a href="#directives" class="heading heading-1">Directives</a></li>
-    <li><a href="#filters" class="heading heading-1">Filters</a></li>
-    <li><a href="#services" class="heading heading-1">Services</a></li>
-    <li><a href="#templates" class="heading heading-1">Templates</a></li>
-    <li><a href="#routing" class="heading heading-1">Routing</a></li>
-    <li><a href="#i18n" class="heading heading-1">i18n</a></li>
-    <li><a href="#performance" class="heading heading-1">Performance</a></li>
-    <li><a href="#contribution" class="heading heading-1">Contribution</a></li>
-    <li><a href="#contributors" class="heading heading-1">Contributors</a></li>
-</ul>
-    </div>
-    <div class="clear">
-    </div>
+<table>
+<thead>
+<tr>
+<th align="center"><a href="https://github.com/mainyaa"><img alt="mainyaa" src="https://avatars.githubusercontent.com/u/800781?v=3&amp;s=117" width="117"></a></th>
+<th align="center"><a href="https://github.com/elfinxx"><img alt="elfinxx" src="https://avatars.githubusercontent.com/u/4384908?v=3&amp;s=117" width="117"></a></th>
+<th align="center"><a href="https://github.com/Xuefeng-Zhu"><img alt="Xuefeng-Zhu" src="https://avatars.githubusercontent.com/u/5875315?v=3&amp;s=117" width="117"></a></th>
+<th align="center"><a href="https://github.com/lukaszklis"><img alt="lukaszklis" src="https://avatars.githubusercontent.com/u/11782?v=3&amp;s=117" width="117"></a></th>
+<th align="center"><a href="https://github.com/previousdeveloper"><img alt="previousdeveloper" src="https://avatars.githubusercontent.com/u/6371971?v=3&amp;s=117" width="117"></a></th>
+<th align="center"><a href="https://github.com/susieyy"><img alt="susieyy" src="https://avatars.githubusercontent.com/u/62295?v=3&amp;s=117" width="117"></a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><a href="https://github.com/mainyaa">mainyaa</a></td>
+<td align="center"><a href="https://github.com/elfinxx">elfinxx</a></td>
+<td align="center"><a href="https://github.com/Xuefeng-Zhu">Xuefeng-Zhu</a></td>
+<td align="center"><a href="https://github.com/lukaszklis">lukaszklis</a></td>
+<td align="center"><a href="https://github.com/previousdeveloper">previousdeveloper</a></td>
+<td align="center"><a href="https://github.com/susieyy">susieyy</a></td>
+</tr>
+</tbody>
+</table>
 
-    <div id="footer">
-      <p>By <a href="http://blog.mgechev.com/">Minko Gechev</a>.</p>
-    </div>
-  </div>
-</body>
+<table>
+<thead>
+<tr>
+<th align="center"><a href="https://github.com/rubystream"><img alt="rubystream" src="https://avatars.githubusercontent.com/u/3200?v=3&amp;s=117" width="117"></a></th>
+<th align="center"><a href="https://github.com/cironunes"><img alt="cironunes" src="https://avatars.githubusercontent.com/u/469908?v=3&amp;s=117" width="117"></a></th>
+<th align="center"><a href="https://github.com/cavarzan"><img alt="cavarzan" src="https://avatars.githubusercontent.com/u/3915288?v=3&amp;s=117" width="117"></a></th>
+<th align="center"><a href="https://github.com/guiltry"><img alt="guiltry" src="https://avatars.githubusercontent.com/u/1484308?v=3&amp;s=117" width="117"></a></th>
+<th align="center"><a href="https://github.com/tornad"><img alt="tornad" src="https://avatars.githubusercontent.com/u/2128499?v=3&amp;s=117" width="117"></a></th>
+<th align="center"><a href="https://github.com/jmblog"><img alt="jmblog" src="https://avatars.githubusercontent.com/u/86085?v=3&amp;s=117" width="117"></a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><a href="https://github.com/rubystream">rubystream</a></td>
+<td align="center"><a href="https://github.com/cironunes">cironunes</a></td>
+<td align="center"><a href="https://github.com/cavarzan">cavarzan</a></td>
+<td align="center"><a href="https://github.com/guiltry">guiltry</a></td>
+<td align="center"><a href="https://github.com/tornad">tornad</a></td>
+<td align="center"><a href="https://github.com/jmblog">jmblog</a></td>
+</tr>
+</tbody>
+</table>
+
+<table>
+<thead>
+<tr>
+<th align="center"><a href="https://github.com/kuzzmi"><img alt="kuzzmi" src="https://avatars.githubusercontent.com/u/1727140?v=3&amp;s=117" width="117"></a></th>
+<th align="center"><a href="https://github.com/gsamokovarov"><img alt="gsamokovarov" src="https://avatars.githubusercontent.com/u/604618?v=3&amp;s=117" width="117"></a></th>
+<th align="center"><a href="https://github.com/clbn"><img alt="clbn" src="https://avatars.githubusercontent.com/u/1071933?v=3&amp;s=117" width="117"></a></th>
+<th align="center"><a href="https://github.com/apetro"><img alt="apetro" src="https://avatars.githubusercontent.com/u/952283?v=3&amp;s=117" width="117"></a></th>
+<th align="center"><a href="https://github.com/valgreens"><img alt="valgreens" src="https://avatars.githubusercontent.com/u/903263?v=3&amp;s=117" width="117"></a></th>
+<th align="center"><a href="https://github.com/astalker"><img alt="astalker" src="https://avatars.githubusercontent.com/u/1486567?v=3&amp;s=117" width="117"></a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><a href="https://github.com/kuzzmi">kuzzmi</a></td>
+<td align="center"><a href="https://github.com/gsamokovarov">gsamokovarov</a></td>
+<td align="center"><a href="https://github.com/clbn">clbn</a></td>
+<td align="center"><a href="https://github.com/apetro">apetro</a></td>
+<td align="center"><a href="https://github.com/valgreens">valgreens</a></td>
+<td align="center"><a href="https://github.com/astalker">astalker</a></td>
+</tr>
+</tbody>
+</table>
+
+<table>
+<thead>
+<tr>
+<th align="center"><a href="https://github.com/bradgearon"><img alt="bradgearon" src="https://avatars.githubusercontent.com/u/1731943?v=3&amp;s=117" width="117"></a></th>
+<th align="center"><a href="https://github.com/dchest"><img alt="dchest" src="https://avatars.githubusercontent.com/u/52677?v=3&amp;s=117" width="117"></a></th>
+<th align="center"><a href="https://github.com/dreame4"><img alt="dreame4" src="https://avatars.githubusercontent.com/u/277870?v=3&amp;s=117" width="117"></a></th>
+<th align="center"><a href="https://github.com/grvcoelho"><img alt="grvcoelho" src="https://avatars.githubusercontent.com/u/7416751?v=3&amp;s=117" width="117"></a></th>
+<th align="center"><a href="https://github.com/bargaorobalo"><img alt="bargaorobalo" src="https://avatars.githubusercontent.com/u/993001?v=3&amp;s=117" width="117"></a></th>
+<th align="center"><a href="https://github.com/olov"><img alt="olov" src="https://avatars.githubusercontent.com/u/19247?v=3&amp;s=117" width="117"></a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><a href="https://github.com/bradgearon">bradgearon</a></td>
+<td align="center"><a href="https://github.com/dchest">dchest</a></td>
+<td align="center"><a href="https://github.com/dreame4">dreame4</a></td>
+<td align="center"><a href="https://github.com/grvcoelho">grvcoelho</a></td>
+<td align="center"><a href="https://github.com/bargaorobalo">bargaorobalo</a></td>
+<td align="center"><a href="https://github.com/olov">olov</a></td>
+</tr>
+</tbody>
+</table>
+
+<table>
+<thead>
+<tr>
+<th align="center"><a href="https://github.com/hermankan"><img alt="hermankan" src="https://avatars.githubusercontent.com/u/2899106?v=3&amp;s=117" width="117"></a></th>
+<th align="center"><a href="https://github.com/jesselpalmer"><img alt="jesselpalmer" src="https://avatars.githubusercontent.com/u/682097?v=3&amp;s=117" width="117"></a></th>
+<th align="center"><a href="https://github.com/capaj"><img alt="capaj" src="https://avatars.githubusercontent.com/u/1305378?v=3&amp;s=117" width="117"></a></th>
+<th align="center"><a href="https://github.com/johnnyghost"><img alt="johnnyghost" src="https://avatars.githubusercontent.com/u/1117330?v=3&amp;s=117" width="117"></a></th>
+<th align="center"><a href="https://github.com/jordanyee"><img alt="jordanyee" src="https://avatars.githubusercontent.com/u/3303098?v=3&amp;s=117" width="117"></a></th>
+<th align="center"><a href="https://github.com/nacyot"><img alt="nacyot" src="https://avatars.githubusercontent.com/u/148919?v=3&amp;s=117" width="117"></a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><a href="https://github.com/hermankan">hermankan</a></td>
+<td align="center"><a href="https://github.com/jesselpalmer">jesselpalmer</a></td>
+<td align="center"><a href="https://github.com/capaj">capaj</a></td>
+<td align="center"><a href="https://github.com/johnnyghost">johnnyghost</a></td>
+<td align="center"><a href="https://github.com/jordanyee">jordanyee</a></td>
+<td align="center"><a href="https://github.com/nacyot">nacyot</a></td>
+</tr>
+</tbody>
+</table>
+
+<table>
+<thead>
+<tr>
+<th align="center"><a href="https://github.com/mariolamacchia"><img alt="mariolamacchia" src="https://avatars.githubusercontent.com/u/6282722?v=3&amp;s=117" width="117"></a></th>
+<th align="center"><a href="https://github.com/kirstein"><img alt="kirstein" src="https://avatars.githubusercontent.com/u/426442?v=3&amp;s=117" width="117"></a></th>
+<th align="center"><a href="https://github.com/mo-gr"><img alt="mo-gr" src="https://avatars.githubusercontent.com/u/95577?v=3&amp;s=117" width="117"></a></th>
+<th align="center"><a href="https://github.com/cryptojuice"><img alt="cryptojuice" src="https://avatars.githubusercontent.com/u/458883?v=3&amp;s=117" width="117"></a></th>
+<th align="center"><a href="https://github.com/nikshulipa"><img alt="nikshulipa" src="https://avatars.githubusercontent.com/u/1872256?v=3&amp;s=117" width="117"></a></th>
+<th align="center"><a href="https://github.com/jabhishek"><img alt="jabhishek" src="https://avatars.githubusercontent.com/u/1830537?v=3&amp;s=117" width="117"></a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><a href="https://github.com/mariolamacchia">mariolamacchia</a></td>
+<td align="center"><a href="https://github.com/kirstein">kirstein</a></td>
+<td align="center"><a href="https://github.com/mo-gr">mo-gr</a></td>
+<td align="center"><a href="https://github.com/cryptojuice">cryptojuice</a></td>
+<td align="center"><a href="https://github.com/nikshulipa">nikshulipa</a></td>
+<td align="center"><a href="https://github.com/jabhishek">jabhishek</a></td>
+</tr>
+</tbody>
+</table>
+
+<table>
+<thead>
+<tr>
+<th align="center"><a href="https://github.com/vorktanamobay"><img alt="vorktanamobay" src="https://avatars.githubusercontent.com/u/2623355?v=3&amp;s=117" width="117"></a></th>
+<th align="center"><a href="https://github.com/sahat"><img alt="sahat" src="https://avatars.githubusercontent.com/u/544954?v=3&amp;s=117" width="117"></a></th>
+<th align="center"><a href="https://github.com/ganchiku"><img alt="ganchiku" src="https://avatars.githubusercontent.com/u/149973?v=3&amp;s=117" width="117"></a></th>
+<th align="center"><a href="https://github.com/kaneshin"><img alt="kaneshin" src="https://avatars.githubusercontent.com/u/936972?v=3&amp;s=117" width="117"></a></th>
+<th align="center"><a href="https://github.com/imaimiami"><img alt="imaimiami" src="https://avatars.githubusercontent.com/u/2256037?v=3&amp;s=117" width="117"></a></th>
+<th align="center"><a href="https://github.com/thomastuts"><img alt="thomastuts" src="https://avatars.githubusercontent.com/u/1914255?v=3&amp;s=117" width="117"></a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><a href="https://github.com/vorktanamobay">vorktanamobay</a></td>
+<td align="center"><a href="https://github.com/sahat">sahat</a></td>
+<td align="center"><a href="https://github.com/ganchiku">ganchiku</a></td>
+<td align="center"><a href="https://github.com/kaneshin">kaneshin</a></td>
+<td align="center"><a href="https://github.com/imaimiami">imaimiami</a></td>
+<td align="center"><a href="https://github.com/thomastuts">thomastuts</a></td>
+</tr>
+</tbody>
+</table>
+
+<table>
+<thead>
+<tr>
+<th align="center"><a href="https://github.com/grapswiz"><img alt="grapswiz" src="https://avatars.githubusercontent.com/u/309459?v=3&amp;s=117" width="117"></a></th>
+<th align="center"><a href="https://github.com/coderhaoxin"><img alt="coderhaoxin" src="https://avatars.githubusercontent.com/u/2569835?v=3&amp;s=117" width="117"></a></th>
+<th align="center"><a href="https://github.com/ntaoo"><img alt="ntaoo" src="https://avatars.githubusercontent.com/u/511213?v=3&amp;s=117" width="117"></a></th>
+<th align="center"><a href="https://github.com/kuzmeig1"><img alt="kuzmeig1" src="https://avatars.githubusercontent.com/u/8707951?v=3&amp;s=117" width="117"></a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><a href="https://github.com/grapswiz">grapswiz</a></td>
+<td align="center"><a href="https://github.com/coderhaoxin">coderhaoxin</a></td>
+<td align="center"><a href="https://github.com/ntaoo">ntaoo</a></td>
+<td align="center"><a href="https://github.com/kuzmeig1">kuzmeig1</a></td>
+</tr>
+</tbody>
+</table>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/mgechev/angularjs-style-guide">AngularJS Style Guide</a> is maintained by <a href="https://github.com/mgechev">mgechev</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+
+    </section>
+
+  
+  </body>
 </html>
