@@ -20,7 +20,7 @@
 
 对于AngularJS开发，推荐 [Google's JavaScript style guide](http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml).
 
-在AngularJS的Github wiki中有一个相似的章节 [ProLoser](https://github.com/ProLoser), you can check it [here](https://github.com/angular/angular.js/wiki).
+在AngularJS的Github wiki中有一个相似的章节 [ProLoser](https://github.com/ProLoser), 你可以点击[这里](https://github.com/angular/angular.js/wiki)查看。
 
 # 其它翻译版本
 
