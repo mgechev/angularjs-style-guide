@@ -209,7 +209,7 @@ Conventions about component naming can be found in each component section.
 </html>
 ```
 
-Keep things simple and put AngularJS specific directives later. This way is easy to look to the code and find enhanced HTML by the framework (what improve the maintainibility).
+Keep things simple and put AngularJS specific directives after standard attributes. This will make it easier to skim your code and will make it easier to maintain because your attributes are consistently grouped and positioned.
 
 ```html
 <form class="frm" ng-submit="login.authenticate()">
