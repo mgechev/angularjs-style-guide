@@ -26,21 +26,21 @@ Per la programmazione AngularJS è raccomandato: [Google's JavaScript style guid
 Nel repository AngularJS su GitHub c'è una sezione simile curata da [ProLoser](https://github.com/ProLoser). Potete visionarla [quì](https://github.com/angular/angular.js/wiki).
 
 # Contenuti
-* [Generale](#general)
-    * [Struttura delle directory](#directory-structure)
+* [Generale](#generale)
+    * [Struttura delle directory](#struttura-delle-directory)
     * [Markup](#markup)
-    * [Ottimizzare il ciclo digest](#optimize-the-digest-cycle)
-    * [Altro](#others)
-* [Module](#modules)
-* [Controller](#controllers)
-* [Directive](#directives)
-* [Filter](#filters)
-* [Service](#services)
-* [Template](#templates)
+    * [Ottimizzare il ciclo digest](#ottimizzare-il-ciclo-digest)
+    * [Altro](#altro)
+* [Module](#module)
+* [Controller](#controller)
+* [Directive](#directive)
+* [Filter](#filter)
+* [Service](#service)
+* [Template](#template)
 * [Routing](#routing)
 * [Testing](#testing)
-* [Collaborazioni](#contribution)
-* [Collaboratori](#contributors)
+* [Collaborazioni](#collaborazioni)
+* [Collaboratori](#collaboratori)
 
 # Generale
 
@@ -257,7 +257,7 @@ la minificazione.
 * Non usare variabili globali. Risolvere tutte le dipendenze usando il
 Dipendency Injection.
 * Non riempire lo `$scope` se non con variabili e funzioni usate nel template.
-* E' da preferire l'utilizzo di 
+* E' da preferire l'utilizzo di
 [controller invece di `ngInit`](https://github.com/angular/angular.js/pull/4366/files).
 Il solo utilizzo appropriato di `ngInit` è per rinominare particolari proprietà
 di `ngRepeat`. A parte quest'ultimo caso, si dovrebbero usare controller per
@@ -551,4 +551,3 @@ guida nella propria lingua
 [![vorktanamobay](http://www.gravatar.com/avatar/5934bc3e68aeb155750c316c2c096bec?s=117)](https://github.com/vorktanamobay) |[![thomastuts](http://www.gravatar.com/avatar/57721e925989ec9c470d9d4a350bb211?s=117)](https://github.com/thomastuts) |[![grapswiz](http://www.gravatar.com/avatar/bcc635978c6284f4e3f7654260b05d7b?s=117)](https://github.com/grapswiz) |[![coderhaoxin](http://www.gravatar.com/avatar/c20564c7ed8da352b5cc359f41e1c1c4?s=117)](https://github.com/coderhaoxin) |[![dreame4](http://www.gravatar.com/avatar/c56cbc55d2a54b1165478acfb5a61fb4?s=117)](https://github.com/dreame4) |
 :---: |:---: |:---: |:---: |:---: |
 [vorktanamobay](https://github.com/vorktanamobay) |[thomastuts](https://github.com/thomastuts) |[grapswiz](https://github.com/grapswiz) |[coderhaoxin](https://github.com/coderhaoxin) |[dreame4](https://github.com/dreame4) |
-
