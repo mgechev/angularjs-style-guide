@@ -46,6 +46,7 @@ In AngularJS's GitHub wiki there is a similar section by [ProLoser](https://gith
 * [General](#general)
     * [Directory structure](#directory-structure)
     * [Markup](#markup)
+    * [Naming convensions](#naming-convensions)
     * [Others](#others)
 * [Modules](#modules)
 * [Controllers](#controllers)
@@ -220,6 +221,18 @@ Keep things simple and put AngularJS specific directives after standard attribut
 ```
 
 Other HTML atributes should follow the Code Guide's [recommendation](http://mdo.github.io/code-guide/#html-attribute-order)
+
+##Naming convensions
+The following table is shown the naming convensions for every element:
+
+Element | Naming style | Example | usage
+----|------|----|--------
+Modules | lowerCamelCase  | angularApp |
+Controllers | functionality + 'Ctrl'  | adminCtrl | 
+Directives | lowerCamelCase  | userInfo |
+Filters | lowerCamelCase | userFiler |
+Services | UpperCamelCase | User | constructor
+Services | lowerCamelCase | dataFactory | others
 
 ## Others
 
