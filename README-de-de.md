@@ -28,6 +28,7 @@ Im GitHub-Wiki von AngularJS gibt es einen ähnlichen Abschnitt von [ProLoser](h
     * [Markup](#markup)
     * [Optimieren des Digest-Zyklus](#optimieren-des-digest-zyklus)
     * [Sonstiges](#sonstiges)
+    * [Namensgebung](#namensgebung)
 * [Module](#module)
 * [Controller](#controller)
 * [Direktiven](#direktiven)
@@ -199,6 +200,18 @@ Andere HTML-Attribute sollten den [Empfehlungen](http://mdo.github.io/code-guide
 * Für Inhalte, die nur einmal initialisiert und anschließend nicht mehr geändert werden, sollten Einmal-Watcher wie [`bindonce`](https://github.com/Pasvaz/bindonce) verwendet werden.
 * Vereinfache Berechnungen in `$watch` so weit wie möglich. Komplexe und langsame Berechnungen in einem einzigen `$watch` verlangsamen die gesamte Applikation (der `$digest`-Loop wird in einem einzelnen Thread ausgeführt, weil JavaScript single-threaded ist).
 * Falls in der Callback-Funktion von `$timeout` keine gewatchten Variablen geändert werden, setze den dritten Parameter der `$timeout`-Funktion auf `false`, um nicht automatisch einen `$digest`-Zyklus durch den Aufruf des Callbacks auszulösen.
+
+##Namensgebung
+Die Namensgebung für alle Elemente sind in folgender Tabelle wieder zu finden:
+
+Element | Style | Beispiel | Verwendung bei
+----|------|----|--------
+Module | lowerCamelCase  | angularApp |
+Controller | funktionalität + 'Ctrl'  | adminCtrl | 
+Direktiven | lowerCamelCase  | userInfo |
+Filter | lowerCamelCase | userFiler |
+Services | UpperCamelCase | User | Konstruktor
+Services | lowerCamelCase | dataFactory | sonstige
 
 ## Sonstiges
 
