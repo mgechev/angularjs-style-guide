@@ -404,6 +404,15 @@ affidabili
 
 # Filter
 
+* Assegnare i nomi ai filter seguendo il lowerCamelCase.
+* I filter dovrebbero essere più leggeri possibile. Vengono spesso invocati
+durante il ciclo `$digest`, quindi un filtro poco performante potrebbe incidere
+sulle performance della vostra applicazione.
+* Usare ogni filter per un solo scopo mantenendoli coerenti. Manipolazioni più
+complesse possono essere ottenute concatenando più filter.
+
+# Service
+
 Questa sezione include informazioni sui componenti service di AngularJS. Questi
 non dipendono dal tipo di definizione (es: come provider, `.factory`,
 `.service`) a meno che questo non è esplicitamente menzionato.
