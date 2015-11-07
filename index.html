@@ -81,6 +81,7 @@ These best practices are collected from:</p>
 <ul>
 <li><a href="#directory-structure">Directory structure</a></li>
 <li><a href="#markup">Markup</a></li>
+<li><a href="#naming-convensions">Naming convensions</a></li>
 <li><a href="#others">Others</a></li>
 </ul>
 </li>
@@ -241,7 +242,7 @@ There are two main approaches:</p>
 
 <p><a href="http://developer.yahoo.com/blogs/ydn/high-performance-sites-rule-6-move-scripts-bottom-7200.html">TLDR;</a> Put the scripts at the bottom.</p>
 
-<div class="highlight highlight-html"><pre>&lt;!DOCTYPE html&gt;
+<div class="highlight highlight-text-html-basic"><pre>&lt;!DOCTYPE html&gt;
 &lt;<span class="pl-ent">html</span> <span class="pl-e">lang</span>=<span class="pl-s"><span class="pl-pds">"</span>en<span class="pl-pds">"</span></span>&gt;
 &lt;<span class="pl-ent">head</span>&gt;
   &lt;<span class="pl-ent">meta</span> <span class="pl-e">charset</span>=<span class="pl-s"><span class="pl-pds">"</span>utf-8<span class="pl-pds">"</span></span>&gt;
@@ -256,15 +257,69 @@ There are two main approaches:</p>
 &lt;/<span class="pl-ent">body</span>&gt;
 &lt;/<span class="pl-ent">html</span>&gt;</pre></div>
 
-<p>Keep things simple and put AngularJS specific directives later. This way is easy to look to the code and find enhanced HTML by the framework (what improve the maintainibility).</p>
+<p>Keep things simple and put AngularJS specific directives after standard attributes. This will make it easier to skim your code and will make it easier to maintain because your attributes are consistently grouped and positioned.</p>
 
-<div class="highlight highlight-html"><pre>&lt;<span class="pl-ent">form</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>frm<span class="pl-pds">"</span></span> <span class="pl-e">ng-submit</span>=<span class="pl-s"><span class="pl-pds">"</span>login.authenticate()<span class="pl-pds">"</span></span>&gt;
+<div class="highlight highlight-text-html-basic"><pre>&lt;<span class="pl-ent">form</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>frm<span class="pl-pds">"</span></span> <span class="pl-e">ng-submit</span>=<span class="pl-s"><span class="pl-pds">"</span>login.authenticate()<span class="pl-pds">"</span></span>&gt;
   &lt;<span class="pl-ent">div</span>&gt;
     &lt;<span class="pl-ent">input</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>ipt<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>text<span class="pl-pds">"</span></span> <span class="pl-e">placeholder</span>=<span class="pl-s"><span class="pl-pds">"</span>name<span class="pl-pds">"</span></span> <span class="pl-e">require</span> <span class="pl-e">ng-model</span>=<span class="pl-s"><span class="pl-pds">"</span>user.name<span class="pl-pds">"</span></span>&gt;
   &lt;/<span class="pl-ent">div</span>&gt;
 &lt;/<span class="pl-ent">form</span>&gt;</pre></div>
 
-<p>Other HTML atributes should follow the Code Guide's <a href="http://mdo.github.io/code-guide/#html-attribute-order">recommendation</a></p>
+<p>Other HTML attributes should follow the Code Guide's <a href="http://mdo.github.io/code-guide/#html-attribute-order">recommendation</a></p>
+
+<h2>
+<a id="naming-convensions" class="anchor" href="#naming-convensions" aria-hidden="true"><span class="octicon octicon-link"></span></a>Naming convensions</h2>
+
+<p>The following table is shown the naming convensions for every element:</p>
+
+<table>
+<thead>
+<tr>
+<th>Element</th>
+<th>Naming style</th>
+<th>Example</th>
+<th>usage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Modules</td>
+<td>lowerCamelCase</td>
+<td>angularApp</td>
+<td></td>
+</tr>
+<tr>
+<td>Controllers</td>
+<td>functionality + 'Ctrl'</td>
+<td>adminCtrl</td>
+<td></td>
+</tr>
+<tr>
+<td>Directives</td>
+<td>lowerCamelCase</td>
+<td>userInfo</td>
+<td></td>
+</tr>
+<tr>
+<td>Filters</td>
+<td>lowerCamelCase</td>
+<td>userFiler</td>
+<td></td>
+</tr>
+<tr>
+<td>Services</td>
+<td>UpperCamelCase</td>
+<td>User</td>
+<td>constructor</td>
+</tr>
+<tr>
+<td>Services</td>
+<td>lowerCamelCase</td>
+<td>dataFactory</td>
+<td>others</td>
+</tr>
+</tbody>
+</table>
 
 <h2>
 <a id="others" class="anchor" href="#others" aria-hidden="true"><span class="octicon octicon-link"></span></a>Others</h2>
@@ -312,7 +367,7 @@ There are two main approaches:</p>
 <li>
 <p>Avoid globals by using Grunt/Gulp to wrap your code in Immediately Invoked Function Expression (IIFE). You can use plugins like <a href="https://www.npmjs.com/package/grunt-wrap">grunt-wrap</a> or <a href="https://www.npmjs.com/package/gulp-wrap/">gulp-wrap</a> for this purpose. Example (using Gulp)</p>
 
-<div class="highlight highlight-Javascript"><pre>gulp.src(<span class="pl-s"><span class="pl-pds">"</span>./src/*.js<span class="pl-pds">"</span></span>)
+<div class="highlight highlight-source-js"><pre>gulp.src(<span class="pl-s"><span class="pl-pds">"</span>./src/*.js<span class="pl-pds">"</span></span>)
 .pipe(wrap(<span class="pl-s"><span class="pl-pds">'</span>(function(){<span class="pl-cce">\n</span>"use strict";<span class="pl-cce">\n</span>&lt;%= contents %&gt;<span class="pl-cce">\n</span>})();<span class="pl-pds">'</span></span>))
 .pipe(gulp.dest(<span class="pl-s"><span class="pl-pds">"</span>./dist<span class="pl-pds">"</span></span>));</pre></div>
 </li>
@@ -330,7 +385,7 @@ There are two main approaches:</p>
 <li>When resolving dependencies through the DI mechanism of AngularJS, sort the dependencies by their type - the built-in AngularJS dependencies should be first, followed by your custom ones:</li>
 </ul>
 
-<div class="highlight highlight-javascript"><pre><span class="pl-c1">module</span>.factory(<span class="pl-s"><span class="pl-pds">'</span>Service<span class="pl-pds">'</span></span>, <span class="pl-k">function</span> (<span class="pl-smi">$rootScope</span>, <span class="pl-smi">$timeout</span>, <span class="pl-smi">MyCustomDependency1</span>, <span class="pl-smi">MyCustomDependency2</span>) {
+<div class="highlight highlight-source-js"><pre><span class="pl-c1">module</span>.factory(<span class="pl-s"><span class="pl-pds">'</span>Service<span class="pl-pds">'</span></span>, <span class="pl-k">function</span> (<span class="pl-smi">$rootScope</span>, <span class="pl-smi">$timeout</span>, <span class="pl-smi">MyCustomDependency1</span>, <span class="pl-smi">MyCustomDependency2</span>) {
   <span class="pl-k">return</span> {
     <span class="pl-c">//Something</span>
   };
@@ -365,7 +420,7 @@ There are two main approaches:</p>
 <li>
 <p>Use the following syntax for defining controllers:</p>
 
-<div class="highlight highlight-JavaScript"><pre><span class="pl-k">function</span> <span class="pl-en">MyCtrl</span>(<span class="pl-smi">dependency1</span>, <span class="pl-smi">dependency2</span>, ..., <span class="pl-smi">dependencyn</span>) {
+<div class="highlight highlight-source-js"><pre><span class="pl-k">function</span> <span class="pl-en">MyCtrl</span>(<span class="pl-smi">dependency1</span>, <span class="pl-smi">dependency2</span>, ..., <span class="pl-smi">dependencyn</span>) {
   <span class="pl-c">// ...</span>
 }
 <span class="pl-c1">module</span>.controller(<span class="pl-s"><span class="pl-pds">'</span>MyCtrl<span class="pl-pds">'</span></span>, MyCtrl);</pre></div>
@@ -380,7 +435,7 @@ There are two main approaches:</p>
 &lt;/div&gt;
 </code></pre>
 
-<div class="highlight highlight-JavaScript"><pre>app.controller(<span class="pl-s"><span class="pl-pds">'</span>MainCtrl<span class="pl-pds">'</span></span>, MainCtrl);
+<div class="highlight highlight-source-js"><pre>app.controller(<span class="pl-s"><span class="pl-pds">'</span>MainCtrl<span class="pl-pds">'</span></span>, MainCtrl);
 
 <span class="pl-k">function</span> <span class="pl-en">MainCtrl</span> () {
   <span class="pl-v">this</span>.<span class="pl-c1">title</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span>Some title<span class="pl-pds">'</span></span>;
@@ -407,7 +462,7 @@ There are two main approaches:</p>
 <li>
 <p>If using array definition syntax, use the original names of the controller's dependencies. This will help you produce more readable code:</p>
 
-<div class="highlight highlight-JavaScript"><pre><span class="pl-k">function</span> <span class="pl-en">MyCtrl</span>(<span class="pl-smi">s</span>) {
+<div class="highlight highlight-source-js"><pre><span class="pl-k">function</span> <span class="pl-en">MyCtrl</span>(<span class="pl-smi">s</span>) {
   <span class="pl-c">// ...</span>
 }
 
@@ -415,7 +470,7 @@ There are two main approaches:</p>
 
 <p>which is less readable than:</p>
 
-<div class="highlight highlight-JavaScript"><pre><span class="pl-k">function</span> <span class="pl-en">MyCtrl</span>(<span class="pl-smi">$scope</span>) {
+<div class="highlight highlight-source-js"><pre><span class="pl-k">function</span> <span class="pl-en">MyCtrl</span>(<span class="pl-smi">$scope</span>) {
   <span class="pl-c">// ...</span>
 }
 <span class="pl-c1">module</span>.controller(<span class="pl-s"><span class="pl-pds">'</span>MyCtrl<span class="pl-pds">'</span></span>, [<span class="pl-s"><span class="pl-pds">'</span>$scope<span class="pl-pds">'</span></span>, MyCtrl]);</pre></div>
@@ -427,7 +482,7 @@ There are two main approaches:</p>
 <p>Avoid writing business logic inside controllers. Delegate business logic to a <code>model</code>, using a service.
 For example:</p>
 
-<div class="highlight highlight-Javascript"><pre><span class="pl-c">//This is a common behaviour (bad example) of using business logic inside a controller.</span>
+<div class="highlight highlight-source-js"><pre><span class="pl-c">//This is a common behaviour (bad example) of using business logic inside a controller.</span>
 angular.module(<span class="pl-s"><span class="pl-pds">'</span>Store<span class="pl-pds">'</span></span>, [])
 .controller(<span class="pl-s"><span class="pl-pds">'</span>OrderCtrl<span class="pl-pds">'</span></span>, <span class="pl-k">function</span> (<span class="pl-smi">$scope</span>) {
 
@@ -450,7 +505,7 @@ angular.module(<span class="pl-s"><span class="pl-pds">'</span>Store<span class=
 
 <p>When delegating business logic into a 'model' service, controller will look like this (see 'use services as your Model' for service-model implementation):</p>
 
-<div class="highlight highlight-Javascript"><pre><span class="pl-c">//Order is used as a 'model'</span>
+<div class="highlight highlight-source-js"><pre><span class="pl-c">//Order is used as a 'model'</span>
 angular.module(<span class="pl-s"><span class="pl-pds">'</span>Store<span class="pl-pds">'</span></span>, [])
 .controller(<span class="pl-s"><span class="pl-pds">'</span>OrderCtrl<span class="pl-pds">'</span></span>, <span class="pl-k">function</span> (<span class="pl-smi">Order</span>) {
 
@@ -483,20 +538,20 @@ angular.module(<span class="pl-s"><span class="pl-pds">'</span>Store<span class=
 
 <p>Example:</p>
 
-<div class="highlight highlight-JavaScript"><pre><span class="pl-c">// app.js</span>
+<div class="highlight highlight-source-js"><pre><span class="pl-c">// app.js</span>
 <span class="pl-c">/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * *</span>
 <span class="pl-c">Custom events:</span>
 <span class="pl-c"> - 'authorization-message' - description of the message</span>
 <span class="pl-c">   - { user, role, action } - data format</span>
 <span class="pl-c">     - user - a string, which contains the username</span>
 <span class="pl-c">     - role - an ID of the role the user has</span>
-<span class="pl-c">     - action - specific ation the user tries to perform</span>
+<span class="pl-c">     - action - specific action the user tries to perform</span>
 <span class="pl-c">* * * * * * * * * * * * * * * * * * * * * * * * * * * * * */</span></pre></div>
 </li>
 <li>
 <p>When you need to format data encapsulate the formatting logic into a <a href="#filters">filter</a> and declare it as dependency:</p>
 
-<div class="highlight highlight-JavaScript"><pre><span class="pl-k">function</span> <span class="pl-en">myFormat</span>() {
+<div class="highlight highlight-source-js"><pre><span class="pl-k">function</span> <span class="pl-en">myFormat</span>() {
  <span class="pl-k">return</span> <span class="pl-k">function</span> () {
    <span class="pl-c">// ...</span>
  };
@@ -514,7 +569,7 @@ angular.module(<span class="pl-s"><span class="pl-pds">'</span>Store<span class=
 
 <p><strong>app.js</strong></p>
 
-<div class="highlight highlight-javascript"><pre><span class="pl-c1">module</span>.config(<span class="pl-k">function</span> (<span class="pl-smi">$routeProvider</span>) {
+<div class="highlight highlight-source-js"><pre><span class="pl-c1">module</span>.config(<span class="pl-k">function</span> (<span class="pl-smi">$routeProvider</span>) {
  $routeProvider
    .when(<span class="pl-s"><span class="pl-pds">'</span>/route<span class="pl-pds">'</span></span>, {
      templateUrl<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>partials/template.html<span class="pl-pds">'</span></span>,
@@ -525,7 +580,7 @@ angular.module(<span class="pl-s"><span class="pl-pds">'</span>Store<span class=
 
 <p><strong>HomeCtrl</strong></p>
 
-<div class="highlight highlight-javascript"><pre><span class="pl-k">function</span> <span class="pl-en">HomeCtrl</span>() {
+<div class="highlight highlight-source-js"><pre><span class="pl-k">function</span> <span class="pl-en">HomeCtrl</span>() {
  <span class="pl-v">this</span>.bindingValue <span class="pl-k">=</span> <span class="pl-c1">42</span>;
 }</pre></div>
 
@@ -573,7 +628,7 @@ angular.module(<span class="pl-s"><span class="pl-pds">'</span>Store<span class=
 <li>
 <p>UpperCamelCase (PascalCase) for naming your services, used as constructor functions i.e.:</p>
 
-<div class="highlight highlight-JavaScript"><pre><span class="pl-k">function</span> <span class="pl-en">MainCtrl</span>(<span class="pl-smi">$scope</span>, <span class="pl-smi">User</span>) {
+<div class="highlight highlight-source-js"><pre><span class="pl-k">function</span> <span class="pl-en">MainCtrl</span>(<span class="pl-smi">$scope</span>, <span class="pl-smi">User</span>) {
   $scope.user <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">User</span>(<span class="pl-s"><span class="pl-pds">'</span>foo<span class="pl-pds">'</span></span>, <span class="pl-c1">42</span>);
 }
 
@@ -594,7 +649,7 @@ angular.module(<span class="pl-s"><span class="pl-pds">'</span>Store<span class=
 <li>
 <p>Encapsulate all the business logic in services. Prefer using it as your <code>model</code>. For example:</p>
 
-<div class="highlight highlight-Javascript"><pre><span class="pl-c">//Order is the 'model'</span>
+<div class="highlight highlight-source-js"><pre><span class="pl-c">//Order is the 'model'</span>
 angular.module(<span class="pl-s"><span class="pl-pds">'</span>Store<span class="pl-pds">'</span></span>)
 .factory(<span class="pl-s"><span class="pl-pds">'</span>Order<span class="pl-pds">'</span></span>, <span class="pl-k">function</span> () {
     <span class="pl-k">var</span> <span class="pl-en">add</span> <span class="pl-k">=</span> <span class="pl-k">function</span> (<span class="pl-smi">item</span>) {
@@ -626,7 +681,7 @@ angular.module(<span class="pl-s"><span class="pl-pds">'</span>Store<span class=
 <li>
 <p>Services representing the domain preferably a <code>service</code> instead of a <code>factory</code>. In this way we can take advantage of the "klassical" inheritance easier:</p>
 
-<div class="highlight highlight-JavaScript"><pre><span class="pl-k">function</span> <span class="pl-en">Human</span>() {
+<div class="highlight highlight-source-js"><pre><span class="pl-k">function</span> <span class="pl-en">Human</span>() {
   <span class="pl-c">//body</span>
 }
 <span class="pl-c1">Human</span>.<span class="pl-c1">prototype</span>.<span class="pl-en">talk</span> <span class="pl-k">=</span> <span class="pl-k">function</span> () {
@@ -649,7 +704,7 @@ myModule.service(<span class="pl-s"><span class="pl-pds">'</span>Developer<span 
 <li>
 <p>If given service requires configuration define the service as provider and configure it in the <code>config</code> callback like:</p>
 
-<div class="highlight highlight-JavaScript"><pre>angular.module(<span class="pl-s"><span class="pl-pds">'</span>demo<span class="pl-pds">'</span></span>, [])
+<div class="highlight highlight-source-js"><pre>angular.module(<span class="pl-s"><span class="pl-pds">'</span>demo<span class="pl-pds">'</span></span>, [])
 .config(<span class="pl-k">function</span> (<span class="pl-smi">$provide</span>) {
   $provide.provider(<span class="pl-s"><span class="pl-pds">'</span>sample<span class="pl-pds">'</span></span>, <span class="pl-k">function</span> () {
     <span class="pl-k">var</span> foo <span class="pl-k">=</span> <span class="pl-c1">42</span>;
@@ -685,7 +740,7 @@ demo.config(<span class="pl-k">function</span> (<span class="pl-smi">sampleProvi
 <li>Instead of using scope variable as string and using it with <code>style</code> attribute with <code>{{ }}</code>, use the directive <code>ng-style</code> with object-like parameters and scope variables as values:</li>
 </ul>
 
-<div class="highlight highlight-HTML"><pre><span class="pl-s1">&lt;<span class="pl-ent">script</span>&gt;</span>
+<div class="highlight highlight-text-html-basic"><pre><span class="pl-s1">&lt;<span class="pl-ent">script</span>&gt;</span>
 <span class="pl-s1">...</span>
 <span class="pl-s1">$scope.divStyle <span class="pl-k">=</span> {</span>
 <span class="pl-s1">  width<span class="pl-k">:</span> <span class="pl-c1">200</span>,</span>
@@ -722,7 +777,7 @@ demo.config(<span class="pl-k">function</span> (<span class="pl-smi">sampleProvi
 <li>Watch only the most vital variables. When required to invoke the <code>$digest</code> loop explicitly (it should happen only in exceptional cases), invoke it only when required (for example: when using real-time communication, don't cause a <code>$digest</code> loop in each received message).</li>
 <li>For content that is initialized only once and then never changed, use single-time watchers like <a href="https://github.com/Pasvaz/bindonce"><code>bindonce</code></a> for older versions of AngularJS or one-time bindings in AngularJS &gt;=1.3.0.</li>
 <li>Make the computations in <code>$watch</code> as simple as possible. Making heavy and slow computations in a single <code>$watch</code> will slow down the whole application (the <code>$digest</code> loop is done in a single thread because of the single-threaded nature of JavaScript).</li>
-<li>When watching collections, do not watch them deeply when not strongly required. Better use <code>$watchCollection</code>, which performs a shallow check for equility of the result of the watched expression and the previous value of the expression's evaluation.</li>
+<li>When watching collections, do not watch them deeply when not strongly required. Better use <code>$watchCollection</code>, which performs a shallow check for equality of the result of the watched expression and the previous value of the expression's evaluation.</li>
 <li>Set third parameter in <code>$timeout</code> function to false to skip the <code>$digest</code> loop when no watched variables are impacted by the invocation of the <code>$timeout</code> callback function.</li>
 <li>When dealing with big collections, which change rarely, <a href="http://blog.mgechev.com/2015/03/02/immutability-in-angularjs-immutablejs/">use immutable data structures</a>.</li>
 </ul>
@@ -765,22 +820,22 @@ For example, you can contribute by extending the Testing section or by translati
 <table>
 <thead>
 <tr>
-<th align="center"><a href="https://github.com/mainyaa"><img alt="mainyaa" src="https://avatars.githubusercontent.com/u/800781?v=3&amp;s=117" width="117"></a></th>
 <th align="center"><a href="https://github.com/ray7551"><img alt="ray7551" src="https://avatars.githubusercontent.com/u/1812388?v=3&amp;s=117" width="117"></a></th>
+<th align="center"><a href="https://github.com/mainyaa"><img alt="mainyaa" src="https://avatars.githubusercontent.com/u/800781?v=3&amp;s=117" width="117"></a></th>
 <th align="center"><a href="https://github.com/elfinxx"><img alt="elfinxx" src="https://avatars.githubusercontent.com/u/4384908?v=3&amp;s=117" width="117"></a></th>
 <th align="center"><a href="https://github.com/Xuefeng-Zhu"><img alt="Xuefeng-Zhu" src="https://avatars.githubusercontent.com/u/5875315?v=3&amp;s=117" width="117"></a></th>
 <th align="center"><a href="https://github.com/lukaszklis"><img alt="lukaszklis" src="https://avatars.githubusercontent.com/u/11782?v=3&amp;s=117" width="117"></a></th>
-<th align="center"><a href="https://github.com/SullyP"><img alt="SullyP" src="https://avatars.githubusercontent.com/u/12484363?v=3&amp;s=117" width="117"></a></th>
+<th align="center"><a href="https://github.com/rubystream"><img alt="rubystream" src="https://avatars.githubusercontent.com/u/3200?v=3&amp;s=117" width="117"></a></th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="center"><a href="https://github.com/mainyaa">mainyaa</a></td>
 <td align="center"><a href="https://github.com/ray7551">ray7551</a></td>
+<td align="center"><a href="https://github.com/mainyaa">mainyaa</a></td>
 <td align="center"><a href="https://github.com/elfinxx">elfinxx</a></td>
 <td align="center"><a href="https://github.com/Xuefeng-Zhu">Xuefeng-Zhu</a></td>
 <td align="center"><a href="https://github.com/lukaszklis">lukaszklis</a></td>
-<td align="center"><a href="https://github.com/SullyP">SullyP</a></td>
+<td align="center"><a href="https://github.com/rubystream">rubystream</a></td>
 </tr>
 </tbody>
 </table>
@@ -788,22 +843,22 @@ For example, you can contribute by extending the Testing section or by translati
 <table>
 <thead>
 <tr>
+<th align="center"><a href="https://github.com/giacomocusinato"><img alt="giacomocusinato" src="https://avatars.githubusercontent.com/u/7659518?v=3&amp;s=117" width="117"></a></th>
 <th align="center"><a href="https://github.com/susieyy"><img alt="susieyy" src="https://avatars.githubusercontent.com/u/62295?v=3&amp;s=117" width="117"></a></th>
-<th align="center"><a href="https://github.com/rubystream"><img alt="rubystream" src="https://avatars.githubusercontent.com/u/3200?v=3&amp;s=117" width="117"></a></th>
+<th align="center"><a href="https://github.com/SullyP"><img alt="SullyP" src="https://avatars.githubusercontent.com/u/12484363?v=3&amp;s=117" width="117"></a></th>
 <th align="center"><a href="https://github.com/cironunes"><img alt="cironunes" src="https://avatars.githubusercontent.com/u/469908?v=3&amp;s=117" width="117"></a></th>
 <th align="center"><a href="https://github.com/cavarzan"><img alt="cavarzan" src="https://avatars.githubusercontent.com/u/3915288?v=3&amp;s=117" width="117"></a></th>
 <th align="center"><a href="https://github.com/guiltry"><img alt="guiltry" src="https://avatars.githubusercontent.com/u/1484308?v=3&amp;s=117" width="117"></a></th>
-<th align="center"><a href="https://github.com/mingchen"><img alt="mingchen" src="https://avatars.githubusercontent.com/u/1002838?v=3&amp;s=117" width="117"></a></th>
 </tr>
 </thead>
 <tbody>
 <tr>
+<td align="center"><a href="https://github.com/giacomocusinato">giacomocusinato</a></td>
 <td align="center"><a href="https://github.com/susieyy">susieyy</a></td>
-<td align="center"><a href="https://github.com/rubystream">rubystream</a></td>
+<td align="center"><a href="https://github.com/SullyP">SullyP</a></td>
 <td align="center"><a href="https://github.com/cironunes">cironunes</a></td>
 <td align="center"><a href="https://github.com/cavarzan">cavarzan</a></td>
 <td align="center"><a href="https://github.com/guiltry">guiltry</a></td>
-<td align="center"><a href="https://github.com/mingchen">mingchen</a></td>
 </tr>
 </tbody>
 </table>
@@ -811,90 +866,21 @@ For example, you can contribute by extending the Testing section or by translati
 <table>
 <thead>
 <tr>
+<th align="center"><a href="https://github.com/MertSKaan"><img alt="MertSKaan" src="https://avatars.githubusercontent.com/u/5517637?v=3&amp;s=117" width="117"></a></th>
+<th align="center"><a href="https://github.com/mingchen"><img alt="mingchen" src="https://avatars.githubusercontent.com/u/1002838?v=3&amp;s=117" width="117"></a></th>
 <th align="center"><a href="https://github.com/tornad"><img alt="tornad" src="https://avatars.githubusercontent.com/u/2128499?v=3&amp;s=117" width="117"></a></th>
 <th align="center"><a href="https://github.com/jmblog"><img alt="jmblog" src="https://avatars.githubusercontent.com/u/86085?v=3&amp;s=117" width="117"></a></th>
 <th align="center"><a href="https://github.com/kuzzmi"><img alt="kuzzmi" src="https://avatars.githubusercontent.com/u/1727140?v=3&amp;s=117" width="117"></a></th>
-<th align="center"><a href="https://github.com/dwmkerr"><img alt="dwmkerr" src="https://avatars.githubusercontent.com/u/1926984?v=3&amp;s=117" width="117"></a></th>
-<th align="center"><a href="https://github.com/astalker"><img alt="astalker" src="https://avatars.githubusercontent.com/u/1486567?v=3&amp;s=117" width="117"></a></th>
-<th align="center"><a href="https://github.com/clbn"><img alt="clbn" src="https://avatars.githubusercontent.com/u/1071933?v=3&amp;s=117" width="117"></a></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td align="center"><a href="https://github.com/tornad">tornad</a></td>
-<td align="center"><a href="https://github.com/jmblog">jmblog</a></td>
-<td align="center"><a href="https://github.com/kuzzmi">kuzzmi</a></td>
-<td align="center"><a href="https://github.com/dwmkerr">dwmkerr</a></td>
-<td align="center"><a href="https://github.com/astalker">astalker</a></td>
-<td align="center"><a href="https://github.com/clbn">clbn</a></td>
-</tr>
-</tbody>
-</table>
-
-<table>
-<thead>
-<tr>
-<th align="center"><a href="https://github.com/apetro"><img alt="apetro" src="https://avatars.githubusercontent.com/u/952283?v=3&amp;s=117" width="117"></a></th>
-<th align="center"><a href="https://github.com/valgreens"><img alt="valgreens" src="https://avatars.githubusercontent.com/u/903263?v=3&amp;s=117" width="117"></a></th>
-<th align="center"><a href="https://github.com/bradgearon"><img alt="bradgearon" src="https://avatars.githubusercontent.com/u/1731943?v=3&amp;s=117" width="117"></a></th>
-<th align="center"><a href="https://github.com/dreame4"><img alt="dreame4" src="https://avatars.githubusercontent.com/u/277870?v=3&amp;s=117" width="117"></a></th>
-<th align="center"><a href="https://github.com/dchest"><img alt="dchest" src="https://avatars.githubusercontent.com/u/52677?v=3&amp;s=117" width="117"></a></th>
-<th align="center"><a href="https://github.com/cryptojuice"><img alt="cryptojuice" src="https://avatars.githubusercontent.com/u/458883?v=3&amp;s=117" width="117"></a></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td align="center"><a href="https://github.com/apetro">apetro</a></td>
-<td align="center"><a href="https://github.com/valgreens">valgreens</a></td>
-<td align="center"><a href="https://github.com/bradgearon">bradgearon</a></td>
-<td align="center"><a href="https://github.com/dreame4">dreame4</a></td>
-<td align="center"><a href="https://github.com/dchest">dchest</a></td>
-<td align="center"><a href="https://github.com/cryptojuice">cryptojuice</a></td>
-</tr>
-</tbody>
-</table>
-
-<table>
-<thead>
-<tr>
-<th align="center"><a href="https://github.com/gsamokovarov"><img alt="gsamokovarov" src="https://avatars.githubusercontent.com/u/604618?v=3&amp;s=117" width="117"></a></th>
-<th align="center"><a href="https://github.com/bargaorobalo"><img alt="bargaorobalo" src="https://avatars.githubusercontent.com/u/993001?v=3&amp;s=117" width="117"></a></th>
-<th align="center"><a href="https://github.com/hermankan"><img alt="hermankan" src="https://avatars.githubusercontent.com/u/2899106?v=3&amp;s=117" width="117"></a></th>
-<th align="center"><a href="https://github.com/jabhishek"><img alt="jabhishek" src="https://avatars.githubusercontent.com/u/1830537?v=3&amp;s=117" width="117"></a></th>
-<th align="center"><a href="https://github.com/jesselpalmer"><img alt="jesselpalmer" src="https://avatars.githubusercontent.com/u/682097?v=3&amp;s=117" width="117"></a></th>
-<th align="center"><a href="https://github.com/capaj"><img alt="capaj" src="https://avatars.githubusercontent.com/u/1305378?v=3&amp;s=117" width="117"></a></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td align="center"><a href="https://github.com/gsamokovarov">gsamokovarov</a></td>
-<td align="center"><a href="https://github.com/bargaorobalo">bargaorobalo</a></td>
-<td align="center"><a href="https://github.com/hermankan">hermankan</a></td>
-<td align="center"><a href="https://github.com/jabhishek">jabhishek</a></td>
-<td align="center"><a href="https://github.com/jesselpalmer">jesselpalmer</a></td>
-<td align="center"><a href="https://github.com/capaj">capaj</a></td>
-</tr>
-</tbody>
-</table>
-
-<table>
-<thead>
-<tr>
-<th align="center"><a href="https://github.com/johnnyghost"><img alt="johnnyghost" src="https://avatars.githubusercontent.com/u/1117330?v=3&amp;s=117" width="117"></a></th>
-<th align="center"><a href="https://github.com/jordanyee"><img alt="jordanyee" src="https://avatars.githubusercontent.com/u/3303098?v=3&amp;s=117" width="117"></a></th>
-<th align="center"><a href="https://github.com/nacyot"><img alt="nacyot" src="https://avatars.githubusercontent.com/u/148919?v=3&amp;s=117" width="117"></a></th>
-<th align="center"><a href="https://github.com/mariolamacchia"><img alt="mariolamacchia" src="https://avatars.githubusercontent.com/u/6282722?v=3&amp;s=117" width="117"></a></th>
-<th align="center"><a href="https://github.com/kirstein"><img alt="kirstein" src="https://avatars.githubusercontent.com/u/426442?v=3&amp;s=117" width="117"></a></th>
 <th align="center"><a href="https://github.com/mo-gr"><img alt="mo-gr" src="https://avatars.githubusercontent.com/u/95577?v=3&amp;s=117" width="117"></a></th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="center"><a href="https://github.com/johnnyghost">johnnyghost</a></td>
-<td align="center"><a href="https://github.com/jordanyee">jordanyee</a></td>
-<td align="center"><a href="https://github.com/nacyot">nacyot</a></td>
-<td align="center"><a href="https://github.com/mariolamacchia">mariolamacchia</a></td>
-<td align="center"><a href="https://github.com/kirstein">kirstein</a></td>
+<td align="center"><a href="https://github.com/MertSKaan">MertSKaan</a></td>
+<td align="center"><a href="https://github.com/mingchen">mingchen</a></td>
+<td align="center"><a href="https://github.com/tornad">tornad</a></td>
+<td align="center"><a href="https://github.com/jmblog">jmblog</a></td>
+<td align="center"><a href="https://github.com/kuzzmi">kuzzmi</a></td>
 <td align="center"><a href="https://github.com/mo-gr">mo-gr</a></td>
 </tr>
 </tbody>
@@ -903,22 +889,114 @@ For example, you can contribute by extending the Testing section or by translati
 <table>
 <thead>
 <tr>
+<th align="center"><a href="https://github.com/astalker"><img alt="astalker" src="https://avatars.githubusercontent.com/u/1486567?v=3&amp;s=117" width="117"></a></th>
+<th align="center"><a href="https://github.com/clbn"><img alt="clbn" src="https://avatars.githubusercontent.com/u/1071933?v=3&amp;s=117" width="117"></a></th>
+<th align="center"><a href="https://github.com/atodorov"><img alt="atodorov" src="https://avatars.githubusercontent.com/u/1002300?v=3&amp;s=117" width="117"></a></th>
+<th align="center"><a href="https://github.com/apetro"><img alt="apetro" src="https://avatars.githubusercontent.com/u/952283?v=3&amp;s=117" width="117"></a></th>
+<th align="center"><a href="https://github.com/valgreens"><img alt="valgreens" src="https://avatars.githubusercontent.com/u/903263?v=3&amp;s=117" width="117"></a></th>
+<th align="center"><a href="https://github.com/kirstein"><img alt="kirstein" src="https://avatars.githubusercontent.com/u/426442?v=3&amp;s=117" width="117"></a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><a href="https://github.com/astalker">astalker</a></td>
+<td align="center"><a href="https://github.com/clbn">clbn</a></td>
+<td align="center"><a href="https://github.com/atodorov">atodorov</a></td>
+<td align="center"><a href="https://github.com/apetro">apetro</a></td>
+<td align="center"><a href="https://github.com/valgreens">valgreens</a></td>
+<td align="center"><a href="https://github.com/kirstein">kirstein</a></td>
+</tr>
+</tbody>
+</table>
+
+<table>
+<thead>
+<tr>
+<th align="center"><a href="https://github.com/bradgearon"><img alt="bradgearon" src="https://avatars.githubusercontent.com/u/1731943?v=3&amp;s=117" width="117"></a></th>
+<th align="center"><a href="https://github.com/dwmkerr"><img alt="dwmkerr" src="https://avatars.githubusercontent.com/u/1926984?v=3&amp;s=117" width="117"></a></th>
+<th align="center"><a href="https://github.com/dchest"><img alt="dchest" src="https://avatars.githubusercontent.com/u/52677?v=3&amp;s=117" width="117"></a></th>
+<th align="center"><a href="https://github.com/gsamokovarov"><img alt="gsamokovarov" src="https://avatars.githubusercontent.com/u/604618?v=3&amp;s=117" width="117"></a></th>
 <th align="center"><a href="https://github.com/grvcoelho"><img alt="grvcoelho" src="https://avatars.githubusercontent.com/u/7416751?v=3&amp;s=117" width="117"></a></th>
+<th align="center"><a href="https://github.com/bargaorobalo"><img alt="bargaorobalo" src="https://avatars.githubusercontent.com/u/993001?v=3&amp;s=117" width="117"></a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><a href="https://github.com/bradgearon">bradgearon</a></td>
+<td align="center"><a href="https://github.com/dwmkerr">dwmkerr</a></td>
+<td align="center"><a href="https://github.com/dchest">dchest</a></td>
+<td align="center"><a href="https://github.com/gsamokovarov">gsamokovarov</a></td>
+<td align="center"><a href="https://github.com/grvcoelho">grvcoelho</a></td>
+<td align="center"><a href="https://github.com/bargaorobalo">bargaorobalo</a></td>
+</tr>
+</tbody>
+</table>
+
+<table>
+<thead>
+<tr>
+<th align="center"><a href="https://github.com/hermankan"><img alt="hermankan" src="https://avatars.githubusercontent.com/u/2899106?v=3&amp;s=117" width="117"></a></th>
+<th align="center"><a href="https://github.com/jabhishek"><img alt="jabhishek" src="https://avatars.githubusercontent.com/u/1830537?v=3&amp;s=117" width="117"></a></th>
+<th align="center"><a href="https://github.com/jesselpalmer"><img alt="jesselpalmer" src="https://avatars.githubusercontent.com/u/682097?v=3&amp;s=117" width="117"></a></th>
+<th align="center"><a href="https://github.com/capaj"><img alt="capaj" src="https://avatars.githubusercontent.com/u/1305378?v=3&amp;s=117" width="117"></a></th>
+<th align="center"><a href="https://github.com/johnnyghost"><img alt="johnnyghost" src="https://avatars.githubusercontent.com/u/1117330?v=3&amp;s=117" width="117"></a></th>
+<th align="center"><a href="https://github.com/jordanyee"><img alt="jordanyee" src="https://avatars.githubusercontent.com/u/3303098?v=3&amp;s=117" width="117"></a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><a href="https://github.com/hermankan">hermankan</a></td>
+<td align="center"><a href="https://github.com/jabhishek">jabhishek</a></td>
+<td align="center"><a href="https://github.com/jesselpalmer">jesselpalmer</a></td>
+<td align="center"><a href="https://github.com/capaj">capaj</a></td>
+<td align="center"><a href="https://github.com/johnnyghost">johnnyghost</a></td>
+<td align="center"><a href="https://github.com/jordanyee">jordanyee</a></td>
+</tr>
+</tbody>
+</table>
+
+<table>
+<thead>
+<tr>
+<th align="center"><a href="https://github.com/nacyot"><img alt="nacyot" src="https://avatars.githubusercontent.com/u/148919?v=3&amp;s=117" width="117"></a></th>
+<th align="center"><a href="https://github.com/mariolamacchia"><img alt="mariolamacchia" src="https://avatars.githubusercontent.com/u/6282722?v=3&amp;s=117" width="117"></a></th>
+<th align="center"><a href="https://github.com/meetbryce"><img alt="meetbryce" src="https://avatars.githubusercontent.com/u/1845143?v=3&amp;s=117" width="117"></a></th>
+<th align="center"><a href="https://github.com/dreame4"><img alt="dreame4" src="https://avatars.githubusercontent.com/u/277870?v=3&amp;s=117" width="117"></a></th>
+<th align="center"><a href="https://github.com/cryptojuice"><img alt="cryptojuice" src="https://avatars.githubusercontent.com/u/458883?v=3&amp;s=117" width="117"></a></th>
 <th align="center"><a href="https://github.com/nikshulipa"><img alt="nikshulipa" src="https://avatars.githubusercontent.com/u/1872256?v=3&amp;s=117" width="117"></a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><a href="https://github.com/nacyot">nacyot</a></td>
+<td align="center"><a href="https://github.com/mariolamacchia">mariolamacchia</a></td>
+<td align="center"><a href="https://github.com/meetbryce">meetbryce</a></td>
+<td align="center"><a href="https://github.com/dreame4">dreame4</a></td>
+<td align="center"><a href="https://github.com/cryptojuice">cryptojuice</a></td>
+<td align="center"><a href="https://github.com/nikshulipa">nikshulipa</a></td>
+</tr>
+</tbody>
+</table>
+
+<table>
+<thead>
+<tr>
 <th align="center"><a href="https://github.com/olov"><img alt="olov" src="https://avatars.githubusercontent.com/u/19247?v=3&amp;s=117" width="117"></a></th>
 <th align="center"><a href="https://github.com/vorktanamobay"><img alt="vorktanamobay" src="https://avatars.githubusercontent.com/u/2623355?v=3&amp;s=117" width="117"></a></th>
 <th align="center"><a href="https://github.com/sahat"><img alt="sahat" src="https://avatars.githubusercontent.com/u/544954?v=3&amp;s=117" width="117"></a></th>
 <th align="center"><a href="https://github.com/ganchiku"><img alt="ganchiku" src="https://avatars.githubusercontent.com/u/149973?v=3&amp;s=117" width="117"></a></th>
+<th align="center"><a href="https://github.com/kaneshin"><img alt="kaneshin" src="https://avatars.githubusercontent.com/u/936972?v=3&amp;s=117" width="117"></a></th>
+<th align="center"><a href="https://github.com/imaimiami"><img alt="imaimiami" src="https://avatars.githubusercontent.com/u/2256037?v=3&amp;s=117" width="117"></a></th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="center"><a href="https://github.com/grvcoelho">grvcoelho</a></td>
-<td align="center"><a href="https://github.com/nikshulipa">nikshulipa</a></td>
 <td align="center"><a href="https://github.com/olov">olov</a></td>
 <td align="center"><a href="https://github.com/vorktanamobay">vorktanamobay</a></td>
 <td align="center"><a href="https://github.com/sahat">sahat</a></td>
 <td align="center"><a href="https://github.com/ganchiku">ganchiku</a></td>
+<td align="center"><a href="https://github.com/kaneshin">kaneshin</a></td>
+<td align="center"><a href="https://github.com/imaimiami">imaimiami</a></td>
 </tr>
 </tbody>
 </table>
@@ -926,34 +1004,21 @@ For example, you can contribute by extending the Testing section or by translati
 <table>
 <thead>
 <tr>
-<th align="center"><a href="https://github.com/kaneshin"><img alt="kaneshin" src="https://avatars.githubusercontent.com/u/936972?v=3&amp;s=117" width="117"></a></th>
-<th align="center"><a href="https://github.com/imaimiami"><img alt="imaimiami" src="https://avatars.githubusercontent.com/u/2256037?v=3&amp;s=117" width="117"></a></th>
 <th align="center"><a href="https://github.com/thomastuts"><img alt="thomastuts" src="https://avatars.githubusercontent.com/u/1914255?v=3&amp;s=117" width="117"></a></th>
+<th align="center"><a href="https://github.com/andela-abankole"><img alt="andela-abankole" src="https://avatars.githubusercontent.com/u/11836769?v=3&amp;s=117" width="117"></a></th>
 <th align="center"><a href="https://github.com/grapswiz"><img alt="grapswiz" src="https://avatars.githubusercontent.com/u/309459?v=3&amp;s=117" width="117"></a></th>
 <th align="center"><a href="https://github.com/coderhaoxin"><img alt="coderhaoxin" src="https://avatars.githubusercontent.com/u/2569835?v=3&amp;s=117" width="117"></a></th>
 <th align="center"><a href="https://github.com/ntaoo"><img alt="ntaoo" src="https://avatars.githubusercontent.com/u/511213?v=3&amp;s=117" width="117"></a></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td align="center"><a href="https://github.com/kaneshin">kaneshin</a></td>
-<td align="center"><a href="https://github.com/imaimiami">imaimiami</a></td>
-<td align="center"><a href="https://github.com/thomastuts">thomastuts</a></td>
-<td align="center"><a href="https://github.com/grapswiz">grapswiz</a></td>
-<td align="center"><a href="https://github.com/coderhaoxin">coderhaoxin</a></td>
-<td align="center"><a href="https://github.com/ntaoo">ntaoo</a></td>
-</tr>
-</tbody>
-</table>
-
-<table>
-<thead>
-<tr>
 <th align="center"><a href="https://github.com/kuzmeig1"><img alt="kuzmeig1" src="https://avatars.githubusercontent.com/u/8707951?v=3&amp;s=117" width="117"></a></th>
 </tr>
 </thead>
 <tbody>
 <tr>
+<td align="center"><a href="https://github.com/thomastuts">thomastuts</a></td>
+<td align="center"><a href="https://github.com/andela-abankole">andela-abankole</a></td>
+<td align="center"><a href="https://github.com/grapswiz">grapswiz</a></td>
+<td align="center"><a href="https://github.com/coderhaoxin">coderhaoxin</a></td>
+<td align="center"><a href="https://github.com/ntaoo">ntaoo</a></td>
 <td align="center"><a href="https://github.com/kuzmeig1">kuzmeig1</a></td>
 </tr>
 </tbody>
