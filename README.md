@@ -559,8 +559,8 @@ This section includes information about the service component in AngularJS. It i
 	  return "I'm coding";
 	};
 
-	myModule.service('Human', Human);
-	myModule.service('Developer', Developer);
+	myModule.service('human', Human);
+	myModule.service('developer', Developer);
 
 	```
 
