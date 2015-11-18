@@ -46,7 +46,7 @@ In AngularJS's GitHub wiki there is a similar section by [ProLoser](https://gith
 * [General](#general)
     * [Directory structure](#directory-structure)
     * [Markup](#markup)
-    * [Naming convensions](#naming-convensions)
+    * [Naming conventions](#naming-conventions)
     * [Others](#others)
 * [Modules](#modules)
 * [Controllers](#controllers)
@@ -222,15 +222,15 @@ Keep things simple and put AngularJS specific directives after standard attribut
 
 Other HTML attributes should follow the Code Guide's [recommendation](http://mdo.github.io/code-guide/#html-attribute-order)
 
-##Naming convensions
-The following table is shown the naming convensions for every element:
+##Naming conventions
+The following table is shown the naming conventions for every element:
 
 Element | Naming style | Example | usage
 ----|------|----|--------
 Modules | lowerCamelCase  | angularApp |
 Controllers | functionality + 'Ctrl'  | adminCtrl |
 Directives | lowerCamelCase  | userInfo |
-Filters | lowerCamelCase | userFiler |
+Filters | lowerCamelCase | userFilter |
 Services | UpperCamelCase | User | constructor
 Services | lowerCamelCase | dataFactory | others
 
@@ -559,8 +559,8 @@ This section includes information about the service component in AngularJS. It i
 	  return "I'm coding";
 	};
 
-	myModule.service('Human', Human);
-	myModule.service('Developer', Developer);
+	myModule.service('human', Human);
+	myModule.service('developer', Developer);
 
 	```
 
