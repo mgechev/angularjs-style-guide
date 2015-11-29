@@ -81,7 +81,7 @@ These best practices are collected from:</p>
 <ul>
 <li><a href="#directory-structure">Directory structure</a></li>
 <li><a href="#markup">Markup</a></li>
-<li><a href="#naming-convensions">Naming convensions</a></li>
+<li><a href="#naming-conventions">Naming conventions</a></li>
 <li><a href="#others">Others</a></li>
 </ul>
 </li>
@@ -268,9 +268,9 @@ There are two main approaches:</p>
 <p>Other HTML attributes should follow the Code Guide's <a href="http://mdo.github.io/code-guide/#html-attribute-order">recommendation</a></p>
 
 <h2>
-<a id="naming-convensions" class="anchor" href="#naming-convensions" aria-hidden="true"><span class="octicon octicon-link"></span></a>Naming convensions</h2>
+<a id="naming-conventions" class="anchor" href="#naming-conventions" aria-hidden="true"><span class="octicon octicon-link"></span></a>Naming conventions</h2>
 
-<p>The following table is shown the naming convensions for every element:</p>
+<p>The following table is shown the naming conventions for every element:</p>
 
 <table>
 <thead>
@@ -290,8 +290,8 @@ There are two main approaches:</p>
 </tr>
 <tr>
 <td>Controllers</td>
-<td>functionality + 'Ctrl'</td>
-<td>adminCtrl</td>
+<td>Functionality + 'Ctrl'</td>
+<td>AdminCtrl</td>
 <td></td>
 </tr>
 <tr>
@@ -303,7 +303,7 @@ There are two main approaches:</p>
 <tr>
 <td>Filters</td>
 <td>lowerCamelCase</td>
-<td>userFiler</td>
+<td>userFilter</td>
 <td></td>
 </tr>
 <tr>
@@ -367,9 +367,9 @@ There are two main approaches:</p>
 <li>
 <p>Avoid globals by using Grunt/Gulp to wrap your code in Immediately Invoked Function Expression (IIFE). You can use plugins like <a href="https://www.npmjs.com/package/grunt-wrap">grunt-wrap</a> or <a href="https://www.npmjs.com/package/gulp-wrap/">gulp-wrap</a> for this purpose. Example (using Gulp)</p>
 
-<div class="highlight highlight-source-js"><pre>gulp.src(<span class="pl-s"><span class="pl-pds">"</span>./src/*.js<span class="pl-pds">"</span></span>)
-.pipe(wrap(<span class="pl-s"><span class="pl-pds">'</span>(function(){<span class="pl-cce">\n</span>"use strict";<span class="pl-cce">\n</span>&lt;%= contents %&gt;<span class="pl-cce">\n</span>})();<span class="pl-pds">'</span></span>))
-.pipe(gulp.dest(<span class="pl-s"><span class="pl-pds">"</span>./dist<span class="pl-pds">"</span></span>));</pre></div>
+<div class="highlight highlight-source-js"><pre><span class="pl-smi">gulp</span>.<span class="pl-en">src</span>(<span class="pl-s"><span class="pl-pds">"</span>./src/*.js<span class="pl-pds">"</span></span>)
+.<span class="pl-en">pipe</span>(<span class="pl-en">wrap</span>(<span class="pl-s"><span class="pl-pds">'</span>(function(){<span class="pl-cce">\n</span>"use strict";<span class="pl-cce">\n</span>&lt;%= contents %&gt;<span class="pl-cce">\n</span>})();<span class="pl-pds">'</span></span>))
+.<span class="pl-en">pipe</span>(<span class="pl-smi">gulp</span>.<span class="pl-en">dest</span>(<span class="pl-s"><span class="pl-pds">"</span>./dist<span class="pl-pds">"</span></span>));</pre></div>
 </li>
 <li>Do not pollute your <code>$scope</code>. Only add functions and variables that are being used in the templates.</li>
 <li>Prefer the usage of <a href="https://github.com/angular/angular.js/pull/4366/files">controllers instead of <code>ngInit</code></a>. The only appropriate use of <code>ngInit</code> is for aliasing special properties of <code>ngRepeat</code>. Besides this case, you should use controllers rather than <code>ngInit</code> to initialize values on a scope. The expression passed to <code>ngInit</code> should go through lexing, parsing and evaluation by the Angular interpreter implemented inside the <code>$parse</code> service. This leads to:
@@ -385,7 +385,7 @@ There are two main approaches:</p>
 <li>When resolving dependencies through the DI mechanism of AngularJS, sort the dependencies by their type - the built-in AngularJS dependencies should be first, followed by your custom ones:</li>
 </ul>
 
-<div class="highlight highlight-source-js"><pre><span class="pl-c1">module</span>.factory(<span class="pl-s"><span class="pl-pds">'</span>Service<span class="pl-pds">'</span></span>, <span class="pl-k">function</span> (<span class="pl-smi">$rootScope</span>, <span class="pl-smi">$timeout</span>, <span class="pl-smi">MyCustomDependency1</span>, <span class="pl-smi">MyCustomDependency2</span>) {
+<div class="highlight highlight-source-js"><pre><span class="pl-smi">module</span>.<span class="pl-en">factory</span>(<span class="pl-s"><span class="pl-pds">'</span>Service<span class="pl-pds">'</span></span>, <span class="pl-k">function</span> (<span class="pl-smi">$rootScope</span>, <span class="pl-smi">$timeout</span>, <span class="pl-smi">MyCustomDependency1</span>, <span class="pl-smi">MyCustomDependency2</span>) {
   <span class="pl-k">return</span> {
     <span class="pl-c">//Something</span>
   };
@@ -423,7 +423,7 @@ There are two main approaches:</p>
 <div class="highlight highlight-source-js"><pre><span class="pl-k">function</span> <span class="pl-en">MyCtrl</span>(<span class="pl-smi">dependency1</span>, <span class="pl-smi">dependency2</span>, ..., <span class="pl-smi">dependencyn</span>) {
   <span class="pl-c">// ...</span>
 }
-<span class="pl-c1">module</span>.controller(<span class="pl-s"><span class="pl-pds">'</span>MyCtrl<span class="pl-pds">'</span></span>, MyCtrl);</pre></div>
+<span class="pl-smi">module</span>.<span class="pl-en">controller</span>(<span class="pl-s"><span class="pl-pds">'</span>MyCtrl<span class="pl-pds">'</span></span>, MyCtrl);</pre></div>
 
 <p>In order to prevent problems with minification, you can automatically generate the array definition syntax from    the standard one using tools like <a href="https://github.com/olov/ng-annotate">ng-annotate</a> (and grunt task          <a href="https://github.com/mzgol/grunt-ng-annotate">grunt-ng-annotate</a>).</p>
 </li>
@@ -435,10 +435,10 @@ There are two main approaches:</p>
 &lt;/div&gt;
 </code></pre>
 
-<div class="highlight highlight-source-js"><pre>app.controller(<span class="pl-s"><span class="pl-pds">'</span>MainCtrl<span class="pl-pds">'</span></span>, MainCtrl);
+<div class="highlight highlight-source-js"><pre><span class="pl-smi">app</span>.<span class="pl-en">controller</span>(<span class="pl-s"><span class="pl-pds">'</span>MainCtrl<span class="pl-pds">'</span></span>, MainCtrl);
 
 <span class="pl-k">function</span> <span class="pl-en">MainCtrl</span> () {
-  <span class="pl-v">this</span>.<span class="pl-c1">title</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span>Some title<span class="pl-pds">'</span></span>;
+  <span class="pl-smi">this</span>.<span class="pl-c1">title</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span>Some title<span class="pl-pds">'</span></span>;
 }</pre></div>
 
 <p>The main benefits of using this syntax:</p>
@@ -466,14 +466,14 @@ There are two main approaches:</p>
   <span class="pl-c">// ...</span>
 }
 
-<span class="pl-c1">module</span>.controller(<span class="pl-s"><span class="pl-pds">'</span>MyCtrl<span class="pl-pds">'</span></span>, [<span class="pl-s"><span class="pl-pds">'</span>$scope<span class="pl-pds">'</span></span>, MyCtrl]);</pre></div>
+<span class="pl-smi">module</span>.<span class="pl-en">controller</span>(<span class="pl-s"><span class="pl-pds">'</span>MyCtrl<span class="pl-pds">'</span></span>, [<span class="pl-s"><span class="pl-pds">'</span>$scope<span class="pl-pds">'</span></span>, MyCtrl]);</pre></div>
 
 <p>which is less readable than:</p>
 
 <div class="highlight highlight-source-js"><pre><span class="pl-k">function</span> <span class="pl-en">MyCtrl</span>(<span class="pl-smi">$scope</span>) {
   <span class="pl-c">// ...</span>
 }
-<span class="pl-c1">module</span>.controller(<span class="pl-s"><span class="pl-pds">'</span>MyCtrl<span class="pl-pds">'</span></span>, [<span class="pl-s"><span class="pl-pds">'</span>$scope<span class="pl-pds">'</span></span>, MyCtrl]);</pre></div>
+<span class="pl-smi">module</span>.<span class="pl-en">controller</span>(<span class="pl-s"><span class="pl-pds">'</span>MyCtrl<span class="pl-pds">'</span></span>, [<span class="pl-s"><span class="pl-pds">'</span>$scope<span class="pl-pds">'</span></span>, MyCtrl]);</pre></div>
 
 <p>This especially applies to a file that has so much code that you'd need to scroll through. This would possibly cause you to forget which variable is tied to which dependency.</p>
 </li>
@@ -483,22 +483,22 @@ There are two main approaches:</p>
 For example:</p>
 
 <div class="highlight highlight-source-js"><pre><span class="pl-c">//This is a common behaviour (bad example) of using business logic inside a controller.</span>
-angular.module(<span class="pl-s"><span class="pl-pds">'</span>Store<span class="pl-pds">'</span></span>, [])
-.controller(<span class="pl-s"><span class="pl-pds">'</span>OrderCtrl<span class="pl-pds">'</span></span>, <span class="pl-k">function</span> (<span class="pl-smi">$scope</span>) {
+<span class="pl-smi">angular</span>.<span class="pl-en">module</span>(<span class="pl-s"><span class="pl-pds">'</span>Store<span class="pl-pds">'</span></span>, [])
+.<span class="pl-en">controller</span>(<span class="pl-s"><span class="pl-pds">'</span>OrderCtrl<span class="pl-pds">'</span></span>, <span class="pl-k">function</span> (<span class="pl-smi">$scope</span>) {
 
-  $scope.items <span class="pl-k">=</span> [];
+  $<span class="pl-smi">scope</span>.<span class="pl-smi">items</span> <span class="pl-k">=</span> [];
 
   <span class="pl-c1">$scope</span>.<span class="pl-en">addToOrder</span> <span class="pl-k">=</span> <span class="pl-k">function</span> (<span class="pl-smi">item</span>) {
-    $scope.items.<span class="pl-c1">push</span>(item);<span class="pl-c">//--&gt;Business logic inside controller</span>
+    $<span class="pl-smi">scope</span>.<span class="pl-smi">items</span>.<span class="pl-c1">push</span>(item);<span class="pl-c">//--&gt;Business logic inside controller</span>
   };
 
   <span class="pl-c1">$scope</span>.<span class="pl-en">removeFromOrder</span> <span class="pl-k">=</span> <span class="pl-k">function</span> (<span class="pl-smi">item</span>) {
-    $scope.items.<span class="pl-c1">splice</span>($scope.items.<span class="pl-c1">indexOf</span>(item), <span class="pl-c1">1</span>);<span class="pl-c">//--&gt;Business logic inside controller</span>
+    $<span class="pl-smi">scope</span>.<span class="pl-smi">items</span>.<span class="pl-c1">splice</span>($<span class="pl-smi">scope</span>.<span class="pl-smi">items</span>.<span class="pl-c1">indexOf</span>(item), <span class="pl-c1">1</span>);<span class="pl-c">//--&gt;Business logic inside controller</span>
   };
 
   <span class="pl-c1">$scope</span>.<span class="pl-en">totalPrice</span> <span class="pl-k">=</span> <span class="pl-k">function</span> () {
-    <span class="pl-k">return</span> $scope.items.reduce(<span class="pl-k">function</span> (<span class="pl-smi">memo</span>, <span class="pl-smi">item</span>) {
-      <span class="pl-k">return</span> memo <span class="pl-k">+</span> (item.qty <span class="pl-k">*</span> item.price);<span class="pl-c">//--&gt;Business logic inside controller</span>
+    <span class="pl-k">return</span> $<span class="pl-smi">scope</span>.<span class="pl-smi">items</span>.<span class="pl-en">reduce</span>(<span class="pl-k">function</span> (<span class="pl-smi">memo</span>, <span class="pl-smi">item</span>) {
+      <span class="pl-k">return</span> memo <span class="pl-k">+</span> (<span class="pl-smi">item</span>.<span class="pl-smi">qty</span> <span class="pl-k">*</span> <span class="pl-smi">item</span>.<span class="pl-smi">price</span>);<span class="pl-c">//--&gt;Business logic inside controller</span>
     }, <span class="pl-c1">0</span>);
   };
 });</pre></div>
@@ -506,21 +506,21 @@ angular.module(<span class="pl-s"><span class="pl-pds">'</span>Store<span class=
 <p>When delegating business logic into a 'model' service, controller will look like this (see 'use services as your Model' for service-model implementation):</p>
 
 <div class="highlight highlight-source-js"><pre><span class="pl-c">//Order is used as a 'model'</span>
-angular.module(<span class="pl-s"><span class="pl-pds">'</span>Store<span class="pl-pds">'</span></span>, [])
-.controller(<span class="pl-s"><span class="pl-pds">'</span>OrderCtrl<span class="pl-pds">'</span></span>, <span class="pl-k">function</span> (<span class="pl-smi">Order</span>) {
+<span class="pl-smi">angular</span>.<span class="pl-en">module</span>(<span class="pl-s"><span class="pl-pds">'</span>Store<span class="pl-pds">'</span></span>, [])
+.<span class="pl-en">controller</span>(<span class="pl-s"><span class="pl-pds">'</span>OrderCtrl<span class="pl-pds">'</span></span>, <span class="pl-k">function</span> (<span class="pl-smi">Order</span>) {
 
-  $scope.items <span class="pl-k">=</span> Order.items;
+  $<span class="pl-smi">scope</span>.<span class="pl-smi">items</span> <span class="pl-k">=</span> <span class="pl-smi">Order</span>.<span class="pl-smi">items</span>;
 
   <span class="pl-c1">$scope</span>.<span class="pl-en">addToOrder</span> <span class="pl-k">=</span> <span class="pl-k">function</span> (<span class="pl-smi">item</span>) {
-    Order.addToOrder(item);
+    <span class="pl-smi">Order</span>.<span class="pl-en">addToOrder</span>(item);
   };
 
   <span class="pl-c1">$scope</span>.<span class="pl-en">removeFromOrder</span> <span class="pl-k">=</span> <span class="pl-k">function</span> (<span class="pl-smi">item</span>) {
-    Order.removeFromOrder(item);
+    <span class="pl-smi">Order</span>.<span class="pl-en">removeFromOrder</span>(item);
   };
 
   <span class="pl-c1">$scope</span>.<span class="pl-en">totalPrice</span> <span class="pl-k">=</span> <span class="pl-k">function</span> () {
-    <span class="pl-k">return</span> Order.total();
+    <span class="pl-k">return</span> <span class="pl-smi">Order</span>.<span class="pl-en">total</span>();
   };
 });</pre></div>
 
@@ -556,22 +556,22 @@ angular.module(<span class="pl-s"><span class="pl-pds">'</span>Store<span class=
    <span class="pl-c">// ...</span>
  };
 }
-<span class="pl-c1">module</span>.filter(<span class="pl-s"><span class="pl-pds">'</span>myFormat<span class="pl-pds">'</span></span>, myFormat);
+<span class="pl-smi">module</span>.<span class="pl-en">filter</span>(<span class="pl-s"><span class="pl-pds">'</span>myFormat<span class="pl-pds">'</span></span>, myFormat);
 
 <span class="pl-k">function</span> <span class="pl-en">MyCtrl</span>(<span class="pl-smi">$scope</span>, <span class="pl-smi">myFormatFilter</span>) {
  <span class="pl-c">// ...</span>
 }
 
-<span class="pl-c1">module</span>.controller(<span class="pl-s"><span class="pl-pds">'</span>MyCtrl<span class="pl-pds">'</span></span>, MyCtrl);</pre></div>
+<span class="pl-smi">module</span>.<span class="pl-en">controller</span>(<span class="pl-s"><span class="pl-pds">'</span>MyCtrl<span class="pl-pds">'</span></span>, MyCtrl);</pre></div>
 </li>
 <li>
 <p>In case of nested controllers use "nested scoping" (the <code>controllerAs</code> syntax):</p>
 
 <p><strong>app.js</strong></p>
 
-<div class="highlight highlight-source-js"><pre><span class="pl-c1">module</span>.config(<span class="pl-k">function</span> (<span class="pl-smi">$routeProvider</span>) {
+<div class="highlight highlight-source-js"><pre><span class="pl-smi">module</span>.<span class="pl-en">config</span>(<span class="pl-k">function</span> (<span class="pl-smi">$routeProvider</span>) {
  $routeProvider
-   .when(<span class="pl-s"><span class="pl-pds">'</span>/route<span class="pl-pds">'</span></span>, {
+   .<span class="pl-en">when</span>(<span class="pl-s"><span class="pl-pds">'</span>/route<span class="pl-pds">'</span></span>, {
      templateUrl<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>partials/template.html<span class="pl-pds">'</span></span>,
      controller<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>HomeCtrl<span class="pl-pds">'</span></span>,
      controllerAs<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>home<span class="pl-pds">'</span></span>
@@ -581,7 +581,7 @@ angular.module(<span class="pl-s"><span class="pl-pds">'</span>Store<span class=
 <p><strong>HomeCtrl</strong></p>
 
 <div class="highlight highlight-source-js"><pre><span class="pl-k">function</span> <span class="pl-en">HomeCtrl</span>() {
- <span class="pl-v">this</span>.bindingValue <span class="pl-k">=</span> <span class="pl-c1">42</span>;
+ <span class="pl-smi">this</span>.<span class="pl-smi">bindingValue</span> <span class="pl-k">=</span> <span class="pl-c1">42</span>;
 }</pre></div>
 
 <p><strong>template.html</strong></p>
@@ -629,17 +629,17 @@ angular.module(<span class="pl-s"><span class="pl-pds">'</span>Store<span class=
 <p>UpperCamelCase (PascalCase) for naming your services, used as constructor functions i.e.:</p>
 
 <div class="highlight highlight-source-js"><pre><span class="pl-k">function</span> <span class="pl-en">MainCtrl</span>(<span class="pl-smi">$scope</span>, <span class="pl-smi">User</span>) {
-  $scope.user <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">User</span>(<span class="pl-s"><span class="pl-pds">'</span>foo<span class="pl-pds">'</span></span>, <span class="pl-c1">42</span>);
+  $<span class="pl-smi">scope</span>.<span class="pl-smi">user</span> <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">User</span>(<span class="pl-s"><span class="pl-pds">'</span>foo<span class="pl-pds">'</span></span>, <span class="pl-c1">42</span>);
 }
 
-<span class="pl-c1">module</span>.controller(<span class="pl-s"><span class="pl-pds">'</span>MainCtrl<span class="pl-pds">'</span></span>, MainCtrl);
+<span class="pl-smi">module</span>.<span class="pl-en">controller</span>(<span class="pl-s"><span class="pl-pds">'</span>MainCtrl<span class="pl-pds">'</span></span>, MainCtrl);
 
 <span class="pl-k">function</span> <span class="pl-en">User</span>(<span class="pl-smi">name</span>, <span class="pl-smi">age</span>) {
-  <span class="pl-v">this</span>.<span class="pl-c1">name</span> <span class="pl-k">=</span> name;
-  <span class="pl-v">this</span>.age <span class="pl-k">=</span> age;
+  <span class="pl-smi">this</span>.<span class="pl-c1">name</span> <span class="pl-k">=</span> name;
+  <span class="pl-smi">this</span>.<span class="pl-smi">age</span> <span class="pl-k">=</span> age;
 }
 
-<span class="pl-c1">module</span>.factory(<span class="pl-s"><span class="pl-pds">'</span>User<span class="pl-pds">'</span></span>, <span class="pl-k">function</span> () {
+<span class="pl-smi">module</span>.<span class="pl-en">factory</span>(<span class="pl-s"><span class="pl-pds">'</span>User<span class="pl-pds">'</span></span>, <span class="pl-k">function</span> () {
   <span class="pl-k">return</span> User;
 });</pre></div>
 </li>
@@ -650,21 +650,21 @@ angular.module(<span class="pl-s"><span class="pl-pds">'</span>Store<span class=
 <p>Encapsulate all the business logic in services. Prefer using it as your <code>model</code>. For example:</p>
 
 <div class="highlight highlight-source-js"><pre><span class="pl-c">//Order is the 'model'</span>
-angular.module(<span class="pl-s"><span class="pl-pds">'</span>Store<span class="pl-pds">'</span></span>)
-.factory(<span class="pl-s"><span class="pl-pds">'</span>Order<span class="pl-pds">'</span></span>, <span class="pl-k">function</span> () {
+<span class="pl-smi">angular</span>.<span class="pl-en">module</span>(<span class="pl-s"><span class="pl-pds">'</span>Store<span class="pl-pds">'</span></span>)
+.<span class="pl-en">factory</span>(<span class="pl-s"><span class="pl-pds">'</span>Order<span class="pl-pds">'</span></span>, <span class="pl-k">function</span> () {
     <span class="pl-k">var</span> <span class="pl-en">add</span> <span class="pl-k">=</span> <span class="pl-k">function</span> (<span class="pl-smi">item</span>) {
-      <span class="pl-v">this</span>.items.push (item);
+      <span class="pl-smi">this</span>.<span class="pl-smi">items</span>.<span class="pl-en">push</span> (item);
     };
 
     <span class="pl-k">var</span> <span class="pl-en">remove</span> <span class="pl-k">=</span> <span class="pl-k">function</span> (<span class="pl-smi">item</span>) {
-      <span class="pl-k">if</span> (<span class="pl-v">this</span>.items.<span class="pl-c1">indexOf</span>(item) <span class="pl-k">&gt;</span> <span class="pl-k">-</span><span class="pl-c1">1</span>) {
-        <span class="pl-v">this</span>.items.<span class="pl-c1">splice</span>(<span class="pl-v">this</span>.items.<span class="pl-c1">indexOf</span>(item), <span class="pl-c1">1</span>);
+      <span class="pl-k">if</span> (<span class="pl-smi">this</span>.<span class="pl-smi">items</span>.<span class="pl-c1">indexOf</span>(item) <span class="pl-k">&gt;</span> <span class="pl-k">-</span><span class="pl-c1">1</span>) {
+        <span class="pl-smi">this</span>.<span class="pl-smi">items</span>.<span class="pl-c1">splice</span>(<span class="pl-smi">this</span>.<span class="pl-smi">items</span>.<span class="pl-c1">indexOf</span>(item), <span class="pl-c1">1</span>);
       }
     };
 
     <span class="pl-k">var</span> <span class="pl-en">total</span> <span class="pl-k">=</span> <span class="pl-k">function</span> () {
-      <span class="pl-k">return</span> <span class="pl-v">this</span>.items.reduce(<span class="pl-k">function</span> (<span class="pl-smi">memo</span>, <span class="pl-smi">item</span>) {
-        <span class="pl-k">return</span> memo <span class="pl-k">+</span> (item.qty <span class="pl-k">*</span> item.price);
+      <span class="pl-k">return</span> <span class="pl-smi">this</span>.<span class="pl-smi">items</span>.<span class="pl-en">reduce</span>(<span class="pl-k">function</span> (<span class="pl-smi">memo</span>, <span class="pl-smi">item</span>) {
+        <span class="pl-k">return</span> memo <span class="pl-k">+</span> (<span class="pl-smi">item</span>.<span class="pl-smi">qty</span> <span class="pl-k">*</span> <span class="pl-smi">item</span>.<span class="pl-smi">price</span>);
       }, <span class="pl-c1">0</span>);
     };
 
@@ -691,22 +691,22 @@ angular.module(<span class="pl-s"><span class="pl-pds">'</span>Store<span class=
 <span class="pl-k">function</span> <span class="pl-en">Developer</span>() {
   <span class="pl-c">//body</span>
 }
-<span class="pl-c1">Developer</span>.<span class="pl-c1">prototype</span> <span class="pl-k">=</span> <span class="pl-c1">Object</span>.create(Human.<span class="pl-c1">prototype</span>);
+<span class="pl-c1">Developer</span>.<span class="pl-c1">prototype</span> <span class="pl-k">=</span> <span class="pl-smi">Object</span>.<span class="pl-en">create</span>(<span class="pl-smi">Human</span>.<span class="pl-c1">prototype</span>);
 <span class="pl-c1">Developer</span>.<span class="pl-c1">prototype</span>.<span class="pl-en">code</span> <span class="pl-k">=</span> <span class="pl-k">function</span> () {
   <span class="pl-k">return</span> <span class="pl-s"><span class="pl-pds">"</span>I'm coding<span class="pl-pds">"</span></span>;
 };
 
-myModule.service(<span class="pl-s"><span class="pl-pds">'</span>Human<span class="pl-pds">'</span></span>, Human);
-myModule.service(<span class="pl-s"><span class="pl-pds">'</span>Developer<span class="pl-pds">'</span></span>, Developer);
+<span class="pl-smi">myModule</span>.<span class="pl-en">service</span>(<span class="pl-s"><span class="pl-pds">'</span>human<span class="pl-pds">'</span></span>, Human);
+<span class="pl-smi">myModule</span>.<span class="pl-en">service</span>(<span class="pl-s"><span class="pl-pds">'</span>developer<span class="pl-pds">'</span></span>, Developer);
 </pre></div>
 </li>
 <li><p>For session-level cache you can use <code>$cacheFactory</code>. This should be used to cache results from requests or heavy computations.</p></li>
 <li>
 <p>If given service requires configuration define the service as provider and configure it in the <code>config</code> callback like:</p>
 
-<div class="highlight highlight-source-js"><pre>angular.module(<span class="pl-s"><span class="pl-pds">'</span>demo<span class="pl-pds">'</span></span>, [])
-.config(<span class="pl-k">function</span> (<span class="pl-smi">$provide</span>) {
-  $provide.provider(<span class="pl-s"><span class="pl-pds">'</span>sample<span class="pl-pds">'</span></span>, <span class="pl-k">function</span> () {
+<div class="highlight highlight-source-js"><pre><span class="pl-smi">angular</span>.<span class="pl-en">module</span>(<span class="pl-s"><span class="pl-pds">'</span>demo<span class="pl-pds">'</span></span>, [])
+.<span class="pl-en">config</span>(<span class="pl-k">function</span> (<span class="pl-smi">$provide</span>) {
+  $<span class="pl-smi">provide</span>.<span class="pl-en">provider</span>(<span class="pl-s"><span class="pl-pds">'</span>sample<span class="pl-pds">'</span></span>, <span class="pl-k">function</span> () {
     <span class="pl-k">var</span> foo <span class="pl-k">=</span> <span class="pl-c1">42</span>;
     <span class="pl-k">return</span> {
       <span class="pl-en">setFoo</span><span class="pl-k">:</span> <span class="pl-k">function</span> (<span class="pl-smi">f</span>) {
@@ -721,10 +721,10 @@ myModule.service(<span class="pl-s"><span class="pl-pds">'</span>Developer<span 
   });
 });
 
-<span class="pl-k">var</span> demo <span class="pl-k">=</span> angular.module(<span class="pl-s"><span class="pl-pds">'</span>demo<span class="pl-pds">'</span></span>);
+<span class="pl-k">var</span> demo <span class="pl-k">=</span> <span class="pl-smi">angular</span>.<span class="pl-en">module</span>(<span class="pl-s"><span class="pl-pds">'</span>demo<span class="pl-pds">'</span></span>);
 
-demo.config(<span class="pl-k">function</span> (<span class="pl-smi">sampleProvider</span>) {
-  sampleProvider.setFoo(<span class="pl-c1">41</span>);
+<span class="pl-smi">demo</span>.<span class="pl-en">config</span>(<span class="pl-k">function</span> (<span class="pl-smi">sampleProvider</span>) {
+  <span class="pl-smi">sampleProvider</span>.<span class="pl-en">setFoo</span>(<span class="pl-c1">41</span>);
 });</pre></div>
 </li>
 </ul>
@@ -742,7 +742,7 @@ demo.config(<span class="pl-k">function</span> (<span class="pl-smi">sampleProvi
 
 <div class="highlight highlight-text-html-basic"><pre><span class="pl-s1">&lt;<span class="pl-ent">script</span>&gt;</span>
 <span class="pl-s1">...</span>
-<span class="pl-s1">$scope.divStyle <span class="pl-k">=</span> {</span>
+<span class="pl-s1">$<span class="pl-smi">scope</span>.<span class="pl-smi">divStyle</span> <span class="pl-k">=</span> {</span>
 <span class="pl-s1">  width<span class="pl-k">:</span> <span class="pl-c1">200</span>,</span>
 <span class="pl-s1">  position<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>relative<span class="pl-pds">'</span></span></span>
 <span class="pl-s1">};</span>
@@ -824,8 +824,8 @@ For example, you can contribute by extending the Testing section or by translati
 <th align="center"><a href="https://github.com/mainyaa"><img alt="mainyaa" src="https://avatars.githubusercontent.com/u/800781?v=3&amp;s=117" width="117"></a></th>
 <th align="center"><a href="https://github.com/elfinxx"><img alt="elfinxx" src="https://avatars.githubusercontent.com/u/4384908?v=3&amp;s=117" width="117"></a></th>
 <th align="center"><a href="https://github.com/Xuefeng-Zhu"><img alt="Xuefeng-Zhu" src="https://avatars.githubusercontent.com/u/5875315?v=3&amp;s=117" width="117"></a></th>
-<th align="center"><a href="https://github.com/lukaszklis"><img alt="lukaszklis" src="https://avatars.githubusercontent.com/u/11782?v=3&amp;s=117" width="117"></a></th>
 <th align="center"><a href="https://github.com/rubystream"><img alt="rubystream" src="https://avatars.githubusercontent.com/u/3200?v=3&amp;s=117" width="117"></a></th>
+<th align="center"><a href="https://github.com/SullyP"><img alt="SullyP" src="https://avatars.githubusercontent.com/u/12484363?v=3&amp;s=117" width="117"></a></th>
 </tr>
 </thead>
 <tbody>
@@ -834,8 +834,8 @@ For example, you can contribute by extending the Testing section or by translati
 <td align="center"><a href="https://github.com/mainyaa">mainyaa</a></td>
 <td align="center"><a href="https://github.com/elfinxx">elfinxx</a></td>
 <td align="center"><a href="https://github.com/Xuefeng-Zhu">Xuefeng-Zhu</a></td>
-<td align="center"><a href="https://github.com/lukaszklis">lukaszklis</a></td>
 <td align="center"><a href="https://github.com/rubystream">rubystream</a></td>
+<td align="center"><a href="https://github.com/SullyP">SullyP</a></td>
 </tr>
 </tbody>
 </table>
@@ -845,7 +845,7 @@ For example, you can contribute by extending the Testing section or by translati
 <tr>
 <th align="center"><a href="https://github.com/giacomocusinato"><img alt="giacomocusinato" src="https://avatars.githubusercontent.com/u/7659518?v=3&amp;s=117" width="117"></a></th>
 <th align="center"><a href="https://github.com/susieyy"><img alt="susieyy" src="https://avatars.githubusercontent.com/u/62295?v=3&amp;s=117" width="117"></a></th>
-<th align="center"><a href="https://github.com/SullyP"><img alt="SullyP" src="https://avatars.githubusercontent.com/u/12484363?v=3&amp;s=117" width="117"></a></th>
+<th align="center"><a href="https://github.com/lukaszklis"><img alt="lukaszklis" src="https://avatars.githubusercontent.com/u/11782?v=3&amp;s=117" width="117"></a></th>
 <th align="center"><a href="https://github.com/cironunes"><img alt="cironunes" src="https://avatars.githubusercontent.com/u/469908?v=3&amp;s=117" width="117"></a></th>
 <th align="center"><a href="https://github.com/cavarzan"><img alt="cavarzan" src="https://avatars.githubusercontent.com/u/3915288?v=3&amp;s=117" width="117"></a></th>
 <th align="center"><a href="https://github.com/guiltry"><img alt="guiltry" src="https://avatars.githubusercontent.com/u/1484308?v=3&amp;s=117" width="117"></a></th>
@@ -855,7 +855,7 @@ For example, you can contribute by extending the Testing section or by translati
 <tr>
 <td align="center"><a href="https://github.com/giacomocusinato">giacomocusinato</a></td>
 <td align="center"><a href="https://github.com/susieyy">susieyy</a></td>
-<td align="center"><a href="https://github.com/SullyP">SullyP</a></td>
+<td align="center"><a href="https://github.com/lukaszklis">lukaszklis</a></td>
 <td align="center"><a href="https://github.com/cironunes">cironunes</a></td>
 <td align="center"><a href="https://github.com/cavarzan">cavarzan</a></td>
 <td align="center"><a href="https://github.com/guiltry">guiltry</a></td>
@@ -912,22 +912,22 @@ For example, you can contribute by extending the Testing section or by translati
 <table>
 <thead>
 <tr>
-<th align="center"><a href="https://github.com/bradgearon"><img alt="bradgearon" src="https://avatars.githubusercontent.com/u/1731943?v=3&amp;s=117" width="117"></a></th>
-<th align="center"><a href="https://github.com/dwmkerr"><img alt="dwmkerr" src="https://avatars.githubusercontent.com/u/1926984?v=3&amp;s=117" width="117"></a></th>
+<th align="center"><a href="https://github.com/meetbryce"><img alt="meetbryce" src="https://avatars.githubusercontent.com/u/1845143?v=3&amp;s=117" width="117"></a></th>
 <th align="center"><a href="https://github.com/dchest"><img alt="dchest" src="https://avatars.githubusercontent.com/u/52677?v=3&amp;s=117" width="117"></a></th>
 <th align="center"><a href="https://github.com/gsamokovarov"><img alt="gsamokovarov" src="https://avatars.githubusercontent.com/u/604618?v=3&amp;s=117" width="117"></a></th>
 <th align="center"><a href="https://github.com/grvcoelho"><img alt="grvcoelho" src="https://avatars.githubusercontent.com/u/7416751?v=3&amp;s=117" width="117"></a></th>
 <th align="center"><a href="https://github.com/bargaorobalo"><img alt="bargaorobalo" src="https://avatars.githubusercontent.com/u/993001?v=3&amp;s=117" width="117"></a></th>
+<th align="center"><a href="https://github.com/hermankan"><img alt="hermankan" src="https://avatars.githubusercontent.com/u/2899106?v=3&amp;s=117" width="117"></a></th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="center"><a href="https://github.com/bradgearon">bradgearon</a></td>
-<td align="center"><a href="https://github.com/dwmkerr">dwmkerr</a></td>
+<td align="center"><a href="https://github.com/meetbryce">meetbryce</a></td>
 <td align="center"><a href="https://github.com/dchest">dchest</a></td>
 <td align="center"><a href="https://github.com/gsamokovarov">gsamokovarov</a></td>
 <td align="center"><a href="https://github.com/grvcoelho">grvcoelho</a></td>
 <td align="center"><a href="https://github.com/bargaorobalo">bargaorobalo</a></td>
+<td align="center"><a href="https://github.com/hermankan">hermankan</a></td>
 </tr>
 </tbody>
 </table>
@@ -935,22 +935,22 @@ For example, you can contribute by extending the Testing section or by translati
 <table>
 <thead>
 <tr>
-<th align="center"><a href="https://github.com/hermankan"><img alt="hermankan" src="https://avatars.githubusercontent.com/u/2899106?v=3&amp;s=117" width="117"></a></th>
 <th align="center"><a href="https://github.com/jabhishek"><img alt="jabhishek" src="https://avatars.githubusercontent.com/u/1830537?v=3&amp;s=117" width="117"></a></th>
 <th align="center"><a href="https://github.com/jesselpalmer"><img alt="jesselpalmer" src="https://avatars.githubusercontent.com/u/682097?v=3&amp;s=117" width="117"></a></th>
 <th align="center"><a href="https://github.com/capaj"><img alt="capaj" src="https://avatars.githubusercontent.com/u/1305378?v=3&amp;s=117" width="117"></a></th>
 <th align="center"><a href="https://github.com/johnnyghost"><img alt="johnnyghost" src="https://avatars.githubusercontent.com/u/1117330?v=3&amp;s=117" width="117"></a></th>
 <th align="center"><a href="https://github.com/jordanyee"><img alt="jordanyee" src="https://avatars.githubusercontent.com/u/3303098?v=3&amp;s=117" width="117"></a></th>
+<th align="center"><a href="https://github.com/nacyot"><img alt="nacyot" src="https://avatars.githubusercontent.com/u/148919?v=3&amp;s=117" width="117"></a></th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="center"><a href="https://github.com/hermankan">hermankan</a></td>
 <td align="center"><a href="https://github.com/jabhishek">jabhishek</a></td>
 <td align="center"><a href="https://github.com/jesselpalmer">jesselpalmer</a></td>
 <td align="center"><a href="https://github.com/capaj">capaj</a></td>
 <td align="center"><a href="https://github.com/johnnyghost">johnnyghost</a></td>
 <td align="center"><a href="https://github.com/jordanyee">jordanyee</a></td>
+<td align="center"><a href="https://github.com/nacyot">nacyot</a></td>
 </tr>
 </tbody>
 </table>
@@ -958,9 +958,9 @@ For example, you can contribute by extending the Testing section or by translati
 <table>
 <thead>
 <tr>
-<th align="center"><a href="https://github.com/nacyot"><img alt="nacyot" src="https://avatars.githubusercontent.com/u/148919?v=3&amp;s=117" width="117"></a></th>
 <th align="center"><a href="https://github.com/mariolamacchia"><img alt="mariolamacchia" src="https://avatars.githubusercontent.com/u/6282722?v=3&amp;s=117" width="117"></a></th>
-<th align="center"><a href="https://github.com/meetbryce"><img alt="meetbryce" src="https://avatars.githubusercontent.com/u/1845143?v=3&amp;s=117" width="117"></a></th>
+<th align="center"><a href="https://github.com/mischkl"><img alt="mischkl" src="https://avatars.githubusercontent.com/u/8177979?v=3&amp;s=117" width="117"></a></th>
+<th align="center"><a href="https://github.com/dwmkerr"><img alt="dwmkerr" src="https://avatars.githubusercontent.com/u/1926984?v=3&amp;s=117" width="117"></a></th>
 <th align="center"><a href="https://github.com/dreame4"><img alt="dreame4" src="https://avatars.githubusercontent.com/u/277870?v=3&amp;s=117" width="117"></a></th>
 <th align="center"><a href="https://github.com/cryptojuice"><img alt="cryptojuice" src="https://avatars.githubusercontent.com/u/458883?v=3&amp;s=117" width="117"></a></th>
 <th align="center"><a href="https://github.com/nikshulipa"><img alt="nikshulipa" src="https://avatars.githubusercontent.com/u/1872256?v=3&amp;s=117" width="117"></a></th>
@@ -968,9 +968,9 @@ For example, you can contribute by extending the Testing section or by translati
 </thead>
 <tbody>
 <tr>
-<td align="center"><a href="https://github.com/nacyot">nacyot</a></td>
 <td align="center"><a href="https://github.com/mariolamacchia">mariolamacchia</a></td>
-<td align="center"><a href="https://github.com/meetbryce">meetbryce</a></td>
+<td align="center"><a href="https://github.com/mischkl">mischkl</a></td>
+<td align="center"><a href="https://github.com/dwmkerr">dwmkerr</a></td>
 <td align="center"><a href="https://github.com/dreame4">dreame4</a></td>
 <td align="center"><a href="https://github.com/cryptojuice">cryptojuice</a></td>
 <td align="center"><a href="https://github.com/nikshulipa">nikshulipa</a></td>
@@ -1004,21 +1004,34 @@ For example, you can contribute by extending the Testing section or by translati
 <table>
 <thead>
 <tr>
+<th align="center"><a href="https://github.com/dooart"><img alt="dooart" src="https://avatars.githubusercontent.com/u/371426?v=3&amp;s=117" width="117"></a></th>
 <th align="center"><a href="https://github.com/thomastuts"><img alt="thomastuts" src="https://avatars.githubusercontent.com/u/1914255?v=3&amp;s=117" width="117"></a></th>
 <th align="center"><a href="https://github.com/andela-abankole"><img alt="andela-abankole" src="https://avatars.githubusercontent.com/u/11836769?v=3&amp;s=117" width="117"></a></th>
 <th align="center"><a href="https://github.com/grapswiz"><img alt="grapswiz" src="https://avatars.githubusercontent.com/u/309459?v=3&amp;s=117" width="117"></a></th>
 <th align="center"><a href="https://github.com/coderhaoxin"><img alt="coderhaoxin" src="https://avatars.githubusercontent.com/u/2569835?v=3&amp;s=117" width="117"></a></th>
 <th align="center"><a href="https://github.com/ntaoo"><img alt="ntaoo" src="https://avatars.githubusercontent.com/u/511213?v=3&amp;s=117" width="117"></a></th>
-<th align="center"><a href="https://github.com/kuzmeig1"><img alt="kuzmeig1" src="https://avatars.githubusercontent.com/u/8707951?v=3&amp;s=117" width="117"></a></th>
 </tr>
 </thead>
 <tbody>
 <tr>
+<td align="center"><a href="https://github.com/dooart">dooart</a></td>
 <td align="center"><a href="https://github.com/thomastuts">thomastuts</a></td>
 <td align="center"><a href="https://github.com/andela-abankole">andela-abankole</a></td>
 <td align="center"><a href="https://github.com/grapswiz">grapswiz</a></td>
 <td align="center"><a href="https://github.com/coderhaoxin">coderhaoxin</a></td>
 <td align="center"><a href="https://github.com/ntaoo">ntaoo</a></td>
+</tr>
+</tbody>
+</table>
+
+<table>
+<thead>
+<tr>
+<th align="center"><a href="https://github.com/kuzmeig1"><img alt="kuzmeig1" src="https://avatars.githubusercontent.com/u/8707951?v=3&amp;s=117" width="117"></a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
 <td align="center"><a href="https://github.com/kuzmeig1">kuzmeig1</a></td>
 </tr>
 </tbody>
