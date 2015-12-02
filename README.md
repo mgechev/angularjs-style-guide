@@ -228,7 +228,7 @@ The following table is shown the naming conventions for every element:
 Element | Naming style | Example | usage
 ----|------|----|--------
 Modules | lowerCamelCase  | angularApp |
-Controllers | functionality + 'Ctrl'  | adminCtrl |
+Controllers | Functionality + 'Ctrl'  | AdminCtrl |
 Directives | lowerCamelCase  | userInfo |
 Filters | lowerCamelCase | userFilter |
 Services | UpperCamelCase | User | constructor
