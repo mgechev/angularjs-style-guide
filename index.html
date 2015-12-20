@@ -232,7 +232,7 @@ There are two main approaches:</p>
 <ul>
 <li>The <code>app.js</code> file should contain route definitions, configuration and/or manual bootstrap (if required).</li>
 <li>Each JavaScript file should only hold <strong>a single component</strong>. The file should be named with the component's name.</li>
-<li>Use AngularJS project structure template like <a href="http://yeoman.io">Yeoman</a>, <a href="http://joshdmiller.github.io/ng-boilerplate/#/home">ng-boilerplate</a>.</li>
+<li>Use AngularJS project structure template like <a href="http://yeoman.io">Yeoman</a>, <a href="http://ngbp.github.io/ngbp/#/home">ng-boilerplate</a>.</li>
 </ul>
 
 <p>Conventions about component naming can be found in each component section.</p>
@@ -438,7 +438,7 @@ There are two main approaches:</p>
 <div class="highlight highlight-source-js"><pre><span class="pl-smi">app</span>.<span class="pl-en">controller</span>(<span class="pl-s"><span class="pl-pds">'</span>MainCtrl<span class="pl-pds">'</span></span>, MainCtrl);
 
 <span class="pl-k">function</span> <span class="pl-en">MainCtrl</span> () {
-  <span class="pl-smi">this</span>.<span class="pl-c1">title</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span>Some title<span class="pl-pds">'</span></span>;
+  <span class="pl-v">this</span>.<span class="pl-c1">title</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span>Some title<span class="pl-pds">'</span></span>;
 }</pre></div>
 
 <p>The main benefits of using this syntax:</p>
@@ -486,18 +486,18 @@ For example:</p>
 <span class="pl-smi">angular</span>.<span class="pl-en">module</span>(<span class="pl-s"><span class="pl-pds">'</span>Store<span class="pl-pds">'</span></span>, [])
 .<span class="pl-en">controller</span>(<span class="pl-s"><span class="pl-pds">'</span>OrderCtrl<span class="pl-pds">'</span></span>, <span class="pl-k">function</span> (<span class="pl-smi">$scope</span>) {
 
-  $<span class="pl-smi">scope</span>.<span class="pl-smi">items</span> <span class="pl-k">=</span> [];
+  <span class="pl-smi">$scope</span>.<span class="pl-smi">items</span> <span class="pl-k">=</span> [];
 
   <span class="pl-c1">$scope</span>.<span class="pl-en">addToOrder</span> <span class="pl-k">=</span> <span class="pl-k">function</span> (<span class="pl-smi">item</span>) {
-    $<span class="pl-smi">scope</span>.<span class="pl-smi">items</span>.<span class="pl-c1">push</span>(item);<span class="pl-c">//--&gt;Business logic inside controller</span>
+    <span class="pl-smi">$scope</span>.<span class="pl-smi">items</span>.<span class="pl-c1">push</span>(item);<span class="pl-c">//--&gt;Business logic inside controller</span>
   };
 
   <span class="pl-c1">$scope</span>.<span class="pl-en">removeFromOrder</span> <span class="pl-k">=</span> <span class="pl-k">function</span> (<span class="pl-smi">item</span>) {
-    $<span class="pl-smi">scope</span>.<span class="pl-smi">items</span>.<span class="pl-c1">splice</span>($<span class="pl-smi">scope</span>.<span class="pl-smi">items</span>.<span class="pl-c1">indexOf</span>(item), <span class="pl-c1">1</span>);<span class="pl-c">//--&gt;Business logic inside controller</span>
+    <span class="pl-smi">$scope</span>.<span class="pl-smi">items</span>.<span class="pl-c1">splice</span>(<span class="pl-smi">$scope</span>.<span class="pl-smi">items</span>.<span class="pl-c1">indexOf</span>(item), <span class="pl-c1">1</span>);<span class="pl-c">//--&gt;Business logic inside controller</span>
   };
 
   <span class="pl-c1">$scope</span>.<span class="pl-en">totalPrice</span> <span class="pl-k">=</span> <span class="pl-k">function</span> () {
-    <span class="pl-k">return</span> $<span class="pl-smi">scope</span>.<span class="pl-smi">items</span>.<span class="pl-en">reduce</span>(<span class="pl-k">function</span> (<span class="pl-smi">memo</span>, <span class="pl-smi">item</span>) {
+    <span class="pl-k">return</span> <span class="pl-smi">$scope</span>.<span class="pl-smi">items</span>.<span class="pl-en">reduce</span>(<span class="pl-k">function</span> (<span class="pl-smi">memo</span>, <span class="pl-smi">item</span>) {
       <span class="pl-k">return</span> memo <span class="pl-k">+</span> (<span class="pl-smi">item</span>.<span class="pl-smi">qty</span> <span class="pl-k">*</span> <span class="pl-smi">item</span>.<span class="pl-smi">price</span>);<span class="pl-c">//--&gt;Business logic inside controller</span>
     }, <span class="pl-c1">0</span>);
   };
@@ -509,7 +509,7 @@ For example:</p>
 <span class="pl-smi">angular</span>.<span class="pl-en">module</span>(<span class="pl-s"><span class="pl-pds">'</span>Store<span class="pl-pds">'</span></span>, [])
 .<span class="pl-en">controller</span>(<span class="pl-s"><span class="pl-pds">'</span>OrderCtrl<span class="pl-pds">'</span></span>, <span class="pl-k">function</span> (<span class="pl-smi">Order</span>) {
 
-  $<span class="pl-smi">scope</span>.<span class="pl-smi">items</span> <span class="pl-k">=</span> <span class="pl-smi">Order</span>.<span class="pl-smi">items</span>;
+  <span class="pl-smi">$scope</span>.<span class="pl-smi">items</span> <span class="pl-k">=</span> <span class="pl-smi">Order</span>.<span class="pl-smi">items</span>;
 
   <span class="pl-c1">$scope</span>.<span class="pl-en">addToOrder</span> <span class="pl-k">=</span> <span class="pl-k">function</span> (<span class="pl-smi">item</span>) {
     <span class="pl-smi">Order</span>.<span class="pl-en">addToOrder</span>(item);
@@ -581,7 +581,7 @@ For example:</p>
 <p><strong>HomeCtrl</strong></p>
 
 <div class="highlight highlight-source-js"><pre><span class="pl-k">function</span> <span class="pl-en">HomeCtrl</span>() {
- <span class="pl-smi">this</span>.<span class="pl-smi">bindingValue</span> <span class="pl-k">=</span> <span class="pl-c1">42</span>;
+ <span class="pl-v">this</span>.<span class="pl-smi">bindingValue</span> <span class="pl-k">=</span> <span class="pl-c1">42</span>;
 }</pre></div>
 
 <p><strong>template.html</strong></p>
@@ -629,14 +629,14 @@ For example:</p>
 <p>UpperCamelCase (PascalCase) for naming your services, used as constructor functions i.e.:</p>
 
 <div class="highlight highlight-source-js"><pre><span class="pl-k">function</span> <span class="pl-en">MainCtrl</span>(<span class="pl-smi">$scope</span>, <span class="pl-smi">User</span>) {
-  $<span class="pl-smi">scope</span>.<span class="pl-smi">user</span> <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">User</span>(<span class="pl-s"><span class="pl-pds">'</span>foo<span class="pl-pds">'</span></span>, <span class="pl-c1">42</span>);
+  <span class="pl-smi">$scope</span>.<span class="pl-smi">user</span> <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">User</span>(<span class="pl-s"><span class="pl-pds">'</span>foo<span class="pl-pds">'</span></span>, <span class="pl-c1">42</span>);
 }
 
 <span class="pl-smi">module</span>.<span class="pl-en">controller</span>(<span class="pl-s"><span class="pl-pds">'</span>MainCtrl<span class="pl-pds">'</span></span>, MainCtrl);
 
 <span class="pl-k">function</span> <span class="pl-en">User</span>(<span class="pl-smi">name</span>, <span class="pl-smi">age</span>) {
-  <span class="pl-smi">this</span>.<span class="pl-c1">name</span> <span class="pl-k">=</span> name;
-  <span class="pl-smi">this</span>.<span class="pl-smi">age</span> <span class="pl-k">=</span> age;
+  <span class="pl-v">this</span>.<span class="pl-c1">name</span> <span class="pl-k">=</span> name;
+  <span class="pl-v">this</span>.<span class="pl-smi">age</span> <span class="pl-k">=</span> age;
 }
 
 <span class="pl-smi">module</span>.<span class="pl-en">factory</span>(<span class="pl-s"><span class="pl-pds">'</span>User<span class="pl-pds">'</span></span>, <span class="pl-k">function</span> () {
@@ -653,17 +653,17 @@ For example:</p>
 <span class="pl-smi">angular</span>.<span class="pl-en">module</span>(<span class="pl-s"><span class="pl-pds">'</span>Store<span class="pl-pds">'</span></span>)
 .<span class="pl-en">factory</span>(<span class="pl-s"><span class="pl-pds">'</span>Order<span class="pl-pds">'</span></span>, <span class="pl-k">function</span> () {
     <span class="pl-k">var</span> <span class="pl-en">add</span> <span class="pl-k">=</span> <span class="pl-k">function</span> (<span class="pl-smi">item</span>) {
-      <span class="pl-smi">this</span>.<span class="pl-smi">items</span>.<span class="pl-en">push</span> (item);
+      <span class="pl-v">this</span>.<span class="pl-smi">items</span>.<span class="pl-en">push</span> (item);
     };
 
     <span class="pl-k">var</span> <span class="pl-en">remove</span> <span class="pl-k">=</span> <span class="pl-k">function</span> (<span class="pl-smi">item</span>) {
-      <span class="pl-k">if</span> (<span class="pl-smi">this</span>.<span class="pl-smi">items</span>.<span class="pl-c1">indexOf</span>(item) <span class="pl-k">&gt;</span> <span class="pl-k">-</span><span class="pl-c1">1</span>) {
-        <span class="pl-smi">this</span>.<span class="pl-smi">items</span>.<span class="pl-c1">splice</span>(<span class="pl-smi">this</span>.<span class="pl-smi">items</span>.<span class="pl-c1">indexOf</span>(item), <span class="pl-c1">1</span>);
+      <span class="pl-k">if</span> (<span class="pl-v">this</span>.<span class="pl-smi">items</span>.<span class="pl-c1">indexOf</span>(item) <span class="pl-k">&gt;</span> <span class="pl-k">-</span><span class="pl-c1">1</span>) {
+        <span class="pl-v">this</span>.<span class="pl-smi">items</span>.<span class="pl-c1">splice</span>(<span class="pl-v">this</span>.<span class="pl-smi">items</span>.<span class="pl-c1">indexOf</span>(item), <span class="pl-c1">1</span>);
       }
     };
 
     <span class="pl-k">var</span> <span class="pl-en">total</span> <span class="pl-k">=</span> <span class="pl-k">function</span> () {
-      <span class="pl-k">return</span> <span class="pl-smi">this</span>.<span class="pl-smi">items</span>.<span class="pl-en">reduce</span>(<span class="pl-k">function</span> (<span class="pl-smi">memo</span>, <span class="pl-smi">item</span>) {
+      <span class="pl-k">return</span> <span class="pl-v">this</span>.<span class="pl-smi">items</span>.<span class="pl-en">reduce</span>(<span class="pl-k">function</span> (<span class="pl-smi">memo</span>, <span class="pl-smi">item</span>) {
         <span class="pl-k">return</span> memo <span class="pl-k">+</span> (<span class="pl-smi">item</span>.<span class="pl-smi">qty</span> <span class="pl-k">*</span> <span class="pl-smi">item</span>.<span class="pl-smi">price</span>);
       }, <span class="pl-c1">0</span>);
     };
@@ -706,7 +706,7 @@ For example:</p>
 
 <div class="highlight highlight-source-js"><pre><span class="pl-smi">angular</span>.<span class="pl-en">module</span>(<span class="pl-s"><span class="pl-pds">'</span>demo<span class="pl-pds">'</span></span>, [])
 .<span class="pl-en">config</span>(<span class="pl-k">function</span> (<span class="pl-smi">$provide</span>) {
-  $<span class="pl-smi">provide</span>.<span class="pl-en">provider</span>(<span class="pl-s"><span class="pl-pds">'</span>sample<span class="pl-pds">'</span></span>, <span class="pl-k">function</span> () {
+  <span class="pl-smi">$provide</span>.<span class="pl-en">provider</span>(<span class="pl-s"><span class="pl-pds">'</span>sample<span class="pl-pds">'</span></span>, <span class="pl-k">function</span> () {
     <span class="pl-k">var</span> foo <span class="pl-k">=</span> <span class="pl-c1">42</span>;
     <span class="pl-k">return</span> {
       <span class="pl-en">setFoo</span><span class="pl-k">:</span> <span class="pl-k">function</span> (<span class="pl-smi">f</span>) {
@@ -742,7 +742,7 @@ For example:</p>
 
 <div class="highlight highlight-text-html-basic"><pre><span class="pl-s1">&lt;<span class="pl-ent">script</span>&gt;</span>
 <span class="pl-s1">...</span>
-<span class="pl-s1">$<span class="pl-smi">scope</span>.<span class="pl-smi">divStyle</span> <span class="pl-k">=</span> {</span>
+<span class="pl-s1"><span class="pl-smi">$scope</span>.<span class="pl-smi">divStyle</span> <span class="pl-k">=</span> {</span>
 <span class="pl-s1">  width<span class="pl-k">:</span> <span class="pl-c1">200</span>,</span>
 <span class="pl-s1">  position<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>relative<span class="pl-pds">'</span></span></span>
 <span class="pl-s1">};</span>
