@@ -185,7 +185,7 @@ services
 
 * The `app.js` file should contain route definitions, configuration and/or manual bootstrap (if required).
 * Each JavaScript file should only hold **a single component**. The file should be named with the component's name.
-* Use AngularJS project structure template like [Yeoman](http://yeoman.io), [ng-boilerplate](http://joshdmiller.github.io/ng-boilerplate/#/home).
+* Use AngularJS project structure template like [Yeoman](http://yeoman.io), [ng-boilerplate](http://ngbp.github.io/ngbp/#/home).
 
 Conventions about component naming can be found in each component section.
 
