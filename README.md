@@ -242,6 +242,9 @@ Services | lowerCamelCase | dataFactory | others
     * `$window` instead of `window`
     * `$document` instead of `document`
     * `$http` instead of `$.ajax`
+    * `$location` instead of `window.location` or `$window.location`
+    * `$timeout` instead of `setTimeout`
+    * `$interval` instead of `setInterval`
 
 This will make your testing easier and in some cases prevent unexpected behaviour (for example, if you missed `$scope.$apply` in `setTimeout`).
 
