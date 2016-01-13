@@ -250,11 +250,11 @@ Services | lowerCamelCase | dataFactory | others
 This will make your testing easier and in some cases prevent unexpected behaviour (for example, if you missed `$scope.$apply` in `setTimeout`).
 
 * Automate your workflow using tools like:
-	* [NPM](https://www.npmjs.com/)    
-	* [Grunt](http://gruntjs.com)
-	* [Gulp](http://gulpjs.com)
-	* [Yeoman](http://yeoman.io)
-	* [Bower](http://bower.io)
+    * [NPM](https://www.npmjs.com/)
+    * [Grunt](http://gruntjs.com)
+    * [Gulp](http://gulpjs.com)
+    * [Yeoman](http://yeoman.io)
+    * [Bower](http://bower.io)
     
     
 * Use promises (`$q`) instead of callbacks. It will make your code look more elegant and clean, and save you from callback hell.
@@ -336,7 +336,8 @@ module.factory('Service', function ($rootScope, $timeout, MyCustomDependency1, M
 
   function MainCtrl () {
     var main = this;
-    main.title = 'Some title'; //a clearer visual connection on how is defined on the view
+    //a clearer visual connection on how is defined on the view
+    main.title = 'Some title';
     main.description = 'Some description';
   }
   ```
