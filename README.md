@@ -275,6 +275,7 @@ This will make your testing easier and in some cases prevent unexpected behaviou
     - Is error-prone, since you're writing strings inside your templates, there's no syntax highlighting and further support by your editor
     - No run-time errors are thrown
 * Do not use `$` prefix for the names of variables, properties and methods. This prefix is reserved for AngularJS usage.
+* Do not use `JQUERY` inside your app, If you must, use `JQLite` instead with `angular.element`.
 * When resolving dependencies through the DI mechanism of AngularJS, sort the dependencies by their type - the built-in AngularJS dependencies should be first, followed by your custom ones:
 
 ```javascript
