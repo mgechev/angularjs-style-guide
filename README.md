@@ -20,6 +20,7 @@ In this style guide you won't find common guidelines for JavaScript development.
 0. [GitHub's JavaScript style guide](https://github.com/styleguide/javascript)
 0. [Douglas Crockford's JavaScript style guide](http://javascript.crockford.com/code.html)
 0. [Airbnb JavaScript style guide](https://github.com/airbnb/javascript)
+0. [Idiomatic JavaScript style guide](https://github.com/rwaldron/idiomatic.js/)
 
 For AngularJS development recommended is the [Google's JavaScript style guide](http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml).
 
