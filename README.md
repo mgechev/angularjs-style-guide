@@ -254,7 +254,7 @@ This will make your testing easier and in some cases prevent unexpected behaviou
 	* [Grunt](http://gruntjs.com)
 	* [Gulp](http://gulpjs.com)
 	* [Yeoman](http://yeoman.io)
-    	* [Bower](http://bower.io)
+	* [Bower](http://bower.io)
     
     
 * Use promises (`$q`) instead of callbacks. It will make your code look more elegant and clean, and save you from callback hell.
