@@ -324,6 +324,18 @@ module.factory('Service', function ($rootScope, $timeout, MyCustomDependency1, M
     this.title = 'Some title';
   }
   ```
+  
+   or another good practice
+  
+   ```JavaScript
+  app.controller('MainCtrl', MainCtrl);
+
+  function MainCtrl () {
+    var main = this;
+    main.title = 'Some title'; //a clearer visual connection on how is defined on the view
+    main.description = 'Some description';
+  }
+  ```
 
    The main benefits of using this syntax:
    * Creates an 'isolated' component - binded properties are not part of `$scope` prototype chain. This is good practice since `$scope` prototype inheritance has some major drawbacks (this is probably the reason it was removed on Angular 2):
