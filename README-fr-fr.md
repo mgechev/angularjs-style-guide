@@ -19,6 +19,7 @@ Dans ce document, vous ne trouverez pas de directives générales concernant le 
 0. [Mozilla's JavaScript style guide](https://developer.mozilla.org/en-US/docs/Developer_Guide/Coding_Style)
 0. [GitHub's JavaScript style guide](https://github.com/styleguide/javascript)
 0. [Douglas Crockford's JavaScript style guide](http://javascript.crockford.com/code.html)
+0. [Airbnb JavaScript style guide](https://github.com/airbnb/javascript)
 
 Pour le développement d'AngularJS, le guide recommandé est [Google's JavaScript style guide](http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml).
 

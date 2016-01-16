@@ -20,6 +20,7 @@ In this style guide you won't find common guidelines for JavaScript development.
 0. [GitHub's JavaScript style guide](https://github.com/styleguide/javascript)
 0. [Douglas Crockford's JavaScript style guide](http://javascript.crockford.com/code.html)
 0. [Airbnb JavaScript style guide](https://github.com/airbnb/javascript)
+0. [Idiomatic JavaScript style guide](https://github.com/rwaldron/idiomatic.js/)
 
 For AngularJS development recommended is the [Google's JavaScript style guide](http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml).
 
@@ -242,15 +243,20 @@ Services | lowerCamelCase | dataFactory | others
     * `$window` instead of `window`
     * `$document` instead of `document`
     * `$http` instead of `$.ajax`
+    * `$location` instead of `window.location` or `$window.location`
+    * `$timeout` instead of `setTimeout`
+    * `$interval` instead of `setInterval`
 
 This will make your testing easier and in some cases prevent unexpected behaviour (for example, if you missed `$scope.$apply` in `setTimeout`).
 
 * Automate your workflow using tools like:
-    * [Yeoman](http://yeoman.io)
-    * [Gulp](http://gulpjs.com)
+    * [NPM](https://www.npmjs.com/)
     * [Grunt](http://gruntjs.com)
+    * [Gulp](http://gulpjs.com)
+    * [Yeoman](http://yeoman.io)
     * [Bower](http://bower.io)
-
+    
+    
 * Use promises (`$q`) instead of callbacks. It will make your code look more elegant and clean, and save you from callback hell.
 * Use `$resource` instead of `$http` when possible. The higher level of abstraction will save you from redundancy.
 * Use an AngularJS pre-minifier ([ng-annotate](https://github.com/olov/ng-annotate)) for preventing problems after minification.
@@ -269,6 +275,7 @@ This will make your testing easier and in some cases prevent unexpected behaviou
     - Is error-prone, since you're writing strings inside your templates, there's no syntax highlighting and further support by your editor
     - No run-time errors are thrown
 * Do not use `$` prefix for the names of variables, properties and methods. This prefix is reserved for AngularJS usage.
+* Do not use `JQUERY` inside your app, If you must, use `JQLite` instead with `angular.element`.
 * When resolving dependencies through the DI mechanism of AngularJS, sort the dependencies by their type - the built-in AngularJS dependencies should be first, followed by your custom ones:
 
 ```javascript
@@ -319,6 +326,19 @@ module.factory('Service', function ($rootScope, $timeout, MyCustomDependency1, M
 
   function MainCtrl () {
     this.title = 'Some title';
+  }
+  ```
+  
+   or another good practice
+  
+   ```JavaScript
+  app.controller('MainCtrl', MainCtrl);
+
+  function MainCtrl () {
+    var main = this;
+    //a clearer visual connection on how is defined on the view
+    main.title = 'Some title';
+    main.description = 'Some description';
   }
   ```
 
