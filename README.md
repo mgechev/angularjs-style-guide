@@ -255,8 +255,8 @@ This will make your testing easier and in some cases prevent unexpected behaviou
     * [Gulp](http://gulpjs.com)
     * [Yeoman](http://yeoman.io)
     * [Bower](http://bower.io)
-    
-    
+
+
 * Use promises (`$q`) instead of callbacks. It will make your code look more elegant and clean, and save you from callback hell.
 * Use `$resource` instead of `$http` when possible. The higher level of abstraction will save you from redundancy.
 * Use an AngularJS pre-minifier ([ng-annotate](https://github.com/olov/ng-annotate)) for preventing problems after minification.
@@ -328,9 +328,9 @@ module.factory('Service', function ($rootScope, $timeout, MyCustomDependency1, M
     this.title = 'Some title';
   }
   ```
-  
+
    or another good practice
-  
+
    ```JavaScript
   app.controller('MainCtrl', MainCtrl);
 
