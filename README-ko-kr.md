@@ -26,6 +26,23 @@ AngularJS 개발에 대해서는 [Google 자바스크립트 스타일 가이드]
 
 AngularJS GitHub 위키에 [ProLoser](https://github.com/ProLoser)가 작성한 비슷한 항목이 있습니다. [여기](https://github.com/angular/angular.js/wiki)에서 확인할 수 있습니다.
 
+# 번역
+
+- [영어(원문)](https://github.com/mgechev/angularjs-style-guide/blob/master/README.md)
+- [독일어](https://github.com/mgechev/angularjs-style-guide/blob/master/README-de-de.md)
+- [스페인어](https://github.com/mgechev/angularjs-style-guide/blob/master/README-es-es.md)
+- [프랑스어](https://github.com/mgechev/angularjs-style-guide/blob/master/README-fr-fr.md)
+- [인도네시아어](https://github.com/mgechev/angularjs-style-guide/blob/master/README-id-id.md)
+- [이탈리아어](https://github.com/mgechev/angularjs-style-guide/blob/master/README-it-it.md)
+- [일본어](https://github.com/mgechev/angularjs-style-guide/blob/master/README-ja-jp.md)
+- [폴란드어](https://github.com/mgechev/angularjs-style-guide/blob/master/README-pl-pl.md)
+- [포르투갈어](https://github.com/mgechev/angularjs-style-guide/blob/master/README-pt-br.md)
+- [러시아어](https://github.com/mgechev/angularjs-style-guide/blob/master/README-ru-ru.md)
+- [세르비아어](https://github.com/mgechev/angularjs-style-guide/blob/master/README-sr.md)
+- [세르비아어(라틴 문자)](https://github.com/mgechev/angularjs-style-guide/blob/master/README-sr-lat.md)
+- [중국어](https://github.com/mgechev/angularjs-style-guide/blob/master/README-zh-cn.md)
+- [터키어](https://github.com/mgechev/angularjs-style-guide/blob/master/README-tr-tr.md)
+
 # 차례
 * [일반](#일반)
     * [디렉터리 구조](#디렉터리-구조)
