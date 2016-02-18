@@ -62,7 +62,8 @@ AngularJS GitHub 위키에 [ProLoser](https://github.com/ProLoser)가 작성한 
 
 ## 디렉토리 구조
 
-규모가 큰 AngularJS 애플리케이션엔 다수의 컴포넌트가 있기 때문에 계층적(hierarchy)으로 디렉토리 구조를 잡는 것이 좋습니다. 주로 두 가지 접근법이 사용됩니다.
+규모가 큰 AngularJS 애플리케이션에는 많은 컴포넌트가 있기 때문에 계층적(hierarchy)으로 디렉토리 구조를 잡는 것이 좋습니다.
+주로 두 가지 접근법이 사용됩니다.
 
 * 컴포넌트 타입 별로 상위 디렉토리를 만들고, 기능별로 하위 디렉토리를 구성.
 
@@ -99,7 +100,6 @@ AngularJS GitHub 위키에 [ProLoser](https://github.com/ProLoser)가 작성한 
 ├── lib
 └── test
 ```
-
 
 * 기능 별로 상위 디렉토리를 나누고, 컴포넌트 타입 별로 하위 디렉토리를 구성.
 
@@ -141,6 +141,17 @@ AngularJS GitHub 위키에 [ProLoser](https://github.com/ProLoser)가 작성한 
 └── test
 ```
 
+* 디렉토리 이름이 여러 단어로 되어 있으면, lisp-case 문법을 사용합니다.
+
+```
+app
+ ├── app.js
+ └── my-complex-module
+     ├── controllers
+     ├── directives
+     ├── filters
+     └── services
+```
 
 * 디렉티브 디렉토리를 만들 땐 디렉티브에 관련된 파일들(템플릿, CSS/SASS 파일, 자바스크립트)을 한 폴더에 모읍니다. 이런 방식으로 디렉토리를 구성한다면 프로젝트 어디서나 이 구조를 일관적으로 사용할 수 있습니다.
 
@@ -157,9 +168,8 @@ app
         └── directive2.sass
 ```
 
-이러한 디렉티브 디렉토리 구성은 위에서 제시한 두 가지 디렉토리 구성법에서 모두 사용할 수 있습니다.
-
-* 두 디렉토리 구조에서 [ng-boilerplate](http://joshdmiller.github.io/ng-boilerplate/#/home)을 사용할 수도 있습니다. 이것을 사용하면 특정 컴포넌트와 그 컴포넌트의 유닛 테스트는 같은 폴더에 저장됩니다. 따라서 컴포넌트의 코드가 변경되었을 때 테스트 코드를 찾기 쉬우며, 테스트 자체가 문서 및 사용법(use case)이 되게 됩니다.
+이러한 접근법은 위에 제시한 두 가지 디렉토리 구성법 모두에서 사용할 수 있습니다.
+* 유닛 테스트는 컴포넌트와 같은 디렉토리에 있어야 합니다. 이 방식은 컴포넌트를 수정했을 때 테스트 파일을 찾기 쉽게 해줍니다. 또한, 테스트 파일은 참고 문서가 되거나 컴포넌트 사용법을 보여주는 역할도 합니다.
 
 ```
 services
@@ -171,11 +181,9 @@ services
     └── model1.spec.js
 ```
 
-* `app.js`파일에는 라우트 정의와 설정이 포함되어야 하며, 필요한 경우 초기화 작업을 해줍니다.
-* 하나의 자바스크립트 파일은 하나의 컴포넌트만을 포함하도록 합니다. 파일 이름은 컴포넌트의 이름과 같아야 합니다.
-* [Yeoman](http://yeoman.io)이나 [ng-boilerplate](http://joshdmiller.github.io/ng-boilerplate/#/home)와 같은 Angular 프로젝트 구조 템플릿을 사용합니다.
-
-저는 같은 종류의 컴포넌트를 찾기 쉬운 첫 번째 방법을 선호합니다.
+* `app.js` 파일에는 라우트 정의와 설정이 포함되어야 하며, 필요한 경우 초기화 작업도 포함합니다.
+* 하나의 자바스크립트 파일은 **단 하나의 컴포넌트**만을 포함해야 합니다. 파일 이름은 컴포넌트의 이름과 같은 식으로 지어야 합니다.
+* [Yeoman](http://yeoman.io)이나 [ng-boilerplate](http://ngbp.github.io/ngbp/#/home)와 같은 Angular 프로젝트 구조 템플릿을 사용합니다.
 
 각 컴포넌트의 명명 규칙은 각 컴포넌트 절에서 설명합니다.
 
