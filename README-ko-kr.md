@@ -235,29 +235,52 @@ AngularJS 디렉티브는 간결하게 만들고, 표준 속성 다음에 위치
 
 ## 기타
 
-* 다음과 같은 사용을 권장합니다:
+* 다음과 같은 사용을 권장합니다.
     * `setTimeout` 대신 `$timeout`
     * `setInterval` 대신 `$interval`
     * `window` 대신 `$window`
     * `document` 대신 `$document`
     * `$.ajax` 대신 `$http`
+    * `window.location`나 `$window.location` 대신 `$location`
 
-이를 통해 테스트를 쉽게 만들고 예상치 못한 작동을 방지할 수 있습니다. (예를 들어 `setTimeout`에서 `$scope.$apply`를 잊는 경우)
+이를 통해 테스트를 쉽게 만들고 예상치 못한 작동을 방지할 수 있습니다 (예를 들어, `setTimeout`에서 `$scope.$apply`를 잊는 경우).
 
-* 아래의 툴을 사용해 작업을 자동화하세요.
-    * [Yeoman](http://yeoman.io)
+* 아래의 툴을 사용해 작업 흐름을 자동화하세요.
+    * [NPM](https://www.npmjs.com/)
     * [Grunt](http://gruntjs.com)
+    * [Gulp](http://gulpjs.com)
+    * [Yeoman](http://yeoman.io)
     * [Bower](http://bower.io)
 
-* 콜백 대신에 promises(`$q`)를 사용하세요. $q를 사용하면 깔끔하고 우아한 코드가 되며, 여러분을 콜백 지옥에서 구원해줄 것입니다.
-* 가능한 `$http` 대신 `$resource`를 사용하세요. 높은 수준의 추상화는 자질구레한 작업으로부터 해방시켜줍니다.
-* AngularJS pre-minifier([ngmin](https://github.com/btford/ngmin), [ng-annotate](https://github.com/olov/ng-annotate))를 사용해 minification 시의 문제를 미리 방지합니다.
-* 전역 변수를 사용하지 마세요. 모든 의존성은 의존성 주입(DI)로 해결하시기 바랍니다.
-* `$scope`를 오염시키지 마세요. 오직 템플릿에서 사용하는 변수와 함수들만 추가하세요.
-* [`nginit`보다 컨트롤러를 사용하세요](https://github.com/angular/angular.js/pull/4366/files). `ngInit`의 유일한 적절한 사용법은 `ngRepeat` 프로퍼티의 별칭을 만드는 일입니다. 이 외의 모든 경우엔 변수 범위(scope)를 초기화하는데 `ngInit` 대신 컨트롤러를 사용해야 합니다.
-* 변수명, 프로퍼티명, 메소드명 앞에 `$`를 사용하지 않습니다. `$`를 앞에 붙이는 명명법은 AngularJS와 관련되어 특별한 의미로 사용됩니다.
-* Angular JS의 DI 매커니즘을 이용하여 의존성을 처리할 때 타입 별로 의존성들을 정렬하세요. built-in Angular JS 의존성이 먼저 나오고 그 다음 별도로 추가한 의존성들이 나열되야합니다.
 
+* 콜백 대신에 promises(`$q`)를 사용하세요. $q를 사용하면 우아하고 깔끔한 코드가 되며, 여러분을 콜백 지옥에서 구원해줄 것입니다.
+* 가능한 `$http` 대신 `$resource`를 사용하세요. 높은 수준의 추상화는 자질구레한 작업으로부터 해방시켜줍니다.
+* AngularJS pre-minifier ([ng-annotate](https://github.com/olov/ng-annotate))를 사용해 minification 시의 문제를 미리 방지합니다.
+* 전역 변수를 사용하지 마세요. 모든 의존성은 의존성 주입으로 해결하시기 바랍니다. 이는 테스트 시 발생하는 버그와 monkey patching을 방지해줄 것입니다.
+* Grunt나 Gulp를 사용해 당신의 코드를 즉시실행함수(IIFE)로 감싸 전역 변수를 없애주세요. 이러한 목적으로 [grunt-wrap](https://www.npmjs.com/package/grunt-wrap)나 [gulp-wrap](https://www.npmjs.com/package/gulp-wrap/) 같은 플러그인를 사용할 수 있습니다. 다음은 Gulp를 사용한 예시입니다.
+
+    ```Javascript
+    gulp.src("./src/*.js")
+    .pipe(wrap('(function(){\n"use strict";\n<%= contents %>\n})();'))
+    .pipe(gulp.dest("./dist"));
+    ```
+* `$scope`를 오염시키지 마세요. 오직 템플릿에서 사용하는 함수와 변수들만 추가하세요.
+* [`nginit`대신 컨트롤러](https://github.com/angular/angular.js/pull/4366/files)를 사용하도록 하세요. `ngInit`를 적절하게 사용하는 유일한 상황은 `ngRepeat` 프로퍼티의 별칭을 만드는 일입니다. 이 외의 모든 경우에는, 스코프 내의 값을 초기화하는 데에 `ngInit` 대신 컨트롤러를 사용해야 합니다. The expression passed to `ngInit` should go through lexing, parsing and evaluation by the Angular interpreter implemented inside the `$parse` service. This leads to:
+    - Performance impact, because the interpreter is implemented in JavaScript
+    - The caching of the parsed expressions inside the `$parse` service doesn't make a lot of sense in most cases, since `ngInit` expressions are often evaluated only once
+    - Is error-prone, since you're writing strings inside your templates, there's no syntax highlighting and further support by your editor
+    - No run-time errors are thrown
+* 변수, 프로퍼티, 메소드 이름 앞에 `$`를 사용하지 않습니다. `$`로 시작하는 명명법은 AngularJS 자체에서만 사용하도록 제한되어 있습니다.
+* 앱 내에서 `JQUERY`를 사용하지 마세요. 꼭 필요하다면, `angular.element` 함수로 `JQLite`를 사용하시기 바랍니다.
+* Angular JS의 의존성주입(DI) 메커니즘으로 의존성을 처리할 때에는, 유형별로 의존성들을 정렬하세요. AngularJS 내장 의존성을 가장 먼저, 그 다음 커스텀 의존성을 나열합니다.
+
+```javascript
+module.factory('Service', function ($rootScope, $timeout, MyCustomDependency1, MyCustomDependency2) {
+  return {
+    //Something
+  };
+});
+```
 
 # 모듈
 * 모듈의 이름은 lowerCamelCase로 명명되어야 합니다. 모듈 `a`의 하위 모듈 `b`를 가리키려면 `a.b`와 같이 네임스페이스를 중첩시킬 수 있습니다.
