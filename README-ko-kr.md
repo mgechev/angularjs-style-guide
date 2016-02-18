@@ -193,7 +193,7 @@ services
 
 ```html
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
   <meta charset="utf-8">
   <title>MyApp</title>
@@ -208,8 +208,7 @@ services
 </html>
 ```
 
-스크립트들은 간단하게 작성하고 Angular JS의 디렉티브 다음에 위치시킵니다. 이렇게 하면 코드와 프레임워크에 의해 변경, 향상된(Enhanced) html들을 쉽게 찾을 수 있습니다. (즉, 유지보수성이 향상됩니다)
-
+AngularJS 디렉티브는 간결하게 만들고, 표준 속성 다음에 위치시킵니다. 이렇게 하면 코드를 읽기가 쉬워집니다. 또한, 추가적인 속성들이 일관된 위치에 모여있기 때문에(즉, 가장 마지막) 유지 보수가 쉬워집니다.
 
 ```html
 <form class="frm" ng-submit="login.authenticate()">
@@ -219,7 +218,7 @@ services
 </form>
 ```
 
-다른 HTML atribute들은 이 [코드 가이드](http://mdo.github.io/code-guide/#html-attribute-order)를 참고하여 작성합니다.
+다른 HTML atribute들은 이 코드 가이드의 [추천](http://mdo.github.io/code-guide/#html-attribute-order)을 따릅니다.
 
 
 ## 기타
