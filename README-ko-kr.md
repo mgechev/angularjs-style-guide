@@ -43,11 +43,10 @@ AngularJS GitHub 위키에 [ProLoser](https://github.com/ProLoser)가 작성한 
 - [중국어](https://github.com/mgechev/angularjs-style-guide/blob/master/README-zh-cn.md)
 - [터키어](https://github.com/mgechev/angularjs-style-guide/blob/master/README-tr-tr.md)
 
-# 차례
+# 목차
 * [일반](#일반)
     * [디렉터리 구조](#디렉터리-구조)
     * [마크업](#마크업)
-    * [Digest cycle 최적화](#digest-cycle-최적화)
     * [기타](#기타)
 * [모듈](#모듈)
 * [컨트롤러](#컨트롤러)
@@ -56,6 +55,7 @@ AngularJS GitHub 위키에 [ProLoser](https://github.com/ProLoser)가 작성한 
 * [서비스](#서비스)
 * [템플릿](#템플릿)
 * [라우팅](#라우팅)
+* [성능](#성능)
 * [기여](#기여)
 
 # 일반
@@ -212,14 +212,6 @@ services
 ```
 
 다른 HTML atribute들은 이 [코드 가이드](http://mdo.github.io/code-guide/#html-attribute-order)를 참고하여 작성합니다.
-
-
-## Digest cycle 최적화
-
-* 가장 중요한 변수만 감시합니다.(예를 들어 실시간 통신이 필요한 경우 각각의 메시지를 받을 때 digest loop를 일으키지 않아야 합니다).
-* 최초의 초기화 이후 내용 변경을 막기 위해 [`bindonce`](https://github.com/Pasvaz/bindonce)와 같은 single-time watcher를 사용합니다.
-* `$watch`는 가능한 간단하게 작성합니다. 하나의 `$watch`안에서 무겁고 느린 연산 작업을 하는 것은 애플리케이션 전체가 느려질 것입니다. (자바스크립트는 싱글 스레드로 작동하므로 $digest 루프 역시 싱글 스레드로 작동합니다.)
-* `$timeout` 함수의 세 번째 파라메터를 false로 설정하면 `$timeout` 콜백 함수의 호출 시 watch되는 변수(variable)들이 없을 때 `$digest` 루프가 건너뜁니다.
 
 
 ## 기타
@@ -448,6 +440,20 @@ $scope.divStyle = {
 # 라우팅
 
 * view가 보여지기 전에 `resolve`를 사용해 의존관계를 해결해주세요.
+
+# 성능
+
+* Digest cycle 최적화
+
+	* 가장 중요한 변수만 감시합니다. When required to invoke the `$digest` loop explicitly (it should happen only in exceptional cases), invoke it only when required (예를 들어 실시간 통신이 필요한 경우 각각의 메시지를 받을 때 `$digest` loop를 일으키지 않아야 합니다).
+	* 초기 설정된 이후 다시는 변하지 않는 내용일 경우, AngularJS 구버전에서는 [`bindonce`](https://github.com/Pasvaz/bindonce) 같은 single-time watcher를, Angular 1.3.0 이상에서는 one-time binding을 사용합니다.
+	* `$watch`내의 연산은 가능한 간단하게 작성합니다. 하나의 `$watch` 안에서 무겁고 느린 연산 작업을 하는 것은 애플리케이션 전체를 느리게 만들 것입니다 (자바스크립트는 싱글 스레드로 작동하므로 `$digest` 루프 역시 싱글 스레드로 작동합니다).
+	* When watching collections, do not watch them deeply when not strongly required. Better use `$watchCollection`, which performs a shallow check for equality of the result of the watched expression and the previous value of the expression's evaluation.
+	* `$timeout`를 사용할 때, 콜백 함수의 호출 시 영향을 받는 변수(watched variables)가 없다면, `$timeout` 함수의 세 번째 파라메터를 false로 설정해 `$digest` 루프를 건너뛰게 합니다.
+	* When dealing with big collections, which change rarely, [use immutable data structures](http://blog.mgechev.com/2015/03/02/immutability-in-angularjs-immutablejs/).
+
+* Consider decreasing number of network requests by bundling/caching html template files into your main javascript file, using [grunt-html2js](https://github.com/karlgoldstein/grunt-html2js) / [gulp-html2js](https://github.com/fraserxu/gulp-html2js). See [here](http://ng-learn.org/2014/08/Populating_template_cache_with_html2js/) and [here](http://slides.com/yanivefraim-1/real-world-angularjs#/34) for details. This is particularly useful when the project has a lot of small html templates that can be a part of the main (minified and gzipped) javascript file.
+
 
 # 기여
 
