@@ -297,39 +297,83 @@ module.factory('Service', function ($rootScope, $timeout, MyCustomDependency1, M
 
 # 컨트롤러
 
-* 컨트롤러에서 DOM을 조작하지 마세요. 컨트롤러 대신 디렉티브를 사용하시기 바랍니다.
-* 컨터르롤러의 이름은 컨트롤러의 이름을 기준으로 지어야 하며(예를 들어 shopping cart, homepage, admin panel), 이름의 끝에는 `Ctrl`을 붙여줍니다. 컨트롤러 이름은 UpperCamelCase를 사용해 작성합니다(`HomePageCtrl`, `ShoppingCartCtrl`, `AdminPanelCtrl`, etc.).
-* 컨트롤러를 전역 공간에 정의하지 마세요(이런 사용법이 AngularJS 자체에서 제약이 되어있지 않더라도, 이러한 방법은 전역 공간을 더럽히는 안 좋은 방법입니다).
-* 컨트롤러를 정의할 때 배열 문법을 사용하세요.
+* 컨트롤러에서 DOM을 조작하지 마세요. 만약 그렇게 한다면, 컨트롤러를 테스트하기 어려워지고, [관심사의 분리](https://en.wikipedia.org/wiki/Separation_of_concerns) 원칙을 위반하게 됩니다. 컨트롤러 대신 디렉티브를 사용하시기 바랍니다.
+* 컨트롤러 이름은 컨트롤러의 기능 (예를 들어 shopping cart, homepage, admin panel)에 따라 명명해야 하며, 이름의 끝에는 `Ctrl`을 붙여줍니다.
+* 컨트롤러는 자바스크립트의 [생성자](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/constructor)이며, 따라서 UpperCamelCase (`HomePageCtrl`, `ShoppingCartCtrl`, `AdminPanelCtrl` 등)로 명명되어야 합니다.
+* 컨트롤러를 전역 변수로 정의하지 마세요 (비록 AngularJS가 지원하긴 하지만, 전역 네임스페이스를 오염시키는 않좋은 방식입니다).
+* 컨트롤러를 정의할 때에는 아래 문법을 사용하세요.
 
-```JavaScript
-module.controller('MyCtrl', ['dependency1', 'dependency2', ..., 'dependencyn', function (dependency1, dependency2, ..., dependencyn) {
-  //...body
-}]);
-```
+  ```JavaScript
+  function MyCtrl(dependency1, dependency2, ..., dependencyn) {
+    // ...
+  }
+  module.controller('MyCtrl', MyCtrl);
+  ```
 
-이런 식으로 정의하면 minification에서 발생할 수 있는 문제를 피할 수 있습니다. [ng-annotate](https://github.com/olov/ng-annotate)나 grunt task [grunt-ng-annotate](https://github.com/mzgol/grunt-ng-annotate)와 같은 툴을 사용하면 자동적으로 배열을 사용해 컨트롤러를 정의합니다.
+  minification에서 발생하는 문제를 피하려면, [ng-annotate](https://github.com/olov/ng-annotate) (Grunt에서는 [grunt-ng-annotate](https://github.com/mzgol/grunt-ng-annotate)) 같은 도구를 사용해 자동으로 배열식 명명 문법을 생성할 수 있습니다.
+* `controller as` 문법을 사용하세요.
 
-* 컨트롤러의 의존성은 원래 이름을 사용하세요. 이를 통해 읽기 쉬운 코드를 만들 수 있습니다.
+  ```
+  <div ng-controller="MainCtrl as main">
+     {{ main.title }}
+  </div>
+  ```
 
-```JavaScript
-module.controller('MyCtrl', ['$scope', function (s) {
-  //...body
-}]);
-```
+  ```JavaScript
+  app.controller('MainCtrl', MainCtrl);
 
+  function MainCtrl () {
+    this.title = 'Some title';
+  }
+  ```
 
-위의 예제보다는 아래의 예제가 읽기 쉽습니다.
+  또 다른 좋은 예제입니다.
 
-```JavaScript
-module.controller('MyCtrl', ['$scope', function ($scope) {
-  //...body
-}]);
-```
+  ```JavaScript
+  app.controller('MainCtrl', MainCtrl);
 
-이 방법은 스크롤이 필요할 정도로 코드가 길어졌을 때 특히 유용합니다. 원래의 이름을 사용하지 않으면 코드를 작성할 때 변수가 어떤 것과 관련되었는지 까먹을 것입니다.
+  function MainCtrl () {
+    var main = this;
+    // 뷰에서 어떻게 정의되는지 더 확실하게 시각적으로 알려줌
+    main.title = 'Some title';
+    main.description = 'Some description';
+  }
+  ```
 
-* 컨트롤러는 가능한 최소한의 기능만을 가져야 합니다. 추상적이고 일반적으로 쓰이는 함수들은 서비스에 정의하세요.
+   이 문법을 사용하면 생기는 이점은 다음과 같습니다.
+   * '독립된' 컴포넌트를 만듭니다. 즉, 속성들이 `$scope` prototype chain의 일부가 아닙니다. 이것은 좋은 사용법인데, 왜냐 하면 `$scope` prototype 상속에는 주요한 결함이 있기 때문입니다 (아마 Angular 2에서 스코프 개념이 제거된 이유이기도 할 것입니다).
+      * 데이터가 어디서부터 오는 건지 추적하기가 어렵습니다.
+      * 스코프의 값을 바꾸는 것이 의도하지 않는 곳에 영향을 미칠 수 있습니다.
+      * 리팩토링이 더 어렵습니다.
+      * '[점 규칙(dot rule)](http://jimhoskins.com/2012/12/14/nested-scopes-in-angularjs.html)'.
+   * Removes the use of `$scope` when no need for special operations (like `$scope.$broadcast`). This is a good preparation for AngularJS V2.
+   * 문법이 자바스크립트 생성자의 기본('vanilla')에 충실해집니다.
+
+   `controller as`에 대해 더 알아보기: [digging-into-angulars-controller-as-syntax](http://toddmotto.com/digging-into-angulars-controller-as-syntax/)
+* 만약 배열식 명명 문법을 사용한다면, 컨트롤러의 의존성의 원래 이름을 사용하세요. 이를 통해 읽기 쉬운 코드를 만들 수 있습니다.
+
+  ```JavaScript
+  function MyCtrl(s) {
+    // ...
+  }
+
+  module.controller('MyCtrl', ['$scope', MyCtrl]);
+  ```
+
+   which is less readable than:
+
+  ```JavaScript
+  function MyCtrl($scope) {
+    // ...
+  }
+  module.controller('MyCtrl', ['$scope', MyCtrl]);
+  ```
+
+  이 방법은 스크롤이 필요할 정도로 코드가 길어졌을 때 특히 유용합니다. 원래의 이름을 사용하지 않으면 그 변수가 어떤 의존성이었는지 까먹게 될 것입니다.
+
+* 컨트롤러는 가능한 가벼워야(lean) 합니다. 공통적으로 사용되는 함수은 서비스로 추상화하세요.
+* 컨트롤러 내에서 비즈니스 로직(business logic)을 작성하지 마세요. 대신 서비스로 만든 `model`에서 비즈니스 로직을 처리하세요.
+
 * 다른 컨트롤러와 소통이 필요한 경우엔 메소드 호출이나 `$emit`, `$broadcast`, `$on` 메소드를 사용하세요. `$emit`이나 `$broadcasted` 메소드는 최소한으로 유지합니다.
 * `$emit`나 `$broadcast`를 통해서 넘겨지는 모든 메시지는 이름 충돌이나 버그를 유발할 수 있기 때문에 목록을 작성해서 관리하세요.
 * 형식화 기능(formatting logic)이나 데이터 형식을 캡슐화시킬 때에는 [필터](#필터)를 사용하거나 같이 의존성을 선언하세요.
