@@ -47,6 +47,7 @@ AngularJS GitHub 위키에 [ProLoser](https://github.com/ProLoser)가 작성한 
 * [일반](#일반)
     * [디렉토리 구조](#디렉토리-구조)
     * [마크업](#마크업)
+    * [명명 규칙](#명명-규칙)
     * [기타](#기타)
 * [모듈](#모듈)
 * [컨트롤러](#컨트롤러)
@@ -220,6 +221,17 @@ AngularJS 디렉티브는 간결하게 만들고, 표준 속성 다음에 위치
 
 다른 HTML atribute들은 이 코드 가이드의 [추천](http://mdo.github.io/code-guide/#html-attribute-order)을 따릅니다.
 
+## 명명 규칙
+모든 요소에 대한 명명 규칙이 아래 표에 나와있습니다.
+
+요소 | 명명 스타일 | 예시 | 용법
+----|------|----|--------
+모듈 | lowerCamelCase  | angularApp |
+컨트롤러 | Functionality + 'Ctrl'  | AdminCtrl |
+디렉티브 | lowerCamelCase  | userInfo |
+필터 | lowerCamelCase | userFilter |
+서비스 | UpperCamelCase | User | 생성자
+서비스 | lowerCamelCase | dataFactory | 기타
 
 ## 기타
 
