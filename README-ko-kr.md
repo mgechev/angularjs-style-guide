@@ -449,7 +449,7 @@ $scope.divStyle = {
 	* 초기 설정된 이후 다시는 변하지 않는 내용일 경우, AngularJS 구버전에서는 [`bindonce`](https://github.com/Pasvaz/bindonce) 같은 single-time watcher를, Angular 1.3.0 이상에서는 one-time binding을 사용합니다.
 	* `$watch`내의 연산은 가능한 간단하게 작성합니다. 하나의 `$watch` 안에서 무겁고 느린 연산 작업을 하는 것은 애플리케이션 전체를 느리게 만들 것입니다 (자바스크립트는 싱글 스레드로 작동하므로 `$digest` 루프 역시 싱글 스레드로 작동합니다).
 	* When watching collections, do not watch them deeply when not strongly required. Better use `$watchCollection`, which performs a shallow check for equality of the result of the watched expression and the previous value of the expression's evaluation.
-	* `$timeout`를 사용할 때, 콜백 함수의 호출 시 영향을 받는 변수(watched variables)가 없다면, `$timeout` 함수의 세 번째 파라메터를 false로 설정해 `$digest` 루프를 건너뛰게 합니다.
+	* (`$timeout` 사용 시) 콜백 함수의 호출 시 영향을 받는 변수(watched variables)가 없다면, `$timeout` 함수의 세 번째 파라메터를 false로 설정해 `$digest` 루프를 건너뛰게 합니다.
 	* When dealing with big collections, which change rarely, [use immutable data structures](http://blog.mgechev.com/2015/03/02/immutability-in-angularjs-immutablejs/).
 
 * Consider decreasing number of network requests by bundling/caching html template files into your main javascript file, using [grunt-html2js](https://github.com/karlgoldstein/grunt-html2js) / [gulp-html2js](https://github.com/fraserxu/gulp-html2js). See [here](http://ng-learn.org/2014/08/Populating_template_cache_with_html2js/) and [here](http://slides.com/yanivefraim-1/real-world-angularjs#/34) for details. This is particularly useful when the project has a lot of small html templates that can be a part of the main (minified and gzipped) javascript file.
