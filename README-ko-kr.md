@@ -1,3 +1,5 @@
+[![https://gitter.im/mgechev/angularjs-style-guide 에서 채팅에 참여하세요.](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/mgechev/angularjs-style-guide?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 # 소개
 
 이 스타일 가이드의 목표는 AngularJS 애플리케이션을 제작하는 데 있어서 현재의 모범 사례(Best practice)를 제시하는 것입니다.
@@ -7,19 +9,22 @@
 0. 제가 읽은 소스 코드와 문서들
 0. 제 경험
 
-**주의**: 이 문서는 아직 작성 중이며 이 문서의 주목표는 공동체 주도(community-driven)로 진행되어 모든 공동체가 스타일 차이를 줄여 이해하기 쉽게 하는 것입니다.
+**주의 1**: 이 문서는 아직 작성 중이며 이 문서의 주목표는 공동체 주도(community-driven)로 진행되어 모든 공동체가 스타일 차이를 줄여 이해하기 쉽게 하는 것입니다.
+
+**주의 2**: 이 번역본을 따르기 이전에, 최신판인지 확인하십시오. AngularJS 스타일 가이드의 최신 버전은 [영문 문서](https://github.com/mgechev/angularjs-style-guide)입니다.
 
 이 스타일 가이드에서는 자바스크립트 개발 가이드라인을 제공하진 않습니다. 이와 관련된 문서는 아래에서 찾을 수 있습니다.
 
-0. [구글 자바스크립트 스타일 가이드](http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml)
-0. [모질라 자바스크립트 스타일 가이드](https://developer.mozilla.org/en-US/docs/Developer_Guide/Coding_Style)
+0. [Google 자바스크립트 스타일 가이드](http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml)
+0. [Mozilla 자바스크립트 스타일 가이드](https://developer.mozilla.org/en-US/docs/Developer_Guide/Coding_Style)
 0. [GitHub's 자바스크립트 스타일 가이드](https://github.com/styleguide/javascript)
 0. [Douglas Crockford's 자바스크립트 스타일 가이드](http://javascript.crockford.com/code.html)
 0. [Airbnb 자바스크립트 스타일 가이드](https://github.com/airbnb/javascript)
+0. [Idiomatic 자바스크립트 스타일 가이드](https://github.com/rwaldron/idiomatic.js/)
 
-AngularJS 개발에 대해서는 [구글 자바스크립트 스타일 가이드](http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml)를 추천합니다.
+AngularJS 개발에 대해서는 [Google 자바스크립트 스타일 가이드](http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml)를 추천합니다.
 
-이와 비슷한 항목이 AngularJS GitHub 위키에 [ProLoser](https://github.com/ProLoser)가 작성하였습니다. [여기](https://github.com/angular/angular.js/wiki)에서 확인할 수 있습니다.
+AngularJS GitHub 위키에 [ProLoser](https://github.com/ProLoser)가 작성한 비슷한 항목이 있습니다. [여기](https://github.com/angular/angular.js/wiki)에서 확인할 수 있습니다.
 
 # 차례
 * [일반](#일반)
