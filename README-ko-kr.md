@@ -256,7 +256,7 @@ AngularJS 디렉티브는 간결하게 만들고, 표준 속성 다음에 위치
 
 
 * 콜백 대신에 promises(`$q`)를 사용하세요. $q를 사용하면 우아하고 깔끔한 코드가 되며, 여러분을 콜백 지옥에서 구원해줄 것입니다.
-* 가능한 `$http` 대신 `$resource`를 사용하세요. 높은 수준의 추상화는 자질구레한 작업으로부터 해방시켜줍니다.
+* 가능한 `$http` 보다는 `$resource`를 사용하세요. 높은 수준의 추상화는 자질구레한 작업으로부터 해방시켜줍니다.
 * AngularJS pre-minifier ([ng-annotate](https://github.com/olov/ng-annotate))를 사용해 minification 시의 문제를 미리 방지합니다.
 * 전역 변수를 사용하지 마세요. 모든 의존성은 의존성 주입으로 해결하시기 바랍니다. 이는 테스트 시 발생하는 버그와 monkey patching을 방지해줄 것입니다.
 * Grunt나 Gulp를 사용해 당신의 코드를 즉시실행함수(IIFE)로 감싸 전역 변수를 없애주세요. 이러한 목적으로 [grunt-wrap](https://www.npmjs.com/package/grunt-wrap)나 [gulp-wrap](https://www.npmjs.com/package/gulp-wrap/) 같은 플러그인를 사용할 수 있습니다. 다음은 Gulp를 사용한 예시입니다.
@@ -334,7 +334,7 @@ module.factory('Service', function ($rootScope, $timeout, MyCustomDependency1, M
 
   function MainCtrl () {
     var main = this;
-    // 뷰에서 어떻게 정의되는지 더 확실하게 시각적으로 알려줌
+    //뷰에서 어떻게 정의되는지 더 확실하게 시각적으로 알려줌
     main.title = 'Some title';
     main.description = 'Some description';
   }
@@ -373,49 +373,116 @@ module.factory('Service', function ($rootScope, $timeout, MyCustomDependency1, M
 
 * 컨트롤러는 가능한 가벼워야(lean) 합니다. 공통적으로 사용되는 함수은 서비스로 추상화하세요.
 * 컨트롤러 내에서 비즈니스 로직(business logic)을 작성하지 마세요. 대신 서비스로 만든 `model`에서 비즈니스 로직을 처리하세요.
+  For example:
 
-* 다른 컨트롤러와 소통이 필요한 경우엔 메소드 호출이나 `$emit`, `$broadcast`, `$on` 메소드를 사용하세요. `$emit`이나 `$broadcasted` 메소드는 최소한으로 유지합니다.
-* `$emit`나 `$broadcast`를 통해서 넘겨지는 모든 메시지는 이름 충돌이나 버그를 유발할 수 있기 때문에 목록을 작성해서 관리하세요.
-* 형식화 기능(formatting logic)이나 데이터 형식을 캡슐화시킬 때에는 [필터](#필터)를 사용하거나 같이 의존성을 선언하세요.
+  ```Javascript
+  //비즈니스 로직을 컨트롤러 안에서 사용하는 흔한 방식(즉, 나쁜 예)입니다.
+  angular.module('Store', [])
+  .controller('OrderCtrl', function ($scope) {
+
+    $scope.items = [];
+
+    $scope.addToOrder = function (item) {
+      $scope.items.push(item);//--> 컨트롤러 내의 비즈니스 로직
+    };
+
+    $scope.removeFromOrder = function (item) {
+      $scope.items.splice($scope.items.indexOf(item), 1); //-->컨트롤러 내의 비즈니스 로직
+    };
+
+    $scope.totalPrice = function () {
+      return $scope.items.reduce(function (memo, item) {
+        return memo + (item.qty * item.price); //-->컨트롤러 내의 비즈니스 로직
+      }, 0);
+    };
+  });
+  ```
+
+  만약 비즈니스 로직을 '모델' 서비스에 위임한다면, 컨트롤러는 이렇게 바뀌게 됩니다 (서비스-모델의 구현 내용은 '서비스로 모델 구현하기'를 보세요):
+
+  ```Javascript
+  //Order는 '모델'로 사용되었음
+  angular.module('Store', [])
+  .controller('OrderCtrl', function (Order) {
+
+    $scope.items = Order.items;
+
+    $scope.addToOrder = function (item) {
+      Order.addToOrder(item);
+    };
+
+    $scope.removeFromOrder = function (item) {
+      Order.removeFromOrder(item);
+    };
+
+    $scope.totalPrice = function () {
+      return Order.total();
+    };
+  });
+  ```
+
+  Why business logic / app state inside controllers is bad?
+  * Controllers instantiated for each view and dies when the view unloads
+  * Controllers are not reusable - they are coupled with the view
+  * Controllers are not meant to be injected
 
 
-```JavaScript
-module.filter('myFormat', function () {
-  return function () {
-    //body...
-  };
-});
-```
+* 다른 컨트롤러와 통신이 필요한 경우에는 메소드 호출 (자식 컨트롤러가 부모와 통신하고 싶을때 가능함)이나 `$emit`, `$broadcast`, `$on` 메소드를 사용하세요. emit이나 broadcast된 메세지는 최소한의 내용만 담고 있어야 합니다.
+* `$emit`나 `$broadcast`를 통해서 넘겨지는 모든 메시지는 이름 충돌이나 버그를 유발할 수 있기 때문에, 목록을 작성해서 관리하세요.
 
-```JavaScript
-module.controller('MyCtrl', ['$scope', 'myFormatFilter', function ($scope, myFormatFilter) {
-  //body...
-}]);
-```
+   Example:
 
-* 중첩 컨트롤러의 경우 "nested scoping"을 사용하세요. (`controllerAs` syntax):
+   ```JavaScript
+   // app.js
+   /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+   Custom events:
+     - 'authorization-message' - description of the message
+       - { user, role, action } - data format
+         - user - a string, which contains the username
+         - role - an ID of the role the user has
+         - action - specific action the user tries to perform
+   * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+   ```
 
-**app.js**
-```javascript
-module.config(function ($routeProvider) {
-  $routeProvider
-    .when('/route', {
-      templateUrl: 'partials/template.html',
-      controller: 'HomeCtrl',
-      controllerAs: 'home'
-    });
-});
-```
-**HomeCtrl**
-```javascript
-function HomeCtrl() {
-  this.bindingValue = 42;
-}
-```
-**template.html**
-```html
-<div ng-bind="home.bindingValue"></div>
-```
+* 데이터 형태를 바꿀(format) 때에는 형식화 로직(formatting logic)을 [필터](#필터)로 만들고 이를 의존성으로 선언하세요.
+
+   ```JavaScript
+   function myFormat() {
+     return function () {
+       // ...
+     };
+   }
+   module.filter('myFormat', myFormat);
+
+   function MyCtrl($scope, myFormatFilter) {
+     // ...
+   }
+
+   module.controller('MyCtrl', MyCtrl);
+   ```
+* In case of nested controllers use "nested scoping" (the `controllerAs` syntax):
+
+   **app.js**
+   ```javascript
+   module.config(function ($routeProvider) {
+     $routeProvider
+       .when('/route', {
+         templateUrl: 'partials/template.html',
+         controller: 'HomeCtrl',
+         controllerAs: 'home'
+       });
+   });
+   ```
+   **HomeCtrl**
+   ```javascript
+   function HomeCtrl() {
+     this.bindingValue = 42;
+   }
+   ```
+   **template.html**
+   ```
+   <div ng-bind="home.bindingValue"></div>
+   ```
 
 # 디렉티브
 
