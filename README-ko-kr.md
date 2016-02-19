@@ -398,7 +398,7 @@ module.factory('Service', function ($rootScope, $timeout, MyCustomDependency1, M
   });
   ```
 
-  만약 비즈니스 로직을 '모델' 서비스에 위임한다면, 컨트롤러는 이렇게 바뀌게 됩니다 (서비스-모델의 구현 내용은 '서비스로 모델 구현하기'를 보세요):
+  만약 비즈니스 로직을 '모델' 서비스에 위임한다면, 컨트롤러는 이렇게 바뀌게 됩니다 (서비스-모델의 구현 내용은 '서비스로 모델 구현하기'를 보세요).
 
   ```Javascript
   //Order는 '모델'로 사용되었음
@@ -504,74 +504,111 @@ module.factory('Service', function ($rootScope, $timeout, MyCustomDependency1, M
 
 # 서비스
 
-* 서비스명은 camelCase나 CamelCase로 작성.
-	* 생성자(constructor) 함수와 같은 서비스의 이름은 UpperCamelCase (PascalCase)를 사용합니다. 사용 예:
+여기서는 AngularJS의 서비스 컴포넌트에 대해 기술하고 있습니다. 명시적으로 언급된 경우를 제외하면, 정의 방법 (provider, `.factory`, `.service`)과는 무관합니다.
+
+* 서비스명은 camelCase나 CamelCase로 작성합니다.
+	* 생성자 함수 서비스의 이름은 다음과 같이 UpperCamelCase (PascalCase)를 사용합니다.
     
     ```JavaScript
-    module.controller('MainCtrl', function ($scope, User) {
+    function MainCtrl($scope, User) {
       $scope.user = new User('foo', 42);
-    });
+    }
+
+    module.controller('MainCtrl', MainCtrl);
+
+    function User(name, age) {
+      this.name = name;
+      this.age = age;
+    }
 
     module.factory('User', function () {
-      return function User(name, age) {
-        this.name = name;
-        this.age = age;
-      };
-	});
+      return User;
+    });
     ```
 
   * 그 외의 서비스들은 lowerCamelCase를 사용합니다.
-  
-* 서비스엔 비지니스 로직을 캡슐화합니다.
-* 도메인 나타내는 서비스들은 `factory` 대신에 `service`를 선호합니다. 이 방법으로 "예전의"("klassical") 상속의 장점을 누릴 수 있습니다.
 
-    ```JavaScript
-    function Human() {
-      //body
-    }
-    Human.prototype.talk = function () {
-      return "I'm talking";
-    };
+* 모든 비지니스 로직을 서비스로 캡슐화합니다. 이 서비스를 `model`로 사용하요. 예시:
+  ```Javascript
+  //Order is the 'model'
+  angular.module('Store')
+  .factory('Order', function () {
+      var add = function (item) {
+        this.items.push (item);
+      };
 
-    function Developer() {
-      //body
-    }
-    Developer.prototype = Object.create(Human.prototype);
-    Developer.prototype.code = function () {
-      return "I'm coding";
-    };
+      var remove = function (item) {
+        if (this.items.indexOf(item) > -1) {
+          this.items.splice(this.items.indexOf(item), 1);
+        }
+      };
 
-    myModule.service('Human', Human);
-    myModule.service('Developer', Developer);
-	```
+      var total = function () {
+        return this.items.reduce(function (memo, item) {
+          return memo + (item.qty * item.price);
+        }, 0);
+      };
 
-* 세션 수준의 캐시는 `$cacheFactory`를 사용하세요. 이는 요청(request)나 무거운 처리를 캐시하고 싶을 때 사용합니다.
-* 설정 정의가 필요 한 서비스라면 provider나 다음과 같은 `config` 콜백을 이용해 설정할 수 있습니다.
+      return {
+        items: [],
+        addToOrder: add,
+        removeFromOrder: remove,
+        totalPrice: total
+      };
+  });
+  ```
 
-    ```JavaScript
-    angular.module('demo', [])
-    .config(function ($provide) {
-      $provide.provider('sample', function () {
-        var foo = 42;
-        return {
-          setFoo: function (f) {
-            foo = f;
-          },
-          $get: function () {
-            return {
-              foo: foo
-            };
-          }
-        };
-      });
+  이 서비스를 사용하는 컨트롤러의 예시는 '컨트롤러 내에서 비즈니스 로직(business logic)을 작성하지 마세요'를 보세요.
+* Services representing the domain preferably a `service` instead of a `factory`. In this way we can take advantage of the "klassical" inheritance easier:
+
+  ```JavaScript
+  function Human() {
+    //body
+  }
+  Human.prototype.talk = function () {
+    return "I'm talking";
+  };
+
+  function Developer() {
+    //body
+  }
+  Developer.prototype = Object.create(Human.prototype);
+  Developer.prototype.code = function () {
+    return "I'm coding";
+  };
+
+  myModule.service('human', Human);
+  myModule.service('developer', Developer);
+
+  ```
+
+* 세션 레벨의 캐시는 `$cacheFactory`를 사용하세요. 이는 요청(request) 결과나 무거운 연산결과를 캐시하고 싶을 때 사용합니다.
+* 설정(configuration)이 필요한 서비스라면 서비스를 provider로 정의하고 `config` 콜백에서 설정할 수 있습니다. 예시:
+
+  ```JavaScript
+  angular.module('demo', [])
+  .config(function ($provide) {
+    $provide.provider('sample', function () {
+      var foo = 42;
+      return {
+        setFoo: function (f) {
+          foo = f;
+        },
+        $get: function () {
+          return {
+            foo: foo
+          };
+        }
+      };
     });
+  });
 
-    var demo = angular.module('demo');
+  var demo = angular.module('demo');
 
-    demo.config(function (sampleProvider) {
-      sampleProvider.setFoo(41);
-    });
-    ```
+  demo.config(function (sampleProvider) {
+    sampleProvider.setFoo(41);
+  });
+  ```
 
 # 템플릿
 
