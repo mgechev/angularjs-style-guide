@@ -272,7 +272,7 @@ AngularJS 디렉티브는 간결하게 만들고, 표준 속성 다음에 위치
     - The caching of the parsed expressions inside the `$parse` service doesn't make a lot of sense in most cases, since `ngInit` expressions are often evaluated only once
     - Is error-prone, since you're writing strings inside your templates, there's no syntax highlighting and further support by your editor
     - No run-time errors are thrown
-* 변수, 프로퍼티, 메소드 이름 앞에 `$`를 사용하지 않습니다. `$`로 시작하는 명명법은 AngularJS 자체에서만 사용하도록 제한되어 있습니다.
+* 변수, 프로퍼티, 메소드 이름에 `$` 접두어를 사용하지 않습니다. `$`로 시작하는 명명법은 AngularJS 자체에서만 사용하도록 제한되어 있습니다.
 * 앱 내에서 `JQUERY`를 사용하지 마세요. 꼭 필요하다면, `angular.element` 함수로 `JQLite`를 사용하시기 바랍니다.
 * Angular JS의 의존성주입(DI) 메커니즘으로 의존성을 처리할 때에는, 유형별로 의존성들을 정렬하세요. AngularJS 내장 의존성을 가장 먼저, 그 다음 커스텀 의존성을 나열합니다.
 
@@ -488,14 +488,13 @@ module.factory('Service', function ($rootScope, $timeout, MyCustomDependency1, M
 
 * 디렉티브의 이름은 lowerCamelCase를 사용하세요.
 * link 함수에서 `$scope` 대신 `scope`를 사용하세요. complie 시 post/pre link 함수들을 호출할 때 인수(argument)들이 이미 정의되어 넘어오기 때문에 DI를 사용해 이것들을 변경할 수 없습니다. 이 스타일은 AngularJS 소스코드에서 사용하는 스타일입니다.
-* 여러분만의 특별한 전치사를 붙여서 사용하세요. 이는 Third-party 라이브러리와 이름 충돌을 방지해줍니다.
-* `ng`와 `ui`를 전치사로 사용하지 마세요. 이 단어들은 AngularJS와 AngularJS UI에서 사용되는 전치사입니다.
-* 디렉티브를 통해서만 DOM 조작을 해주세요.
-* 재사용 가능한 컴포넌트를 만들려면 독립된 범위(scope)를 만들어주세요.
+* 여러분만의 유일한 접두어를 붙여서 사용하세요. 이는 third-party 라이브러리와의 이름 충돌을 방지해줍니다.
+* `ng`와 `ui`를 접두어로 사용하지 마세요. 이 접두어는 AngularJS와 AngularJS UI에서만 사용되는 접두어입니다.
+* DOM 조작은 오직 디렉티브를 통해서만 해주세요.
+* 재사용 가능한 컴포넌트를 만들려면 독립된 스코프를를 만들어주세요.
 * 디렉티브는 주석이나 클래스보단 요소(element)나 속성(attribute)으로 사용하세요. 이는 코드의 가독성을 향상시켜줍니다.
-* `$scope.$on('$destroy', fn)`를 사용하여 정리(clean-up)하세요. 이 방식은 특히 third-party 플러그인을 디렉티브로 감싸서 사용할 때 유용합니다.
-* 신뢰할 수 없는 컨텐츠(untrusted content)를 다룰 때는 `$sce` 사용을 잊지 마세요.
-
+* `$scope.$on('$destroy', fn)`를 사용하여 뒷정리를 해주세요. 이 방식은 third-party 플러그인을 디렉티브로 감싸서 사용할 때 특히 유용합니다.
+* 신뢰할 수 없는 컨텐츠(untrusted content)를 다룰 때는 `$sce`를 사용하는 것을 잊지 마세요.
 
 # 필터
 
