@@ -612,20 +612,23 @@ module.factory('Service', function ($rootScope, $timeout, MyCustomDependency1, M
 
 # 템플릿
 
-* 문서가 반짝이는 현상을 방지하기 위해서 `{{}}` 대신에 `ng-bind`나 `ng-cloak`를 사용하세요.
-* 템플릿에서는 복잡한 표현(expression) 작성을 가능한 자제합니다.
-* 동적으로 src 속성을 사용해야 한다면 `src`를 `{{}}`와 같이 사용하는 대신에 `ng-src`를 사용하세요.
-* 앵커(anchor)태그의 `href`를 동적으로 설정할 때 `href`안에 `{{ }}`템플릿보다는 `ng-href`를 사용하세요.
+* 문서가 깜빡이는 현상을 방지하기 위해서 `{{ }}` 보다는 `ng-bind` 또는 `ng-cloak`을 사용하세요.
+* 템플릿에서 복잡한 표현식(expression) 작성을 피하세요.
+* 이미지의 `src` 속성을 동적으로 설정해야 한다면 `src` 속성에 `{{ }}` 템플릿을 사용하는 대신에 `ng-src`를 사용하세요.
+* 앵커 태그(a)의 `href`를 동적으로 설정할 때 `href`에 `{{ }}` 템플릿을 사용하는 것 보다는 `ng-href`를 사용하세요.
+* 스코프 변수를 문자열로 만들고 `style`에  `{{ }}`로 설정하는 것 보다는, 스코프 변수를 오브젝트로 만들고 'ng-style` 디렉티브에서 사용하세요.
 
-* `style`속성을 $scope에 정의된 문자열로 사용하고 싶을 때 `{{}}`를 사용하는 대신에 `ng-style`를 사용하면 $scope에 객체를 선언해 여러 가지 속성을 한꺼번에 지정할 수 있습니다.
 ```HTML
+<script>
 ...
 $scope.divStyle = {
   width: 200,
   position: 'relative'
 };
 ...
-<div ng-style="divStyle">IE에서도 작동하는 아름다운 스타일을 가진 div</div>;
+</script>
+
+<div ng-style="divStyle">my beautifully styled div which will work in IE</div>;
 ```
 
 # 라우팅
