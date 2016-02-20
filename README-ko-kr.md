@@ -267,7 +267,7 @@ AngularJS 디렉티브는 간결하게 만들고, 표준 속성(attribute)보다
     .pipe(gulp.dest("./dist"));
     ```
 * `$scope`를 오염시키지 마세요. 오직 템플릿에서 사용하는 함수와 변수들만 추가하세요.
-* [`nginit`대신 컨트롤러](https://github.com/angular/angular.js/pull/4366/files)를 사용하세요. `ngInit`를 사용할 수 있는 유일한 상황은 `ngRepeat`의 특별한 프로퍼티의 별칭을 만들 때 뿐입니다. 이 외의 모든 경우에는, `ngInit` 대신 컨트롤러를 사용해야 합니다. The expression passed to `ngInit` should go through lexing, parsing and evaluation by the Angular interpreter implemented inside the `$parse` service. This leads to:
+* [`nginit`대신 컨트롤러](https://github.com/angular/angular.js/commit/010d9b6853a9d2718b095e4c017c9bd5f135e0b0)를 사용하세요. `ngInit`를 사용할 수 있는 상황은 아주 특수한 경우 뿐입니다. 즉, `ngRepeat`의 특별한 프로퍼티의 별칭을 만들 때나, 혹은 서버 사이드 스크립트에서 데이터를 넣는 경우를 말합니다. 이 두가지가 아닌 다른 모든 상황에는, `ngInit` 대신 컨트롤러를 사용해야 합니다. The expression passed to `ngInit` should go through lexing, parsing and evaluation by the Angular interpreter implemented inside the `$parse` service. This leads to:
     - Performance impact, because the interpreter is implemented in JavaScript
     - The caching of the parsed expressions inside the `$parse` service doesn't make a lot of sense in most cases, since `ngInit` expressions are often evaluated only once
     - Is error-prone, since you're writing strings inside your templates, there's no syntax highlighting and further support by your editor
@@ -704,6 +704,10 @@ $scope.divStyle = {
 [<img alt="andela-abankole" src="https://avatars.githubusercontent.com/u/11836769?v=3&s=117" width="117">](https://github.com/andela-abankole) |[<img alt="grapswiz" src="https://avatars.githubusercontent.com/u/309459?v=3&s=117" width="117">](https://github.com/grapswiz) |[<img alt="coderhaoxin" src="https://avatars.githubusercontent.com/u/2569835?v=3&s=117" width="117">](https://github.com/coderhaoxin) |[<img alt="giantray" src="https://avatars.githubusercontent.com/u/5054377?v=3&s=117" width="117">](https://github.com/giantray) |[<img alt="ntaoo" src="https://avatars.githubusercontent.com/u/511213?v=3&s=117" width="117">](https://github.com/ntaoo) |[<img alt="kuzmeig1" src="https://avatars.githubusercontent.com/u/8707951?v=3&s=117" width="117">](https://github.com/kuzmeig1) |
 :---: |:---: |:---: |:---: |:---: |:---: |
 [andela-abankole](https://github.com/andela-abankole) |[grapswiz](https://github.com/grapswiz) |[coderhaoxin](https://github.com/coderhaoxin) |[giantray](https://github.com/giantray) |[ntaoo](https://github.com/ntaoo) |[kuzmeig1](https://github.com/kuzmeig1) |
+
+[<img alt="chatii2412" src="https://avatars.githubusercontent.com/u/3435149?v=3&s=117" width="117">](https://github.com/chatii2412) |
+:---: |
+[chatii2412](https://github.com/chatii2412) |
 
 
 ## 한글화 기여자 명단
