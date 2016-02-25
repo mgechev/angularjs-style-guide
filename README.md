@@ -244,6 +244,7 @@ Services | lowerCamelCase | dataFactory | others
     * `$document` instead of `document`
     * `$http` instead of `$.ajax`
     * `$location` instead of `window.location` or `$window.location`
+    * `$cookies` instead of `document.cookie`
 
 This will make your testing easier and in some cases prevent unexpected behaviour (for example, if you missed `$scope.$apply` in `setTimeout`).
 
