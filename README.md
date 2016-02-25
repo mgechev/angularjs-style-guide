@@ -313,20 +313,20 @@ module.factory('Service', function ($rootScope, $timeout, MyCustomDependency1, M
    In order to prevent problems with minification, you can automatically generate the array definition syntax from    the standard one using tools like [ng-annotate](https://github.com/olov/ng-annotate) (and grunt task          [grunt-ng-annotate](https://github.com/mzgol/grunt-ng-annotate)).
 
    Another alternative will be to use $inject like:
-   
+
    ```JavaScript
   angular
     .module("app")
     .controller("Homepage", Homepage);
-  
+
   Homepage.$inject = ["$scope", "ngRoute"];
-   
+
   function Homepage($scope, ngRoute) {
     // ...
   }
   ```
-  
-   
+
+
 * Prefer using `controller as` syntax:
 
   ```
@@ -724,8 +724,4 @@ For example, you can contribute by extending the Testing section or by translati
 [<img alt="giantray" src="https://avatars.githubusercontent.com/u/5054377?v=3&s=117" width="117">](https://github.com/giantray) |[<img alt="ntaoo" src="https://avatars.githubusercontent.com/u/511213?v=3&s=117" width="117">](https://github.com/ntaoo) |[<img alt="kuzmeig1" src="https://avatars.githubusercontent.com/u/8707951?v=3&s=117" width="117">](https://github.com/kuzmeig1) |
 :---: |:---: |:---: |
 [giantray](https://github.com/giantray) |[ntaoo](https://github.com/ntaoo) |[kuzmeig1](https://github.com/kuzmeig1) |
-
-[<img alt="chatii2412" src="https://avatars.githubusercontent.com/u/3435149?v=3&s=117" width="117">](https://github.com/chatii2412) |
-:---: |
-[chatii2412](https://github.com/chatii2412) |
 
