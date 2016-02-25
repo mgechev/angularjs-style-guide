@@ -1,7 +1,7 @@
 #Introducción
 
 El objetivo de esta guía de estilo es presentar un conjunto de buenas prácticas y reglas de estilo para una aplicación de AngularJS.
-Estas buenas pácticas están recogidas de:
+Estas buenas prácticas están recogidas de:
 
 0. Código fuente de AngularJS
 0. Código fuente de artículos que he leído
