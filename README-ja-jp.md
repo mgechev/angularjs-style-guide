@@ -620,7 +620,7 @@ module.factory('Service', function ($rootScope, $timeout, MyCustomDependency1, M
   * `$watch` 内はできるだけシンプルな処理にします。一つの `$watch` 内で重くて遅い処理を作ってしまうとアプリケーション全体が遅くなってしまいます。(JavaScriptがシングルスレッドである性質上、 `$digest` のループはシングルスレッドで処理されます)。
   * コレクションを監視する場合、ほんとうに必要でなければオブジェクトの中身まで監視をするのはやめましょう。 `$watchCollection` を用いて同等性の浅いレベルでの監視にとどめておくべきです。
   * `$timeout` のコールバック関数が呼ばれることによって影響を受ける監視対象の変数がない場合に、 `$timeout` 関数の3番目のパラメータをfalseにすることで `$digest` ループをスキップします。
-  * 巨大なコレクションを扱う場合、それはほとんど変更されません。[不可変データ構造を利用しましょう](http://blog.mgechev.com/2015/03/02/immutability-in-angularjs-immutablejs/)。 -->
+  * 巨大なコレクションを扱う場合、それはほとんど変更されません。[不可変データ構造を利用しましょう](http://blog.mgechev.com/2015/03/02/immutability-in-angularjs-immutablejs)。 -->
 
 # コントリビューション
 

@@ -649,7 +649,7 @@ $scope.divStyle = {
 	* `$watch`내의 연산은 가능한 간단하게 작성합니다. 하나의 `$watch` 안에서 무겁고 느린 연산을 하는 것은 애플리케이션 전체를 느리게 만들 것입니다 (자바스크립트는 싱글 스레드로 작동하므로 `$digest` 루프 역시 싱글 스레드로 작동합니다).
 	* Collection을 watch할 때에는, 꼭 필요한 경우를 제외하면 deep watch를 하지 마세요.그 대신, 얕은 검사(shallow check)를 수행하는 `$watchCollection`을 사용하세요. (When watching collections, do not watch them deeply when not strongly required. Better use `$watchCollection`, which performs a shallow check for equality of the result of the watched expression and the previous value of the expression's evaluation.)
 	* (`$timeout` 사용 시) 만약 콜백 함수에 영향을 받는 변수가 하나도 없는 경우에는, `$timeout` 함수의 세 번째 파라메터를 false로 설정해 `$digest` 루프를 건너뛰게 합니다.
-	* 거의 바뀌지 않는 거대한 collection을 다룰 때에는, [불변 자료구조를 사용하세요](http://blog.mgechev.com/2015/03/02/immutability-in-angularjs-immutablejs/).
+	* 거의 바뀌지 않는 거대한 collection을 다룰 때에는, [불변 자료구조를 사용하세요](http://blog.mgechev.com/2015/03/02/immutability-in-angularjs-immutablejs).
 
 
 * 네트워크 요청을 줄이기 위해서, 여러 html 템플릿 파일들을 하나로 묶고 메인 자바스크립트 파일에 캐싱하세요. [grunt-html2js](https://github.com/karlgoldstein/grunt-html2js)나 [gulp-html2js](https://github.com/fraserxu/gulp-html2js)를 사용하면 됩니다. 자세한 내용은 [여기](http://ng-learn.org/2014/08/Populating_template_cache_with_html2js/)와 [여기](http://slides.com/yanivefraim-1/real-world-angularjs#/34) 를 참고하세요. 이는 html 템플릿 조각이 아주 많은 프로젝트에서 유용합니다. 압축된(minified and gzipped) 메인 자바스크립트 파일 하나로 해결할 수 있기 때문입니다.

@@ -634,7 +634,7 @@ $scope.divStyle = {
 	* 尽可能使 `$watch` 中的运算简单。在单个 `$watch` 中进行繁杂的运算将使得整个应用变慢(由于JavaScript的单线程特性，`$digest` loop 只能在单一线程进行)
 	* 当监听集合时, 如果不是必要的话不要深度监听. 最好使用 `$watchCollection`, 对监听的表达式和之前表达式的值进行浅层的检测.
 	* 当没有变量被  `$timeout` 回调函数所影响时，在 `$timeout` 设置第三个参数为 false 来跳过 `$digest` 循环.
-	* 当面对超大不太改变的集合, [使用 immutable data structures](http://blog.mgechev.com/2015/03/02/immutability-in-angularjs-immutablejs/).
+	* 当面对超大不太改变的集合, [使用 immutable data structures](http://blog.mgechev.com/2015/03/02/immutability-in-angularjs-immutablejs).
 
 
 * 用打包、缓存html模板文件到你的主js文件中，减少网络请求, 可以用 [grunt-html2js](https://github.com/karlgoldstein/grunt-html2js) / [gulp-html2js](https://github.com/fraserxu/gulp-html2js). 详见 [这里](http://ng-learn.org/2014/08/Populating_template_cache_with_html2js/) 和 [这里](http://slides.com/yanivefraim-1/real-world-angularjs#/34) 。 在项目有很多小html模板并可以放进主js文件中时（通过minify和gzip压缩），这个办法是很有用的。
