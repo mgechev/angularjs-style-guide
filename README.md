@@ -313,7 +313,7 @@ module.factory('Service', function ($rootScope, $timeout, MyCustomDependency1, M
 
    In order to prevent problems with minification, you can automatically generate the array definition syntax from    the standard one using tools like [ng-annotate](https://github.com/olov/ng-annotate) (and grunt task          [grunt-ng-annotate](https://github.com/mzgol/grunt-ng-annotate)).
 
-   Another alternative will be to use $inject like:
+   Another alternative will be to use `$inject` like:
 
    ```JavaScript
   angular
