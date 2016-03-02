@@ -348,10 +348,7 @@ There are two main approaches:</p>
 <code>$location</code> instead of <code>window.location</code> or <code>$window.location</code>
 </li>
 <li>
-<code>$timeout</code> instead of <code>setTimeout</code>
-</li>
-<li>
-<code>$interval</code> instead of <code>setInterval</code>
+<code>$cookies</code> instead of <code>document.cookie</code>
 </li>
 </ul>
 </li>
@@ -383,7 +380,7 @@ There are two main approaches:</p>
 .<span class="pl-en">pipe</span>(<span class="pl-smi">gulp</span>.<span class="pl-en">dest</span>(<span class="pl-s"><span class="pl-pds">"</span>./dist<span class="pl-pds">"</span></span>));</pre></div>
 </li>
 <li>Do not pollute your <code>$scope</code>. Only add functions and variables that are being used in the templates.</li>
-<li>Prefer the usage of <a href="https://github.com/angular/angular.js/pull/4366/files">controllers instead of <code>ngInit</code></a>. The only appropriate use of <code>ngInit</code> is for aliasing special properties of <code>ngRepeat</code>. Besides this case, you should use controllers rather than <code>ngInit</code> to initialize values on a scope. The expression passed to <code>ngInit</code> should go through lexing, parsing and evaluation by the Angular interpreter implemented inside the <code>$parse</code> service. This leads to:
+<li>Prefer the usage of <a href="https://github.com/angular/angular.js/commit/010d9b6853a9d2718b095e4c017c9bd5f135e0b0">controllers instead of <code>ngInit</code></a>. There are only a few appropriate uses of ngInit, such as for aliasing special properties of ngRepeat, and for injecting data via server side scripting. Besides these few cases, you should use controllers rather than ngInit to initialize values on a scope. The expression passed to <code>ngInit</code> should go through lexing, parsing and evaluation by the Angular interpreter implemented inside the <code>$parse</code> service. This leads to:
 
 <ul>
 <li>Performance impact, because the interpreter is implemented in JavaScript</li>
@@ -397,7 +394,7 @@ There are two main approaches:</p>
 <li>When resolving dependencies through the DI mechanism of AngularJS, sort the dependencies by their type - the built-in AngularJS dependencies should be first, followed by your custom ones:</li>
 </ul>
 
-<div class="highlight highlight-source-js"><pre><span class="pl-smi">module</span>.<span class="pl-en">factory</span>(<span class="pl-s"><span class="pl-pds">'</span>Service<span class="pl-pds">'</span></span>, <span class="pl-k">function</span> (<span class="pl-smi">$rootScope</span>, <span class="pl-smi">$timeout</span>, <span class="pl-smi">MyCustomDependency1</span>, <span class="pl-smi">MyCustomDependency2</span>) {
+<div class="highlight highlight-source-js"><pre><span class="pl-c1">module</span>.<span class="pl-en">factory</span>(<span class="pl-s"><span class="pl-pds">'</span>Service<span class="pl-pds">'</span></span>, <span class="pl-k">function</span> (<span class="pl-smi">$rootScope</span>, <span class="pl-smi">$timeout</span>, <span class="pl-smi">MyCustomDependency1</span>, <span class="pl-smi">MyCustomDependency2</span>) {
   <span class="pl-k">return</span> {
     <span class="pl-c">//Something</span>
   };
@@ -435,9 +432,21 @@ There are two main approaches:</p>
 <div class="highlight highlight-source-js"><pre><span class="pl-k">function</span> <span class="pl-en">MyCtrl</span>(<span class="pl-smi">dependency1</span>, <span class="pl-smi">dependency2</span>, ..., <span class="pl-smi">dependencyn</span>) {
   <span class="pl-c">// ...</span>
 }
-<span class="pl-smi">module</span>.<span class="pl-en">controller</span>(<span class="pl-s"><span class="pl-pds">'</span>MyCtrl<span class="pl-pds">'</span></span>, MyCtrl);</pre></div>
+<span class="pl-c1">module</span>.<span class="pl-en">controller</span>(<span class="pl-s"><span class="pl-pds">'</span>MyCtrl<span class="pl-pds">'</span></span>, MyCtrl);</pre></div>
 
 <p>In order to prevent problems with minification, you can automatically generate the array definition syntax from    the standard one using tools like <a href="https://github.com/olov/ng-annotate">ng-annotate</a> (and grunt task          <a href="https://github.com/mzgol/grunt-ng-annotate">grunt-ng-annotate</a>).</p>
+
+<p>Another alternative will be to use <code>$inject</code> like:</p>
+
+<div class="highlight highlight-source-js"><pre>angular
+  .<span class="pl-en">module</span>(<span class="pl-s"><span class="pl-pds">"</span>app<span class="pl-pds">"</span></span>)
+  .<span class="pl-en">controller</span>(<span class="pl-s"><span class="pl-pds">"</span>Homepage<span class="pl-pds">"</span></span>, Homepage);
+
+<span class="pl-smi">Homepage</span>.<span class="pl-smi">$inject</span> <span class="pl-k">=</span> [<span class="pl-s"><span class="pl-pds">"</span>$scope<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>ngRoute<span class="pl-pds">"</span></span>];
+
+<span class="pl-k">function</span> <span class="pl-en">Homepage</span>(<span class="pl-smi">$scope</span>, <span class="pl-smi">ngRoute</span>) {
+  <span class="pl-c">// ...</span>
+}</pre></div>
 </li>
 <li>
 <p>Prefer using <code>controller as</code> syntax:</p>
@@ -489,14 +498,14 @@ There are two main approaches:</p>
   <span class="pl-c">// ...</span>
 }
 
-<span class="pl-smi">module</span>.<span class="pl-en">controller</span>(<span class="pl-s"><span class="pl-pds">'</span>MyCtrl<span class="pl-pds">'</span></span>, [<span class="pl-s"><span class="pl-pds">'</span>$scope<span class="pl-pds">'</span></span>, MyCtrl]);</pre></div>
+<span class="pl-c1">module</span>.<span class="pl-en">controller</span>(<span class="pl-s"><span class="pl-pds">'</span>MyCtrl<span class="pl-pds">'</span></span>, [<span class="pl-s"><span class="pl-pds">'</span>$scope<span class="pl-pds">'</span></span>, MyCtrl]);</pre></div>
 
 <p>which is less readable than:</p>
 
 <div class="highlight highlight-source-js"><pre><span class="pl-k">function</span> <span class="pl-en">MyCtrl</span>(<span class="pl-smi">$scope</span>) {
   <span class="pl-c">// ...</span>
 }
-<span class="pl-smi">module</span>.<span class="pl-en">controller</span>(<span class="pl-s"><span class="pl-pds">'</span>MyCtrl<span class="pl-pds">'</span></span>, [<span class="pl-s"><span class="pl-pds">'</span>$scope<span class="pl-pds">'</span></span>, MyCtrl]);</pre></div>
+<span class="pl-c1">module</span>.<span class="pl-en">controller</span>(<span class="pl-s"><span class="pl-pds">'</span>MyCtrl<span class="pl-pds">'</span></span>, [<span class="pl-s"><span class="pl-pds">'</span>$scope<span class="pl-pds">'</span></span>, MyCtrl]);</pre></div>
 
 <p>This especially applies to a file that has so much code that you'd need to scroll through. This would possibly cause you to forget which variable is tied to which dependency.</p>
 </li>
@@ -579,20 +588,20 @@ For example:</p>
    <span class="pl-c">// ...</span>
  };
 }
-<span class="pl-smi">module</span>.<span class="pl-en">filter</span>(<span class="pl-s"><span class="pl-pds">'</span>myFormat<span class="pl-pds">'</span></span>, myFormat);
+<span class="pl-c1">module</span>.<span class="pl-en">filter</span>(<span class="pl-s"><span class="pl-pds">'</span>myFormat<span class="pl-pds">'</span></span>, myFormat);
 
 <span class="pl-k">function</span> <span class="pl-en">MyCtrl</span>(<span class="pl-smi">$scope</span>, <span class="pl-smi">myFormatFilter</span>) {
  <span class="pl-c">// ...</span>
 }
 
-<span class="pl-smi">module</span>.<span class="pl-en">controller</span>(<span class="pl-s"><span class="pl-pds">'</span>MyCtrl<span class="pl-pds">'</span></span>, MyCtrl);</pre></div>
+<span class="pl-c1">module</span>.<span class="pl-en">controller</span>(<span class="pl-s"><span class="pl-pds">'</span>MyCtrl<span class="pl-pds">'</span></span>, MyCtrl);</pre></div>
 </li>
 <li>
 <p>In case of nested controllers use "nested scoping" (the <code>controllerAs</code> syntax):</p>
 
 <p><strong>app.js</strong></p>
 
-<div class="highlight highlight-source-js"><pre><span class="pl-smi">module</span>.<span class="pl-en">config</span>(<span class="pl-k">function</span> (<span class="pl-smi">$routeProvider</span>) {
+<div class="highlight highlight-source-js"><pre><span class="pl-c1">module</span>.<span class="pl-en">config</span>(<span class="pl-k">function</span> (<span class="pl-smi">$routeProvider</span>) {
  $routeProvider
    .<span class="pl-en">when</span>(<span class="pl-s"><span class="pl-pds">'</span>/route<span class="pl-pds">'</span></span>, {
      templateUrl<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>partials/template.html<span class="pl-pds">'</span></span>,
@@ -655,14 +664,14 @@ For example:</p>
   <span class="pl-smi">$scope</span>.<span class="pl-smi">user</span> <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">User</span>(<span class="pl-s"><span class="pl-pds">'</span>foo<span class="pl-pds">'</span></span>, <span class="pl-c1">42</span>);
 }
 
-<span class="pl-smi">module</span>.<span class="pl-en">controller</span>(<span class="pl-s"><span class="pl-pds">'</span>MainCtrl<span class="pl-pds">'</span></span>, MainCtrl);
+<span class="pl-c1">module</span>.<span class="pl-en">controller</span>(<span class="pl-s"><span class="pl-pds">'</span>MainCtrl<span class="pl-pds">'</span></span>, MainCtrl);
 
 <span class="pl-k">function</span> <span class="pl-en">User</span>(<span class="pl-smi">name</span>, <span class="pl-smi">age</span>) {
   <span class="pl-v">this</span>.<span class="pl-c1">name</span> <span class="pl-k">=</span> name;
   <span class="pl-v">this</span>.<span class="pl-smi">age</span> <span class="pl-k">=</span> age;
 }
 
-<span class="pl-smi">module</span>.<span class="pl-en">factory</span>(<span class="pl-s"><span class="pl-pds">'</span>User<span class="pl-pds">'</span></span>, <span class="pl-k">function</span> () {
+<span class="pl-c1">module</span>.<span class="pl-en">factory</span>(<span class="pl-s"><span class="pl-pds">'</span>User<span class="pl-pds">'</span></span>, <span class="pl-k">function</span> () {
   <span class="pl-k">return</span> User;
 });</pre></div>
 </li>
@@ -676,7 +685,7 @@ For example:</p>
 <span class="pl-smi">angular</span>.<span class="pl-en">module</span>(<span class="pl-s"><span class="pl-pds">'</span>Store<span class="pl-pds">'</span></span>)
 .<span class="pl-en">factory</span>(<span class="pl-s"><span class="pl-pds">'</span>Order<span class="pl-pds">'</span></span>, <span class="pl-k">function</span> () {
     <span class="pl-k">var</span> <span class="pl-en">add</span> <span class="pl-k">=</span> <span class="pl-k">function</span> (<span class="pl-smi">item</span>) {
-      <span class="pl-v">this</span>.<span class="pl-smi">items</span>.<span class="pl-en">push</span> (item);
+      <span class="pl-v">this</span>.<span class="pl-smi">items</span>.<span class="pl-c1">push</span> (item);
     };
 
     <span class="pl-k">var</span> <span class="pl-en">remove</span> <span class="pl-k">=</span> <span class="pl-k">function</span> (<span class="pl-smi">item</span>) {
@@ -714,7 +723,7 @@ For example:</p>
 <span class="pl-k">function</span> <span class="pl-en">Developer</span>() {
   <span class="pl-c">//body</span>
 }
-<span class="pl-c1">Developer</span>.<span class="pl-c1">prototype</span> <span class="pl-k">=</span> <span class="pl-smi">Object</span>.<span class="pl-en">create</span>(<span class="pl-smi">Human</span>.<span class="pl-c1">prototype</span>);
+<span class="pl-c1">Developer</span>.<span class="pl-c1">prototype</span> <span class="pl-k">=</span> <span class="pl-c1">Object</span>.<span class="pl-en">create</span>(<span class="pl-smi">Human</span>.<span class="pl-c1">prototype</span>);
 <span class="pl-c1">Developer</span>.<span class="pl-c1">prototype</span>.<span class="pl-en">code</span> <span class="pl-k">=</span> <span class="pl-k">function</span> () {
   <span class="pl-k">return</span> <span class="pl-s"><span class="pl-pds">"</span>I'm coding<span class="pl-pds">"</span></span>;
 };
@@ -802,7 +811,7 @@ For example:</p>
 <li>Make the computations in <code>$watch</code> as simple as possible. Making heavy and slow computations in a single <code>$watch</code> will slow down the whole application (the <code>$digest</code> loop is done in a single thread because of the single-threaded nature of JavaScript).</li>
 <li>When watching collections, do not watch them deeply when not strongly required. Better use <code>$watchCollection</code>, which performs a shallow check for equality of the result of the watched expression and the previous value of the expression's evaluation.</li>
 <li>Set third parameter in <code>$timeout</code> function to false to skip the <code>$digest</code> loop when no watched variables are impacted by the invocation of the <code>$timeout</code> callback function.</li>
-<li>When dealing with big collections, which change rarely, <a href="http://blog.mgechev.com/2015/03/02/immutability-in-angularjs-immutablejs/">use immutable data structures</a>.</li>
+<li>When dealing with big collections, which change rarely, <a href="http://blog.mgechev.com/2015/03/02/immutability-in-angularjs-immutablejs">use immutable data structures</a>.</li>
 </ul>
 </li>
 <li><p>Consider decreasing number of network requests by bundling/caching html template files into your main javascript file, using <a href="https://github.com/karlgoldstein/grunt-html2js">grunt-html2js</a> / <a href="https://github.com/fraserxu/gulp-html2js">gulp-html2js</a>. See <a href="http://ng-learn.org/2014/08/Populating_template_cache_with_html2js/">here</a> and <a href="http://slides.com/yanivefraim-1/real-world-angularjs#/34">here</a> for details. This is particularly useful when the project has a lot of small html templates that can be a part of the main (minified and gzipped) javascript file.</p></li>
@@ -823,9 +832,9 @@ For example, you can contribute by extending the Testing section or by translati
 <th align="center"><a href="https://github.com/mgechev"><img alt="mgechev" src="https://avatars.githubusercontent.com/u/455023?v=3&amp;s=117" width="117"></a></th>
 <th align="center"><a href="https://github.com/morizotter"><img alt="morizotter" src="https://avatars.githubusercontent.com/u/536954?v=3&amp;s=117" width="117"></a></th>
 <th align="center"><a href="https://github.com/pascalockert"><img alt="pascalockert" src="https://avatars.githubusercontent.com/u/4253438?v=3&amp;s=117" width="117"></a></th>
+<th align="center"><a href="https://github.com/chatii2412"><img alt="chatii2412" src="https://avatars.githubusercontent.com/u/3435149?v=3&amp;s=117" width="117"></a></th>
 <th align="center"><a href="https://github.com/yanivefraim"><img alt="yanivefraim" src="https://avatars.githubusercontent.com/u/1336186?v=3&amp;s=117" width="117"></a></th>
 <th align="center"><a href="https://github.com/ericguirbal"><img alt="ericguirbal" src="https://avatars.githubusercontent.com/u/322135?v=3&amp;s=117" width="117"></a></th>
-<th align="center"><a href="https://github.com/agnislav"><img alt="agnislav" src="https://avatars.githubusercontent.com/u/364255?v=3&amp;s=117" width="117"></a></th>
 </tr>
 </thead>
 <tbody>
@@ -833,9 +842,9 @@ For example, you can contribute by extending the Testing section or by translati
 <td align="center"><a href="https://github.com/mgechev">mgechev</a></td>
 <td align="center"><a href="https://github.com/morizotter">morizotter</a></td>
 <td align="center"><a href="https://github.com/pascalockert">pascalockert</a></td>
+<td align="center"><a href="https://github.com/chatii2412">chatii2412</a></td>
 <td align="center"><a href="https://github.com/yanivefraim">yanivefraim</a></td>
 <td align="center"><a href="https://github.com/ericguirbal">ericguirbal</a></td>
-<td align="center"><a href="https://github.com/agnislav">agnislav</a></td>
 </tr>
 </tbody>
 </table>
@@ -843,22 +852,22 @@ For example, you can contribute by extending the Testing section or by translati
 <table>
 <thead>
 <tr>
+<th align="center"><a href="https://github.com/agnislav"><img alt="agnislav" src="https://avatars.githubusercontent.com/u/364255?v=3&amp;s=117" width="117"></a></th>
 <th align="center"><a href="https://github.com/mainyaa"><img alt="mainyaa" src="https://avatars.githubusercontent.com/u/800781?v=3&amp;s=117" width="117"></a></th>
 <th align="center"><a href="https://github.com/ray7551"><img alt="ray7551" src="https://avatars.githubusercontent.com/u/1812388?v=3&amp;s=117" width="117"></a></th>
 <th align="center"><a href="https://github.com/LeonardCModoran"><img alt="LeonardCModoran" src="https://avatars.githubusercontent.com/u/8460505?v=3&amp;s=117" width="117"></a></th>
 <th align="center"><a href="https://github.com/elfinxx"><img alt="elfinxx" src="https://avatars.githubusercontent.com/u/4384908?v=3&amp;s=117" width="117"></a></th>
 <th align="center"><a href="https://github.com/Xuefeng-Zhu"><img alt="Xuefeng-Zhu" src="https://avatars.githubusercontent.com/u/5875315?v=3&amp;s=117" width="117"></a></th>
-<th align="center"><a href="https://github.com/rubystream"><img alt="rubystream" src="https://avatars.githubusercontent.com/u/3200?v=3&amp;s=117" width="117"></a></th>
 </tr>
 </thead>
 <tbody>
 <tr>
+<td align="center"><a href="https://github.com/agnislav">agnislav</a></td>
 <td align="center"><a href="https://github.com/mainyaa">mainyaa</a></td>
 <td align="center"><a href="https://github.com/ray7551">ray7551</a></td>
 <td align="center"><a href="https://github.com/LeonardCModoran">LeonardCModoran</a></td>
 <td align="center"><a href="https://github.com/elfinxx">elfinxx</a></td>
 <td align="center"><a href="https://github.com/Xuefeng-Zhu">Xuefeng-Zhu</a></td>
-<td align="center"><a href="https://github.com/rubystream">rubystream</a></td>
 </tr>
 </tbody>
 </table>
@@ -867,21 +876,21 @@ For example, you can contribute by extending the Testing section or by translati
 <thead>
 <tr>
 <th align="center"><a href="https://github.com/SullyP"><img alt="SullyP" src="https://avatars.githubusercontent.com/u/12484363?v=3&amp;s=117" width="117"></a></th>
+<th align="center"><a href="https://github.com/lukaszklis"><img alt="lukaszklis" src="https://avatars.githubusercontent.com/u/11782?v=3&amp;s=117" width="117"></a></th>
 <th align="center"><a href="https://github.com/giacomocusinato"><img alt="giacomocusinato" src="https://avatars.githubusercontent.com/u/7659518?v=3&amp;s=117" width="117"></a></th>
 <th align="center"><a href="https://github.com/susieyy"><img alt="susieyy" src="https://avatars.githubusercontent.com/u/62295?v=3&amp;s=117" width="117"></a></th>
-<th align="center"><a href="https://github.com/lukaszklis"><img alt="lukaszklis" src="https://avatars.githubusercontent.com/u/11782?v=3&amp;s=117" width="117"></a></th>
-<th align="center"><a href="https://github.com/kuzzmi"><img alt="kuzzmi" src="https://avatars.githubusercontent.com/u/1727140?v=3&amp;s=117" width="117"></a></th>
-<th align="center"><a href="https://github.com/cironunes"><img alt="cironunes" src="https://avatars.githubusercontent.com/u/469908?v=3&amp;s=117" width="117"></a></th>
+<th align="center"><a href="https://github.com/rubystream"><img alt="rubystream" src="https://avatars.githubusercontent.com/u/3200?v=3&amp;s=117" width="117"></a></th>
+<th align="center"><a href="https://github.com/jmblog"><img alt="jmblog" src="https://avatars.githubusercontent.com/u/86085?v=3&amp;s=117" width="117"></a></th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td align="center"><a href="https://github.com/SullyP">SullyP</a></td>
+<td align="center"><a href="https://github.com/lukaszklis">lukaszklis</a></td>
 <td align="center"><a href="https://github.com/giacomocusinato">giacomocusinato</a></td>
 <td align="center"><a href="https://github.com/susieyy">susieyy</a></td>
-<td align="center"><a href="https://github.com/lukaszklis">lukaszklis</a></td>
-<td align="center"><a href="https://github.com/kuzzmi">kuzzmi</a></td>
-<td align="center"><a href="https://github.com/cironunes">cironunes</a></td>
+<td align="center"><a href="https://github.com/rubystream">rubystream</a></td>
+<td align="center"><a href="https://github.com/jmblog">jmblog</a></td>
 </tr>
 </tbody>
 </table>
@@ -889,21 +898,21 @@ For example, you can contribute by extending the Testing section or by translati
 <table>
 <thead>
 <tr>
+<th align="center"><a href="https://github.com/cironunes"><img alt="cironunes" src="https://avatars.githubusercontent.com/u/469908?v=3&amp;s=117" width="117"></a></th>
 <th align="center"><a href="https://github.com/guiltry"><img alt="guiltry" src="https://avatars.githubusercontent.com/u/1484308?v=3&amp;s=117" width="117"></a></th>
 <th align="center"><a href="https://github.com/MertSKaan"><img alt="MertSKaan" src="https://avatars.githubusercontent.com/u/5517637?v=3&amp;s=117" width="117"></a></th>
 <th align="center"><a href="https://github.com/mingchen"><img alt="mingchen" src="https://avatars.githubusercontent.com/u/1002838?v=3&amp;s=117" width="117"></a></th>
 <th align="center"><a href="https://github.com/tornad"><img alt="tornad" src="https://avatars.githubusercontent.com/u/2128499?v=3&amp;s=117" width="117"></a></th>
-<th align="center"><a href="https://github.com/jmblog"><img alt="jmblog" src="https://avatars.githubusercontent.com/u/86085?v=3&amp;s=117" width="117"></a></th>
 <th align="center"><a href="https://github.com/cavarzan"><img alt="cavarzan" src="https://avatars.githubusercontent.com/u/3915288?v=3&amp;s=117" width="117"></a></th>
 </tr>
 </thead>
 <tbody>
 <tr>
+<td align="center"><a href="https://github.com/cironunes">cironunes</a></td>
 <td align="center"><a href="https://github.com/guiltry">guiltry</a></td>
 <td align="center"><a href="https://github.com/MertSKaan">MertSKaan</a></td>
 <td align="center"><a href="https://github.com/mingchen">mingchen</a></td>
 <td align="center"><a href="https://github.com/tornad">tornad</a></td>
-<td align="center"><a href="https://github.com/jmblog">jmblog</a></td>
 <td align="center"><a href="https://github.com/cavarzan">cavarzan</a></td>
 </tr>
 </tbody>
@@ -912,22 +921,22 @@ For example, you can contribute by extending the Testing section or by translati
 <table>
 <thead>
 <tr>
-<th align="center"><a href="https://github.com/nikshulipa"><img alt="nikshulipa" src="https://avatars.githubusercontent.com/u/1872256?v=3&amp;s=117" width="117"></a></th>
+<th align="center"><a href="https://github.com/kuzzmi"><img alt="kuzzmi" src="https://avatars.githubusercontent.com/u/1727140?v=3&amp;s=117" width="117"></a></th>
+<th align="center"><a href="https://github.com/cryptojuice"><img alt="cryptojuice" src="https://avatars.githubusercontent.com/u/458883?v=3&amp;s=117" width="117"></a></th>
 <th align="center"><a href="https://github.com/astalker"><img alt="astalker" src="https://avatars.githubusercontent.com/u/1486567?v=3&amp;s=117" width="117"></a></th>
 <th align="center"><a href="https://github.com/clbn"><img alt="clbn" src="https://avatars.githubusercontent.com/u/1071933?v=3&amp;s=117" width="117"></a></th>
 <th align="center"><a href="https://github.com/atodorov"><img alt="atodorov" src="https://avatars.githubusercontent.com/u/1002300?v=3&amp;s=117" width="117"></a></th>
 <th align="center"><a href="https://github.com/apetro"><img alt="apetro" src="https://avatars.githubusercontent.com/u/952283?v=3&amp;s=117" width="117"></a></th>
-<th align="center"><a href="https://github.com/valgreens"><img alt="valgreens" src="https://avatars.githubusercontent.com/u/903263?v=3&amp;s=117" width="117"></a></th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="center"><a href="https://github.com/nikshulipa">nikshulipa</a></td>
+<td align="center"><a href="https://github.com/kuzzmi">kuzzmi</a></td>
+<td align="center"><a href="https://github.com/cryptojuice">cryptojuice</a></td>
 <td align="center"><a href="https://github.com/astalker">astalker</a></td>
 <td align="center"><a href="https://github.com/clbn">clbn</a></td>
 <td align="center"><a href="https://github.com/atodorov">atodorov</a></td>
 <td align="center"><a href="https://github.com/apetro">apetro</a></td>
-<td align="center"><a href="https://github.com/valgreens">valgreens</a></td>
 </tr>
 </tbody>
 </table>
@@ -935,22 +944,22 @@ For example, you can contribute by extending the Testing section or by translati
 <table>
 <thead>
 <tr>
-<th align="center"><a href="https://github.com/mariolamacchia"><img alt="mariolamacchia" src="https://avatars.githubusercontent.com/u/6282722?v=3&amp;s=117" width="117"></a></th>
+<th align="center"><a href="https://github.com/whoan"><img alt="whoan" src="https://avatars.githubusercontent.com/u/7103003?v=3&amp;s=117" width="117"></a></th>
+<th align="center"><a href="https://github.com/valgreens"><img alt="valgreens" src="https://avatars.githubusercontent.com/u/903263?v=3&amp;s=117" width="117"></a></th>
+<th align="center"><a href="https://github.com/meetbryce"><img alt="meetbryce" src="https://avatars.githubusercontent.com/u/1845143?v=3&amp;s=117" width="117"></a></th>
 <th align="center"><a href="https://github.com/dwmkerr"><img alt="dwmkerr" src="https://avatars.githubusercontent.com/u/1926984?v=3&amp;s=117" width="117"></a></th>
 <th align="center"><a href="https://github.com/dchest"><img alt="dchest" src="https://avatars.githubusercontent.com/u/52677?v=3&amp;s=117" width="117"></a></th>
 <th align="center"><a href="https://github.com/gsamokovarov"><img alt="gsamokovarov" src="https://avatars.githubusercontent.com/u/604618?v=3&amp;s=117" width="117"></a></th>
-<th align="center"><a href="https://github.com/grvcoelho"><img alt="grvcoelho" src="https://avatars.githubusercontent.com/u/7416751?v=3&amp;s=117" width="117"></a></th>
-<th align="center"><a href="https://github.com/yassirh"><img alt="yassirh" src="https://avatars.githubusercontent.com/u/4649139?v=3&amp;s=117" width="117"></a></th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="center"><a href="https://github.com/mariolamacchia">mariolamacchia</a></td>
+<td align="center"><a href="https://github.com/whoan">whoan</a></td>
+<td align="center"><a href="https://github.com/valgreens">valgreens</a></td>
+<td align="center"><a href="https://github.com/meetbryce">meetbryce</a></td>
 <td align="center"><a href="https://github.com/dwmkerr">dwmkerr</a></td>
 <td align="center"><a href="https://github.com/dchest">dchest</a></td>
 <td align="center"><a href="https://github.com/gsamokovarov">gsamokovarov</a></td>
-<td align="center"><a href="https://github.com/grvcoelho">grvcoelho</a></td>
-<td align="center"><a href="https://github.com/yassirh">yassirh</a></td>
 </tr>
 </tbody>
 </table>
@@ -958,22 +967,22 @@ For example, you can contribute by extending the Testing section or by translati
 <table>
 <thead>
 <tr>
+<th align="center"><a href="https://github.com/grvcoelho"><img alt="grvcoelho" src="https://avatars.githubusercontent.com/u/7416751?v=3&amp;s=117" width="117"></a></th>
+<th align="center"><a href="https://github.com/yassirh"><img alt="yassirh" src="https://avatars.githubusercontent.com/u/4649139?v=3&amp;s=117" width="117"></a></th>
 <th align="center"><a href="https://github.com/bargaorobalo"><img alt="bargaorobalo" src="https://avatars.githubusercontent.com/u/993001?v=3&amp;s=117" width="117"></a></th>
 <th align="center"><a href="https://github.com/hermankan"><img alt="hermankan" src="https://avatars.githubusercontent.com/u/2899106?v=3&amp;s=117" width="117"></a></th>
 <th align="center"><a href="https://github.com/jabhishek"><img alt="jabhishek" src="https://avatars.githubusercontent.com/u/1830537?v=3&amp;s=117" width="117"></a></th>
 <th align="center"><a href="https://github.com/jesselpalmer"><img alt="jesselpalmer" src="https://avatars.githubusercontent.com/u/682097?v=3&amp;s=117" width="117"></a></th>
-<th align="center"><a href="https://github.com/capaj"><img alt="capaj" src="https://avatars.githubusercontent.com/u/1305378?v=3&amp;s=117" width="117"></a></th>
-<th align="center"><a href="https://github.com/johnnyghost"><img alt="johnnyghost" src="https://avatars.githubusercontent.com/u/1117330?v=3&amp;s=117" width="117"></a></th>
 </tr>
 </thead>
 <tbody>
 <tr>
+<td align="center"><a href="https://github.com/grvcoelho">grvcoelho</a></td>
+<td align="center"><a href="https://github.com/yassirh">yassirh</a></td>
 <td align="center"><a href="https://github.com/bargaorobalo">bargaorobalo</a></td>
 <td align="center"><a href="https://github.com/hermankan">hermankan</a></td>
 <td align="center"><a href="https://github.com/jabhishek">jabhishek</a></td>
 <td align="center"><a href="https://github.com/jesselpalmer">jesselpalmer</a></td>
-<td align="center"><a href="https://github.com/capaj">capaj</a></td>
-<td align="center"><a href="https://github.com/johnnyghost">johnnyghost</a></td>
 </tr>
 </tbody>
 </table>
@@ -981,22 +990,22 @@ For example, you can contribute by extending the Testing section or by translati
 <table>
 <thead>
 <tr>
+<th align="center"><a href="https://github.com/capaj"><img alt="capaj" src="https://avatars.githubusercontent.com/u/1305378?v=3&amp;s=117" width="117"></a></th>
+<th align="center"><a href="https://github.com/johnnyghost"><img alt="johnnyghost" src="https://avatars.githubusercontent.com/u/1117330?v=3&amp;s=117" width="117"></a></th>
 <th align="center"><a href="https://github.com/jordanyee"><img alt="jordanyee" src="https://avatars.githubusercontent.com/u/3303098?v=3&amp;s=117" width="117"></a></th>
 <th align="center"><a href="https://github.com/nacyot"><img alt="nacyot" src="https://avatars.githubusercontent.com/u/148919?v=3&amp;s=117" width="117"></a></th>
-<th align="center"><a href="https://github.com/meetbryce"><img alt="meetbryce" src="https://avatars.githubusercontent.com/u/1845143?v=3&amp;s=117" width="117"></a></th>
+<th align="center"><a href="https://github.com/mariolamacchia"><img alt="mariolamacchia" src="https://avatars.githubusercontent.com/u/6282722?v=3&amp;s=117" width="117"></a></th>
 <th align="center"><a href="https://github.com/mischkl"><img alt="mischkl" src="https://avatars.githubusercontent.com/u/8177979?v=3&amp;s=117" width="117"></a></th>
-<th align="center"><a href="https://github.com/kirstein"><img alt="kirstein" src="https://avatars.githubusercontent.com/u/426442?v=3&amp;s=117" width="117"></a></th>
-<th align="center"><a href="https://github.com/mo-gr"><img alt="mo-gr" src="https://avatars.githubusercontent.com/u/95577?v=3&amp;s=117" width="117"></a></th>
 </tr>
 </thead>
 <tbody>
 <tr>
+<td align="center"><a href="https://github.com/capaj">capaj</a></td>
+<td align="center"><a href="https://github.com/johnnyghost">johnnyghost</a></td>
 <td align="center"><a href="https://github.com/jordanyee">jordanyee</a></td>
 <td align="center"><a href="https://github.com/nacyot">nacyot</a></td>
-<td align="center"><a href="https://github.com/meetbryce">meetbryce</a></td>
+<td align="center"><a href="https://github.com/mariolamacchia">mariolamacchia</a></td>
 <td align="center"><a href="https://github.com/mischkl">mischkl</a></td>
-<td align="center"><a href="https://github.com/kirstein">kirstein</a></td>
-<td align="center"><a href="https://github.com/mo-gr">mo-gr</a></td>
 </tr>
 </tbody>
 </table>
@@ -1004,22 +1013,22 @@ For example, you can contribute by extending the Testing section or by translati
 <table>
 <thead>
 <tr>
+<th align="center"><a href="https://github.com/kirstein"><img alt="kirstein" src="https://avatars.githubusercontent.com/u/426442?v=3&amp;s=117" width="117"></a></th>
+<th align="center"><a href="https://github.com/mo-gr"><img alt="mo-gr" src="https://avatars.githubusercontent.com/u/95577?v=3&amp;s=117" width="117"></a></th>
 <th align="center"><a href="https://github.com/mortonfox"><img alt="mortonfox" src="https://avatars.githubusercontent.com/u/495892?v=3&amp;s=117" width="117"></a></th>
-<th align="center"><a href="https://github.com/cryptojuice"><img alt="cryptojuice" src="https://avatars.githubusercontent.com/u/458883?v=3&amp;s=117" width="117"></a></th>
 <th align="center"><a href="https://github.com/dreame4"><img alt="dreame4" src="https://avatars.githubusercontent.com/u/277870?v=3&amp;s=117" width="117"></a></th>
+<th align="center"><a href="https://github.com/nikshulipa"><img alt="nikshulipa" src="https://avatars.githubusercontent.com/u/1872256?v=3&amp;s=117" width="117"></a></th>
 <th align="center"><a href="https://github.com/olov"><img alt="olov" src="https://avatars.githubusercontent.com/u/19247?v=3&amp;s=117" width="117"></a></th>
-<th align="center"><a href="https://github.com/vorktanamobay"><img alt="vorktanamobay" src="https://avatars.githubusercontent.com/u/2623355?v=3&amp;s=117" width="117"></a></th>
-<th align="center"><a href="https://github.com/sahat"><img alt="sahat" src="https://avatars.githubusercontent.com/u/544954?v=3&amp;s=117" width="117"></a></th>
 </tr>
 </thead>
 <tbody>
 <tr>
+<td align="center"><a href="https://github.com/kirstein">kirstein</a></td>
+<td align="center"><a href="https://github.com/mo-gr">mo-gr</a></td>
 <td align="center"><a href="https://github.com/mortonfox">mortonfox</a></td>
-<td align="center"><a href="https://github.com/cryptojuice">cryptojuice</a></td>
 <td align="center"><a href="https://github.com/dreame4">dreame4</a></td>
+<td align="center"><a href="https://github.com/nikshulipa">nikshulipa</a></td>
 <td align="center"><a href="https://github.com/olov">olov</a></td>
-<td align="center"><a href="https://github.com/vorktanamobay">vorktanamobay</a></td>
-<td align="center"><a href="https://github.com/sahat">sahat</a></td>
 </tr>
 </tbody>
 </table>
@@ -1027,22 +1036,22 @@ For example, you can contribute by extending the Testing section or by translati
 <table>
 <thead>
 <tr>
+<th align="center"><a href="https://github.com/vorktanamobay"><img alt="vorktanamobay" src="https://avatars.githubusercontent.com/u/2623355?v=3&amp;s=117" width="117"></a></th>
+<th align="center"><a href="https://github.com/sahat"><img alt="sahat" src="https://avatars.githubusercontent.com/u/544954?v=3&amp;s=117" width="117"></a></th>
 <th align="center"><a href="https://github.com/ganchiku"><img alt="ganchiku" src="https://avatars.githubusercontent.com/u/149973?v=3&amp;s=117" width="117"></a></th>
 <th align="center"><a href="https://github.com/kaneshin"><img alt="kaneshin" src="https://avatars.githubusercontent.com/u/936972?v=3&amp;s=117" width="117"></a></th>
 <th align="center"><a href="https://github.com/imaimiami"><img alt="imaimiami" src="https://avatars.githubusercontent.com/u/2256037?v=3&amp;s=117" width="117"></a></th>
-<th align="center"><a href="https://github.com/dooart"><img alt="dooart" src="https://avatars.githubusercontent.com/u/371426?v=3&amp;s=117" width="117"></a></th>
-<th align="center"><a href="https://github.com/thomastuts"><img alt="thomastuts" src="https://avatars.githubusercontent.com/u/1914255?v=3&amp;s=117" width="117"></a></th>
-<th align="center"><a href="https://github.com/VladimirKazan"><img alt="VladimirKazan" src="https://avatars.githubusercontent.com/u/3514422?v=3&amp;s=117" width="117"></a></th>
+<th align="center"><a href="https://github.com/andela-abankole"><img alt="andela-abankole" src="https://avatars.githubusercontent.com/u/11836769?v=3&amp;s=117" width="117"></a></th>
 </tr>
 </thead>
 <tbody>
 <tr>
+<td align="center"><a href="https://github.com/vorktanamobay">vorktanamobay</a></td>
+<td align="center"><a href="https://github.com/sahat">sahat</a></td>
 <td align="center"><a href="https://github.com/ganchiku">ganchiku</a></td>
 <td align="center"><a href="https://github.com/kaneshin">kaneshin</a></td>
 <td align="center"><a href="https://github.com/imaimiami">imaimiami</a></td>
-<td align="center"><a href="https://github.com/dooart">dooart</a></td>
-<td align="center"><a href="https://github.com/thomastuts">thomastuts</a></td>
-<td align="center"><a href="https://github.com/VladimirKazan">VladimirKazan</a></td>
+<td align="center"><a href="https://github.com/andela-abankole">andela-abankole</a></td>
 </tr>
 </tbody>
 </table>
@@ -1050,9 +1059,29 @@ For example, you can contribute by extending the Testing section or by translati
 <table>
 <thead>
 <tr>
-<th align="center"><a href="https://github.com/andela-abankole"><img alt="andela-abankole" src="https://avatars.githubusercontent.com/u/11836769?v=3&amp;s=117" width="117"></a></th>
+<th align="center"><a href="https://github.com/thomastuts"><img alt="thomastuts" src="https://avatars.githubusercontent.com/u/1914255?v=3&amp;s=117" width="117"></a></th>
+<th align="center"><a href="https://github.com/UrielMiranda"><img alt="UrielMiranda" src="https://avatars.githubusercontent.com/u/12901838?v=3&amp;s=117" width="117"></a></th>
+<th align="center"><a href="https://github.com/VladimirKazan"><img alt="VladimirKazan" src="https://avatars.githubusercontent.com/u/3514422?v=3&amp;s=117" width="117"></a></th>
+<th align="center"><a href="https://github.com/dooart"><img alt="dooart" src="https://avatars.githubusercontent.com/u/371426?v=3&amp;s=117" width="117"></a></th>
 <th align="center"><a href="https://github.com/grapswiz"><img alt="grapswiz" src="https://avatars.githubusercontent.com/u/309459?v=3&amp;s=117" width="117"></a></th>
 <th align="center"><a href="https://github.com/coderhaoxin"><img alt="coderhaoxin" src="https://avatars.githubusercontent.com/u/2569835?v=3&amp;s=117" width="117"></a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><a href="https://github.com/thomastuts">thomastuts</a></td>
+<td align="center"><a href="https://github.com/UrielMiranda">UrielMiranda</a></td>
+<td align="center"><a href="https://github.com/VladimirKazan">VladimirKazan</a></td>
+<td align="center"><a href="https://github.com/dooart">dooart</a></td>
+<td align="center"><a href="https://github.com/grapswiz">grapswiz</a></td>
+<td align="center"><a href="https://github.com/coderhaoxin">coderhaoxin</a></td>
+</tr>
+</tbody>
+</table>
+
+<table>
+<thead>
+<tr>
 <th align="center"><a href="https://github.com/giantray"><img alt="giantray" src="https://avatars.githubusercontent.com/u/5054377?v=3&amp;s=117" width="117"></a></th>
 <th align="center"><a href="https://github.com/ntaoo"><img alt="ntaoo" src="https://avatars.githubusercontent.com/u/511213?v=3&amp;s=117" width="117"></a></th>
 <th align="center"><a href="https://github.com/kuzmeig1"><img alt="kuzmeig1" src="https://avatars.githubusercontent.com/u/8707951?v=3&amp;s=117" width="117"></a></th>
@@ -1060,9 +1089,6 @@ For example, you can contribute by extending the Testing section or by translati
 </thead>
 <tbody>
 <tr>
-<td align="center"><a href="https://github.com/andela-abankole">andela-abankole</a></td>
-<td align="center"><a href="https://github.com/grapswiz">grapswiz</a></td>
-<td align="center"><a href="https://github.com/coderhaoxin">coderhaoxin</a></td>
 <td align="center"><a href="https://github.com/giantray">giantray</a></td>
 <td align="center"><a href="https://github.com/ntaoo">ntaoo</a></td>
 <td align="center"><a href="https://github.com/kuzmeig1">kuzmeig1</a></td>
