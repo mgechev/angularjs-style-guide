@@ -233,7 +233,7 @@ Controllers | Functionality + 'Ctrl'  | AdminCtrl |
 Directives | lowerCamelCase  | userInfo |
 Filters | lowerCamelCase | userFilter |
 Services | UpperCamelCase | User | constructor
-Services | lowerCamelCase | dataFactory | others
+Factories | lowerCamelCase | dataFactory | others
 
 ## Others
 
