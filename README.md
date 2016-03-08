@@ -756,7 +756,7 @@ For example, you can contribute by extending the Testing section or by translati
 :---: |:---: |:---: |:---: |:---: |:---: |
 [thomastuts](https://github.com/thomastuts) |[UrielMiranda](https://github.com/UrielMiranda) |[VladimirKazan](https://github.com/VladimirKazan) |[dooart](https://github.com/dooart) |[grapswiz](https://github.com/grapswiz) |[coderhaoxin](https://github.com/coderhaoxin) |
 
-[<img alt="giantray" src="https://avatars.githubusercontent.com/u/5054377?v=3&s=117" width="117">](https://github.com/giantray) |[<img alt="ntaoo" src="https://avatars.githubusercontent.com/u/511213?v=3&s=117" width="117">](https://github.com/ntaoo) |[<img alt="kuzmeig1" src="https://avatars.githubusercontent.com/u/8707951?v=3&s=117" width="117">](https://github.com/kuzmeig1) |
+[<img alt="giantray" src="https://avatars.githubusercontent.com/u/5054377?v=3&s=117" width="117">](https://github.com/giantray) |[<img alt="ntaoo" src="https://avatars.githubusercontent.com/u/511213?v=3&s=117" width="117">](https://github.com/ntaoo) |[<img alt="kuzmeig1" src="https://avatars.githubusercontent.com/u/8707951?v=3&s=117" width="117">](https://github.com/kuzmeig1) |[<img alt="kuzmeig1" src="https://avatars.githubusercontent.com/u/3485075?v=3&s=117" width="117">](https://github.com/luixaviles) |
 :---: |:---: |:---: |:---: |
 [giantray](https://github.com/giantray) |[ntaoo](https://github.com/ntaoo) |[kuzmeig1](https://github.com/kuzmeig1) |[luixaviles](https://github.com/luixaviles) |
 
