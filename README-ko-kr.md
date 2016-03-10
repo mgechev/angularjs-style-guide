@@ -233,7 +233,7 @@ AngularJS 디렉티브는 간결하게 만들고, 표준 속성(attribute)보다
 디렉티브 | lowerCamelCase  | userInfo |
 필터 | lowerCamelCase | userFilter |
 서비스 | UpperCamelCase | User | 생성자
-서비스 | lowerCamelCase | dataFactory | 기타
+팩토리 | lowerCamelCase | dataFactory | 기타
 
 ## 기타
 
