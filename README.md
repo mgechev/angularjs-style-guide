@@ -439,23 +439,23 @@ module.factory('Service', function ($rootScope, $timeout, MyCustomDependency1, M
   When delegating business logic into a 'model' service, controller will look like this (see 'use services as your Model' for service-model implementation):
 
   ```Javascript
-  //Order is used as a 'model'
+  // order is used as a 'model'
   angular.module('Store', [])
-  .controller('OrderCtrl', function (Order) {
+  .controller('OrderCtrl', function (order) {
     var vm = this;
 
-    vm.items = Order.items;
+    vm.items = order.items;
 
     vm.addToOrder = function (item) {
-      Order.addToOrder(item);
+      order.addToOrder(item);
     };
 
     vm.removeFromOrder = function (item) {
-      Order.removeFromOrder(item);
+      order.removeFromOrder(item);
     };
 
     vm.totalPrice = function () {
-      return Order.total();
+      return order.total();
     };
   });
   ```
@@ -572,9 +572,9 @@ This section includes information about the service component in AngularJS. It i
 
 * Encapsulate all the business logic in services. Prefer using it as your `model`. For example:
   ```Javascript
-  //Order is the 'model'
+  // order is the 'model'
   angular.module('Store')
-  .factory('Order', function () {
+  .factory('order', function () {
       var add = function (item) {
         this.items.push (item);
       };
