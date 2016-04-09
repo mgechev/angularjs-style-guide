@@ -233,7 +233,7 @@ Controllers | Functionality + 'Ctrl'  | AdminCtrl |
 Directives | lowerCamelCase  | userInfo |
 Filters | lowerCamelCase | userFilter |
 Services | UpperCamelCase | User | constructor
-Services | lowerCamelCase | dataFactory | others
+Factories | lowerCamelCase | dataFactory | others
 
 ## Others
 
@@ -244,6 +244,7 @@ Services | lowerCamelCase | dataFactory | others
     * `$document` instead of `document`
     * `$http` instead of `$.ajax`
     * `$location` instead of `window.location` or `$window.location`
+    * `$cookies` instead of `document.cookie`
 
 This will make your testing easier and in some cases prevent unexpected behaviour (for example, if you missed `$scope.$apply` in `setTimeout`).
 
@@ -312,49 +313,68 @@ module.factory('Service', function ($rootScope, $timeout, MyCustomDependency1, M
 
    In order to prevent problems with minification, you can automatically generate the array definition syntax from    the standard one using tools like [ng-annotate](https://github.com/olov/ng-annotate) (and grunt task          [grunt-ng-annotate](https://github.com/mzgol/grunt-ng-annotate)).
 
-   Another alternative will be to use $inject like:
+   Another alternative will be to use `$inject` like:
 
    ```JavaScript
   angular
-    .module("app")
-    .controller("Homepage", Homepage);
+    .module('app')
+    .controller('Homepage', Homepage);
 
-  Homepage.$inject = ["$scope", "ngRoute"];
+  Homepage.$inject = ['$log', '$http', 'ngRoute'];
 
-  function Homepage($scope, ngRoute) {
+  function Homepage($log, $http, ngRoute) {
     // ...
   }
   ```
 
+* Avoid use of `$scope` service to define functions and properties as part of controllers. Use `$scope` only if It's really needed:
+    0. For publish and subscribe to events: `$scope.$emit`, `$scope.$broadcast`, and `$scope.$on`.
+    0. For _watch_ values or collections: `$scope.$watch`, `$scope.$watchCollection`
 
-* Prefer using `controller as` syntax:
+* Prefer using `controller as` syntax and capture `this` using a variable:
 
-  ```
+  ```html
   <div ng-controller="MainCtrl as main">
-     {{ main.title }}
+     {{ main.things }}
   </div>
   ```
 
   ```JavaScript
   app.controller('MainCtrl', MainCtrl);
+  MainCtrl.$inject = ['$http'];
 
-  function MainCtrl () {
-    this.title = 'Some title';
-  }
-  ```
-
-   or another good practice
-
-   ```JavaScript
-  app.controller('MainCtrl', MainCtrl);
-
-  function MainCtrl () {
-    var main = this;
+  function MainCtrl ($http) {
+    var vm = this;
     //a clearer visual connection on how is defined on the view
-    main.title = 'Some title';
-    main.description = 'Some description';
+    vm.title = 'Some title';
+    vm.description = 'Some description';
+
+    $http.get('/api/main/things').success(function (things) {
+        vm.things = things; // Adding 'things' as a property of the controller
+    });
   }
   ```
+
+   Avoid using `this` keyword repeatedly inside a controller:
+
+  ```JavaScript
+    app.controller('MainCtrl', MainCtrl);
+    MainCtrl.$inject = ['$http'];
+
+    // Avoid
+    function MainCtrl ($http) {
+      this.title = 'Some title';
+      this.description = 'Some description';
+
+      $http.get('/api/main/things').success(function (things) {
+          // Warning! 'this' is in a different context here.
+          // The property will not be added as part of the controller context
+          this.things = things;
+      });
+    }
+    ```
+
+   Using a consistent and short variable name is preferred, for example `vm`.
 
    The main benefits of using this syntax:
    * Creates an 'isolated' component - binded properties are not part of `$scope` prototype chain. This is good practice since `$scope` prototype inheritance has some major drawbacks (this is probably the reason it was removed on Angular 2):
@@ -362,27 +382,28 @@ module.factory('Service', function ($rootScope, $timeout, MyCustomDependency1, M
       * Scope's value changes can affect places you did not intend to affect.
       * Harder to refactor.
       * The '[dot rule](http://jimhoskins.com/2012/12/14/nested-scopes-in-angularjs.html)'.
-   * Removes the use of `$scope` when no need for special operations (like `$scope.$broadcast`). This is a good preparation for AngularJS V2.
+   * Removes the use of `$scope` when no need for special operations (as mentioned above). This is a good preparation for AngularJS V2.
    * Syntax is closer to that of a 'vanilla' JavaScript constructor
 
    Digging more into `controller as`: [digging-into-angulars-controller-as-syntax](http://toddmotto.com/digging-into-angulars-controller-as-syntax/)
 * If using array definition syntax, use the original names of the controller's dependencies. This will help you produce more readable code:
 
   ```JavaScript
-  function MyCtrl(s) {
+  function MyCtrl(l, h) {
     // ...
   }
 
-  module.controller('MyCtrl', ['$scope', MyCtrl]);
+  module.controller('MyCtrl', ['$log', '$http', MyCtrl]);
   ```
 
    which is less readable than:
 
   ```JavaScript
-  function MyCtrl($scope) {
+  function MyCtrl($log, $http) {
     // ...
   }
-  module.controller('MyCtrl', ['$scope', MyCtrl]);
+
+  module.controller('MyCtrl', ['$log', '$http', MyCtrl]);
   ```
 
    This especially applies to a file that has so much code that you'd need to scroll through. This would possibly cause you to forget which variable is tied to which dependency.
@@ -394,20 +415,21 @@ module.factory('Service', function ($rootScope, $timeout, MyCustomDependency1, M
   ```Javascript
   //This is a common behaviour (bad example) of using business logic inside a controller.
   angular.module('Store', [])
-  .controller('OrderCtrl', function ($scope) {
+  .controller('OrderCtrl', function () {
+    var vm = this;
 
-    $scope.items = [];
+    vm.items = [];
 
-    $scope.addToOrder = function (item) {
-      $scope.items.push(item);//-->Business logic inside controller
+    vm.addToOrder = function (item) {
+      vm.items.push(item);//-->Business logic inside controller
     };
 
-    $scope.removeFromOrder = function (item) {
-      $scope.items.splice($scope.items.indexOf(item), 1);//-->Business logic inside controller
+    vm.removeFromOrder = function (item) {
+      vm.items.splice(vm.items.indexOf(item), 1);//-->Business logic inside controller
     };
 
-    $scope.totalPrice = function () {
-      return $scope.items.reduce(function (memo, item) {
+    vm.totalPrice = function () {
+      return vm.items.reduce(function (memo, item) {
         return memo + (item.qty * item.price);//-->Business logic inside controller
       }, 0);
     };
@@ -417,22 +439,23 @@ module.factory('Service', function ($rootScope, $timeout, MyCustomDependency1, M
   When delegating business logic into a 'model' service, controller will look like this (see 'use services as your Model' for service-model implementation):
 
   ```Javascript
-  //Order is used as a 'model'
+  // order is used as a 'model'
   angular.module('Store', [])
-  .controller('OrderCtrl', function (Order) {
+  .controller('OrderCtrl', function (order) {
+    var vm = this;
 
-    $scope.items = Order.items;
+    vm.items = order.items;
 
-    $scope.addToOrder = function (item) {
-      Order.addToOrder(item);
+    vm.addToOrder = function (item) {
+      order.addToOrder(item);
     };
 
-    $scope.removeFromOrder = function (item) {
-      Order.removeFromOrder(item);
+    vm.removeFromOrder = function (item) {
+      order.removeFromOrder(item);
     };
 
-    $scope.totalPrice = function () {
-      return Order.total();
+    vm.totalPrice = function () {
+      return order.total();
     };
   });
   ```
@@ -492,11 +515,13 @@ module.factory('Service', function ($rootScope, $timeout, MyCustomDependency1, M
    **HomeCtrl**
    ```javascript
    function HomeCtrl() {
-     this.bindingValue = 42;
+     var vm = this;
+
+     vm.bindingValue = 42;
    }
    ```
    **template.html**
-   ```
+   ```html
    <div ng-bind="home.bindingValue"></div>
    ```
 
@@ -526,8 +551,9 @@ This section includes information about the service component in AngularJS. It i
   * UpperCamelCase (PascalCase) for naming your services, used as constructor functions i.e.:
 
     ```JavaScript
-    function MainCtrl($scope, User) {
-      $scope.user = new User('foo', 42);
+    function MainCtrl(User) {
+        var vm = this;
+        vm.user = new User('foo', 42);
     }
 
     module.controller('MainCtrl', MainCtrl);
@@ -546,9 +572,9 @@ This section includes information about the service component in AngularJS. It i
 
 * Encapsulate all the business logic in services. Prefer using it as your `model`. For example:
   ```Javascript
-  //Order is the 'model'
+  // order is the 'model'
   angular.module('Store')
-  .factory('Order', function () {
+  .factory('order', function () {
       var add = function (item) {
         this.items.push (item);
       };
@@ -634,17 +660,26 @@ This section includes information about the service component in AngularJS. It i
 * When you need to set the `href` of an anchor tag dynamically use `ng-href` instead of `href` with `{{ }}` template.
 * Instead of using scope variable as string and using it with `style` attribute with `{{ }}`, use the directive `ng-style` with object-like parameters and scope variables as values:
 
-```HTML
-<script>
-...
-$scope.divStyle = {
-  width: 200,
-  position: 'relative'
-};
-...
-</script>
+```html
+    <div ng-controller="MainCtrl as main">
+        <div ng-style="main.divStyle">my beautifully styled div which will work in IE</div>;
+    </div>
+```
 
-<div ng-style="divStyle">my beautifully styled div which will work in IE</div>;
+```JavaScript
+  angular
+    .module('app')
+    .controller('MainCtrl', MainCtrl);
+
+  MainCtrl.$inject = [];
+
+  function MainCtrl() {
+    var vm = this;
+    vm.divStyle = {
+        width: 200,
+        position: 'relative'
+    };
+  }
 ```
 
 # Routing
@@ -665,7 +700,7 @@ $scope.divStyle = {
 	* Make the computations in `$watch` as simple as possible. Making heavy and slow computations in a single `$watch` will slow down the whole application (the `$digest` loop is done in a single thread because of the single-threaded nature of JavaScript).
 	* When watching collections, do not watch them deeply when not strongly required. Better use `$watchCollection`, which performs a shallow check for equality of the result of the watched expression and the previous value of the expression's evaluation.
 	* Set third parameter in `$timeout` function to false to skip the `$digest` loop when no watched variables are impacted by the invocation of the `$timeout` callback function.
-	* When dealing with big collections, which change rarely, [use immutable data structures](http://blog.mgechev.com/2015/03/02/immutability-in-angularjs-immutablejs/).
+	* When dealing with big collections, which change rarely, [use immutable data structures](http://blog.mgechev.com/2015/03/02/immutability-in-angularjs-immutablejs).
 
 
 * Consider decreasing number of network requests by bundling/caching html template files into your main javascript file, using [grunt-html2js](https://github.com/karlgoldstein/grunt-html2js) / [gulp-html2js](https://github.com/fraserxu/gulp-html2js). See [here](http://ng-learn.org/2014/08/Populating_template_cache_with_html2js/) and [here](http://slides.com/yanivefraim-1/real-world-angularjs#/34) for details. This is particularly useful when the project has a lot of small html templates that can be a part of the main (minified and gzipped) javascript file.
