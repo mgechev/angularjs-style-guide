@@ -2,13 +2,13 @@
 
 O objetivo deste guia é apresentar um conjunto de boas práticas e diretrizes para uma aplicação AngularJS. Estas boas práticas foram colhidas de:
 
-0. Código Fonte AngularJS
+0. Código fonte do AngularJS
 0. Códigos fonte de artigos que li
 0. Minha própria experiência
 
 **Nota**: Este ainda é um rascunho de guia, seu objetivo principal é ser construído pela comunidade, então preenchendo as lacunas você será muito apreciado por toda ela.
 
-Neste guia você **não** vai encontrar diretrizes para desenvolvimento JavaScript. Tal pode ser encontrado em:
+Neste guia você **não** irá encontrar diretrizes para desenvolvimento JavaScript. Tal pode ser encontrado em:
 
 0. [Guia JavaScript Google](http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml)
 0. [Guia JavaScript Mozilla](https://developer.mozilla.org/en-US/docs/Developer_Guide/Coding_Style)
@@ -108,7 +108,7 @@ Aqui está seu modelo:
     ├── lib
     └── test
 
-* Quando criarmos uma diretiva, pode ser útil colocar todos os arquivos associados as diretivas (i.e. templates, arquivos CSS/SASS, JavaScript) em uma pasta única. Se você escolher usar este estilo, seja consistente e use-o em todo seu projeto.
+* Quando criarmos uma diretiva, pode ser útil colocar todos os arquivos associados as diretivas (i.e. templates, arquivos CSS/SASS, JavaScript) em uma pasta única. Se você escolher usar este modelo, seja consistente e use-o em todo seu projeto.
 
         app
         └── directives
@@ -127,7 +127,7 @@ Esta abordagem pode ser combinada com ambas as estruturas de diretórios acima.
 * Cada arquivo JavaScript deve conter apenas um componente. O arquivo deve ser nomeado com o nome do componente.
 * Use estruturas de projeto Angular como [Yeoman](http://yeoman.io), [ng-boilerplate](http://joshdmiller.github.io/ng-boilerplate/#/home).
 
-Eu prefiro a primeira estrutura porque ela cria componentes comuns e fáceis de se achar.
+Prefiro a primeira estrutura porque ela cria componentes comuns e fáceis de se achar.
 
 Convenções sobre nomeação de componentes podem ser achadas em cada seção do componente.
 
