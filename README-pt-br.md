@@ -242,6 +242,17 @@ Isso é especialmente aplicado a um arquivo que contenha muito código que se fa
 
 * Use `ng-bind` ou `ng-cloak` ao invés de simplesmente `{{ }}` para prevenir conteúdo piscando.
 * Evite escrever código complexo no template.
+* Quando você precisa definir o src de uma imagem dinamicamente use ng-src ao invés de {{}} template.
+* Ao invés de usar variável de escopo como string e usá-la com o atributo estilo {{ }}, use a diretiva ng-style com parâmetros de objeto e variavéis de escopo como valores:
+
+        ...
+        $scope.divStyle = {
+          width: 200,
+          position: relative
+        };
+        ...
+
+        <div ng-style="divStyle">my beautifully styled div which will work in IE</div>;
 
 #Roteamento
 
