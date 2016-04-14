@@ -1,7 +1,7 @@
 #Introducción
 
 El objetivo de esta guía de estilo es presentar un conjunto de buenas prácticas y reglas de estilo para una aplicación de AngularJS.
-Estas buenas pácticas están recogidas de:
+Estas buenas prácticas están recogidas de:
 
 0. Código fuente de AngularJS
 0. Código fuente de artículos que he leído
@@ -217,7 +217,7 @@ Esto se aplica especialmente en archivos en los que hay mucho código y tengas h
 * Cuando necesites formatear datos encapsula la lógica en un [filtro](#filtros) y decláralo como dependencia:
 
 
-        module.controller('myFormat', function () {
+        module.filter('myFormat', function () {
           return function () {
             //body...
           };
@@ -258,7 +258,7 @@ Esto se aplica especialmente en archivos en los que hay mucho código y tengas h
         ...
         $scope.divStyle = {
           width: 200,
-          position: relative
+          position: 'relative'
         };
         ...
 

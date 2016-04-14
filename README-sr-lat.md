@@ -218,7 +218,7 @@ Ovo je posebno primenjivo na datoteku koja ima toliko koda da ćete morati da se
 * Kada je potrebno da formatirate podatke enkapsulirajte logiku formatiranja unutar [filtera](#filteri) i deklarišite ih kao zavisnost:
 
 
-        module.controller('myFormat', function () {
+        module.filter('myFormat', function () {
           return function () {
             //body...
           };
@@ -259,7 +259,7 @@ Ovo je posebno primenjivo na datoteku koja ima toliko koda da ćete morati da se
         ...
         $scope.divStyle = {
           width: 200,
-          position: relative
+          position: 'relative'
         };
         ...
 
