@@ -8,7 +8,7 @@ O objetivo deste guia é apresentar um conjunto de boas práticas e diretrizes p
 
 **Nota**: Este guia ainda é um rascunho, seu objetivo principal é ser construído pela comunidade, então ao contribuir você será muito apreciado por toda ela.
 
-Neste guia você **não** vai encontrar diretrizes para desenvolvimento JavaScript. O que pode ser encontrado em:
+Neste guia você **não** irá encontrar diretrizes para desenvolvimento JavaScript. O que pode ser encontrado em:
 
 0. [Guia JavaScript Google](http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml)
 0. [Guia JavaScript Mozilla](https://developer.mozilla.org/en-US/docs/Developer_Guide/Coding_Style)
@@ -108,7 +108,7 @@ Aqui está seu modelo:
     ├── lib
     └── test
 
-* Quando criarmos uma diretiva, pode ser útil colocar todos os arquivos associados as diretivas (i.e. templates, arquivos CSS/SASS, JavaScript) em uma pasta única. Se você escolher usar este estilo, seja consistente e use-o em todo seu projeto.
+* Quando criarmos uma diretiva, pode ser útil colocar todos os arquivos associados as diretivas (i.e. templates, arquivos CSS/SASS, JavaScript) em uma pasta única. Se você escolher usar este modelo, seja consistente e use-o em todo seu projeto.
 
         app
         └── directives
@@ -127,7 +127,7 @@ Esta abordagem pode ser combinada com ambas as estruturas de diretórios acima.
 * Cada arquivo JavaScript deve conter apenas um componente. O arquivo deve ser nomeado com o nome do componente.
 * Use estruturas de projeto Angular como [Yeoman](http://yeoman.io) ou [ng-boilerplate](http://joshdmiller.github.io/ng-boilerplate/#/home).
 
-Eu prefiro a primeira estrutura porque ela cria componentes comuns e fáceis de se achar.
+Prefiro a primeira estrutura porque ela cria componentes comuns e fáceis de se achar.
 
 Convenções sobre nomeação de componentes podem ser achadas em cada seção do componente.
 
@@ -243,6 +243,17 @@ Isso é especialmente aplicado a um arquivo que contenha muito código que se fa
 
 * Use `ng-bind` ou `ng-cloak` ao invés de simplesmente `{{ }}` para prevenir conteúdo piscando.
 * Evite escrever código complexo no template.
+* Quando você precisa definir o src de uma imagem dinamicamente use ng-src ao invés de {{}} template.
+* Ao invés de usar variável de escopo como string e usá-la com o atributo estilo {{ }}, use a diretiva ng-style com parâmetros de objeto e variavéis de escopo como valores:
+
+        ...
+        $scope.divStyle = {
+          width: 200,
+          position: relative
+        };
+        ...
+
+        <div ng-style="divStyle">my beautifully styled div which will work in IE</div>;
 
 #Roteamento
 
