@@ -209,7 +209,7 @@ Element | Style | Beispiel | Verwendung bei
 Module | lowerCamelCase  | angularApp |
 Controller | funktionalität + 'Ctrl'  | adminCtrl | 
 Direktiven | lowerCamelCase  | userInfo |
-Filter | lowerCamelCase | userFiler |
+Filter | lowerCamelCase | userFilter |
 Services | UpperCamelCase | User | Konstruktor
 Services | lowerCamelCase | dataFactory | sonstige
 
