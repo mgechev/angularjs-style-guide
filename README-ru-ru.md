@@ -16,13 +16,13 @@
 
 В данном руководстве вы не найдете общих требований к стилю для разработки на JavaScript. Они есть тут:
 
-0. [Google's JavaScript style guide](http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml)
+0. [Google's JavaScript style guide](https://google.github.io/styleguide/javascriptguide.xml)
 0. [Mozilla's JavaScript style guide](https://developer.mozilla.org/en-US/docs/Developer_Guide/Coding_Style)
 0. [GitHub's JavaScript style guide](https://github.com/styleguide/javascript)
 0. [Douglas Crockford's JavaScript style guide](http://javascript.crockford.com/code.html)
 0. [Airbnb JavaScript style guide](https://github.com/airbnb/javascript)
 
-При разработке приложений на AngularJS рекомендуется использовать [Google's JavaScript style guide](http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml).
+При разработке приложений на AngularJS рекомендуется использовать [Google's JavaScript style guide](https://google.github.io/styleguide/javascriptguide.xml).
 
 На wiki странице GitHub репозитория AngularJS есть похожая секция, созданная [ProLoser](https://github.com/ProLoser), которая находится [здесь](https://github.com/angular/angular.js/wiki).
 

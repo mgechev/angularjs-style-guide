@@ -11,12 +11,12 @@ Estas buenas prácticas están recogidas de:
 
 En esta guía de estilo no encontrarás pautas comunes para el desarrollo en Javascript. Esas las podrás encontrar en:
 
-0. [Google's JavaScript style guide](http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml)
+0. [Google's JavaScript style guide](https://google.github.io/styleguide/javascriptguide.xml)
 0. [Mozilla's JavaScript style guide](https://developer.mozilla.org/en-US/docs/Developer_Guide/Coding_Style)
 0. [GitHub's JavaScript style guide](https://github.com/styleguide/javascript)
 0. [Douglas Crockford's JavaScript style guide](http://javascript.crockford.com/code.html)
 
-Para el desarrollo de AngularJS la recomendada es [Guía de estilo de Javascript de Google](http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml).
+Para el desarrollo de AngularJS la recomendada es [Guía de estilo de Javascript de Google](https://google.github.io/styleguide/javascriptguide.xml).
 
 En la wiki de Github de AngularJS hay una sección similar por [ProLoser](https://github.com/ProLoser), puedes verla [aquí](https://github.com/angular/angular.js/wiki).
 

@@ -15,13 +15,13 @@ molto apprezzate da parte di tutti.
 In questa guida non si accennerà a comuni linee guida sulla programmazione
 JavaScript. Queste possono essere trovate nei seguenti link:
 
-0. [Google's JavaScript style guide](http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml)
+0. [Google's JavaScript style guide](https://google.github.io/styleguide/javascriptguide.xml)
 0. [Mozilla's JavaScript style guide](https://developer.mozilla.org/en-US/docs/Developer_Guide/Coding_Style)
 0. [GitHub's JavaScript style guide](https://github.com/styleguide/javascript)
 0. [Douglas Crockford's JavaScript style guide](http://javascript.crockford.com/code.html)
 0. [Airbnb JavaScript style guide](https://github.com/airbnb/javascript)
 
-Per la programmazione AngularJS è raccomandato: [Google's JavaScript style guide](http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml).
+Per la programmazione AngularJS è raccomandato: [Google's JavaScript style guide](https://google.github.io/styleguide/javascriptguide.xml).
 
 Nel repository AngularJS su GitHub c'è una sezione simile curata da [ProLoser](https://github.com/ProLoser). Potete visionarla [quì](https://github.com/angular/angular.js/wiki).
 

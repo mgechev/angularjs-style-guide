@@ -15,14 +15,14 @@ These best practices are collected from:
 
 In this style guide you won't find common guidelines for JavaScript development. Such can be found at:
 
-0. [Google's JavaScript style guide](http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml)
+0. [Google's JavaScript style guide](https://google.github.io/styleguide/javascriptguide.xml)
 0. [Mozilla's JavaScript style guide](https://developer.mozilla.org/en-US/docs/Developer_Guide/Coding_Style)
 0. [GitHub's JavaScript style guide](https://github.com/styleguide/javascript)
 0. [Douglas Crockford's JavaScript style guide](http://javascript.crockford.com/code.html)
 0. [Airbnb JavaScript style guide](https://github.com/airbnb/javascript)
 0. [Idiomatic JavaScript style guide](https://github.com/rwaldron/idiomatic.js/)
 
-For AngularJS development recommended is the [Google's JavaScript style guide](http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml).
+For AngularJS development recommended is the [Google's JavaScript style guide](https://google.github.io/styleguide/javascriptguide.xml).
 
 In AngularJS's GitHub wiki there is a similar section by [ProLoser](https://github.com/ProLoser), you can check it [here](https://github.com/angular/angular.js/wiki).
 
