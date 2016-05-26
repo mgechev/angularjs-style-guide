@@ -249,7 +249,7 @@ Keep things simple and put AngularJS specific directives after standard attribut
 
 Other HTML attributes should follow the Code Guide's [recommendation](http://mdo.github.io/code-guide/#html-attribute-order)
 
-##Naming conventions
+## Naming conventions
 The following table is shown the naming conventions for every element:
 
 Element | Naming style | Example | usage
@@ -715,7 +715,8 @@ This section includes information about the service component in AngularJS. It i
 
 # E2E Testing
 
-E2E tests are the next common sense step after unit tests, that will allow you to trace bugs and errors in the behaviour of your system.
+E2E tests are the next common sense step after unit tests, that will allow you to trace bugs and errors in the behaviour of your system. They are great for providing a sanity check that most common scenarios of using your application works. This way you can automate the process and run it each time before you deploy your application.
+
 Ideally, Angular End-to-End tests are written in Jasmine. These tests are run using the Protractor E2E test runner which uses native events and has special features for Angular applications.
 
 File structure:
