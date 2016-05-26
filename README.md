@@ -56,6 +56,7 @@ In AngularJS's GitHub wiki there is a similar section by [ProLoser](https://gith
 * [Services](#services)
 * [Templates](#templates)
 * [Routing](#routing)
+* [E2E Testing](#e2e-testing)
 * [i18n](#i18n)
 * [Performance](#performance)
 * [Contribution](#contribution)
@@ -79,29 +80,40 @@ In this way the directory structure will look like:
 │   ├── controllers
 │   │   ├── home
 │   │   │   ├── FirstCtrl.js
+│   │   │   └── FirstCtrl.spec.js
 │   │   │   └── SecondCtrl.js
+│   │   │   └── SecondCtrl.spec.js
 │   │   └── about
 │   │       └── ThirdCtrl.js
+│   │       └── ThirdCtrl.spec.js
 │   ├── directives
 │   │   ├── home
 │   │   │   └── directive1.js
+│   │   │   └── directive1.spec.js
 │   │   └── about
 │   │       ├── directive2.js
+│   │       ├── directive2.spec.js
 │   │       └── directive3.js
+│   │       └── directive3.spec.js
 │   ├── filters
 │   │   ├── home
 │   │   └── about
 │   └── services
 │       ├── CommonService.js
+│       ├── CommonService.spec.js
 │       ├── cache
 │       │   ├── Cache1.js
+│       │   ├── Cache1.spec.js
 │       │   └── Cache2.js
+│       │   └── Cache2.spec.js
 │       └── models
+│           ├── Model1.spec.js
 │           ├── Model1.js
+│           └── Model2.spec.js
 │           └── Model2.js
 ├── partials
 ├── lib
-└── test
+└── e2e-tests
 ```
 
 * Creating high-level divisions by functionality and lower-level divisions by component types.
@@ -120,28 +132,40 @@ Here is its layout:
 │   ├── home
 │   │   ├── controllers
 │   │   │   ├── FirstCtrl.js
+│   │   │   ├── FirstCtrl.spec.js
 │   │   │   └── SecondCtrl.js
+│   │   │   └── SecondCtrl.spec.js
 │   │   ├── directives
 │   │   │   └── directive1.js
+│   │   │   └── directive1.spec.js
 │   │   ├── filters
 │   │   │   ├── filter1.js
+│   │   │   ├── filter1.spec.js
 │   │   │   └── filter2.js
+│   │   │   └── filter2.spec.js
 │   │   └── services
 │   │       ├── service1.js
+│   │       ├── service1.spec.js
 │   │       └── service2.js
+│   │       └── service2.spec.js
 │   └── about
 │       ├── controllers
 │       │   └── ThirdCtrl.js
+│       │   └── ThirdCtrl.spec.js
 │       ├── directives
 │       │   ├── directive2.js
+│       │   ├── directive2.spec.js
 │       │   └── directive3.js
+│       │   └── directive3.spec.js
 │       ├── filters
 │       │   └── filter3.js
+│       │   └── filter3.spec.js
 │       └── services
 │           └── service3.js
+│           └── service3.spec.js
 ├── partials
 ├── lib
-└── test
+└── e2e-tests
 ```
 
 * In case the directory name contains multiple words, use lisp-case syntax:
@@ -164,15 +188,17 @@ app
     ├── directive1
     │   ├── directive1.html
     │   ├── directive1.js
+    │   ├── directive1.spec.js
     │   └── directive1.sass
     └── directive2
         ├── directive2.html
         ├── directive2.js
+        ├── directive2.spec.js
         └── directive2.sass
 ```
 
 This approach can be combined with both directory structures above.
-* The unit tests for a given component should be located in the directory where the component is. This way when you make changes to a given component finding its test is easy. The tests also act as documentation and show use cases.
+* The unit tests for a given component (`*.spec.js`) should be located in the directory where the component is. This way when you make changes to a given component finding its test is easy. The tests also act as documentation and show use cases.
 
 ```
 services
@@ -687,6 +713,48 @@ This section includes information about the service component in AngularJS. It i
 * Use `resolve` to resolve dependencies before the view is shown.
 * Do not place explicit RESTful calls inside the `resolve` callback. Isolate all the requests inside appropriate services. This way you can enable caching and follow the separation of concerns principle.
 
+# E2E Testing
+
+E2E tests are the next common sense step after unit tests, that will allow you to trace bugs and errors in the behaviour of your system.
+Ideally, Angular End-to-End tests are written in Jasmine. These tests are run using the Protractor E2E test runner which uses native events and has special features for Angular applications.
+
+File structure:
+
+```
+.
+├── app
+│   ├── app.js
+│   ├── home
+│   │   ├── home.html
+│   │   ├── controllers
+│   │   │   ├── FirstCtrl.js
+│   │   │   ├── FirstCtrl.spec.js
+│   │   ├── directives
+│   │   │   └── directive1.js
+│   │   │   └── directive1.spec.js
+│   │   ├── filters
+│   │   │   ├── filter1.js
+│   │   │   └── filter1.spec.js
+│   │   └── services
+│   │       ├── service1.js
+│   │       └── service1.spec.js
+│   └── about
+│       ├── about.html
+│       ├── controllers
+│       │   └── ThirdCtrl.js
+│       │   └── ThirdCtrl.spec.js
+│       └── directives
+│           ├── directive2.js
+│           └── directive2.spec.js
+├── partials
+├── lib
+└── e2e-tests
+    ├── protractor.conf.js
+    └── specs
+        ├── home.js
+        └── about.js
+```
+
 # i18n
 
 * For newer versions of the framework (>=1.4.0) use the built-in i18n tools, when using older versions (<1.4.0) use [`angular-translate`](https://github.com/angular-translate/angular-translate).
@@ -773,4 +841,3 @@ For example, you can contribute by extending the Testing section or by translati
 [<img alt="kuzmeig1" src="https://avatars.githubusercontent.com/u/8707951?v=3&s=117" width="117">](https://github.com/kuzmeig1) |
 :---: |
 [kuzmeig1](https://github.com/kuzmeig1) |
-
