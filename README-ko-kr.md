@@ -15,14 +15,14 @@
 
 이 스타일 가이드에서는 자바스크립트 개발 가이드라인을 제공하진 않습니다. 여기에 관련해서는 아래를 참고하세요.
 
-0. [Google 자바스크립트 스타일 가이드](http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml)
+0. [Google 자바스크립트 스타일 가이드](https://google.github.io/styleguide/javascriptguide.xml)
 0. [Mozilla 자바스크립트 스타일 가이드](https://developer.mozilla.org/en-US/docs/Developer_Guide/Coding_Style)
 0. [GitHub's 자바스크립트 스타일 가이드](https://github.com/styleguide/javascript)
 0. [Douglas Crockford's 자바스크립트 스타일 가이드](http://javascript.crockford.com/code.html)
 0. [Airbnb 자바스크립트 스타일 가이드](https://github.com/airbnb/javascript)
 0. [Idiomatic 자바스크립트 스타일 가이드](https://github.com/rwaldron/idiomatic.js/)
 
-AngularJS 개발에 대해서는 [Google 자바스크립트 스타일 가이드](http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml)를 추천합니다.
+AngularJS 개발에 대해서는 [Google 자바스크립트 스타일 가이드](https://google.github.io/styleguide/javascriptguide.xml)를 추천합니다.
 
 AngularJS GitHub 위키에 [ProLoser](https://github.com/ProLoser)가 작성한 비슷한 항목이 있습니다. [여기](https://github.com/angular/angular.js/wiki)에서 확인할 수 있습니다.
 

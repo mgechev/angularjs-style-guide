@@ -10,13 +10,13 @@ Celem tego style guide'a jest przedstawienie zbioru najlepszych praktyk i wytycz
 
 W tym style guidzie nie znajdziesz wytycznych do programowania w JavaScriptcie. Takowe znajdziesz tu:
 
-0. [Style guide'y JavaScriptu Google'a](http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml)
+0. [Style guide'y JavaScriptu Google'a](https://google.github.io/styleguide/javascriptguide.xml)
 0. [Style guide'y JavaScriptu Mozilli](https://developer.mozilla.org/en-US/docs/Developer_Guide/Coding_Style)
 0. [Style guide'y JavaScriptu GitHuba](https://github.com/styleguide/javascript)
 0. [Style guide'y JavaScriptu Douglasa Crockforda](http://javascript.crockford.com/code.html)
 0. [Style guide'y JavaScriptu AirBnB](https://github.com/airbnb/javascript)
 
-Do pisania kodu w AngularJS, zaleca się stosować do wytycznych przygotowanych przez [Google'a](http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml).
+Do pisania kodu w AngularJS, zaleca się stosować do wytycznych przygotowanych przez [Google'a](https://google.github.io/styleguide/javascriptguide.xml).
 
 Na stronach wiki projektu AngularJS na Githubie, istnieje podobna sekcja przygotowana przez [ProLoser](https://github.com/ProLoser), możesz się z nią zapoznać [tu](https://github.com/angular/angular.js/wiki).
 

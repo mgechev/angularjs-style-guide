@@ -10,12 +10,12 @@ O objetivo deste guia é apresentar um conjunto de boas práticas e diretrizes p
 
 Neste guia você **não** irá encontrar diretrizes para desenvolvimento JavaScript. O que pode ser encontrado em:
 
-0. [Guia JavaScript Google](http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml)
+0. [Guia JavaScript Google](https://google.github.io/styleguide/javascriptguide.xml)
 0. [Guia JavaScript Mozilla](https://developer.mozilla.org/en-US/docs/Developer_Guide/Coding_Style)
 0. [Guia JavaScript Github](https://github.com/styleguide/javascript)
 0. [Guia JavaScript Douglas Crockford](http://javascript.crockford.com/code.html)
 
-Para o desenvolvimento usando o AngularJS é recomendado o [Guia JavaScript Google](http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml).
+Para o desenvolvimento usando o AngularJS é recomendado o [Guia JavaScript Google](https://google.github.io/styleguide/javascriptguide.xml).
 
 Na wiki do AngularJS no Github temos uma seção similar feita pelo [ProLoser](https://github.com/ProLoser), você pode vê-la [aqui](https://github.com/angular/angular.js/wiki).
 

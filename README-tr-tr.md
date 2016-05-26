@@ -15,13 +15,13 @@ En iyi kullanışlar:
 
 Bu dökümanda genel Javascript geliştirmelerinin ortak kullanımını göremeyeceksiniz. Genel olarak kullanımlar aşağıdadır:
 
-0. [Google's JavaScript dökümanı](http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml)
+0. [Google's JavaScript dökümanı](https://google.github.io/styleguide/javascriptguide.xml)
 0. [Mozilla's JavaScript dökümanı](https://developer.mozilla.org/en-US/docs/Developer_Guide/Coding_Style)
 0. [GitHub's JavaScript dökümanı](https://github.com/styleguide/javascript)
 0. [Douglas Crockford's JavaScript dökümanı](http://javascript.crockford.com/code.html)
 0. [Airbnb JavaScript dökümanı](https://github.com/airbnb/javascript)
 
-AngularJs geliştirmeleri için [Google's JavaScript dökümanı](http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml).
+AngularJs geliştirmeleri için [Google's JavaScript dökümanı](https://google.github.io/styleguide/javascriptguide.xml).
 
  AngularJS Github dökümanı için [ProLoser](https://github.com/ProLoser), buradan kontrol edebilirsin [here](https://github.com/angular/angular.js/wiki).
 

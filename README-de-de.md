@@ -12,13 +12,13 @@ Sie wurden aus den folgenden Quellen zusammengestellt:
 
 Du wirst in diesem Style Guide keine allgemeinen Richtlinien für die JavaScript-Entwicklung finden. Solche finden sich unter:
 
-0. [Googles JavaScript-Style-Guide](http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml)
+0. [Googles JavaScript-Style-Guide](https://google.github.io/styleguide/javascriptguide.xml)
 0. [Mozillas JavaScript-Style-Guide](https://developer.mozilla.org/en-US/docs/Developer_Guide/Coding_Style)
 0. [GitHubs JavaScript-Style-Guide](https://github.com/styleguide/javascript)
 0. [Douglas Crockfords JavaScript-Style-Guide](http://javascript.crockford.com/code.html)
 0. [Airbnb JavaScript-Style-Guide](https://github.com/airbnb/javascript)
 
-Für die AngularJS-Entwicklung ist [Googles JavaScript-Style-Guide](http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml) empfehlenswert.
+Für die AngularJS-Entwicklung ist [Googles JavaScript-Style-Guide](https://google.github.io/styleguide/javascriptguide.xml) empfehlenswert.
 
 Im GitHub-Wiki von AngularJS gibt es einen ähnlichen Abschnitt von [ProLoser](https://github.com/ProLoser), den du dir [hier](https://github.com/angular/angular.js/wiki) ansehen kannst.
 
