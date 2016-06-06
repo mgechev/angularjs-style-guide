@@ -12,13 +12,13 @@
 
 在本指南中不会包含基本的JavaScript开发指南。这些基本的指南可以在下面的列表中找到：
 
-0. [Google's JavaScript style guide](http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml)
+0. [Google's JavaScript style guide](https://google.github.io/styleguide/javascriptguide.xml)
 0. [Mozilla's JavaScript style guide](https://developer.mozilla.org/en-US/docs/Developer_Guide/Coding_Style)
 0. [GitHub's JavaScript style guide](https://github.com/styleguide/javascript)
 0. [Douglas Crockford's JavaScript style guide](http://javascript.crockford.com/code.html)
 0. [Airbnb JavaScript style guide](https://github.com/airbnb/javascript)
 
-对于AngularJS开发，推荐 [Google's JavaScript style guide](http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml).
+对于AngularJS开发，推荐 [Google's JavaScript style guide](https://google.github.io/styleguide/javascriptguide.xml).
 
 在AngularJS的Github wiki中有一个相似的章节 [ProLoser](https://github.com/ProLoser), 你可以点击[这里](https://github.com/angular/angular.js/wiki)查看。
 

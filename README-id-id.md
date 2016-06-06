@@ -13,13 +13,13 @@ Cara-cara ini dikumpulkan dari:
 
 Dalam panduan ini, anda tidak akan menemukan panduan umum untuk menulis kode javascript. Seperti yang bisa anda temukan di:
 
-0. [Panduan menulis kode javascript milik Google](http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml)
+0. [Panduan menulis kode javascript milik Google](https://google.github.io/styleguide/javascriptguide.xml)
 0. [Panduan menulis kode javascript milik Mozilla](https://developer.mozilla.org/en-US/docs/Developer_Guide/Coding_Style)
 0. [Panduan menulis kode javascript milik GitHub](https://github.com/styleguide/javascript)
 0. [Panduan menulis kode javascript milik Douglas](http://javascript.crockford.com/code.html)
 0. [Panduan menulis kode javascript milik Airbnb](https://github.com/airbnb/javascript)
 
-Tapi setidaknya kami merekomendasikan anda untuk mengikuti [Panduan menulis kode javascript milik Google](http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml).
+Tapi setidaknya kami merekomendasikan anda untuk mengikuti [Panduan menulis kode javascript milik Google](https://google.github.io/styleguide/javascriptguide.xml).
 
 Di halaman GitHub milik AngularJS ada sebuah wiki yang bagus seputar topik ini, kontribusi dari [ProLoser](https://github.com/ProLoser), anda bisa melihatnya di [sini](https://github.com/angular/angular.js/wiki).
 

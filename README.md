@@ -15,14 +15,14 @@ These best practices are collected from:
 
 In this style guide you won't find common guidelines for JavaScript development. Such can be found at:
 
-0. [Google's JavaScript style guide](http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml)
+0. [Google's JavaScript style guide](https://google.github.io/styleguide/javascriptguide.xml)
 0. [Mozilla's JavaScript style guide](https://developer.mozilla.org/en-US/docs/Developer_Guide/Coding_Style)
 0. [GitHub's JavaScript style guide](https://github.com/styleguide/javascript)
 0. [Douglas Crockford's JavaScript style guide](http://javascript.crockford.com/code.html)
 0. [Airbnb JavaScript style guide](https://github.com/airbnb/javascript)
 0. [Idiomatic JavaScript style guide](https://github.com/rwaldron/idiomatic.js/)
 
-For AngularJS development recommended is the [Google's JavaScript style guide](http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml).
+For AngularJS development recommended is the [Google's JavaScript style guide](https://google.github.io/styleguide/javascriptguide.xml).
 
 In AngularJS's GitHub wiki there is a similar section by [ProLoser](https://github.com/ProLoser), you can check it [here](https://github.com/angular/angular.js/wiki).
 
@@ -56,6 +56,7 @@ In AngularJS's GitHub wiki there is a similar section by [ProLoser](https://gith
 * [Services](#services)
 * [Templates](#templates)
 * [Routing](#routing)
+* [E2E Testing](#e2e-testing)
 * [i18n](#i18n)
 * [Performance](#performance)
 * [Contribution](#contribution)
@@ -79,29 +80,40 @@ In this way the directory structure will look like:
 │   ├── controllers
 │   │   ├── home
 │   │   │   ├── FirstCtrl.js
+│   │   │   └── FirstCtrl.spec.js
 │   │   │   └── SecondCtrl.js
+│   │   │   └── SecondCtrl.spec.js
 │   │   └── about
 │   │       └── ThirdCtrl.js
+│   │       └── ThirdCtrl.spec.js
 │   ├── directives
 │   │   ├── home
 │   │   │   └── directive1.js
+│   │   │   └── directive1.spec.js
 │   │   └── about
 │   │       ├── directive2.js
+│   │       ├── directive2.spec.js
 │   │       └── directive3.js
+│   │       └── directive3.spec.js
 │   ├── filters
 │   │   ├── home
 │   │   └── about
 │   └── services
 │       ├── CommonService.js
+│       ├── CommonService.spec.js
 │       ├── cache
 │       │   ├── Cache1.js
+│       │   ├── Cache1.spec.js
 │       │   └── Cache2.js
+│       │   └── Cache2.spec.js
 │       └── models
+│           ├── Model1.spec.js
 │           ├── Model1.js
+│           └── Model2.spec.js
 │           └── Model2.js
 ├── partials
 ├── lib
-└── test
+└── e2e-tests
 ```
 
 * Creating high-level divisions by functionality and lower-level divisions by component types.
@@ -120,28 +132,40 @@ Here is its layout:
 │   ├── home
 │   │   ├── controllers
 │   │   │   ├── FirstCtrl.js
+│   │   │   ├── FirstCtrl.spec.js
 │   │   │   └── SecondCtrl.js
+│   │   │   └── SecondCtrl.spec.js
 │   │   ├── directives
 │   │   │   └── directive1.js
+│   │   │   └── directive1.spec.js
 │   │   ├── filters
 │   │   │   ├── filter1.js
+│   │   │   ├── filter1.spec.js
 │   │   │   └── filter2.js
+│   │   │   └── filter2.spec.js
 │   │   └── services
 │   │       ├── service1.js
+│   │       ├── service1.spec.js
 │   │       └── service2.js
+│   │       └── service2.spec.js
 │   └── about
 │       ├── controllers
 │       │   └── ThirdCtrl.js
+│       │   └── ThirdCtrl.spec.js
 │       ├── directives
 │       │   ├── directive2.js
+│       │   ├── directive2.spec.js
 │       │   └── directive3.js
+│       │   └── directive3.spec.js
 │       ├── filters
 │       │   └── filter3.js
+│       │   └── filter3.spec.js
 │       └── services
 │           └── service3.js
+│           └── service3.spec.js
 ├── partials
 ├── lib
-└── test
+└── e2e-tests
 ```
 
 * In case the directory name contains multiple words, use lisp-case syntax:
@@ -164,15 +188,17 @@ app
     ├── directive1
     │   ├── directive1.html
     │   ├── directive1.js
+    │   ├── directive1.spec.js
     │   └── directive1.sass
     └── directive2
         ├── directive2.html
         ├── directive2.js
+        ├── directive2.spec.js
         └── directive2.sass
 ```
 
 This approach can be combined with both directory structures above.
-* The unit tests for a given component should be located in the directory where the component is. This way when you make changes to a given component finding its test is easy. The tests also act as documentation and show use cases.
+* The unit tests for a given component (`*.spec.js`) should be located in the directory where the component is. This way when you make changes to a given component finding its test is easy. The tests also act as documentation and show use cases.
 
 ```
 services
@@ -223,7 +249,7 @@ Keep things simple and put AngularJS specific directives after standard attribut
 
 Other HTML attributes should follow the Code Guide's [recommendation](http://mdo.github.io/code-guide/#html-attribute-order)
 
-##Naming conventions
+## Naming conventions
 The following table is shown the naming conventions for every element:
 
 Element | Naming style | Example | usage
@@ -687,6 +713,49 @@ This section includes information about the service component in AngularJS. It i
 * Use `resolve` to resolve dependencies before the view is shown.
 * Do not place explicit RESTful calls inside the `resolve` callback. Isolate all the requests inside appropriate services. This way you can enable caching and follow the separation of concerns principle.
 
+# E2E Testing
+
+E2E tests are the next common sense step after unit tests, that will allow you to trace bugs and errors in the behaviour of your system. They are great for providing a sanity check that most common scenarios of using your application works. This way you can automate the process and run it each time before you deploy your application.
+
+Ideally, Angular End-to-End tests are written in Jasmine. These tests are run using the Protractor E2E test runner which uses native events and has special features for Angular applications.
+
+File structure:
+
+```
+.
+├── app
+│   ├── app.js
+│   ├── home
+│   │   ├── home.html
+│   │   ├── controllers
+│   │   │   ├── FirstCtrl.js
+│   │   │   ├── FirstCtrl.spec.js
+│   │   ├── directives
+│   │   │   └── directive1.js
+│   │   │   └── directive1.spec.js
+│   │   ├── filters
+│   │   │   ├── filter1.js
+│   │   │   └── filter1.spec.js
+│   │   └── services
+│   │       ├── service1.js
+│   │       └── service1.spec.js
+│   └── about
+│       ├── about.html
+│       ├── controllers
+│       │   └── ThirdCtrl.js
+│       │   └── ThirdCtrl.spec.js
+│       └── directives
+│           ├── directive2.js
+│           └── directive2.spec.js
+├── partials
+├── lib
+└── e2e-tests
+    ├── protractor.conf.js
+    └── specs
+        ├── home.js
+        └── about.js
+```
+
 # i18n
 
 * For newer versions of the framework (>=1.4.0) use the built-in i18n tools, when using older versions (<1.4.0) use [`angular-translate`](https://github.com/angular-translate/angular-translate).
@@ -697,6 +766,16 @@ This section includes information about the service component in AngularJS. It i
 
 	* Watch only the most vital variables. When required to invoke the `$digest` loop explicitly (it should happen only in exceptional cases), invoke it only when required (for example: when using real-time communication, don't cause a `$digest` loop in each received message).
 	* For content that is initialized only once and then never changed, use single-time watchers like [`bindonce`](https://github.com/Pasvaz/bindonce) for older versions of AngularJS or one-time bindings in AngularJS >=1.3.0.
+		```html
+		<div>
+		  {{ ::main.things }}
+		</div>
+		```
+		or
+		```html
+		  <div ng-bind="::main.things"></div>
+		```
+		After that, **no** watchers will be created for `main.things` and any changes of `main.things` will not update the view.
 	* Make the computations in `$watch` as simple as possible. Making heavy and slow computations in a single `$watch` will slow down the whole application (the `$digest` loop is done in a single thread because of the single-threaded nature of JavaScript).
 	* When watching collections, do not watch them deeply when not strongly required. Better use `$watchCollection`, which performs a shallow check for equality of the result of the watched expression and the previous value of the expression's evaluation.
 	* Set third parameter in `$timeout` function to false to skip the `$digest` loop when no watched variables are impacted by the invocation of the `$timeout` callback function.

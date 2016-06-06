@@ -16,13 +16,13 @@
 
 В данном руководстве вы не найдете общих требований к стилю для разработки на JavaScript. Они есть тут:
 
-0. [Google's JavaScript style guide](http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml)
+0. [Google's JavaScript style guide](https://google.github.io/styleguide/javascriptguide.xml)
 0. [Mozilla's JavaScript style guide](https://developer.mozilla.org/en-US/docs/Developer_Guide/Coding_Style)
 0. [GitHub's JavaScript style guide](https://github.com/styleguide/javascript)
 0. [Douglas Crockford's JavaScript style guide](http://javascript.crockford.com/code.html)
 0. [Airbnb JavaScript style guide](https://github.com/airbnb/javascript)
 
-При разработке приложений на AngularJS рекомендуется использовать [Google's JavaScript style guide](http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml).
+При разработке приложений на AngularJS рекомендуется использовать [Google's JavaScript style guide](https://google.github.io/styleguide/javascriptguide.xml).
 
 На wiki странице GitHub репозитория AngularJS есть похожая секция, созданная [ProLoser](https://github.com/ProLoser), которая находится [здесь](https://github.com/angular/angular.js/wiki).
 
@@ -622,6 +622,16 @@ $scope.divStyle = {
 
   * Следите (watch) только за теми переменными, где это действительно необходимо. Если требуется явно запустить цикл `$digest` (это должны быть ну очень исключительные случаи), запускайте его только в тех местах, где это действительно необходимо. К примеру, при использовании коммуникации в реальном времени обычно нет нужды запускать цикл `$digest` для каждого полученного сообщения.
   * Для контента, который меняется только раз, используйте одноразовые watch. Они есть в AngularJS >= 1.3.0. При использовании более старых версий можно использовать набор директив [`bindonce`](https://github.com/Pasvaz/bindonce).
+    ```html
+    <div>
+      {{ ::main.things }}
+    </div>
+    ```
+    или
+    ```html
+      <div ng-bind="::main.things"></div>
+    ```
+    После этого, для `main.things` не будет создано **ни одного** watch и любые дальнейшие изменения `main.things` не будет отражены на странице.
   * Сделайте вычисления в `$watch` максимально простыми. Любые сложные и медленные вычисления в `$watch` замедляют выполнение всего приложения (цикл `$digest` работает в одном потоке, потому что JavaScript однопоточный).
   * При отслеживании коллекций с помощью `$watch` используйте глубокое отслеживание только если это действительно необходимо. Обычно достаточно использовать `$watchCollection`, который выполняет простую проверку свойств только первого уровня наблюдаемого объекта. 
   * При вызове функции `$timeout` устанавливайте третий параметр в false, если функция обратного вызова не изменяет отслеживаемые переменные. В этом случае `$digest` не будет вызван после выполнения функции. 

@@ -16,13 +16,13 @@
 
 当ガイドラインは、JavaScript開発のガイドラインではありません。JavaScript開発のガイドラインはこちらで見つけることができます：
 
-0. [Google JavaScript スタイルガイド](http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml)
+0. [Google JavaScript スタイルガイド](https://google.github.io/styleguide/javascriptguide.xml)
 0. [Mozilla JavaScript スタイルガイド](https://developer.mozilla.org/en-US/docs/Developer_Guide/Coding_Style)
 0. [GitHub JavaScript スタイルガイド](https://github.com/styleguide/javascript)
 0. [Douglas Crockford JavaScript スタイルガイド](http://javascript.crockford.com/code.html)
 0. [Airbnb JavaScript スタイルガイド](https://github.com/airbnb/javascript)
 
-AngularJSの開発をする上でのおすすめは[Google JavaScript スタイルガイド](http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml)です。
+AngularJSの開発をする上でのおすすめは[Google JavaScript スタイルガイド](https://google.github.io/styleguide/javascriptguide.xml)です。
 
 AngularJSのGitHub Wikiに[ProLoser](https://github.com/ProLoser)の書いた類似のセクションがあります。[こちら](https://github.com/angular/angular.js/wiki)で確認することができます。
 

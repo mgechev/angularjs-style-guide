@@ -11,12 +11,12 @@
 
 У овом водичу нећете наћи уобичајене препоруке за JavaScript програмирање. Такве се могу наћи на:
 
-0. [Google's JavaScript style guide](http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml)
+0. [Google's JavaScript style guide](https://google.github.io/styleguide/javascriptguide.xml)
 0. [Mozilla's JavaScript style guide](https://developer.mozilla.org/en-US/docs/Developer_Guide/Coding_Style)
 0. [GitHub's JavaScript style guide](https://github.com/styleguide/javascript)
 0. [Douglas Crockford's JavaScript style guide](http://javascript.crockford.com/code.html)
 
-За AngularJS развој препоручен је [Google's JavaScript style guide](http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml).
+За AngularJS развој препоручен је [Google's JavaScript style guide](https://google.github.io/styleguide/javascriptguide.xml).
 
 На AngularJS's GitHub wiki-у постоји слична секција од [ProLoser](https://github.com/ProLoser), možete je naći na [here](https://github.com/angular/angular.js/wiki).
 
