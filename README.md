@@ -375,8 +375,8 @@ module.factory('Service', function ($rootScope, $timeout, MyCustomDependency1, M
     vm.title = 'Some title';
     vm.description = 'Some description';
 
-    $http.get('/api/main/things').success(function (things) {
-        vm.things = things; // Adding 'things' as a property of the controller
+    $http.get('/api/main/things').then(function (response) {
+        vm.things = response.data.things; // Adding 'things' as a property of the controller
     });
   }
   ```
@@ -392,10 +392,10 @@ module.factory('Service', function ($rootScope, $timeout, MyCustomDependency1, M
       this.title = 'Some title';
       this.description = 'Some description';
 
-      $http.get('/api/main/things').success(function (things) {
+      $http.get('/api/main/things').then(function (response) {
           // Warning! 'this' is in a different context here.
           // The property will not be added as part of the controller context
-          this.things = things;
+          this.things = response.data.things;
       });
     }
     ```
