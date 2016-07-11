@@ -15,7 +15,6 @@ Dalam panduan ini, anda tidak akan menemukan panduan umum untuk menulis kode jav
 
 0. [Panduan menulis kode javascript milik Google](https://google.github.io/styleguide/javascriptguide.xml)
 0. [Panduan menulis kode javascript milik Mozilla](https://developer.mozilla.org/en-US/docs/Developer_Guide/Coding_Style)
-0. [Panduan menulis kode javascript milik GitHub](https://github.com/styleguide/javascript)
 0. [Panduan menulis kode javascript milik Douglas](http://javascript.crockford.com/code.html)
 0. [Panduan menulis kode javascript milik Airbnb](https://github.com/airbnb/javascript)
 
@@ -123,7 +122,7 @@ Dengan cara ini, struktur akan terlihat seperti ini:
 └── test
 ```
 
-**Struktur tambahan:** Ketika membuat directives, akan sangat memudahkan apabila anda menempatkan semua file yang berhubungan (seperti: templates, CSS/SASS) di dalam direktori yang sama. Jika anda mengikuti cara ini, anda harus konsisten. 
+**Struktur tambahan:** Ketika membuat directives, akan sangat memudahkan apabila anda menempatkan semua file yang berhubungan (seperti: templates, CSS/SASS) di dalam direktori yang sama. Jika anda mengikuti cara ini, anda harus konsisten.
 
 ```
 app

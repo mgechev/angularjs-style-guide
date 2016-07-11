@@ -4,7 +4,7 @@
 Ове најбоље праксе су прикупљене од:
 
 0. AngularJS ижворног кода
-0. Изворног кода или чланака које сам прочитао 
+0. Изворног кода или чланака које сам прочитао
 0. Личног искуства
 
 **Нота**: ово је још увек радна верзија, њен главни циљ је да буде "community-driven" зато ће испуњавање празнина бити веома цењено од стране целе заједнице.
@@ -13,7 +13,6 @@
 
 0. [Google's JavaScript style guide](https://google.github.io/styleguide/javascriptguide.xml)
 0. [Mozilla's JavaScript style guide](https://developer.mozilla.org/en-US/docs/Developer_Guide/Coding_Style)
-0. [GitHub's JavaScript style guide](https://github.com/styleguide/javascript)
 0. [Douglas Crockford's JavaScript style guide](http://javascript.crockford.com/code.html)
 
 За AngularJS развој препоручен је [Google's JavaScript style guide](https://google.github.io/styleguide/javascriptguide.xml).

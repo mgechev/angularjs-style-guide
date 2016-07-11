@@ -14,7 +14,6 @@ Du wirst in diesem Style Guide keine allgemeinen Richtlinien für die JavaScript
 
 0. [Googles JavaScript-Style-Guide](https://google.github.io/styleguide/javascriptguide.xml)
 0. [Mozillas JavaScript-Style-Guide](https://developer.mozilla.org/en-US/docs/Developer_Guide/Coding_Style)
-0. [GitHubs JavaScript-Style-Guide](https://github.com/styleguide/javascript)
 0. [Douglas Crockfords JavaScript-Style-Guide](http://javascript.crockford.com/code.html)
 0. [Airbnb JavaScript-Style-Guide](https://github.com/airbnb/javascript)
 
@@ -207,7 +206,7 @@ Die Namensgebung für alle Elemente sind in folgender Tabelle wieder zu finden:
 Element | Style | Beispiel | Verwendung bei
 ----|------|----|--------
 Module | lowerCamelCase  | angularApp |
-Controller | funktionalität + 'Ctrl'  | adminCtrl | 
+Controller | funktionalität + 'Ctrl'  | adminCtrl |
 Direktiven | lowerCamelCase  | userInfo |
 Filter | lowerCamelCase | userFilter |
 Services | UpperCamelCase | User | Konstruktor

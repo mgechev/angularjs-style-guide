@@ -17,7 +17,6 @@
 
 0. [Google 자바스크립트 스타일 가이드](https://google.github.io/styleguide/javascriptguide.xml)
 0. [Mozilla 자바스크립트 스타일 가이드](https://developer.mozilla.org/en-US/docs/Developer_Guide/Coding_Style)
-0. [GitHub's 자바스크립트 스타일 가이드](https://github.com/styleguide/javascript)
 0. [Douglas Crockford's 자바스크립트 스타일 가이드](http://javascript.crockford.com/code.html)
 0. [Airbnb 자바스크립트 스타일 가이드](https://github.com/airbnb/javascript)
 0. [Idiomatic 자바스크립트 스타일 가이드](https://github.com/rwaldron/idiomatic.js/)
@@ -525,7 +524,7 @@ module.factory('Service', function ($rootScope, $timeout, MyCustomDependency1, M
 
 * 서비스명은 camelCase나 CamelCase로 작성합니다.
 	* 생성자 함수인 서비스의 이름은 다음과 같이 UpperCamelCase (PascalCase)를 사용합니다.
-    
+
     ```JavaScript
     function MainCtrl($scope, User) {
       $scope.user = new User('foo', 42);
@@ -725,4 +724,3 @@ $scope.divStyle = {
 [<img alt="giantray" src="https://avatars.githubusercontent.com/u/5054377?v=3&s=117" width="117">](https://github.com/giantray) |[<img alt="ntaoo" src="https://avatars.githubusercontent.com/u/511213?v=3&s=117" width="117">](https://github.com/ntaoo) |[<img alt="kuzmeig1" src="https://avatars.githubusercontent.com/u/8707951?v=3&s=117" width="117">](https://github.com/kuzmeig1) |
 :---: |:---: |:---: |
 [giantray](https://github.com/giantray) |[ntaoo](https://github.com/ntaoo) |[kuzmeig1](https://github.com/kuzmeig1) |
-

@@ -17,7 +17,6 @@ In this style guide you won't find common guidelines for JavaScript development.
 
 0. [Google's JavaScript style guide](https://google.github.io/styleguide/javascriptguide.xml)
 0. [Mozilla's JavaScript style guide](https://developer.mozilla.org/en-US/docs/Developer_Guide/Coding_Style)
-0. [GitHub's JavaScript style guide](https://github.com/styleguide/javascript)
 0. [Douglas Crockford's JavaScript style guide](http://javascript.crockford.com/code.html)
 0. [Airbnb JavaScript style guide](https://github.com/airbnb/javascript)
 0. [Idiomatic JavaScript style guide](https://github.com/rwaldron/idiomatic.js/)
@@ -846,5 +845,3 @@ For example, you can contribute by extending the Testing section or by translati
 [<img alt="dominickolbe" src="https://avatars.githubusercontent.com/u/6094725?v=3&s=117" width="117">](https://github.com/dominickolbe) |
 :---: |
 [dominickolbe](https://github.com/dominickolbe) |
-
-
