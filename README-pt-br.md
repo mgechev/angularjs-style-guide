@@ -12,7 +12,6 @@ Neste guia você **não** irá encontrar diretrizes para desenvolvimento JavaScr
 
 0. [Guia JavaScript Google](https://google.github.io/styleguide/javascriptguide.xml)
 0. [Guia JavaScript Mozilla](https://developer.mozilla.org/en-US/docs/Developer_Guide/Coding_Style)
-0. [Guia JavaScript Github](https://github.com/styleguide/javascript)
 0. [Guia JavaScript Douglas Crockford](http://javascript.crockford.com/code.html)
 
 Para o desenvolvimento usando o AngularJS é recomendado o [Guia JavaScript Google](https://google.github.io/styleguide/javascriptguide.xml).

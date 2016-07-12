@@ -18,7 +18,6 @@
 
 0. [Google's JavaScript style guide](https://google.github.io/styleguide/javascriptguide.xml)
 0. [Mozilla's JavaScript style guide](https://developer.mozilla.org/en-US/docs/Developer_Guide/Coding_Style)
-0. [GitHub's JavaScript style guide](https://github.com/styleguide/javascript)
 0. [Douglas Crockford's JavaScript style guide](http://javascript.crockford.com/code.html)
 0. [Airbnb JavaScript style guide](https://github.com/airbnb/javascript)
 
@@ -259,7 +258,7 @@ services
     - Потере производительности, потому что интерпретатор написан на JavaScript
     - Ненужному кешированию обработанных выражений внутри сервиса `$parse`, потому что в подавляющем большинстве случаев выражения, прописанные в `ngInit`, используются только один раз
     - Большему риску появления ошибок - вы пишете код, как текстовую строку шаблона, соответственно нет подсветки синтаксиса и других плюшек вашего любимого редактора/IDE
-    - Невозможности перехватывать run-time ошибки - они просто не будут брошены. 
+    - Невозможности перехватывать run-time ошибки - они просто не будут брошены.
 * Не используйте префикс `$` при определении переменных, свойств и методов. Этот префикс зарезервирован для AngularJS.
 * При перечислении зависимостей сперва указывайте встроенные, потом дополнительные:
 
@@ -273,7 +272,7 @@ module.factory('Service', function ($rootScope, $timeout, MyCustomDependency1, M
 
 # <a name="modules"></a>Модули
 
-* Названия модулей должны соответстовать подходу lowerCamelCase. Для определения иерархии, например, что модуль `b` является подмодулем `a`, используйте пространства имён: `a.b`. 
+* Названия модулей должны соответстовать подходу lowerCamelCase. Для определения иерархии, например, что модуль `b` является подмодулем `a`, используйте пространства имён: `a.b`.
 
 Существует два основных способа структурирования модулей:
 
@@ -284,7 +283,7 @@ module.factory('Service', function ($rootScope, $timeout, MyCustomDependency1, M
 
 # <a name="controllers"></a>Контроллеры
 * Не изменяйте DOM из контроллеров, это усложнит их тестирование, а также нарушит [Принцип разделения ответственности](https://en.wikipedia.org/wiki/Separation_of_concerns). Используйте для этого директивы.
-* Именовать контроллер следует так, чтобы его имя состояло из части, описывающей то, чем он занимается (для примера: корзина, домашняя страница, админ-панель) и постфикса `Ctrl`. 
+* Именовать контроллер следует так, чтобы его имя состояло из части, описывающей то, чем он занимается (для примера: корзина, домашняя страница, админ-панель) и постфикса `Ctrl`.
 * Контроллеры - это стандартные [конструкторы](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/constructor), соответвенно их имена записываются в UpperCamelCase (`HomePageCtrl`, `ShoppingCartCtrl`, `AdminPanelCtrl`, и т.д.).
 * Контроллеры не должны быть объявлены в глобальном пространстве (хотя AngularJS и позволяет использовать этот подход, он засоряет глобальное пространство имён, а потому считается нежелательным).
 * Используйте следующий синтаксис для объявления контроллеров:
@@ -295,7 +294,7 @@ module.factory('Service', function ($rootScope, $timeout, MyCustomDependency1, M
    }
    module.controller('MyCtrl', MyCtrl);
    ```
-   
+
 
 Чтобы избежать проблем с минификацией файлов, вы можете автоматически генерировать определение с синтаксисом массива, используя инструменты типа [ng-annotate](https://github.com/olov/ng-annotate) (и задачи для grunt [grunt-ng-annotate](https://github.com/mzgol/grunt-ng-annotate)).
 
@@ -306,15 +305,15 @@ module.factory('Service', function ($rootScope, $timeout, MyCustomDependency1, M
     {{ main.title }}
   </div>
   ```
-  
+
   ```JavaScript
   app.controller('MainCtrl', MainCtrl);
-  
+
   function MainCtrl () {
     this.title = 'Some title';
   };
   ```
-   
+
    Основные плюшки:
    * Создаётся 'изолированный' компонент - привязанные свойства не являются частью цепочки прототипов `$scope`. Это хороший подход, поскольку наследование прототипов `$scope` имеет серьёзные недостатки (вероятно, именно поэтому это было выкинуто из Angular 2):
       * Тяжело отследить, откуда к нам пришли данные.
@@ -323,7 +322,7 @@ module.factory('Service', function ($rootScope, $timeout, MyCustomDependency1, M
       * '[Правило точки](http://jimhoskins.com/2012/12/14/nested-scopes-in-angularjs.html)'.
    * `$scope` не используется, если нам не нужны специфичные операции (типа `$scope.$broadcast`). Это хорошая подготовка к AngularJS V2.
    * Синтаксис значительно ближе к 'ванильному' конструктору JavaScript
-   
+
    Больше о подходе `controller as` здесь: [digging-into-angulars-controller-as-syntax](http://toddmotto.com/digging-into-angulars-controller-as-syntax/)
 
 * При использовании синтаксиса массива используйте оригинальные имена для зависимостей контроллера. Код будет более читабельным:
@@ -332,7 +331,7 @@ module.factory('Service', function ($rootScope, $timeout, MyCustomDependency1, M
   function MyCtrl(s) {
    // ...
   }
-  
+
   module.controller('MyCtrl', ['$scope', MyCtrl]);
   ```
 
@@ -406,7 +405,7 @@ module.factory('Service', function ($rootScope, $timeout, MyCustomDependency1, M
 * Создайте и поддерживайте список со всеми сообщениями пересылаемыми с помощью `$emit`, `$broadcast`, чтобы избежать коллизий имён и прочих возможных ошибок.
 
   Пример:
-  
+
   ```JavaScript
   // app.js
   /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -418,9 +417,9 @@ module.factory('Service', function ($rootScope, $timeout, MyCustomDependency1, M
        - action - specific ation the user tries to perform
   * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
   ```
-  
+
   * Если вам нужно отформатировать данные, перенесите логику форматирования в [фильтр](#filters) и укажите его как зависимость:
-  
+
   ```JavaScript
   function myFormat() {
    return function () {
@@ -428,11 +427,11 @@ module.factory('Service', function ($rootScope, $timeout, MyCustomDependency1, M
    };
   }
   module.filter('myFormat', myFormat);
-  
+
   function MyCtrl($scope, myFormatFilter) {
    // ...
   }
-  
+
   module.controller('MyCtrl', MyCtrl);
   ```
 
@@ -489,14 +488,14 @@ function HomeCtrl() {
         function MainCtrl($scope, User) {
           $scope.user = new User('foo', 42);
         }
-    
+
         module.controller('MainCtrl', MainCtrl);
-    
+
         function User(name, age) {
           this.name = name;
           this.age = age;
         }
-    
+
         module.factory('User', function () {
           return User;
         });
@@ -545,7 +544,7 @@ function HomeCtrl() {
 	Human.prototype.talk = function () {
 	  return "I'm talking";
 	};
-	
+
 	function Developer() {
 	  //body
 	}
@@ -553,10 +552,10 @@ function HomeCtrl() {
 	Developer.prototype.code = function () {
 	  return "I'm coding";
 	};
-	
+
 	myModule.service('Human', Human);
 	myModule.service('Developer', Developer);
-	
+
 	```
 * Для кеширования на уровне сессии можно использовать `$cacheFactory`. Этот метод подходит для кеширования результатов сложных вычислений или каких-либо запросов.
 * Если сервис нуждается в настройке при старте приложения, определяйте его через `provider`, а затем конфигурируйте через коллбек `config`:
@@ -633,8 +632,8 @@ $scope.divStyle = {
     ```
     После этого, для `main.things` не будет создано **ни одного** watch и любые дальнейшие изменения `main.things` не будет отражены на странице.
   * Сделайте вычисления в `$watch` максимально простыми. Любые сложные и медленные вычисления в `$watch` замедляют выполнение всего приложения (цикл `$digest` работает в одном потоке, потому что JavaScript однопоточный).
-  * При отслеживании коллекций с помощью `$watch` используйте глубокое отслеживание только если это действительно необходимо. Обычно достаточно использовать `$watchCollection`, который выполняет простую проверку свойств только первого уровня наблюдаемого объекта. 
-  * При вызове функции `$timeout` устанавливайте третий параметр в false, если функция обратного вызова не изменяет отслеживаемые переменные. В этом случае `$digest` не будет вызван после выполнения функции. 
+  * При отслеживании коллекций с помощью `$watch` используйте глубокое отслеживание только если это действительно необходимо. Обычно достаточно использовать `$watchCollection`, который выполняет простую проверку свойств только первого уровня наблюдаемого объекта.
+  * При вызове функции `$timeout` устанавливайте третий параметр в false, если функция обратного вызова не изменяет отслеживаемые переменные. В этом случае `$digest` не будет вызван после выполнения функции.
   * При работе с редко изменяемыми большими коллекциями, [используйте неизменяемые структуры данных](http://blog.mgechev.com/2015/03/02/immutability-in-angularjs-immutablejs).
 
 * Не забывайте про способы уменьшения количества запросов к серверу. Одним из них является объединение/кеширование шаблонов в один файл, к примеру используя [grunt-html2js](https://github.com/karlgoldstein/grunt-html2js) / [gulp-html2js](https://github.com/fraserxu/gulp-html2js). [Здесь](http://ng-learn.org/2014/08/Populating_template_cache_with_html2js/) и [здесь](http://slides.com/yanivefraim-1/real-world-angularjs#/34) есть подробная информация. Эффект особенно ощутим, если проект содержит много отдельных файлов шаблонов небольшого размера.

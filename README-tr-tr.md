@@ -17,7 +17,6 @@ Bu dökümanda genel Javascript geliştirmelerinin ortak kullanımını göremey
 
 0. [Google's JavaScript dökümanı](https://google.github.io/styleguide/javascriptguide.xml)
 0. [Mozilla's JavaScript dökümanı](https://developer.mozilla.org/en-US/docs/Developer_Guide/Coding_Style)
-0. [GitHub's JavaScript dökümanı](https://github.com/styleguide/javascript)
 0. [Douglas Crockford's JavaScript dökümanı](http://javascript.crockford.com/code.html)
 0. [Airbnb JavaScript dökümanı](https://github.com/airbnb/javascript)
 
@@ -521,4 +520,3 @@ $scope.divStyle = {
 [<img alt="gokhan" src="https://avatars0.githubusercontent.com/u/6371971?v=3&s=460" width="117">](https://github.com/previousdeveloper) |
 :---: |
 [gokhan](https://github.com/previousdeveloper) |
-

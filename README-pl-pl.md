@@ -12,7 +12,6 @@ W tym style guidzie nie znajdziesz wytycznych do programowania w JavaScriptcie. 
 
 0. [Style guide'y JavaScriptu Google'a](https://google.github.io/styleguide/javascriptguide.xml)
 0. [Style guide'y JavaScriptu Mozilli](https://developer.mozilla.org/en-US/docs/Developer_Guide/Coding_Style)
-0. [Style guide'y JavaScriptu GitHuba](https://github.com/styleguide/javascript)
 0. [Style guide'y JavaScriptu Douglasa Crockforda](http://javascript.crockford.com/code.html)
 0. [Style guide'y JavaScriptu AirBnB](https://github.com/airbnb/javascript)
 
