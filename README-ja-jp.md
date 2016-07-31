@@ -18,7 +18,6 @@
 
 0. [Google JavaScript スタイルガイド](https://google.github.io/styleguide/javascriptguide.xml)
 0. [Mozilla JavaScript スタイルガイド](https://developer.mozilla.org/en-US/docs/Developer_Guide/Coding_Style)
-0. [GitHub JavaScript スタイルガイド](https://github.com/styleguide/javascript)
 0. [Douglas Crockford JavaScript スタイルガイド](http://javascript.crockford.com/code.html)
 0. [Airbnb JavaScript スタイルガイド](https://github.com/airbnb/javascript)
 

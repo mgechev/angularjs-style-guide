@@ -13,7 +13,6 @@ En esta guía de estilo no encontrarás pautas comunes para el desarrollo en Jav
 
 0. [Google's JavaScript style guide](https://google.github.io/styleguide/javascriptguide.xml)
 0. [Mozilla's JavaScript style guide](https://developer.mozilla.org/en-US/docs/Developer_Guide/Coding_Style)
-0. [GitHub's JavaScript style guide](https://github.com/styleguide/javascript)
 0. [Douglas Crockford's JavaScript style guide](http://javascript.crockford.com/code.html)
 
 Para el desarrollo de AngularJS la recomendada es [Guía de estilo de Javascript de Google](https://google.github.io/styleguide/javascriptguide.xml).
