@@ -10,7 +10,7 @@ O objetivo deste guia é apresentar um conjunto de boas práticas e diretrizes p
 
 **Nota 1**: Este guia ainda é um rascunho, seu objetivo principal é ser construído pela comunidade, então ao contribuir você será muito apreciado por toda ela.
 
-**Nota 2**: Antes de seguir qualquer das diretrizes nas traduções do documento original, verifique se a mesma está atualizada. 
+**Nota 2**: Antes de seguir qualquer das diretrizes nas traduções do documento original, verifique se a mesma está atualizada.
 
 Neste guia você **não** irá encontrar diretrizes para desenvolvimento JavaScript. O que pode ser encontrado em:
 
@@ -44,7 +44,7 @@ Na wiki do AngularJS no Github tem uma seção similar feita pelo [ProLoser](htt
 # Índice
 * [Geral](#geral)
     * [Estrutura de Diretório](#estrutura-de-diretorio)
-    * [Markup](#markup) 
+    * [Markup](#markup)
     * [Convenções de nomenclatura](#convencoes-de-nomenclatura)
     * [Outros](#outros)
 * [Módulos](#modulos)
@@ -64,7 +64,7 @@ Na wiki do AngularJS no Github tem uma seção similar feita pelo [ProLoser](htt
 
 ## Estrutura de Diretório
 
-Uma vez que uma grande aplicação AngularJS tem muitos componentes, é melhor estruturá-la em uma hierarquia de diretórios. 
+Uma vez que uma grande aplicação AngularJS tem muitos componentes, é melhor estruturá-la em uma hierarquia de diretórios.
 Há duas abordagens:
 
 * Criando uma divisão alto nível por tipos de componentes e uma divisão baixo nível por funcionalidade.
@@ -267,7 +267,7 @@ Factories | lowerCamelCase | dataFactory | others
     * `$window` ao invés de `window`
     * `$document` ao invés de `document`
     * `$http` ao invés de `$.ajax`
-    * `$location` ao invés de `window.location` ou `$window.location` 
+    * `$location` ao invés de `window.location` ou `$window.location`
     * `$cookies` ao invés de `document.cookie`
 
 Seus testes serão mais fáceis e em alguns casos irá prevenir comportamentos inesperados (por exemplo, se você perder `$scope.$apply` em `setTimeout`).
@@ -322,7 +322,7 @@ module.factory('Service', function ($rootScope, $timeout, MyCustomDependency1, M
 # Controladores
 
 * Não manipule DOM em seus controllers, isso fará com que os controllers sejam mais dificeis para testar e violará a [Separação de interesses](https://en.wikipedia.org/wiki/Separation_of_concerns). Use diretivas para isso.
-* A nomenclatura do controller é dada pela sua funcionalidade (por exemplo *shopping cart*, *homepage*, *admin panel*) e o adicional `Ctrl` no final. 
+* A nomenclatura do controller é dada pela sua funcionalidade (por exemplo *shopping cart*, *homepage*, *admin panel*) e o adicional `Ctrl` no final.
 * Controllers são javascript puros [construtores](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/constructor), serão nomeados através de UpperCamelCase (`HomePageCtrl`, `ShoppingCartCtrl`, `AdminPanelCtrl`, etc.).
 * Os controladores não devem ser definidos como globais (embora o AngularJS permita isso, entretanto isso é uma má prática poluindo o namespace global).
 * Use a sintaxe a seguir para definir controllers:
@@ -353,7 +353,7 @@ module.factory('Service', function ($rootScope, $timeout, MyCustomDependency1, M
 * Evite usar o serviço `$scope` para definir funções e propriedades como parte dos controllers. Use `$scope` somente se necessário:
     0. Para publicar e assinar eventos: `$scope.$emit`, `$scope.$broadcast`, e `$scope.$on`.
     0. Para valores ou coleções _watch_: `$scope.$watch`, `$scope.$watchCollection`
-    
+
 * Prefira usar a sintaxe `controller as` e capture com `this` usando a variavel:
 
   ```html
@@ -415,7 +415,7 @@ module.factory('Service', function ($rootScope, $timeout, MyCustomDependency1, M
   module.controller('MyCtrl', ['$log', '$http', MyCtrl]);
   ```
 
-   which is less readable than:
+   que é menos legível do que:
 
   ```JavaScript
   function MyCtrl($log, $http) {
@@ -427,7 +427,7 @@ module.factory('Service', function ($rootScope, $timeout, MyCustomDependency1, M
 
    Isso se aplica especialmente para um arquivo que tem muito código que você precisa percorrer. Isto, eventualmente, pode causar que você esqueça qual variável está ligada a qual dependência..
 
-* Faça controllers mais simples possível. Funções abstratas comumente usadas em um serviço. 
+* Faça controllers mais simples possível. Funções abstratas comumente usadas em um serviço.
 * Evite escrever lógica de negócio dentro dos controllers. Dê essa responsabilidade para o `model`, usando um serviço.
   Por exemplo:
 
@@ -617,7 +617,7 @@ Esta seção inclui informações sobre o componentes de serviços no AngularJS.
         totalPrice: total
       };
   });
-  ``` 
+  ```
     Veja 'Evite escrever lógica de negócio dentro dos controllers' para um exemplo de um controlador consumindo o serviço.
 * Serviços que representam o domínio de preferência um `service` em vez de um `factory`. Desta forma, podemos tirar proveito da herança "klassical" mais fácil:
 
