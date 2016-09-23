@@ -343,11 +343,11 @@ module.factory('Service', function ($rootScope, $timeout, MyCustomDependency1, M
    ```JavaScript
   angular
     .module('app')
-    .controller('Homepage', Homepage);
+    .controller('HomepageCtrl', Homepage);
 
-  Homepage.$inject = ['$log', '$http', 'ngRoute'];
+  HomepageCtrl.$inject = ['$log', '$http', 'ngRoute'];
 
-  function Homepage($log, $http, ngRoute) {
+  function HomepageCtrl($log, $http, ngRoute) {
     // ...
   }
   ```
