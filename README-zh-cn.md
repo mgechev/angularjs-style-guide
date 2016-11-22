@@ -218,7 +218,7 @@ services
 
 其它的HTML标签应该遵循下面的指南的 [建议](http://mdo.github.io/code-guide/#html-attribute-order)
 
-## 标记
+## 命名约定
 
 下表展示了各个Angular元素的命名约定
 
