@@ -216,11 +216,13 @@ Diğer HTML niteliklerini bu dökümanda bulabilirsiniz. [recommendation](http:/
 ## Diğerleri
 
 * Kullan:
-    * `$timeout` yerine `setTimeout`
-    * `$interval` yerine `setInterval`
-    * `$window` yerine `window`
-    * `$document` yerine `document`
-    * `$http` yerine `$.ajax`
+    * `setTimeout` yerine `$timeout`
+    * `setInterval` yerine `$interval`
+    * `window` yerine `$window`
+    * `$document` yerine `$document`
+    * `$.ajax` yerine `$http`
+    * `window.location` veya `$window.location` yerine `$location`
+    * `document.cookie` yerine `$cookies`
 
 Böylece kodu daha test edilebilir hale getirir ve beklenmeyen hataların önüne geçilir. (Örneğin; unutursan `$scope.$apply` in `setTimeout`).
 
