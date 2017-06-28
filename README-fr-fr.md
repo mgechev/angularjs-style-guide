@@ -38,7 +38,9 @@ Dans le wiki Github d'AngularJS, il y a une section similaire de [ProLoser](http
 * [Services](#services)
 * [Gabarits](#gabarits)
 * [Routage](#routage)
-* [Tests](#tests)
+* [Tests E2E](#tests-e2e)
+* [i18n](#i18n)
+* [Performance](#performance)
 * [Contribution](#contribution)
 
 # Général
@@ -534,8 +536,59 @@ $scope.divStyle = {
 # Routage
 
 * Utilisez `resolve` pour résoudre les dépendances avant que la vue ne soit affichée.
+* Ne placez pas d'appels REST à l'intérieur du callback `resolve`. Isolez les requêtes à l'intérieur
+de services appropriés. De cette manière, vous pourrez activer la mise en cache et appliquer le 
+principe de séparation des problèmes (_separation of concerns_).
 
-# Tests
+# Tests E2E
+
+Les tests E2E sont la prochaine étape logique après les tests unitaires. Cette étape permet de retracer les bugs et les erreurs dans le comportement de votre système. Ils confirment que les scénarios les plus communs de l'utilisation de votre application sont fonctionnels. De cette manière, vous pouvez automatiser le processus et l'exécuter à chaque fois que vous déployez votre application.
+
+Idéallement, les tests E2E Angular sont écris avec Jasmine. Ces tests sont exécutés en utilisant
+l'exécuteur de tests Protractor E2E qui utilise des évènements natifs et qui possèdes des 
+fonctionnalités spécifiques aux applications Angular.
+
+Arborescence:
+```
+.
+├── app
+│   ├── app.js
+│   ├── home
+│   │   ├── home.html
+│   │   ├── controllers
+│   │   │   ├── FirstCtrl.js
+│   │   │   ├── FirstCtrl.spec.js
+│   │   ├── directives
+│   │   │   └── directive1.js
+│   │   │   └── directive1.spec.js
+│   │   ├── filters
+│   │   │   ├── filter1.js
+│   │   │   └── filter1.spec.js
+│   │   └── services
+│   │       ├── service1.js
+│   │       └── service1.spec.js
+│   └── about
+│       ├── about.html
+│       ├── controllers
+│       │   └── ThirdCtrl.js
+│       │   └── ThirdCtrl.spec.js
+│       └── directives
+│           ├── directive2.js
+│           └── directive2.spec.js
+├── partials
+├── lib
+└── e2e-tests
+    ├── protractor.conf.js
+    └── specs
+        ├── home.js
+        └── about.js
+```
+
+# i18n
+
+* Pour les versions les plus récentes du framework (>=1.4.0), utilisez les outils i18n intégrés. Lorsque vous utilisez de versions antérieures(<1.4.0), utilisez [`angular-translate`](https://github.com/angular-translate/angular-translate).
+
+# Performance
 
 TBD
 
