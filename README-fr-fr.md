@@ -1,4 +1,4 @@
-#Introduction
+# Introduction
 
 Ce guide est la traduction francaise de [AngularJS style guide](https://github.com/mgechev/angularjs-style-guide).
 
@@ -24,7 +24,7 @@ Pour le développement d'AngularJS, le guide recommandé est [Google's JavaScrip
 
 Dans le wiki Github d'AngularJS, il y a une section similaire de [ProLoser](https://github.com/ProLoser), vous pouvez la consulter [ici](https://github.com/angular/angular.js/wiki).
 
-#Table des matières
+# Table des matières
 
 * [Général](#général)
     * [Arborescence](#arborescence)
@@ -41,7 +41,7 @@ Dans le wiki Github d'AngularJS, il y a une section similaire de [ProLoser](http
 * [Tests](#tests)
 * [Contribution](#contribution)
 
-#Général
+# Général
 
 ## Arborescence
 
@@ -241,7 +241,7 @@ module.factory('Service', function ($rootScope, $timeout, MyCustomDependency1, M
 });
 ```
 
-#Modules
+# Modules
 
 * Les modules devraient être nommés en lowerCamelCase. Pour indiquer que le module `b` est un sous-module du module `a`, vous pouvez les imbriquer en utlisant un espace de noms tel que `a.b`.
 
@@ -252,7 +252,7 @@ Les deux façons habituelles de structurer les modules sont&#8239;:
 
 Actuellement, il n'y a pas une grande différence entre les deux mais la première semble plus propre. En outre, si le chargement paresseux des modules est implémenté (actuellement il ne figure pas sur la feuille de route d'AngularJS), il permettra d'améliorer les performances de l'application.
 
-#Contrôleurs
+# Contrôleurs
 
 * Ne manipulez pas le DOM dans vos contrôleurs. Cela rendrait vos contrôleurs plus difficiles à tester et violerait le [principe de séparation des préoccupations] (https://en.wikipedia.org/wiki/Separation_of_concerns). Utilisez plutôt les directives.
 * Le nom d'un contrôleur s'obtient à partir de sa fonction (par exemple panier, page d'accueil, panneau d'administration) suffixée par `Ctrl`. Les contrôleurs sont nommés en UpperCamelCase (`HomePageCtrl`, `ShoppingCartCtrl`, `AdminPanelCtrl`, etc.)
@@ -419,7 +419,7 @@ function HomeCtrl() {
 <div ng-bind="home.bindingValue"></div>
 ```
 
-#Directives
+# Directives
 
 * Nommez vos directives en lowerCamelCase
 * Utilisez `scope` au lieu de `$scope` dans votre fonction de lien. Dans la compilation, les fonctions de liaison pré/post compilation, vous avez déjà les arguments qui sont passés lorsque la fonction est appelée, vous ne serez pas en mesure de les modifier à l'aide de DI. Ce style est également utilisé dans le code source d'AngularJS.
@@ -431,13 +431,13 @@ function HomeCtrl() {
 * Utilisez `$scope.$on('$destroy, fn)` pour le nettoyage de vos objects/variables. Ceci est particulièrement utile lorsque vous utilisez des plugins tiers comme directives.
 * Ne pas oublier d'utiliser `$sce` lorsque vous devez faire face à un contenu non approuvé.
 
-#Filtres
+# Filtres
 
 * Nommez vos filtres en lowerCamelCase.
 * Faites vos filtres aussi légers que possible. Ils sont souvent appelés lors de la boucle `$digest`, donc créer un filtre lent ralentira votre application.
 * Limitez vos filtres à une seule chose et gardez-les cohérents. Des manipulations plus complexes peuvent être obtenues en enchaînant des filtres existants.
 
-#Services
+# Services
 
 La présente section contient des informations au sujet des composants service dans AngularJS. Sauf mention contraire, elles ne dépendent pas de la méthode utilisée pour définir les services (c.-à-d. `provider`, `factory`, `service`).
 
@@ -511,7 +511,7 @@ demo.config(function (sampleProvider) {
 });
 ```
 
-#Gabarits
+# Gabarits
 
 * Utilisez `ng-bind` ou `ng-cloak` au lieu de simples `{{ }}` pour prévenir les collisions de contenus
 * Eviter d'écrire du code complexe dans les gabarits
@@ -531,14 +531,14 @@ $scope.divStyle = {
 <div ng-style="divStyle">my beautifully styled div which will work in IE</div>;
 ```
 
-#Routage
+# Routage
 
 * Utilisez `resolve` pour résoudre les dépendances avant que la vue ne soit affichée.
 
-#Tests
+# Tests
 
 TBD
 
-#Contribution
+# Contribution
 
 Puisque ce guide de style a pour but d'être un projet communautaire, les contributions sont très appréciées. Par exemple, vous pouvez contribuer en développant la section [Tests](#tests) ou en traduisant le guide dans votre langue.
