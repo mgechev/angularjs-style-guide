@@ -3,17 +3,17 @@
 Ce guide est la traduction francaise de [AngularJS style guide](https://github.com/mgechev/angularjs-style-guide).
 
 Le but de ce guide de style est d'exposer un ensemble de meilleures pratiques et directives de style pour une application AngularJS.
-Elles proviennent&#8239;:
+Elles proviennent:
 
 0. du code source d'AngularJS
 0. du code source ou des articles que j'ai lus
 0. de ma propre expérience.
 
-**Note 1**&#8239;: ce guide est encore à l'état d'ébauche. Son principal objectif est d'être développé par la communauté, donc combler les lacunes sera grandement apprécié par l'ensemble de la communauté.
+**Note 1**: ce guide est encore à l'état d'ébauche. Son principal objectif est d'être développé par la communauté, donc combler les lacunes sera grandement apprécié par l'ensemble de la communauté.
 
-**Note 2**&#8239;: avant de suivre certaines directives des traductions du document original en anglais, assurez-vous qu'elles sont à jour avec la [dernière version](https://github.com/mgechev/angularjs-style-guide/blob/master/README.md).
+**Note 2**: avant de suivre certaines directives des traductions du document original en anglais, assurez-vous qu'elles sont à jour avec la [dernière version](https://github.com/mgechev/angularjs-style-guide/blob/master/README.md).
 
-Dans ce document, vous ne trouverez pas de directives générales concernant le développement en JavaScript. Vous pouvez les trouver dans les documents suivants&#8239;:
+Dans ce document, vous ne trouverez pas de directives générales concernant le développement en JavaScript. Vous pouvez les trouver dans les documents suivants:
 
 0. [Google's JavaScript style guide](https://google.github.io/styleguide/javascriptguide.xml)
 0. [Mozilla's JavaScript style guide](https://developer.mozilla.org/en-US/docs/Developer_Guide/Coding_Style)
@@ -29,7 +29,7 @@ Dans le wiki Github d'AngularJS, il y a une section similaire de [ProLoser](http
 * [Général](#général)
     * [Arborescence](#arborescence)
     * [Balisage](#balisage)
-    * [Optimiser le cycle de traitement](#optimiser-le-cycle-de-traitement)
+    * [Conventions de nommage](#convention-de-nommage)
     * [Autres](#autres)
 * [Modules](#modules)
 * [Contrôleurs](#contrôleurs)
@@ -48,9 +48,11 @@ Dans le wiki Github d'AngularJS, il y a une section similaire de [ProLoser](http
 ## Arborescence
 
 Étant donné qu'une grosse application AngularJS a beaucoup de composants, il est préférable de la structurer en une hiérarchie de répertoires.
-Il existe deux approches principales&#8239;:
+Il existe deux approches principales:
 
-* Créer une division de haut niveau par types de composants et une division inférieure par fonctionnalité. De cette façon, la structure de répertoires ressemblera à
+* Créer une division de haut niveau par types de composants et une division inférieure par fonctionnalité. 
+
+De cette façon, la structure de répertoires ressemblera à:
 
 ```
 .
@@ -84,7 +86,9 @@ Il existe deux approches principales&#8239;:
 └── test
 ```
 
-* Créer une division de haut niveau par fonctionnalité et de niveau inférieur par type de composants. Voici son schéma&#8239;:
+* Créer une division de haut niveau par fonctionnalité et de niveau inférieur par type de composants. 
+
+Voici son schéma:
 
 ```
 .
@@ -122,7 +126,20 @@ Il existe deux approches principales&#8239;:
 └── test
 ```
 
-* Lors de la création des directives, il peut être pratique de mettre tous les fichiers associés à une directive (gabarits, CSS / fichiers SASS, JavaScript) dans un seul dossier. Si vous choisissez d'utiliser ce style d'arborescence, soyez cohérent et utilisez-le partout dans votre projet.
+* Dans l'éventualité ou le nom du dossier contient plusieurs mots, utilisez la syntaxe lisp-case comme suit:
+
+```
+app
+ ├── app.js
+ └── mon-module-complexe
+     ├── controllers
+     ├── directives
+     ├── filters
+     └── services
+
+```
+
+* Lors de la création de directives, placez tous les fichiers associés à une directive (gabarits, fichiers CSS / SASS, JavaScript) dans un seul dossier. Si vous choisissez d'utiliser ce style d'arborescence, soyez cohérent et utilisez-le partout dans votre projet.
 
 ```
 app
@@ -139,7 +156,7 @@ app
 
 Cette approche peut être combinée avec les deux structures de répertoires ci-dessus.
 
-* Une dernière petite variation des deux structures de répertoires est celle utilisée dans [ng-boilerplate](http://joshdmiller.github.io/ng-boilerplate/#/home). Dans celle-ci, les tests unitaires pour un composant donné sont dans le même dossier que le composant. De cette façon, quand vous modifiez un composant donné, il est facile de trouver ses tests. Les tests tiennent aussi lieu de documentation et montrent des cas d'usage.
+* Une dernière petite variation des deux structures de répertoires est celle utilisée dans [ng-boilerplate](http://joshdmiller.github.io/ng-boilerplate/#/home). Dans celle-ci, les tests unitaires pour un composant donné sont dans le même dossier que le composant. De cette façon, quand vous modifiez un composant donné, il est facile de trouver ses tests. Les tests tiennent aussi lieu de documentation et démontrent des cas d'usage.
 
 ```
 services
@@ -151,11 +168,9 @@ services
     └── model1.spec.js
 ```
 
-* Le fichier `app.js` contient la définition des routes, la configuration et/ou l'amorçage manuel (si nécessaire).
+* Le fichier `app.js` devrait contenir la définition des routes, la configuration et/ou l'amorçage manuel (si nécessaire).
 * Chaque fichier JavaScript ne devrait contenir qu'un seul composant. Le fichier doit être nommé avec le nom du composant.
-* Utilisez un modèle de structure de projet pour Angular comme [Yeoman](http://yeoman.io) ou [ng-boilerplate](http://joshdmiller.github.io/ng-boilerplate/#/home).
-
-Je préfère la première structure, car il rend les composants communs plus faciles à trouver.
+* Utilisez un modèle de structure de projet pour Angular tel que [Yeoman](http://yeoman.io) ou [ng-boilerplate](http://joshdmiller.github.io/ng-boilerplate/#/home).
 
 Les conventions sur le nommage des composants peuvent être trouvées dans la section de chaque composant.
 
@@ -180,9 +195,9 @@ Les conventions sur le nommage des composants peuvent être trouvées dans la se
 </html>
 ```
 
-Garder les choses simples et mettre les directives spécifiques d'AngularJS en dernier. De cette façon, il est facile de vérifier le code et trouver les améliorations dans le HTML apportées par le framework (ce qui profite à la maintenabilité).
+Garder les choses simples et placez les directives spécifiques d'AngularJS en dernier, après les attributs HTML standard. De cette façon, il sera plus facile de parcourir votre code et de le maintenir puisque vos attributs seront groupés et positionnés de manière cohérente et régulière. 
 
-```
+```html
 <form class="frm" ng-submit="login.authenticate()">
   <div>
     <input class="ipt" type="text" placeholder="name" require ng-model="user.name">
@@ -192,48 +207,57 @@ Garder les choses simples et mettre les directives spécifiques d'AngularJS en d
 
 Les autres attributs HTML devraient suivre les recommandations du [Code Guide](http://mdo.github.io/code-guide/#html-attribute-order) de Mark Otto.
 
-## Optimiser le cycle de traitement
+## Conventions de nommage
+The tableau suivant présente des conventions de nommage pour chaque élément:
 
-* Surveiller seulement les variables les plus importantes (par exemple, lors de l'utilisation de communication en temps réel, ne pas provoquer une boucle `$digest` dans chaque message reçu).
-* Pour un contenu initialisé une seule fois et qui ensuite ne change pas, utiliser des observateurs à évaluation unique comme [bindonce](https://github.com/Pasvaz/bindonce).
-* Faire les calculs dans `$watch` aussi simples que possible. Faire des calculs lourds et lents dans un unique `$watch` va ralentir l'ensemble de l'application (la boucle `$digest` s'exécute dans un seul thread en raison de la nature mono-thread de JavaScript).
-* Mettre le troisième paramètre de la fonction `$timeout` à false pour éviter la boucle `$digest` lorsqu'aucune des variables observées n'est impactée par la fonction de rappel `$timeout`.
+Élément | Style de nommage | Exemple | Usage
+----|------|----|--------
+Modules | lowerCamelCase  | angularApp |
+Contrôleurs | Fonctionnalité + 'Ctrl'  | AdminCtrl |
+Directives | lowerCamelCase  | userInfo |
+Filtres | lowerCamelCase | userFilter |
+Services | UpperCamelCase | User | constructor
+Factories | lowerCamelCase | dataFactory | autres
 
 ## Autres
 
-* Utiliser:
+* Utilisez:
     * `$timeout` au lieu de `setTimeout`
+    * `$interval` au lieu de `setInterval`
     * `$window` au lieu de `window`
     * `$document` au lieu de `document`
     * `$http` au lieu de `$.ajax`
+    * `$location` au lieur de `window.location`ou `$window.location`
+    * `$cookies` au lieu de `document.cookie`
 
-Cela rendra vos tests plus facile et, dans certains cas, évitera les comportements inattendus (par exemple, si vous avez oublié `$scope.$apply` dans `setTimeout`).
+Cela rendra vos tests plus facile à faire et, dans certains cas, évitera les comportements inattendus (par exemple, si vous avez oublié `$scope.$apply` dans `setTimeout`).
 
 * Automatisez votre flux de travail en utilisant des outils comme:
-    * [Yeoman](http://yeoman.io)
-    * [Gulp](http://gulpjs.com)
+    * [NPM](https://www.npmjs.com/)
     * [Grunt](http://gruntjs.com)
+    * [Gulp](http://gulpjs.com)
+    * [Yeoman](http://yeoman.io)
     * [Bower](http://bower.io)
 
-* Utilisez des promises (`$q`) au lieu de rappels (callback). Il rendra votre code plus élégant, propre et simple à regarder, et vous sauvera de l'enfer des callbacks.
-* Utilisez `$resource` au lieu de `$http` quand cela est possible. Un niveau d'abstraction plus élevé vous permet d'économiser de la redondance.
-* Utilisez un pré-minifier AngularJS (comme [ng-annotate](https://github.com/olov/ng-annotate)) pour la prévention des problèmes après minification.
-* Ne pas utiliser de variables globales. Résoudre toutes les dépendances en utilisant l'injection de dépendances.
-* Ne pas polluer votre portée `$scope`. Ajouter uniquement des fonctions et des variables qui sont utilisés dans les gabarits.
-* Eliminez les variables globales avec Grunt/Gulp pour anglober votre code dans des Expressions de Fonction Immediatement Invoquée (Immediately Invoked Function Expression, IIFE). Vous pouvez utiliser des plugins comme [grunt-wrap](https://www.npmjs.com/package/grunt-wrap) ou [gulp-wrap](https://www.npmjs.com/package/gulp-wrap/) pour cet usage. Exemple (avec Gulp)
+* Utilisez des promises (`$q`) au lieu de rappels (callback). Cela rendra votre code plus élégant et propre, et vous sauvera de l'enfer des callbacks.
+* Utilisez `$resource` au lieu de `$http` lorsque possible. Un niveau d'abstraction plus élevé diminuera la redondance.
+* Utilisez un pré-minifier AngularJS ([ng-annotate](https://github.com/olov/ng-annotate)) pour la prévention des problèmes après minification.
+* N'utilisez pas de variables globales. Résolvez toutes les dépendances en utilisant l'injection de dépendances, cela préviendra les bugs et le monkey-patching lorsqu'en phase de test.
+* Eliminez les variables globales en utilisant Grunt/Gulp pour englober votre code dans des Expressions de Fonction Immédiatement Invoquée (Immediately Invoked Function Expression, (IIFE)). Vous pouvez utiliser des plugins tel que [grunt-wrap](https://www.npmjs.com/package/grunt-wrap) ou [gulp-wrap](https://www.npmjs.com/package/gulp-wrap/) pour cet usage. Exemple (avec Gulp)
 
 	```Javascript
 	gulp.src("./src/*.js")
     .pipe(wrap('(function(){\n"use strict";\n<%= contents %>\n})();'))
     .pipe(gulp.dest("./dist"));
     ```
-* Préférer l'utilisation de contrôleurs au lieu de [`ngInit`](https://github.com/angular/angular.js/pull/4366/files). La seule utilisation appropriée de `ngInit` est pour initialiser des propriétés particulières de `ngRepeat`. Outre ce cas, vous devez utiliser les contrôleurs plutôt que `ngInit` pour initialiser les valeurs sur une portée. L'expression passée à `ngInit` doit être analysée et évaluée par l'interpréteur d'Angular implémenté dans le service `$parse`. Ceci mène à:
-    - Des impacts sur la performance, car l'interpréteur es implémenté en JavaScript
-    - La mise en cache des expressions passées au service `$parse` n'a pas réellement de sens dans la plus part des cas, étant donnée que l'expression `ngInit` est évaluée une seule fois
-    - Ecrire des chaînes de caractère dans votre HTML peut apporter des erreurs, puisqu'il n'y a pas d'auto-complétion ou de support par l'éditeur de texte
-    - Aucune levée d'exception à l'éxécution
-* Ne pas utiliser le prefixe `$` pour les noms de variables, les propriétés et les méthodes. Ce préfixe est réservé pour un usage de AngularJS.
-* Lors de la résolution des dépendances par le système d'Injection de Dépendances (Dependancy Injection, DI) d'AngularJS, trier les dépendances par leur type &mdash; les dépendances intégrées à AngularJS en premier, suivies des vôtres :
+* Ne polluez pas votre portée `$scope`. Ajoutez uniquement sur celle-ci les fonctions et les variables qui sont utilisés dans les gabarits.
+* Préférez l'utilisation de [contrôleurs au lieu de `ngInit`](https://github.com/angular/angular.js/commit/010d9b6853a9d2718b095e4c017c9bd5f135e0b0). Il n'y a que quelques utilisations appropriées de ngInit tel que pour spécifier des propriétés spécifiques de ngRepeat, et pour injecter des données via des scripts côté serveur. Outre ces quelques cas, vous devez utiliser les contrôleurs plutôt que `ngInit` pour initialiser les valeurs sur une portée. L'expression passée à `ngInit` doit être analysée et évaluée par l'interpréteur d'Angular implémenté dans le service `$parse`. Ceci mène à:
+    - Des impacts sur la performance, car l'interpréteur est implémenté en JavaScript
+    - La mise en cache des expressions passées au service `$parse` n'a pas réellement de sens dans la plus part des cas, étant donnée que l'expression `ngInit` n'est évaluée qu'une seule fois
+    - Ecrire des chaînes de caractère dans votre HTML est enclin à causer des erreurs, puisqu'il n'y a pas d'auto-complétion ou de support par votre éditeur de texte
+    - Aucune levée d'exceptions à l'éxécution
+* Ne pas utiliser le prefixe `$` pour les noms de variables, les propriétés et les méthodes. Ce préfixe est réservé à l'usage d'AngularJS.
+* Lors de la résolution des dépendances par le système d'injection de dépendances d'AngularJS, triez les dépendances par leur type - les dépendances intégrées à AngularJS en premier, suivies des vôtres :
 
 ```javascript
 module.factory('Service', function ($rootScope, $timeout, MyCustomDependency1, MyCustomDependency2) {
@@ -247,28 +271,45 @@ module.factory('Service', function ($rootScope, $timeout, MyCustomDependency1, M
 
 * Les modules devraient être nommés en lowerCamelCase. Pour indiquer que le module `b` est un sous-module du module `a`, vous pouvez les imbriquer en utlisant un espace de noms tel que `a.b`.
 
-Les deux façons habituelles de structurer les modules sont&#8239;:
+    Les deux façons habituelles de structurer les modules sont:
 
-0. par fonctionnalité&nbsp;
-0. par type de composant.
+    0. par fonctionnalité
+    0. par type de composant.
 
-Actuellement, il n'y a pas une grande différence entre les deux mais la première semble plus propre. En outre, si le chargement paresseux des modules est implémenté (actuellement il ne figure pas sur la feuille de route d'AngularJS), il permettra d'améliorer les performances de l'application.
+    Actuellement, il n'y a pas une grande différence entre les deux mais la première semble plus propre. En outre, si le chargement paresseux des modules est implémenté (actuellement il ne figure pas sur la feuille de route d'AngularJS), il permettra d'améliorer les performances de l'application.
 
 # Contrôleurs
 
-* Ne manipulez pas le DOM dans vos contrôleurs. Cela rendrait vos contrôleurs plus difficiles à tester et violerait le [principe de séparation des préoccupations] (https://en.wikipedia.org/wiki/Separation_of_concerns). Utilisez plutôt les directives.
-* Le nom d'un contrôleur s'obtient à partir de sa fonction (par exemple panier, page d'accueil, panneau d'administration) suffixée par `Ctrl`. Les contrôleurs sont nommés en UpperCamelCase (`HomePageCtrl`, `ShoppingCartCtrl`, `AdminPanelCtrl`, etc.)
-* Les contrôleurs ne devraient pas être définis dans le contexte global (bien qu'AngularJS le permette, c'est une mauvaise pratique de polluer l'espace de noms global).
-* Définissez les contrôleurs à l'aide de tableaux&#8239;:
+* Ne manipulez pas le DOM dans vos contrôleurs. Cela rendra vos contrôleurs plus difficiles à tester et violerait le [principe de séparation des préoccupations](https://en.wikipedia.org/wiki/Separation_of_concerns). Utilisez plutôt les directives.
+* Le nom d'un contrôleur s'obtient à partir de sa fonction (par exemple panier, page d'accueil, panneau d'administration) suffixée par `Ctrl`. 
+* Les contrôleurs sont des [constructeurs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/constructor) javascript ordinaires, ils sont donc nommés en UpperCamelCase (`HomePageCtrl`, `ShoppingCartCtrl`, `AdminPanelCtrl`, etc.)
+* Les contrôleurs ne devraient pas être définis dans le contexte global (bien qu'AngularJS le permet, c'est une mauvaise pratique de polluer l'espace de noms global).
+* Utilisez la syntaxe suivante pour définir des contrôleurs:
 
-```JavaScript
-module.controller('MyCtrl', ['dependency1', 'dependency2', ..., 'dependencyn', function (dependency1, dependency2, ..., dependencyn) {
-  //...body
-}]);
-```
+  ```JavaScript
+  function MyCtrl(dependency1, dependency2, ..., dependencyn) {
+    // ...
+  }
+  module.controller('MyCtrl', MyCtrl);
+  ```
 
-Une telle définition évite les problèmes avec la minification. Vous pouvez générer automatiquement la définition du tableau à l'aide d'outils comme [ng-annotate](https://github.com/olov/ng-annotate) (et la tâche grunt [grunt-ng-annotate](https://github.com/mzgol/grunt-ng-annotate)).
-* Utilisez les noms d'origine des dépendances du contrôleur. Cela vous aidera à produire un code plus lisible&#8239;:
+  Une telle définition évite les problèmes avec la minification. Vous pouvez générer automatiquement la définition du tableau à l'aide d'outils comme [ng-annotate](https://github.com/olov/ng-annotate) (et la tâche grunt [grunt-ng-annotate](https://github.com/mzgol/grunt-ng-annotate)).
+    
+  Une autre alternative serait d'utiliser `$inject` comme suit:
+    
+  ```JavaScript
+  angular
+    .module('app')
+    .controller('HomepageCtrl', Homepage);
+
+  HomepageCtrl.$inject = ['$log', '$http', 'ngRoute'];
+
+  function HomepageCtrl($log, $http, ngRoute) {
+    // ...
+  }
+  ```
+    
+* Utilisez les noms d'origine des dépendances du contrôleur. Cela vous aidera à produire un code plus lisible:
 
 ```JavaScript
 module.controller('MyCtrl', ['$scope', function (s) {
@@ -302,7 +343,7 @@ Exemple:
          - action - specific ation the user tries to perform
    * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
    ```
-* Si vous devez formater les données alors encapsulez la logique de mise en forme dans un [filtre](#filtres) et déclarez-le comme dépendance&#8239;:
+* Si vous devez formater les données alors encapsulez la logique de mise en forme dans un [filtre](#filtres) et déclarez-le comme dépendance:
 
 ```JavaScript
 module.filter('myFormat', function () {
@@ -397,7 +438,7 @@ module.controller('MyCtrl', ['$scope', 'myFormatFilter', function ($scope, myFor
   * Les contrôleurs ne sont pas ré-utilisables - ils sont liés à la vue HTML.
   * Les contrôleurs ne sont pas destinés à êtres injectés.
 
-* Dans le cas de contrôleurs imbriqués utilisez les portées emboitées (avec `controllerAs`)&#8239;:
+* Dans le cas de contrôleurs imbriqués utilisez les portées emboitées (avec `controllerAs`):
 
 **app.js**
 ```javascript
@@ -443,8 +484,8 @@ function HomeCtrl() {
 
 La présente section contient des informations au sujet des composants service dans AngularJS. Sauf mention contraire, elles ne dépendent pas de la méthode utilisée pour définir les services (c.-à-d. `provider`, `factory`, `service`).
 
-* Nommez vos services en camelCase&#8239;:
-  * UpperCamelCase (PascalCase) pour vos services utilisés comme constructeurs, c.-à.-d.&#8239;:
+* Nommez vos services en camelCase:
+  * UpperCamelCase (PascalCase) pour vos services utilisés comme constructeurs, c.-à.-d.:
 
 ```JavaScript
 module.controller('MainCtrl', function ($scope, User) {
@@ -462,7 +503,7 @@ module.factory('User', function () {
   * lowerCamel pour tous les autres services.
 
 * Encapsulez la logique métier dans des services.
-* La méthode `service` est préférable à la méthode `factory`. De cette façon, nous pouvons profiter de l'héritage classique plus facilement&#8239;:
+* La méthode `service` est préférable à la méthode `factory`. De cette façon, nous pouvons profiter de l'héritage classique plus facilement:
 
 ```JavaScript
 function Human() {
@@ -486,7 +527,7 @@ myModule.service('Developer', Developer);
 ```
 
 * Pour un cache de session, vous pouvez utiliser `$cacheFactory`. Il devrait être utilisé pour mettre en cache les résultats des requêtes ou des calculs lourds.
-* Si un service donné nécessite une configuration, définissez le service comme un provider et configurez-le ainsi dans la fonction de rappel `config`&#8239;:
+* Si un service donné nécessite une configuration, définissez le service comme un provider et configurez-le ainsi dans la fonction de rappel `config`:
 
 ```JavaScript
 angular.module('demo', [])
@@ -590,7 +631,10 @@ Arborescence:
 
 # Performance
 
-TBD
+* Surveiller seulement les variables les plus importantes (par exemple, lors de l'utilisation de communication en temps réel, ne pas provoquer une boucle `$digest` dans chaque message reçu).
+* Pour un contenu initialisé une seule fois et qui ensuite ne change pas, utiliser des observateurs à évaluation unique comme [bindonce](https://github.com/Pasvaz/bindonce).
+* Faire les calculs dans `$watch` aussi simples que possible. Faire des calculs lourds et lents dans un unique `$watch` va ralentir l'ensemble de l'application (la boucle `$digest` s'exécute dans un seul thread en raison de la nature mono-thread de JavaScript).
+* Mettre le troisième paramètre de la fonction `$timeout` à false pour éviter la boucle `$digest` lorsqu'aucune des variables observées n'est impactée par la fonction de rappel `$timeout`.
 
 # Contribution
 
