@@ -2,27 +2,27 @@
 
 # Başlangıç
 
-Bu dökümanın amacı angular ile geliştirilen ve geçerli olan iyi tasarım ve stillerdir.
+Bu dokümanın amacı angular ile geliştirilen ve geçerli olan iyi tasarım ve stillerdir.
 En iyi kullanışlar:
 
 0. AngularJS kaynak kodu
 0. Kaynak kodları ve okuduğum makaleler
 0. Kendi deneyimlerim
 
-**Not 1**: Bu stil rehberi hala bir taslak aşamasındadır.Ana amacı tüm kesimlerce kabul edilmesidir.
+**Not 1**: Bu stil rehberi hala bir taslak aşamasındadır. Ana amacı tüm kesimlerce kabul edilmesidir.
 
-**Not 2**: Herhangi bir döküman takip etmeden önce, dökümanın güncel olduğuna dikkat ediniz. Bu döküman en son versiyonu için geçerlidir.
+**Not 2**: Herhangi bir doküman takip etmeden önce, dokümanın güncel olduğuna dikkat ediniz. Bu doküman en son versiyonu için geçerlidir.
 
-Bu dökümanda genel Javascript geliştirmelerinin ortak kullanımını göremeyeceksiniz. Genel olarak kullanımlar aşağıdadır:
+Bu dokümanda genel Javascript geliştirmelerinin ortak kullanımını göremeyeceksiniz. Genel olarak kullanımlar aşağıdadır:
 
-0. [Google's JavaScript dökümanı](https://google.github.io/styleguide/javascriptguide.xml)
-0. [Mozilla's JavaScript dökümanı](https://developer.mozilla.org/en-US/docs/Developer_Guide/Coding_Style)
-0. [Douglas Crockford's JavaScript dökümanı](http://javascript.crockford.com/code.html)
-0. [Airbnb JavaScript dökümanı](https://github.com/airbnb/javascript)
+0. [Google's JavaScript dokümanı](https://google.github.io/styleguide/javascriptguide.xml)
+0. [Mozilla's JavaScript dokümanı](https://developer.mozilla.org/en-US/docs/Developer_Guide/Coding_Style)
+0. [Douglas Crockford's JavaScript dokümanı](http://javascript.crockford.com/code.html)
+0. [Airbnb JavaScript dokümanı](https://github.com/airbnb/javascript)
 
-AngularJs geliştirmeleri için [Google's JavaScript dökümanı](https://google.github.io/styleguide/javascriptguide.xml).
+AngularJs geliştirmeleri için [Google'ın JavaScript dokümanı](https://google.github.io/styleguide/javascriptguide.xml).
 
- AngularJS Github dökümanı için [ProLoser](https://github.com/ProLoser), buradan kontrol edebilirsin [here](https://github.com/angular/angular.js/wiki).
+ AngularJS Github dokümanı için [ProLoser](https://github.com/ProLoser), [buradan](https://github.com/angular/angular.js/wiki) kontrol edebilirsin.
 
 
 # Tablo içeriği
@@ -46,7 +46,7 @@ AngularJs geliştirmeleri için [Google's JavaScript dökümanı](https://google
 
 ## Dizin yapısı
 
-Büyük AngularJs uygulamaları bir çok bileşenden oluşur. En iyi dizin yapısı dosyalama hiyerarşidir.
+Büyük AngularJS uygulamaları bir çok bileşenden oluşur. En iyi dizin yapısı dosyalama hiyerarşisidir.
 2 tane ana yaklaşım:
 
 * Bileşen türü daha öncelikli olacak şekilde  bölünmeler ve işlevselliği daha az kullanıma  göre yapılandırma.
@@ -137,7 +137,7 @@ app
      └── services
 ```
 
-* Tüm dosyalarınızı verilen yönergelere koyun.(i.e. şablonlar, CSS/SASS dosyaları, JavaScript) tek dosya içerisinde. Eğer böyle bir yaklaşım seçerseniz,proje yaşamı boyunca heryerde bu yaklaşımı kullanabilirsiniz.
+* Tüm dosyalarınızı verilen yönergelere koyun. (i.e. şablonlar, CSS/SASS dosyaları, JavaScript) tek dosya içerisinde. Eğer böyle bir yaklaşım seçerseniz, proje yaşamı boyunca heryerde bu yaklaşımı kullanabilirsiniz.
 
 ```
 app
@@ -153,7 +153,7 @@ app
 ```
 
 Bu yaklaşım yukarıdaki iki dizin yapısı ile birleştirilmiştir.
-* Unit testlerimiz bulunduğu bileşen ile birlikte olmalıdır. Bu yol ile yaptığımız testleri daha kolay buluruz ve yönetimimiz daha kolay olur.Ayrıca testlerimiz dökümantasyon ve kullanıcı senaryolarını da içermelidir.
+* Unit testlerimiz bulunduğu bileşen ile birlikte olmalıdır. Bu yol ile yaptığımız testleri daha kolay buluruz ve yönetimimiz daha kolay olur. Ayrıca testlerimiz dokümantasyon ve kullanıcı senaryolarını da içermelidir.
 
 ```
 services
@@ -167,7 +167,7 @@ services
 
 * `app.js` dosyasında yönlendirme bulunmalıdır.
 * Her bir JavaScript dosyası sadece  **tek bir bileşen** bulundurmalıdır. Dosya bileşenin adı ile adlandırılmış olmalıdır.
-* AngularJs proje yapısı şablonu örn olarak kullanabilirsiniz; [Yeoman](http://yeoman.io), [ng-boilerplate](http://joshdmiller.github.io/ng-boilerplate/#/home).
+* AngularJS proje yapısı şablonu örnek olarak kullanabilirsiniz; [Yeoman](http://yeoman.io), [ng-boilerplate](http://joshdmiller.github.io/ng-boilerplate/#/home).
 
 Conventions about component naming can be found in each component section.
 
@@ -192,7 +192,7 @@ Conventions about component naming can be found in each component section.
 </html>
 ```
 
-Basit yapıda tutun ve özelleşmiş direktifleri sonra koyun.Bu yöntem ile kodu geliştirmede ve bakımını daha koaly hale getirir.Ayrıca Html tarafından daha kolay bulunmasını sağlar getirir.
+Basit yapıda tutun ve özelleşmiş direktifleri sonra koyun. Bu yöntem; kodun geliştirmesini ve bakımını daha kolay hale getirir. Ayrıca HTML tarafından daha kolay bulunmasını sağlar.
 
 ```
 <form class="frm" ng-submit="login.authenticate()">
@@ -202,7 +202,7 @@ Basit yapıda tutun ve özelleşmiş direktifleri sonra koyun.Bu yöntem ile kod
 </form>
 ```
 
-Diğer HTML niteliklerini bu dökümanda bulabilirsiniz. [recommendation](http://mdo.github.io/code-guide/#html-attribute-order)
+Diğer HTML niteliklerini [bu dokümanda](http://mdo.github.io/code-guide/#html-attribute-order) bulabilirsiniz.
 
 ## Optimize the digest cycle
 
@@ -224,7 +224,7 @@ Diğer HTML niteliklerini bu dökümanda bulabilirsiniz. [recommendation](http:/
     * `window.location` veya `$window.location` yerine `$location`
     * `document.cookie` yerine `$cookies`
 
-Böylece kodu daha test edilebilir hale getirir ve beklenmeyen hataların önüne geçilir. (Örneğin; unutursan `$scope.$apply` in `setTimeout`).
+Böylece kod daha test edilebilir hale gelir ve beklenmeyen hataların önüne geçilir. (Örneğin; unutursan `$scope.$apply` in `setTimeout`).
 
 * İş akışını bu araçlar ile otomatik hale getirin:
     * [Yeoman](http://yeoman.io)
@@ -232,14 +232,14 @@ Böylece kodu daha test edilebilir hale getirir ve beklenmeyen hataların önün
     * [Grunt](http://gruntjs.com)
     * [Bower](http://bower.io)
 
-* Promise yapısını kullan (`$q`) callbacks kullanma.Kodun daha güzel,temiz ve test edilebilir hale getirir. Ve bizi callback yapısından kurtarır.
-* Mümkün olduğunca `$resource` kullanının, `$http` yerine.Soyutlama düzeyinde fazlalılıktan size kurtaracaktır.
-* AngularJS pre-minifier kullan  ([ng-annotate](https://github.com/olov/ng-annotate)) olası hataları önlemek için.
-* Globals kullanma.Tüm bağımlılıkları Dependency Injection ile çözümle,bu olası bugları ve test ederken kolaylık sağlayacaktır.
+* Callbacks yerine promise yapısını kullanın. (`$q`) Kodu daha güzel, temiz ve test edilebilir hale getirir. Ve bizi callback yapısından kurtarır.
+* Mümkün olduğunca `$http` yerine `$resource` kullanın. Soyutlama düzeyinde fazlalılıktan size kurtaracaktır.
+* Olası hataları önlemek için AngularJS pre-minifier kullanın. ([ng-annotate](https://github.com/olov/ng-annotate))
+* Globals kullanmayın. Tüm bağımlılıkları Dependency Injection ile çözümleyin, bu olası bug çözümleri ve testler için kolaylık sağlayacaktır.
 * Kodunuzu `$scope` ile kirletmeyin. Sadece fonksiyon ve değişkenlerde kullanın. Bu kullanılan değişken ve fonksiyonların şablonlarda kullanıldığına dikkat edin.
 * Prefer the usage of [controllers instead of `ngInit`](https://github.com/angular/angular.js/pull/4366/files). The only appropriate use of `ngInit` is for aliasing special properties of `ngRepeat`. Besides this case, you should use controllers rather than `ngInit` to initialize values on a scope.
-* Değişkenlerde,methodlarda ve özelliklerde `$` ön ekini kullanmayın.Çünkü bu ön ek AngularJs tarafından ayrılmıştır.
-* AngularJs DI yapısıyla bağımlılıkları çözerken,bağımlılıkları türlerine göre sıralayınız.AngularJs tarafından ayağa kaldırılan bağımlılıklar ilk sırada olmalı daha sonra sizin yaptığınız bağımlılıklar gelmelidir. Aşağıda bir örnek görebilirsiniz:
+* Değişkenlerde, methodlarda ve özelliklerde `$` ön ekini kullanmayın. Çünkü bu ön ek AngularJS tarafından ayrılmıştır.
+* AngularJS DI yapısıyla bağımlılıkları çözerken,bağımlılıkları türlerine göre sıralayınız.AngularJS tarafından ayağa kaldırılan bağımlılıklar ilk sırada olmalı daha sonra sizin yaptığınız bağımlılıklar gelmelidir. Aşağıda bir örnek görebilirsiniz:
 
 ```javascript
 module.factory('Service', function ($rootScope, $timeout, MyCustomDependency1, MyCustomDependency2) {
@@ -251,20 +251,20 @@ module.factory('Service', function ($rootScope, $timeout, MyCustomDependency1, M
 
 # Modüller
 
-* Modül isimleri lowerCamelCase yapısına uygun olmalıdır.Küçük harf ile başlamalıdır.`b` modülü `a` nın bir alt modülü ise, isimlendirme `a.b` şekilde olmalıdır.
+* Modül isimleri lowerCamelCase yapısına uygun olmalıdır. Küçük harf ile başlamalıdır. `b` modülü `a` nın bir alt modülü ise, isimlendirme `a.b` şekilde olmalıdır.
 
 Modülleri yapısına göre 2 şekilde sıralayabiliriz:
 
 0. işlevselliğine göre,
 0. bileşen türüne göre.
 
-Aslında büyük bir fark yok aralarında, ama ilk yöntem daha temiz bir yapıdır. Bunun yanında, eğer lazy-loading modülü gelirse  (şuanda AngularJs yol haritasında yok), uygulama performansını artıracaktır.
+Aslında büyük bir fark yok aralarında, ama ilk yöntem daha temiz bir yapıdır. Bunun yanında, eğer lazy-loading modülü gelirse  (şuanda AngularJS yol haritasında yok), uygulama performansını artıracaktır.
 
 # Kontrolörler
 
-* Kontroller tarafında DOM müdahale etmeyin,bu sizin kontroller tarafındanki test etmenizi zor hale getirecektir ve bazı prensibleri ihlal ediceksiniz [Separation of Concerns principle](https://en.wikipedia.org/wiki/Separation_of_concerns).Bunun yerine direktiveleri kullanın.
-* Kontrolörler ismi yaptığı iş ile aynı isimde olmalıdır. (örneğin; shopping cart, homepage, admin panel) ve sonu `Ctrl` bitmelidir.Kontrolörler ismi UpperCamelCase (`HomePageCtrl`, `ShoppingCartCtrl`, `AdminPanelCtrl`, etc.) yapısında olmalıdır.
-* Kontrolörler global olarak tanımlanmamalıdır. (AngularJs buna izin verse bile,bu kötü bir yaklaşımdır ve global isim alanını kirletir. Kullanmayın!).
+* Kontroller tarafında DOM müdahale etmeyin, bu sizin kontroller tarafındanki test etmenizi zor hale getirir ve bazı prensibleri ihlal etmiş olursunuz [Separation of Concerns principle](https://en.wikipedia.org/wiki/Separation_of_concerns). Bunun yerine directive'leri kullanın.
+* Controler'ların ismi yaptığı iş ile aynı isimde olmalıdır. (örneğin; shopping cart, homepage, admin panel) ve sonu `Ctrl` ile bitmelidir. Controler'ların ismi UpperCamelCase (`HomePageCtrl`, `ShoppingCartCtrl`, `AdminPanelCtrl`, vb.) yapısında olmalıdır.
+* Controler'lar global olarak tanımlanmamalıdır. (AngularJS buna izin verse bile, bu kötü bir yaklaşımdır ve global isim alanını kirletir. Kullanmayın!).
 * Aşağıda tanımlanan örnek yapısında kullanın:
 
 ```JavaScript
@@ -454,8 +454,8 @@ demo.config(function (sampleProvider) {
 
 * `ng-bind` veya `ng-cloak` kullanın.Instead of simple `{{ }}` to prevent flashing content. //
 * Html Şablonları içinde karışık ifadeler yazmaktan kaçının.
-* Html Şablonların içinde `src` etiketi yerine AngularJs bize sunmuş olduğu `ng-src` etiketini kullanın.
-* Html Şablonların içinde `href` etiketi yerine AngularJs bize sunmuş olduğu `ng-href` etiketini kullanın.
+* Html Şablonların içinde `src` etiketi yerine AngularJS bize sunmuş olduğu `ng-src` etiketini kullanın.
+* Html Şablonların içinde `href` etiketi yerine AngularJS bize sunmuş olduğu `ng-href` etiketini kullanın.
 * Scope değişkenlerini string kullanmak yerine `style` özelliği birlikte `{{ }}` kullanın ve direktif olarak `ng-style` kullanın.
 
 ```HTML
